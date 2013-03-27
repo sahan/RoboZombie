@@ -1,0 +1,11 @@
+.settings
+robozombie/bin
+robozombie/gen
+robozombie/target
+robozombie/.settings
+robozombie-it/bin
+robozombie-it/gen
+robozombie-it/target
+robozombie-it/.settings
+robozombie-it/tmp
+target
