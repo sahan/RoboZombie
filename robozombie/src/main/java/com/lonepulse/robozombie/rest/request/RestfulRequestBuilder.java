@@ -90,6 +90,8 @@ public class RestfulRequestBuilder extends AbstractRequestBuilder {
 			subpath = subpath.replaceAll(":" + paramEntry.getValue().value(), (String)paramEntry.getKey());
 		}
 		
+		subpath = (subpath.startsWith("/"))? subpath.replaceFirst("/", "") :subpath;
+		
 		URI uriWithPathParameters = new URI(uri.toASCIIString() + subpath);
 		
 		HttpRequestBase httpRequestBase  = HttpParamBuilder.build(uriWithPathParameters, config);

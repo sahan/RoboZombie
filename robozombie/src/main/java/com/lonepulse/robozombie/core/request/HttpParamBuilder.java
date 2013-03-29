@@ -157,7 +157,7 @@ public final class HttpParamBuilder {
 													     Map<Object, Param> annotatedParams, 
 													     List<Request.Param> staticParams) throws Exception {
 		
-		Uri.Builder uriBuilder = Uri.parse(uri.toString()).buildUpon();
+		Uri.Builder uriBuilder = Uri.parse(uri.toASCIIString()).buildUpon();
 		
 		for (Request.Param param : staticParams)
 			uriBuilder.appendQueryParameter(param.name(), param.value());

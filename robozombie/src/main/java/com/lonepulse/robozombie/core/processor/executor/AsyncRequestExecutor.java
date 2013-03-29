@@ -20,15 +20,12 @@ package com.lonepulse.robozombie.core.processor.executor;
  * #L%
  */
 
-
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
@@ -39,6 +36,7 @@ import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 
 import android.net.ParseException;
+import android.util.Log;
 
 import com.lonepulse.robozombie.core.MultiThreadedHttpClient;
 import com.lonepulse.robozombie.core.annotation.Stateful;
@@ -75,8 +73,6 @@ class AsyncRequestExecutor implements RequestExecutor {
 			@Override
 			public void run() {
 			
-				Logger logger = Logger.getLogger(AsyncRequestExecutor.class.getSimpleName());
-				
 				ASYNC_EXECUTOR_SERVICE.shutdown(); //finish executing all pending asynchronous requests 
 				
 				try {
@@ -84,16 +80,19 @@ class AsyncRequestExecutor implements RequestExecutor {
 					if(!ASYNC_EXECUTOR_SERVICE.awaitTermination(60, TimeUnit.SECONDS)) {
 						
 						List<Runnable> pendingRequests = ASYNC_EXECUTOR_SERVICE.shutdownNow();
-						logger.info(pendingRequests.size() + " asynchronous requests aborted.");
+						Log.i(AsyncRequestExecutor.class.getSimpleName(), 
+							  pendingRequests.size() + " asynchronous requests aborted.");
 						
 						if(!ASYNC_EXECUTOR_SERVICE.awaitTermination(10, TimeUnit.SECONDS))
-							logger.severe(pendingRequests.size() + " failed to shutdown the cached thread pool for asynchronous requests.");
+							Log.e(AsyncRequestExecutor.class.getSimpleName(), pendingRequests.size() + 
+								  " failed to shutdown the cached thread pool for asynchronous requests.");
 					}
 				}
 				catch (InterruptedException ie) {
 
 					List<Runnable> pendingRequests = ASYNC_EXECUTOR_SERVICE.shutdownNow();
-					logger.info(pendingRequests.size() + " asynchronous requests aborted.");
+					Log.i(AsyncRequestExecutor.class.getSimpleName(), pendingRequests.size() + 
+						  " asynchronous requests aborted.");
 					
 					Thread.currentThread().interrupt();
 				}
@@ -125,8 +124,6 @@ class AsyncRequestExecutor implements RequestExecutor {
 			@Override
 			public void run() {
 		
-				Logger logger = Logger.getLogger(AsyncRequestExecutor.class.getSimpleName());
-				
 				String errorContext = "Asynchronous request execution failed. ";
 				String errorResponseIO = "Failed to close IO stream. Response content may have already been consumed.";
 
@@ -149,17 +146,18 @@ class AsyncRequestExecutor implements RequestExecutor {
 				} 
 				catch (ClientProtocolException cpe) {
 
-					logger.log(Level.SEVERE, errorContext + "Protocol cannot be resolved.", cpe);
+					Log.e(AsyncRequestExecutor.class.getSimpleName(), 
+						  errorContext + "Protocol cannot be resolved.", cpe);
 					return;
 				} 
 				catch (IOException ioe) {
 
-					logger.log(Level.SEVERE, errorContext + "IO failure.", ioe);
+					Log.e(AsyncRequestExecutor.class.getSimpleName(), errorContext + "IO failure.", ioe);
 					return;
 				} 
 				catch (Exception e) {
 					
-					logger.log(Level.SEVERE, errorContext, e);
+					Log.e(AsyncRequestExecutor.class.getSimpleName(), errorContext, e);
 					return;
 				}
 					
@@ -173,7 +171,7 @@ class AsyncRequestExecutor implements RequestExecutor {
 					}
 					catch (Exception e) {
 						
-						logger.warning(errorResponseIO);
+						Log.i(AsyncRequestExecutor.class.getSimpleName(), errorResponseIO, e);
 					}
 					
 					return;
@@ -203,7 +201,8 @@ class AsyncRequestExecutor implements RequestExecutor {
 						}
 						catch (Exception e) {
 							
-							logger.log(Level.SEVERE, "Callback \"onSuccess\" aborted with an exception.", e);
+							Log.e(AsyncRequestExecutor.class.getSimpleName(), 
+								  "Callback \"onSuccess\" aborted with an exception.", e);
 						}
 					}
 					else { 
@@ -215,15 +214,16 @@ class AsyncRequestExecutor implements RequestExecutor {
 						}
 						catch (IOException ioe) {
 							
-							logger.warning(errorResponseIO);
+							Log.i(AsyncRequestExecutor.class.getSimpleName(), errorResponseIO, ioe);
 						}
 						catch (ParseException pe) {
 
-							logger.warning(errorResponseIO);
+							Log.i(AsyncRequestExecutor.class.getSimpleName(), errorResponseIO, pe);
 						}
 						catch (Exception e) {
 							
-							logger.log(Level.SEVERE, "Callback \"onFailure\" aborted with an exception.", e);
+							Log.e(AsyncRequestExecutor.class.getSimpleName(), 
+								  "Callback \"onFailure\" aborted with an exception.", e);
 						}
 					}
 				}

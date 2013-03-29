@@ -23,8 +23,8 @@ package com.lonepulse.robozombie.core.inject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import android.util.Log;
 
 import com.lonepulse.robozombie.core.annotation.Bite;
 import com.lonepulse.robozombie.core.processor.EndpointProxyFactory;
@@ -139,7 +139,7 @@ public final class Zombie {
 				.append(injecteeClass.getName())
 				.append(". ");
 				
-				Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, stringBuilder.toString(), e);
+				Log.e(Zombie.class.getName(), stringBuilder.toString(), e);
 			}
 		}
 	}
@@ -215,7 +215,7 @@ public final class Zombie {
 						.append(injectee.getName())
 						.append(". ");
 						
-						Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, stringBuilder.toString(), e);
+						Log.e(Zombie.class.getName(), stringBuilder.toString(), e);
 					}
 				}
 			}
@@ -229,7 +229,7 @@ public final class Zombie {
 			.append(". Are you missing an @Bite annotation on the constructor? \n")
 			.append("Attempting property injection. ");
 			
-			Logger.getLogger(Zombie.class.getName()).log(Level.INFO, stringBuilder.toString());
+			Log.e(Zombie.class.getName(), stringBuilder.toString());
 			
 			T instance = injectee.newInstance();
 			Zombie.infect(instance);
@@ -243,7 +243,7 @@ public final class Zombie {
 			.append(injectee.getName())
 			.append(" with constructor injection. ");
 			
-			Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, stringBuilder.toString(), e);
+			Log.e(Zombie.class.getName(), stringBuilder.toString(), e);
 			
 			return null;
 		}

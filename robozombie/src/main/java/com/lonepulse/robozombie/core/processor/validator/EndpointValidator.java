@@ -60,7 +60,7 @@ class EndpointValidator implements Validator<URI> {
 			String port = endpointInterface.getAnnotation(Endpoint.class).port();
 			String path = endpointInterface.getAnnotation(Endpoint.class).path();
 			
-			return URIUtils.createURI(scheme, host, (port.equals("")? 80 :Integer.parseInt(port)), path, "", "");
+			return URIUtils.createURI(scheme, host, (("".equals(port))? 0 : Integer.parseInt(port)), path, null, null);
 		}
 		catch(Exception e) {
 			

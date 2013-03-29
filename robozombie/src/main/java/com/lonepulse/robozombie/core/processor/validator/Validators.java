@@ -22,6 +22,7 @@ package com.lonepulse.robozombie.core.processor.validator;
 
 
 import com.lonepulse.robozombie.core.processor.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.core.processor.executor.RequestExecutor;
 
 /**
  * <p>Exposes all available {@link Validator}s and delegates communication. 

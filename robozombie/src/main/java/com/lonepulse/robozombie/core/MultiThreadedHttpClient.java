@@ -26,15 +26,10 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.conn.scheme.PlainSocketFactory;
-import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.conn.ssl.SSLSocketFactory;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HttpContext;
+
+import android.net.http.AndroidHttpClient;
 
 /**
  * <p>A concrete implementation of {@link HttpClient} which provides network 
@@ -77,15 +72,7 @@ public enum MultiThreadedHttpClient implements HttpClientContract {
 	 */
 	private MultiThreadedHttpClient() {
 		
-		SchemeRegistry schemeRegistry = new SchemeRegistry();
-		schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
-		schemeRegistry.register(new Scheme("https", SSLSocketFactory.getSocketFactory(), 443));
-		
-		HttpParams httpParams = new BasicHttpParams();
-		
-		ThreadSafeClientConnManager tsccm = new ThreadSafeClientConnManager(httpParams, schemeRegistry);
-		
-		this.httpClient = new DefaultHttpClient(tsccm, httpParams);
+		this.httpClient = AndroidHttpClient.newInstance(System.getProperty("http.agent"));
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 			

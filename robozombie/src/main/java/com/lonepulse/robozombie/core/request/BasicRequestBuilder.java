@@ -53,11 +53,11 @@ class BasicRequestBuilder extends AbstractRequestBuilder {
 		if(webRequest == null)
 			throw new MissingRequestAnnotationException(request, Request.class);
 		
-		String subPath = (webRequest == null)? "" :webRequest.path();
+		String subpath = (webRequest == null)? "" :webRequest.path();
 		URI uri =  config.getUri();
 		
-		Uri.Builder uriBuilder = Uri.parse(uri.toString()).buildUpon();
-		uriBuilder.appendPath(subPath);
+		Uri.Builder uriBuilder = Uri.parse(uri.toASCIIString()).buildUpon()
+		.appendPath((subpath.startsWith("/"))? subpath.replaceFirst("/", "") :subpath);
 		
 		return URI.create(uriBuilder.build().toString());
 	}

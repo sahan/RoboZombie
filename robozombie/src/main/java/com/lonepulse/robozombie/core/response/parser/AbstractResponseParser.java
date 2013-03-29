@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
@@ -125,11 +124,7 @@ public abstract class AbstractResponseParser<T> implements ResponseParser<T> {
 			
 				EntityUtils.toString(httpResponse.getEntity());
 			}
-			catch (Exception e) {
-				
-				Logger.getLogger(getClass().getSimpleName())
-						.severe("Failed to close IO stream. Response content may have already been consumed.");
-			}
+			catch (Exception e) {} //consume quietly
 		}
 	}
 	
