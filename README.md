@@ -1,5 +1,4 @@
-RoboZombie
-==========
+![RoboZombie](https://raw.github.com/sahan/RoboZombie/master/logo.png)
 
 > **RoboZombie** /rō-bō'zŏm'bē/ <em>noun.</em> **1** A lightweight HTTP facade 
 which simplifies network communication. **2** An endpoint proxy generator for web services. 
