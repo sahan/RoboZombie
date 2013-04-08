@@ -63,9 +63,10 @@ Kickoff with the [quickstart](https://github.com/sahan/RoboZombie/wiki/Quickstar
 5. [Accessing RESTful Services](https://github.com/sahan/RoboZombie/wiki/Accessing-RESTful-Services)   
 
 6. [Executing Requests Asynchronously](https://github.com/sahan/RoboZombie/wiki/Executing-Requests-Asynchronously)
-<br>   
+<br><br>   
 
-> RoboZombie requires the **INTERNET** manifest permission for network communication. 
+> RoboZombie requires the **INTERNET** manifest permission for network communication.   
+ 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 ```
