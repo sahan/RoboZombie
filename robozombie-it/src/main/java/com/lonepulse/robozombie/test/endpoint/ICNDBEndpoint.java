@@ -42,10 +42,10 @@ import com.lonepulse.robozombie.test.model.NorrisJoke;
  * @category test
  * <br><br> 
  * @version 1.1.3
- * <br><br> 
+ * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Endpoint("api.icndb.com/jokes")
+@Endpoint("api.icndb.com/jokes/") //works without the trailing "/" as well
 @Parser(PARSER_TYPE.JSON)
 public interface ICNDBEndpoint {
 	
@@ -56,7 +56,7 @@ public interface ICNDBEndpoint {
 	 * 
 	 * @since 1.0.0
 	 */
-	@Request(path = "/random")
+	@Request(path = "random")
 	public ICNDBResponse random();
 	
 	/**
@@ -69,7 +69,7 @@ public interface ICNDBEndpoint {
 	 * 
 	 * @since 1.0.0
 	 */
-	@Rest(path = "/random/:amount")
+	@Rest(path = "random/:amount")
 	public ICNDBResponseArray random(@PathParam("amount") String amount);
 	
 	/**
@@ -86,7 +86,7 @@ public interface ICNDBEndpoint {
 	 * 
 	 * @since 1.0.0
 	 */
-	@Request(path = "/random")
+	@Request(path = "random")
 	public ICNDBResponse random(@Param("firstName") String firstName, 
 								@Param("lastName") String lastName);
 	
@@ -104,7 +104,7 @@ public interface ICNDBEndpoint {
 	 * 
 	 * @since 1.0.0
 	 */
-	@Request(path = "/random", params = {@Request.Param(name = "firstName", value = "John"), 
+	@Request(path = "random", params = {@Request.Param(name = "firstName", value = "John"), 
 										 @Request.Param(name = "lastName", value = "Doe")})
 	public ICNDBResponse randomJohnDoeJoke();
 
@@ -118,7 +118,7 @@ public interface ICNDBEndpoint {
 	 * 
 	 * @since 1.1.1
 	 */
-	@Asynchronous @Rest(path = "/random/10")
+	@Asynchronous @Rest(path = "random/10")
 	public ICNDBResponseArray randomAsync(AsyncHandler<ICNDBResponseArray> asyncHandler);
 	
 	/**
@@ -129,6 +129,6 @@ public interface ICNDBEndpoint {
 	 * 
 	 * @since 1.1.1
 	 */
-	@Rest(path = "/random")
+	@Rest(path = "random")
 	public ICNDBResponse random(@Header("Server") StringBuilder server); 
 }

@@ -60,6 +60,8 @@ class EndpointValidator implements Validator<URI> {
 			String port = endpointInterface.getAnnotation(Endpoint.class).port();
 			String path = endpointInterface.getAnnotation(Endpoint.class).path();
 			
+			host = (host.endsWith("/"))? host.substring(0, host.length() - 1) :host;
+			
 			return URIUtils.createURI(scheme, host, (("".equals(port))? 0 : Integer.parseInt(port)), path, null, null);
 		}
 		catch(Exception e) {
