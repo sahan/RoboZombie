@@ -9,7 +9,6 @@ which simplifies network communication. **2** An endpoint proxy generator for we
 
 **RoboZombie** allows easy integration with remote services by allowing you to replicate an endpoint 
 contract and generate a proxy to access it.
-> Requires permission **android.permission.INTERNET**
 
 * Contracts can be very flexible in terms of the resources they access. These could be vary from static 
 *html* content or an *RRS* feed, to a RESTful web service endpoint.   
@@ -64,6 +63,11 @@ Kickoff with the [quickstart](https://github.com/sahan/RoboZombie/wiki/Quickstar
 5. [Accessing RESTful Services](https://github.com/sahan/RoboZombie/wiki/Accessing-RESTful-Services)   
 
 6. [Executing Requests Asynchronously](https://github.com/sahan/RoboZombie/wiki/Executing-Requests-Asynchronously)   
+
+RoboZombie requires the **INTERNET** manifest permission for network communication. 
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+```
 <br/>
 
 ##License
