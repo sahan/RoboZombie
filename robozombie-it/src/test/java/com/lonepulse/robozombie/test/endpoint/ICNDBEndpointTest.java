@@ -91,7 +91,6 @@ public class ICNDBEndpointTest {
 	public static void setUp() throws Exception {
 		
 		executorService = Executors.newSingleThreadExecutor();
-		
 		icndbEndpoint = Zombie.infect(ICNDBService.class).getConstructedICNDBEndpoint();
 	}
 

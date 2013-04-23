@@ -56,7 +56,7 @@ public @interface Request {
 	 * 
 	 * @version 1.1.1
 	 * <br><br> 
-	 * @author <a href="mailto:lahiru@jkcsworld.com">Lahiru Sahan Jayasinghe</a>
+	 * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
 	public @interface Param { 
 		
