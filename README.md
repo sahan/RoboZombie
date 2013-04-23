@@ -28,7 +28,7 @@ Add the following dependency in your project's pom.xml.
 <dependency>
    <groupId>com.lonepulse</groupId>
    <artifactId>robozombie</artifactId>
-   <version>1.2.2</version>
+   <version>1.2.3</version>
    <type>apklib</type>
 </dependency>
 ```
