@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>RoboZombie by sahan</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>RoboZombie</h1>
+        <p>/rō-bō'zŏm'bē/ noun. 1 A lightweight HTTP facade which simplifies network communication. 2 An endpoint proxy generator for RESTful web services. </p>
+
+        <p class="view"><a href="https://github.com/sahan/RoboZombie">View the Project on GitHub <small>sahan/RoboZombie</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/sahan/RoboZombie/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/sahan/RoboZombie/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/sahan/RoboZombie">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>"Effortless networking for your Android application"</h2>
+
+<p>Mirror an endpoint API by annotating an interface and inject the generated proxy.</p>
+
+<p><br></p>
+
+<h3>Usage</h3>
+
+<hr><p>Here's your Model</p>
+
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Conversion</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">lhs</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">rhs</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">error</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">icc</span><span class="o">;</span>
+
+        <span class="cm">/* serialVersionUID, Accessors, Mutators, </span>
+<span class="cm">         * hashCode(), equals() and toString() omitted */</span>
+<span class="o">}</span>
+</pre></div>
+
+<p><br>
+Define the Endpoint Interface</p>
+
+<div class="highlight"><pre><span class="nd">@Endpoint</span><span class="o">(</span><span class="s">"www.google.com"</span><span class="o">)</span>
+<span class="nd">@Parser</span><span class="o">(</span><span class="n">Parser</span><span class="o">.</span><span class="na">PARSER_TYPE</span><span class="o">.</span><span class="na">JSON</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ConverterEndpoint</span> <span class="o">{</span>
+
+    <span class="nd">@Request</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/ig/calculator"</span><span class="o">)</span>
+    <span class="n">Conversion</span> <span class="nf">convert</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"q"</span><span class="o">)</span> <span class="n">String</span> <span class="n">query</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+<p><br>
+Inject and Invoke</p>
+
+<div class="highlight"><pre><span class="nd">@Bite</span>
+<span class="kd">private</span> <span class="n">ConverterEndpoint</span> <span class="n">endpoint</span><span class="o">;</span>
+<span class="o">{</span>
+    <span class="n">Zombie</span><span class="o">.</span><span class="na">infect</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="o">...</span>
+
+<span class="n">Conversion</span> <span class="n">rate</span> <span class="o">=</span> <span class="n">endpoint</span><span class="o">.</span><span class="na">convert</span><span class="o">(</span><span class="s">"1USD=?AUD"</span><span class="o">);</span>
+</pre></div>
+
+<p><br>
+For more information refer the complete <a href="https://github.com/sahan/RoboZombie#usage">usage guide</a> on the project wiki.</p>
+
+<p><br></p>
+
+<h3>Setup</h3>
+
+<hr><p>For maven based Android projects add the following dependency in your <code>pom.xml</code>.</p>
+
+<div class="highlight"><pre><span class="nt">&lt;dependency&gt;</span>
+   <span class="nt">&lt;groupId&gt;</span>com.lonepulse<span class="nt">&lt;/groupId&gt;</span>
+   <span class="nt">&lt;artifactId&gt;</span>robozombie<span class="nt">&lt;/artifactId&gt;</span>
+   <span class="nt">&lt;version&gt;</span>1.2.3<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;type&gt;</span>apklib<span class="nt">&lt;/type&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+
+<p><br>
+For standard Android projects download the repository (<a href="https://github.com/sahan/RoboZombie/archive/master.tar.gz">tarball</a>, <a href="https://github.com/sahan/RoboZombie/archive/master.zip">zipfile</a>) or clone it and import it as an existing project in Eclipse.</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>git clone git://github.com/sahan/RoboZombie.git
+</pre></div>
+
+<p><br></p>
+
+<h3>License</h3>
+
+<hr><p>This library is licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/sahan">sahan</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-40937518-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
