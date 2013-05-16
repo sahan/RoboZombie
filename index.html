@@ -13,24 +13,32 @@
     <![endif]-->
   </head>
   <body>
-    <div class="wrapper">
+
+	<a href="https://github.com/sahan/RoboZombie/fork" target="blank"><img
+		style="position: fixed; top: 0; left: 0; border: 0;"
+		src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"
+		alt="Fork me on GitHub"></a>
+		
+	<div class="wrapper">
       <header>
-        <h1>RoboZombie</h1>
-        <p>/rō-bō'zŏm'bē/ noun. 1 A lightweight HTTP facade which simplifies network communication. 2 An endpoint proxy generator for RESTful web services. </p>
-
-        <p class="view"><a href="https://github.com/sahan/RoboZombie">View the Project on GitHub <small>sahan/RoboZombie</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/sahan/RoboZombie/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/sahan/RoboZombie/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/sahan/RoboZombie">View On <strong>GitHub</strong></a></li>
-        </ul>
+        <h1>RoboZombie <small style="color: silver;">&nbsp;for Android</small></h1>
+        <p>/rō-bō'zŏm'bē/ noun.</p> 
+        <p><b>1.</b> &nbsp;A lightweight HTTP facade which simplifies network communication.</p>
+        <p><b>2.</b> &nbsp;An endpoint proxy generator for RESTful web services.</p>
+        <br>
+        <div></div>
+        <a href="#top">Usage</a>
+		<hr>
+        <a href="#setup">Setup</a>
+		<hr>
+        <a href="#wiki">Wiki</a>
+		<hr>
+        <a href="#license">License</a>
+		<hr>
       </header>
       <section>
-        <h2>"Effortless networking for your Android application"</h2>
-
-<p>Mirror an endpoint API by annotating an interface and inject the generated proxy.</p>
+        <h2 id="top">"Effortless networking for your Android application"</h2>
+		<p>Mirror an endpoint API by annotating an interface and inject the generated proxy.</p>
 
 <p><br></p>
 
@@ -76,12 +84,9 @@ Inject and Invoke</p>
 <span class="n">Conversion</span> <span class="n">rate</span> <span class="o">=</span> <span class="n">endpoint</span><span class="o">.</span><span class="na">convert</span><span class="o">(</span><span class="s">"1USD=?AUD"</span><span class="o">);</span>
 </pre></div>
 
-<p><br>
-For more information refer the complete <a href="https://github.com/sahan/RoboZombie#usage">usage guide</a> on the project wiki.</p>
-
 <p><br></p>
 
-<h3>Setup</h3>
+<h3 id="setup">Setup</h3>
 
 <hr><p>For maven based Android projects add the following dependency in your <code>pom.xml</code>.</p>
 
@@ -93,11 +98,20 @@ For more information refer the complete <a href="https://github.com/sahan/RoboZo
 <span class="nt">&lt;/dependency&gt;</span>
 </pre></div>
 
-<p><br>
-For standard Android projects download the repository (<a href="https://github.com/sahan/RoboZombie/archive/master.tar.gz">tarball</a>, <a href="https://github.com/sahan/RoboZombie/archive/master.zip">zipfile</a>) or clone it and import it as an existing project in Eclipse.</p>
+<p><br></p>
 
-<div class="highlight"><pre><span class="nv">$ </span>git clone git://github.com/sahan/RoboZombie.git
-</pre></div>
+<h3 id="wiki">Wiki</h3>
+
+<hr><p>Refer the wiki for more information on custom parsers and RESTful endpoints.</p>
+
+<ol>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Quickstart">Quickstart</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Defining-Endpoint-Contracts">Defining Endpoint Contracts</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Working-With-Response-Parsers">Working With Response Parsers</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Injecting-Endpoint-Proxies">Injecting Endpoint Proxies</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Accessing-RESTful-Services">Accessing RESTful Services</a>   </p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Executing-Requests-Asynchronously">Executing Requests Asynchronously</a></p></li>
+</ol>
 
 <p><br></p>
 
@@ -106,7 +120,7 @@ For standard Android projects download the repository (<a href="https://github.c
 <hr><p>This library is licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
       </section>
       <footer>
-        <p>This library is authored by <a href="https://github.com/sahan">sahan</a></p>
+        <p>This library is authored by <a href="https://github.com/sahan">sahan</a>.</p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
