@@ -1,6 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 
-body {
+body { 
+  background: #ffffff url(../images/body-bg.png) 0 0 repeat fixed;
   padding:50px;
   font:14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color:#777;
@@ -220,6 +221,7 @@ footer {
 
 @media print, screen and (max-width: 720px) {
   body {
+    background: #ffffff url(../images/body-bg.png) 0 0 repeat fixed;
     word-wrap:break-word;
   }
   
@@ -238,6 +240,7 @@ footer {
 
 @media print, screen and (max-width: 480px) {
   body {
+    background: #ffffff url(../images/body-bg.png) 0 0 repeat fixed;
     padding:15px;
   }
   
@@ -248,6 +251,7 @@ footer {
 
 @media print {
   body {
+    background: #ffffff url(../images/body-bg.png) 0 0 repeat fixed;
     padding:0.4in;
     font-size:12pt;
     color:#444;
