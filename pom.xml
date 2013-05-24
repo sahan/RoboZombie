@@ -5,7 +5,7 @@
 
 	<groupId>com.lonepulse</groupId>
 	<artifactId>robozombie-parent</artifactId>
-	<version>1.2.4-SNAPSHOT</version>
+	<version>1.2.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<parent>
