@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>robozombie</artifactId>
-	<packaging>apklib</packaging>
+	<packaging>jar</packaging>
 
 	<parent>
 		<groupId>com.lonepulse</groupId>
 		<artifactId>robozombie-parent</artifactId>
-		<version>1.2.4-SNAPSHOT</version>
+		<version>1.2.3-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -47,22 +47,19 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.7</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
 						<goals>
-							<goal>attach-artifact</goal>
+							<goal>assembly</goal>
 						</goals>
 						<configuration>
-							<artifacts>
-								<artifact>
-									<type>jar</type>
-									<file>${project.build.directory}/${project.build.finalName}.jar</file>
-								</artifact>
-							</artifacts>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
 						</configuration>
 					</execution>
 				</executions>

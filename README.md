@@ -29,7 +29,7 @@ Add the following dependency in your project's pom.xml.
    <groupId>com.lonepulse</groupId>
    <artifactId>robozombie</artifactId>
    <version>1.2.3</version>
-   <type>apklib</type>
+   <type>jar</type>
 </dependency>
 ```
 
@@ -38,13 +38,8 @@ For information on building Android projects using Maven here's [Chapter 14](htt
 
 ### 2. For Standard Android Projects
 
-Clone the repository and import it as an **existing project** in Eclipse.
-
-```bash
-$ git clone git://github.com/sahan/RoboZombie.git
-```
-
-Since the Eclipse metadata is maintained in the repository, the project should be immediately available as an Android library which you can reference in your own project. Refer the [developer guide](http://developer.android.com/tools/projects/projects-eclipse.html#ReferencingLibraryProject) for information on referencing library projects.   
+Download the [uberjar](http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.2.3/robozombie-1.2.3-jar-with-dependencies.jar) 
+and add it to your **libs** folder.
 <br/><br/>
 
 ##Usage
