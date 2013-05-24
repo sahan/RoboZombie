@@ -38,8 +38,8 @@ For information on building Android projects using Maven here's [Chapter 14](htt
 
 ### 2. For Standard Android Projects
 
-Download the [uberjar](http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.2.3/robozombie-1.2.3-jar-with-dependencies.jar) 
-and add it to your **libs** folder.
+Download the [RoboZombie](http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.2.3/robozombie-1.2.3.jar) + [Gson](http://repo1.maven.org/maven2/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar) 
+jars and add them to your **libs** folder.
 <br/><br/>
 
 ##Usage
