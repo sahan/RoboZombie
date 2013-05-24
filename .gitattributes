@@ -22,3 +22,4 @@
 *.RTF	 diff=astextplain
 
 robozombie/proguard-project.txt
+release.properties
