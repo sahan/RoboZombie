@@ -44,7 +44,7 @@ import com.lonepulse.robozombie.core.request.RequestMethod;
  * </code>
  * </p>
  * 
- * @version 1.1.2
+ * @version 1.1.3
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -63,13 +63,22 @@ public @interface Endpoint {
 	public String scheme() default "http";
 	
 	/**
+	 * <p>The hostname of the endpoint. Mirrors {@link #host()}.</p> 
+	 * 
+	 * @return the hostname of the endpoint
+	 * <br><br>
+	 * @since 1.1.2
+	 */
+	public String value() default "";
+	
+	/**
 	 * <p>The hostname of the endpoint.</p> 
 	 * 
 	 * @return the hostname of the endpoint
 	 * <br><br>
 	 * @since 1.1.2
 	 */
-	public String value();
+	public String host() default "";
 	
 	/**
 	 * <p>The <b>port</b> through which a channel is opened for communication 

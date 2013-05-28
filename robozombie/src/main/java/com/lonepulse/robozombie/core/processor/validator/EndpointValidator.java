@@ -55,8 +55,12 @@ class EndpointValidator implements Validator<URI> {
 			if(!endpointInterface.isAnnotationPresent(Endpoint.class))
 				throw new MissingEndpointAnnotationException(endpointInterface, Endpoint.class);
 			
-			String scheme = endpointInterface.getAnnotation(Endpoint.class).scheme();
 			String host = endpointInterface.getAnnotation(Endpoint.class).value();
+			
+			if(host == null || host.isEmpty())
+				host = endpointInterface.getAnnotation(Endpoint.class).value();
+			
+			String scheme = endpointInterface.getAnnotation(Endpoint.class).scheme();
 			String port = endpointInterface.getAnnotation(Endpoint.class).port();
 			String path = endpointInterface.getAnnotation(Endpoint.class).path();
 			
