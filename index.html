@@ -12,7 +12,7 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body id="top">
 
 	<a href="https://github.com/sahan/RoboZombie" target="blank"><img
 		style="position: fixed; top: 0; left: 0; border: 0;"
@@ -37,7 +37,7 @@
 		<hr>
       </header>
       <section>
-        <h2 id="top">"Effortless networking for your Android application"</h2>
+        <h2>"Effortless networking for your Android application"</h2>
 		<p>Mirror an endpoint API by annotating an interface and inject the generated proxy.</p>
 
 <p><br></p>
@@ -46,15 +46,15 @@
 
 <hr><p>Here's your Model</p>
 
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Conversion</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Conversion</span> <span class="o">{</span>
 
-        <span class="kd">private</span> <span class="n">String</span> <span class="n">lhs</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="n">String</span> <span class="n">rhs</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="n">String</span> <span class="n">error</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">icc</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">lhs</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">rhs</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">error</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">icc</span><span class="o">;</span>
 
-        <span class="cm">/* serialVersionUID, Accessors, Mutators, </span>
-<span class="cm">         * hashCode(), equals() and toString() omitted */</span>
+    <span class="cm">/* Accessors, Mutators, hashCode(), </span>
+<span class="cm">     * equals() and toString() omitted */</span>
 <span class="o">}</span>
 </pre></div>
 
@@ -62,7 +62,7 @@
 Define the Endpoint Interface</p>
 
 <div class="highlight"><pre><span class="nd">@Endpoint</span><span class="o">(</span><span class="s">"www.google.com"</span><span class="o">)</span>
-<span class="nd">@Parser</span><span class="o">(</span><span class="n">Parser</span><span class="o">.</span><span class="na">PARSER_TYPE</span><span class="o">.</span><span class="na">JSON</span><span class="o">)</span>
+<span class="nd">@Parser</span><span class="o">(</span><span class="na">PARSER_TYPE</span><span class="o">.</span><span class="na">JSON</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ConverterEndpoint</span> <span class="o">{</span>
 
     <span class="nd">@Request</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/ig/calculator"</span><span class="o">)</span>
@@ -84,9 +84,35 @@ Inject and Invoke</p>
 <span class="n">Conversion</span> <span class="n">rate</span> <span class="o">=</span> <span class="n">endpoint</span><span class="o">.</span><span class="na">convert</span><span class="o">(</span><span class="s">"1USD=?AUD"</span><span class="o">);</span>
 </pre></div>
 
-<p><br></p>
+<p><br>
+Create as many endpoints as you want...</p>
 
-<h3 id="setup">Setup</h3>
+<div class="highlight"><pre><span class="nd">@Endpoint</span><span class="o">(</span><span class="s">"s3.amazonaws.com/archive.travis-ci.org"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AmazonS3Endpoint</span> <span class="o">{</span>
+
+    <span class="nd">@Parser</span><span class="o">(</span><span class="na">PARSER_TYPE</span><span class="o">.</span><span class="na">STRING</span><span class="o">)</span>	
+    <span class="nd">@Rest</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/jobs/:job_id/log.txt"</span><span class="o">)</span>
+    <span class="n">String</span> <span class="nf">getBuildLog</span><span class="o">(</span><span class="nd">@PathParam</span><span class="o">(</span><span class="s">"job_id"</span><span class="o">)</span> <span class="n">String</span> <span class="n">jobId</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+<p><br>
+...and inject 'em all.</p>
+
+<div class="highlight"><pre><span class="nd">@Bite</span>
+<span class="kd">private</span> <span class="n">ConverterEndpoint</span> <span class="n">ccEndpoint</span><span class="o">;</span>
+
+<span class="nd">@Bite</span>
+<span class="kd">private</span> <span class="n">AmazonS3Endpoint</span> <span class="n">s3Endpoint</span><span class="o">;</span>
+
+<span class="o">{</span>
+    <span class="n">Zombie</span><span class="o">.</span><span class="na">infect</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+<p id="setup"><br></p>
+
+<h3>Setup</h3>
 
 <hr><p>For maven based Android projects add the following dependency in your <code>pom.xml</code>.</p>
 
@@ -101,9 +127,9 @@ Inject and Invoke</p>
 <p><br> For standard Android projects, download the <a href="http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.2.3/robozombie-1.2.3.jar">RoboZombie</a> 
 + <a href="http://repo1.maven.org/maven2/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar">Gson</a> jars and add them to your <b>libs</b> folder. </p>
 
-<p><br></p>
+<p id="wiki"><br></p>
 
-<h3 id="wiki">Wiki</h3>
+<h3>Wiki</h3>
 
 <hr><p>Refer the wiki for more information on custom parsers and RESTful endpoints.</p>
 
@@ -118,7 +144,7 @@ Inject and Invoke</p>
 
 <p><br></p>
 
-<h3>License</h3>
+<h3 id="license">License</h3>
 
 <hr><p>This library is licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
       </section>
@@ -131,7 +157,7 @@ Inject and Invoke</p>
       <a class="addthis_counter addthis_pill_style"></a>
       <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-519b842662e503b6"></script>
       
-      <p style="margin-top: 20px;">This library is authored by <a href="https://github.com/sahan">sahan</a>.</p>
+      <p style="margin-top: 20px;">This library is authored by <a href="https://github.com/sahan">@sahan</a>.</p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
