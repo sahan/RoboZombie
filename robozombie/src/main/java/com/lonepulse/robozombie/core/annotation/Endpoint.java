@@ -76,7 +76,7 @@ public @interface Endpoint {
 	 * 
 	 * @return the hostname of the endpoint
 	 * <br><br>
-	 * @since 1.1.2
+	 * @since 1.1.3
 	 */
 	public String host() default "";
 	

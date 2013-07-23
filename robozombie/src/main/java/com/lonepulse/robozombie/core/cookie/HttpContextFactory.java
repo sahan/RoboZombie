@@ -52,7 +52,7 @@ public class HttpContextFactory extends AbstractGenericFactory<Void, HttpContext
 		HttpContext httpContext = new BasicHttpContext();
 		
 		httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
-		
+	    
 		return httpContext;
 	}
 }

@@ -29,8 +29,7 @@ import com.lonepulse.robozombie.core.annotation.Endpoint;
 import com.lonepulse.robozombie.core.processor.ProxyInvocationConfiguration;
 
 /**
- * <p>A concrete implementation of {@link EndpointValidator} which 
- * validates endpoints. 
+ * <p>A concrete implementation of {@link EndpointValidator} which validates endpoints.
  * 
  * @version 1.1.0
  * <br><br>
@@ -55,14 +54,17 @@ class EndpointValidator implements Validator<URI> {
 			if(!endpointInterface.isAnnotationPresent(Endpoint.class))
 				throw new MissingEndpointAnnotationException(endpointInterface, Endpoint.class);
 			
-			String host = endpointInterface.getAnnotation(Endpoint.class).value();
+			Endpoint endpoint = endpointInterface.getAnnotation(Endpoint.class); 
+			
+			String value = endpoint.value();
+			String host = (value == null || value.isEmpty())? endpoint.host() :value;
 			
 			if(host == null || host.isEmpty())
-				host = endpointInterface.getAnnotation(Endpoint.class).value();
-			
-			String scheme = endpointInterface.getAnnotation(Endpoint.class).scheme();
-			String port = endpointInterface.getAnnotation(Endpoint.class).port();
-			String path = endpointInterface.getAnnotation(Endpoint.class).path();
+				throw new MissingEndpointHostException(endpointInterface);
+
+			String scheme = endpoint.scheme();
+			String port = endpoint.port();
+			String path = endpoint.path();
 			
 			host = (host.endsWith("/"))? host.substring(0, host.length() - 1) :host;
 			

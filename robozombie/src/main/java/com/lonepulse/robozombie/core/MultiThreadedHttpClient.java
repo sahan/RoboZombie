@@ -72,8 +72,8 @@ public enum MultiThreadedHttpClient implements HttpClientContract {
 	 */
 	private MultiThreadedHttpClient() {
 		
-		this.httpClient = AndroidHttpClient.newInstance(System.getProperty("http.agent"));
-		
+		httpClient = AndroidHttpClient.newInstance(System.getProperty("http.agent"));
+
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 			
 			@Override
@@ -91,7 +91,7 @@ public enum MultiThreadedHttpClient implements HttpClientContract {
 	public <T extends HttpRequestBase> HttpResponse executeRequest(T httpRequestBase) 
 	throws ClientProtocolException, IOException {
 
-		return this.httpClient.execute(httpRequestBase);
+		return httpClient.execute(httpRequestBase);
 	}
 
 	/**
@@ -101,6 +101,6 @@ public enum MultiThreadedHttpClient implements HttpClientContract {
 	public <T extends HttpRequestBase> HttpResponse executeRequest(T httpRequestBase, HttpContext httpContext)
 	throws ClientProtocolException, IOException {
 	
-		return this.httpClient.execute(httpRequestBase, httpContext);
+		return httpClient.execute(httpRequestBase, httpContext);
 	}
 }
