@@ -18,30 +18,6 @@ metadata. It is then wired into your code via an annotation, where it'll be crea
 runtime.   
 <br>
 
-##Setup
-
-### 1. For Maven Based Android Projects
-
-Add the following dependency in your project's pom.xml.
-
-```xml
-<dependency>
-   <groupId>com.lonepulse</groupId>
-   <artifactId>robozombie</artifactId>
-   <version>1.2.3</version>
-   <type>jar</type>
-</dependency>
-```
-
-For information on building Android projects using Maven here's [Chapter 14](http://www.sonatype.com/books/mvnref-book/reference/android-dev.html) of `Maven: The Complete Reference`.   
-<br>   
-
-### 2. For Standard Android Projects
-
-Download the [RoboZombie](http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.2.3/robozombie-1.2.3.jar) + [Gson](http://repo1.maven.org/maven2/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar) 
-jars and add them to your **libs** folder.
-<br><br>
-
 ##Overview   
 <br>
 Here's your Model   
@@ -110,6 +86,30 @@ private AmazonS3Endpoint s3Endpoint;
     Zombie.infect(this);
 }
 ```
+<br><br>
+
+##Setup
+
+### 1. For Maven Based Android Projects
+
+Add the following dependency in your project's pom.xml.
+
+```xml
+<dependency>
+   <groupId>com.lonepulse</groupId>
+   <artifactId>robozombie</artifactId>
+   <version>1.2.3</version>
+   <type>jar</type>
+</dependency>
+```
+
+For information on building Android projects using Maven here's [Chapter 14](http://www.sonatype.com/books/mvnref-book/reference/android-dev.html) of `Maven: The Complete Reference`.   
+<br>   
+
+### 2. For Standard Android Projects
+
+Download the [RoboZombie](http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.2.3/robozombie-1.2.3.jar) + [Gson](http://repo1.maven.org/maven2/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar) 
+jars and add them to your **libs** folder.
 <br><br>
 
 ##Wiki
