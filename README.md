@@ -112,7 +112,7 @@ private AmazonS3Endpoint s3Endpoint;
 ```
 <br><br>
 
-##Usage
+##Wiki
 
 Coding with RoboZombie is a breeze. It follows a simple annotation based coding style and adheres to a *minimal intrusion* policy. 
 Kickoff with the [quickstart](https://github.com/sahan/RoboZombie/wiki/Quickstart) and follow the rest of the wiki pages. 
