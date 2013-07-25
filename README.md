@@ -86,8 +86,15 @@ private AmazonS3Endpoint s3Endpoint;
     Zombie.infect(this);
 }
 ```
-<br><br>
+<br>
+RoboZombie requires the **INTERNET** manifest permission for network communication.   
+ 
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+```
+> ...and be sure to invoke all endpoint calls from a worker thread.
 
+<br>
 ##Setup
 
 ### 1. For Maven Based Android Projects
@@ -130,13 +137,5 @@ Kickoff with the [quickstart](https://github.com/sahan/RoboZombie/wiki/Quickstar
 6. [Executing Requests Asynchronously](https://github.com/sahan/RoboZombie/wiki/Executing-Requests-Asynchronously)
 <br><br>   
 
-> RoboZombie requires the **INTERNET** manifest permission for network communication.   
- 
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-```
-> ...and be sure to invoke all endpoint calls from a worker thread.
-
-<br>
 ##License
 This library is licensed under [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
