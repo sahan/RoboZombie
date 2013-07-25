@@ -4,7 +4,7 @@
 which simplifies network communication. **2** An endpoint proxy generator for web services. 
 [![Build Status](https://travis-ci.org/sahan/RoboZombie.png?branch=master)](https://travis-ci.org/sahan/RoboZombie)
 
-<br/>
+<br>
 ##About
 
 **RoboZombie** allows easy integration with remote services by allowing you to replicate an endpoint 
@@ -12,11 +12,11 @@ contract and generate a proxy to access it.
 
 * Contracts can be very flexible in terms of the resources they access. These could be vary from static 
 *html* content or an *RRS* feed, to a RESTful web service endpoint.   
-<br/>
+<br>
 * Each endpoint contract is specified on a single interface using annotations to provide the communication 
 metadata. It is then wired into your code via an annotation, where it'll be created, cached and injected at 
 runtime.   
-<br/>
+<br>
 
 ##Setup
 
@@ -34,13 +34,83 @@ Add the following dependency in your project's pom.xml.
 ```
 
 For information on building Android projects using Maven here's [Chapter 14](http://www.sonatype.com/books/mvnref-book/reference/android-dev.html) of `Maven: The Complete Reference`.   
-<br/>   
+<br>   
 
 ### 2. For Standard Android Projects
 
 Download the [RoboZombie](http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.2.3/robozombie-1.2.3.jar) + [Gson](http://repo1.maven.org/maven2/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar) 
 jars and add them to your **libs** folder.
-<br/><br/>
+<br><br>
+
+##Overview   
+<br>
+Here's your Model   
+
+```java
+public class Conversion {
+
+    private String lhs;
+    private String rhs;
+    private String error;
+    private boolean icc;
+
+    /* Accessors, Mutators, hashCode(), 
+     * equals() and toString() omitted */
+}
+```
+<br>
+Define the Endpoint Interface   
+
+```java
+@Endpoint("www.google.com")
+@Parser(PARSER_TYPE.JSON)
+public interface ConverterEndpoint {
+
+    @Request(path = "/ig/calculator")
+    Conversion convert(@Param("q") String query);
+}
+```
+<br>
+Inject and Invoke   
+
+```java
+@Bite
+private ConverterEndpoint endpoint;
+{
+    Zombie.infect(this);
+}
+
+...
+
+Conversion rate = endpoint.convert("1USD=?AUD");
+```
+<br>
+Create as many endpoints as you want...   
+
+```java
+@Endpoint("s3.amazonaws.com/archive.travis-ci.org")
+public interface AmazonS3Endpoint {
+
+    @Parser(PARSER_TYPE.STRING)	
+    @Rest(path = "/jobs/:job_id/log.txt")
+    String getBuildLog(@PathParam("job_id") String jobId);
+}
+```
+<br>
+...and inject 'em all.   
+
+```java
+@Bite
+private ConverterEndpoint ccEndpoint;
+
+@Bite
+private AmazonS3Endpoint s3Endpoint;
+
+{
+    Zombie.infect(this);
+}
+```
+<br><br>
 
 ##Usage
 
@@ -65,7 +135,8 @@ Kickoff with the [quickstart](https://github.com/sahan/RoboZombie/wiki/Quickstar
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 ```
-<br/>
+> ...and be sure to invoke all endpoint calls from a worker thread.
 
+<br>
 ##License
 This library is licensed under [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
