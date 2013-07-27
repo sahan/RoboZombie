@@ -21,7 +21,6 @@ package com.lonepulse.robozombie.core.processor.executor;
  */
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -128,13 +127,11 @@ class AsyncRequestExecutor implements RequestExecutor {
 				String errorResponseIO = "Failed to close IO stream. Response content may have already been consumed.";
 
 				Class<?> endpointClass = config.getEndpointClass();
-				Method request = config.getRequest();
 				HttpResponse httpResponse;
 				
 				try {
 					
-					if(endpointClass.isAnnotationPresent(Stateful.class)
-						|| request.isAnnotationPresent(Stateful.class)) {
+					if(endpointClass.isAnnotationPresent(Stateful.class)) {
 						
 						HttpContext httpContext = HttpContextDirectory.INSTANCE.get(endpointClass);
 						httpResponse = MultiThreadedHttpClient.INSTANCE.executeRequest(httpRequestBase, httpContext);

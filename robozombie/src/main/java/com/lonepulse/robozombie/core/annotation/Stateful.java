@@ -25,27 +25,23 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.apache.http.client.CookieStore;
+import org.apache.http.cookie.Cookie;
+
 /**
- * <p>Marks the policy of a <b>remote endpoint</b> as being <i>stateful</i>, i.e. 
- * per user sesssion management is performed.</p>
+ * <p>Marks the policy of a <b>remote endpoint</b> as being <i>stateful</i>, i.e. session 
+ * management is performed using {@link Cookie}s together with a {@link CookieStore}.</p>
  *
  * <b>Usage:</b>
  * <br>
  * <br>
  * <ol>
  * <li>
- * <p>At <b>type-level</b> on an endpoint <i>interface</i> for all requests.</p><br>
+ * <p>At <b>type-level</b> on an endpoint <i>interface</i>.</p><br>
  * <code>
  * <pre><b> @Stateful</b>&nbsp;@Endpoint("accounts.google.com")
  * public interface GoogleAccountsEndpoint {<br> }
  * </pre>
- * </code>
- * </li>
- * <li>
- * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
- * <code>
- * <pre><b> @Stateful </b>@Request("/addressbook")
- * public abstract AddressBook getAddressBook();</b></b></pre>
  * </code>
  * </li>
  * </ol>
@@ -55,6 +51,6 @@ import java.lang.annotation.Target;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Stateful {}

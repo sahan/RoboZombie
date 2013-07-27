@@ -22,7 +22,6 @@ package com.lonepulse.robozombie.core.processor.executor;
 
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
@@ -56,11 +55,9 @@ class BasicRequestExecutor implements RequestExecutor {
 		try {
 			
 			Class<?> endpointClass = config.getEndpointClass();
-			Method request = config.getRequest();
 			HttpResponse httpResponse;
 			
-			if(endpointClass.isAnnotationPresent(Stateful.class)
-				|| request.isAnnotationPresent(Stateful.class)) {
+			if(endpointClass.isAnnotationPresent(Stateful.class)) {
 				
 				HttpContext httpContext = HttpContextDirectory.INSTANCE.get(endpointClass);
 				httpResponse = MultiThreadedHttpClient.INSTANCE.executeRequest(httpRequestBase, httpContext);
