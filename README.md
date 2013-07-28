@@ -1,6 +1,7 @@
+[![Stories in Ready](https://badge.waffle.io/sahan/RoboZombie.png)](http://waffle.io/sahan/RoboZombie)  
 ![RoboZombie](https://raw.github.com/sahan/RoboZombie/master/logo.png)
 
-> **RoboZombie** /rō-bō'zŏm'bē/ <em>noun.</em> **1** A lightweight HTTP facade 
+> **RoboZombie** /rE-bE'zEm'bD/ <em>noun.</em> **1** A lightweight HTTP facade 
 which simplifies network communication. **2** An endpoint proxy generator for web services. 
 [![Build Status](https://travis-ci.org/sahan/RoboZombie.png?branch=master)](https://travis-ci.org/sahan/RoboZombie)
 
