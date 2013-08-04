@@ -25,7 +25,6 @@ import java.io.IOException;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.protocol.HttpContext;
 
@@ -67,13 +66,15 @@ class BasicRequestExecutor implements RequestExecutor {
 				httpResponse = MultiThreadedHttpClient.INSTANCE.executeRequest(httpRequestBase);
 			}
 			
-			if(!(httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK)) {
+			int statusCode = httpResponse.getStatusLine().getStatusCode();
+			
+			if(!(statusCode > 199 && statusCode < 300)) {
 				
 				StringBuilder builder = new StringBuilder()
 				.append("HTTP request for ")
 				.append(httpRequestBase.getURI())
 				.append(" failed with status code ")
-				.append(httpResponse.getStatusLine().getStatusCode())
+				.append(statusCode)
 				.append(", ")
 				.append(httpResponse.getStatusLine().getReasonPhrase());
 				

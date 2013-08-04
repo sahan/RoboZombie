@@ -28,7 +28,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.protocol.HttpContext;
@@ -185,7 +184,8 @@ class AsyncRequestExecutor implements RequestExecutor {
 					}
 				}
 				
-				boolean successful = httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
+				int statusCode = httpResponse.getStatusLine().getStatusCode();
+				boolean successful = statusCode > 199 && statusCode < 300;
 				
 				if(asyncHandler != null) { //response handling has to commence
 					
