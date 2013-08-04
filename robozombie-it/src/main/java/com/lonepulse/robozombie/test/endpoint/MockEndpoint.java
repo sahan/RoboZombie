@@ -23,6 +23,7 @@ package com.lonepulse.robozombie.test.endpoint;
 
 import org.apache.http.HttpResponse;
 
+import com.lonepulse.robozombie.core.annotation.Asynchronous;
 import com.lonepulse.robozombie.core.annotation.Endpoint;
 import com.lonepulse.robozombie.core.annotation.Header;
 import com.lonepulse.robozombie.core.annotation.HeaderSet;
@@ -32,6 +33,9 @@ import com.lonepulse.robozombie.core.annotation.Parser.PARSER_TYPE;
 import com.lonepulse.robozombie.core.annotation.Request;
 import com.lonepulse.robozombie.core.annotation.Stateful;
 import com.lonepulse.robozombie.core.request.RequestMethod;
+import com.lonepulse.robozombie.core.response.AsyncHandler;
+import com.lonepulse.robozombie.rest.annotation.PathParam;
+import com.lonepulse.robozombie.rest.annotation.Rest;
 
 /**
  * <p>An interface which represents a dummy endpoint with mock paths.
@@ -48,6 +52,94 @@ import com.lonepulse.robozombie.core.request.RequestMethod;
 @Parser(PARSER_TYPE.STRING)
 @Endpoint(host = "0.0.0.0", port = "8080")
 public interface MockEndpoint {
+	
+	/**
+	 * <p>Sends a request with a subpath.
+	 * 
+	 * @return a response for the request with a subpath
+	 * 
+	 * @since 1.2.4
+	 */
+	@Request(path = "/subpath")
+	public String subpath();
+	
+	/**
+	 * <p>Sends a request with the given query parameters.
+	 * 
+	 * @param firstName
+	 * 			the first query param
+	 * 
+	 * @param lastName
+	 * 			the second query param
+	 * 
+	 * @return a response for the request with query params
+	 * 
+	 * @since 1.2.4
+	 */
+	@Request(path = "/subpathwithparams")
+	public String subpathWithParams(@Param("firstName") String firstName, 
+									@Param("lastName") String lastName);
+	
+	/**
+	 * <p>Sends a RESTful request with a subpath.
+	 * 
+	 * @return a response for the RESTful request with a subpath
+	 * 
+	 * @since 1.2.4
+	 */
+	@Rest(path = "/restfulsubpath")
+	public String restfulSubpath();
+	
+	/**
+	 * <p>Sends a request for a RESTful subpath.
+	 * 
+	 * @param id
+	 * 			the restful path parameter
+	 * 
+	 * @return the response for the RESTful request
+	 * 
+	 * @since 1.2.4
+	 */
+	@Rest(path = "/restfulsubpathwithparam/:id")
+	public String restfulSubpathWithParam(@PathParam("id") String id);
+	
+	/**
+	 * <p>Sends a request with a set of constant query paramers.
+	 * 
+	 * @return a response for the request with constant params
+	 * 
+	 * @since 1.2.4
+	 */
+	@Request(path = "/subpathwithconstparams", params = {@Request.Param(name = "firstName", value = "Doctor"), 
+										 				 @Request.Param(name = "lastName", value = "Who")})
+	public String subpathWithConstParams();
+	
+	/**
+	 * <p>Sends a request asynchronously using {@link Asynchronous} and {@link AsyncHandler}. 
+	 * 
+	 * @param asyncHandler
+	 * 			the {@link AsyncHandler} which handles the results of the asynchronous request execution
+	 * 
+	 * @return a response for the asynchronous request
+	 * 
+	 * @since 1.2.4
+	 */
+	@Asynchronous @Rest(path = "/async")
+	public String async(AsyncHandler<String> asyncHandler);
+	
+	/**
+	 * <p>Retrieves a response header from a request using {@link Header}.
+	 * 
+	 * @param server
+	 * 			the {@link StringBuilder} which is annotated with {@code @Header} to 
+	 * 			treat it as an in-out variable for retrieving the response header
+	 * 
+	 * @return a response whose header was retrieved 
+	 * 
+	 * @since 1.2.4
+	 */
+	@Rest(path = "/responseheader")
+	public String responseHeader(@Header("Server") StringBuilder server); 
 	
 	/**
 	 * <p>A mock request which uses the HTTP method POST.
@@ -67,8 +159,8 @@ public interface MockEndpoint {
 	 */
 	@Request(path = "/postrequest", method = RequestMethod.HTTP_POST)
 	public String postRequest(@Param("name") String name, 
-					   @Param("age") String age,
-					   @Param("location") String location);
+							  @Param("age") String age,
+							  @Param("location") String location);
 	
 	/**
 	 * <p>A mock request which uses the HTTP method PUT.
@@ -90,6 +182,15 @@ public interface MockEndpoint {
 	public String putRequest(@Param("name") String name, 
 							 @Param("age") String age,
 							 @Param("location") String location);
+	/**
+	 * <p>A mock request which uses the HTTP method DELETE.
+	 * 
+	 * @return the textual content of the {@link HttpResponse} body
+	 * 
+	 * @since 1.2.4
+	 */
+	@Request(path = "/deleterequest", method = RequestMethod.HTTP_DELETE)
+	public String deleteRequest();
 	
 	/**
 	 * <p>A mock request which inserts a request header.

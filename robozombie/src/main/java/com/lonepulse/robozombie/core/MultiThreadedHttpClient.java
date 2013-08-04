@@ -26,10 +26,18 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.params.HttpClientParams;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HttpContext;
-
-import android.net.http.AndroidHttpClient;
 
 /**
  * <p>A concrete implementation of {@link HttpClient} which provides network 
@@ -57,7 +65,7 @@ public enum MultiThreadedHttpClient implements HttpClientContract {
 	 * <br><br>
 	 * @since 1.1.1
 	 */
-	private final transient HttpClient httpClient;
+	private final HttpClient httpClient;
 	
 	
 	/**
@@ -72,8 +80,21 @@ public enum MultiThreadedHttpClient implements HttpClientContract {
 	 */
 	private MultiThreadedHttpClient() {
 		
-		httpClient = AndroidHttpClient.newInstance(System.getProperty("http.agent"));
+		HttpParams params = new BasicHttpParams();
+		HttpClientParams.setRedirecting(params, true);
+		HttpConnectionParams.setSoTimeout(params, 30 * 1000);
+		HttpConnectionParams.setSocketBufferSize(params, 12000);
+        HttpConnectionParams.setConnectionTimeout(params, 30 * 1000);
+        HttpProtocolParams.setUserAgent(params, System.getProperty("http.agent"));
+        
+        SchemeRegistry schemeRegistry = new SchemeRegistry();
+        schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+        schemeRegistry.register(new Scheme("https", PlainSocketFactory.getSocketFactory(), 443));
 
+        ClientConnectionManager manager = new ThreadSafeClientConnManager(params, schemeRegistry);
+
+        httpClient = new DefaultHttpClient(manager, params);
+		
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 			
 			@Override

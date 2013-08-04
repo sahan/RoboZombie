@@ -39,8 +39,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
 
 import android.net.Uri;
 
@@ -312,19 +310,22 @@ public final class HttpParamBuilder {
 													        Map<Object, Param> annotatedParams, 
 													        List<Request.Param> staticParams) throws Exception {
 		
-		HttpParams httpParams = new BasicHttpParams();
+//TODO wtfizdiz?! re-design how each HTTP method is treated... adhere to W3 HTTP 1.1 RFC	
+//		HttpParams httpParams = new BasicHttpParams();
+//		
+//		for (Request.Param param : staticParams)
+//			httpParams.setParameter(param.name(), param.value());
+//		
+//		Set<Entry<Object, Param>> methodParams = annotatedParams.entrySet();
+//		
+//		for (Entry<Object, Param> entry : methodParams)
+//			httpParams.setParameter(entry.getValue().value(), entry.getKey().toString());
+//		
+//		HttpDelete httpDelete = new HttpDelete(uri);
+//		httpDelete.setParams(httpParams);
+//		
+//		return httpDelete;
 		
-		for (Request.Param param : staticParams)
-			httpParams.setParameter(param.name(), param.value());
-		
-		Set<Entry<Object, Param>> methodParams = annotatedParams.entrySet();
-		
-		for (Entry<Object, Param> entry : methodParams)
-			httpParams.setParameter(entry.getValue().value(), entry.getKey().toString());
-		
-		HttpDelete httpDelete = new HttpDelete(uri);
-		httpDelete.setParams(httpParams);
-		
-		return httpDelete;
+		return new HttpDelete(uri);
 	}
 }
