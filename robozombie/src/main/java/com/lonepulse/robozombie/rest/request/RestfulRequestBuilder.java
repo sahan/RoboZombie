@@ -37,6 +37,7 @@ import com.lonepulse.robozombie.core.request.AbstractRequestBuilder;
 import com.lonepulse.robozombie.core.request.HttpParamBuilder;
 import com.lonepulse.robozombie.core.request.MissingRequestAnnotationException;
 import com.lonepulse.robozombie.core.request.RequestMethod;
+import com.lonepulse.robozombie.core.request.RequestUtils;
 import com.lonepulse.robozombie.rest.annotation.PathParam;
 import com.lonepulse.robozombie.rest.annotation.Rest;
 import com.lonepulse.robozombie.util.AnnotationExtractor;
@@ -94,7 +95,7 @@ public class RestfulRequestBuilder extends AbstractRequestBuilder {
 		
 		URI uriWithPathParameters = new URI(uri.toASCIIString() + subpath);
 		
-		HttpRequestBase httpRequestBase  = HttpParamBuilder.build(uriWithPathParameters, config);
+		HttpRequestBase httpRequestBase  = RequestUtils.build(uriWithPathParameters, config);
 		
 		RequestMethod httpMethod = restfulRequest.method();
 		

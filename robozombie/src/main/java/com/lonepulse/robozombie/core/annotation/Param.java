@@ -54,15 +54,4 @@ public @interface Param {
 	 * @since 1.1.1
 	 */
 	public String value();
-	
-	/**
-	 * <p>The <i>serialized {@link String} representation</i> of 
-	 * a default value.</p>
-	 * 
-	 * @return a default value for the parameter (as a serialized 
-	 * 		   {@link String})
-	 * <br><br>
-	 * @since 1.1.2
-	 */
-	public String defaultValue() default "";
 }

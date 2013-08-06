@@ -68,6 +68,6 @@ class BasicRequestBuilder extends AbstractRequestBuilder {
 	@Override
 	protected HttpRequestBase buildRequestWithParameters(URI uri, ProxyInvocationConfiguration config) throws Exception {
 		
-		return HttpParamBuilder.build(uri, config);
+		return RequestUtils.build(uri, config);
 	}
 }
