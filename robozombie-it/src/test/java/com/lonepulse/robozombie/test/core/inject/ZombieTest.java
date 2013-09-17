@@ -25,7 +25,8 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.lonepulse.robozombie.core.inject.Zombie;
+import com.lonepulse.robozombie.core.inject.com;
+import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.test.service.MockService;
 
 

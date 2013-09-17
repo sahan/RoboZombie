@@ -26,9 +26,9 @@ import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.lonepulse.robozombie.core.annotation.Header;
-import com.lonepulse.robozombie.core.annotation.Param;
-import com.lonepulse.robozombie.core.response.parser.HeaderParamTypeException;
+import com.lonepulse.robozombie.annotation.Header;
+import com.lonepulse.robozombie.annotation.Param;
+import com.lonepulse.robozombie.response.parser.HeaderParamTypeException;
 
 
 /**

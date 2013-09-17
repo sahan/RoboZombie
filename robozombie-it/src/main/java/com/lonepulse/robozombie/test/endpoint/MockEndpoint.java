@@ -23,19 +23,19 @@ package com.lonepulse.robozombie.test.endpoint;
 
 import org.apache.http.HttpResponse;
 
-import com.lonepulse.robozombie.core.annotation.Asynchronous;
-import com.lonepulse.robozombie.core.annotation.Endpoint;
-import com.lonepulse.robozombie.core.annotation.Header;
-import com.lonepulse.robozombie.core.annotation.HeaderSet;
-import com.lonepulse.robozombie.core.annotation.Param;
-import com.lonepulse.robozombie.core.annotation.Parser;
-import com.lonepulse.robozombie.core.annotation.Parser.PARSER_TYPE;
-import com.lonepulse.robozombie.core.annotation.Request;
-import com.lonepulse.robozombie.core.annotation.Stateful;
-import com.lonepulse.robozombie.core.request.RequestMethod;
-import com.lonepulse.robozombie.core.response.AsyncHandler;
-import com.lonepulse.robozombie.rest.annotation.PathParam;
-import com.lonepulse.robozombie.rest.annotation.Rest;
+import com.lonepulse.robozombie.annotation.Asynchronous;
+import com.lonepulse.robozombie.annotation.Endpoint;
+import com.lonepulse.robozombie.annotation.Header;
+import com.lonepulse.robozombie.annotation.HeaderSet;
+import com.lonepulse.robozombie.annotation.Param;
+import com.lonepulse.robozombie.annotation.Parser;
+import com.lonepulse.robozombie.annotation.PathParam;
+import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.annotation.Rest;
+import com.lonepulse.robozombie.annotation.Stateful;
+import com.lonepulse.robozombie.annotation.Parser.PARSER_TYPE;
+import com.lonepulse.robozombie.request.RequestMethod;
+import com.lonepulse.robozombie.response.AsyncHandler;
 
 /**
  * <p>An interface which represents a dummy endpoint with mock paths.

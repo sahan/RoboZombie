@@ -21,8 +21,8 @@ package com.lonepulse.robozombie.test.service;
  */
 
 
-import com.lonepulse.robozombie.core.annotation.Bite;
-import com.lonepulse.robozombie.core.inject.Zombie;
+import com.lonepulse.robozombie.annotation.Bite;
+import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.test.endpoint.MockEndpoint;
 
 /**
