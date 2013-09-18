@@ -24,10 +24,7 @@ import java.net.URI;
 
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.core.request.RequestBuilder;
-import com.lonepulse.robozombie.core.request.RequestBuilderException;
 import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
-import com.lonepulse.robozombie.request.header.HeaderBuilders;
 
 /**
  * <p>This is abstract implementation of {@link RequestBuilder} which implements the policy for a factory 

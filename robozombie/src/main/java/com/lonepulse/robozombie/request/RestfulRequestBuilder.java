@@ -35,7 +35,6 @@ import org.apache.http.client.methods.HttpRequestBase;
 import com.lonepulse.robozombie.annotation.PathParam;
 import com.lonepulse.robozombie.annotation.Rest;
 import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
-import com.lonepulse.robozombie.request.HttpParamBuilder;
 import com.lonepulse.robozombie.util.AnnotationExtractor;
 
 /**

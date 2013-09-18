@@ -25,8 +25,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.lonepulse.robozombie.core.annotation.Endpoint;
-import com.lonepulse.robozombie.core.annotation.Request;
 import com.lonepulse.robozombie.request.RequestMethod;
 
 /**

@@ -26,9 +26,6 @@ import java.lang.reflect.Method;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import com.lonepulse.robozombie.annotation.Rest;
-import com.lonepulse.robozombie.core.request.BasicRequestBuilder;
-import com.lonepulse.robozombie.core.request.RequestBuilder;
-import com.lonepulse.robozombie.core.request.RequestBuilders;
 import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.util.Resolver;
 

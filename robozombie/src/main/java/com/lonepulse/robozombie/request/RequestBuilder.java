@@ -23,7 +23,6 @@ package com.lonepulse.robozombie.request;
 
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.core.request.RequestBuilderException;
 import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**

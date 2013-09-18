@@ -22,8 +22,6 @@ package com.lonepulse.robozombie.request;
 
 import java.lang.reflect.Method;
 
-import com.lonepulse.robozombie.core.request.RequestBuilderException;
-
 /**
  * <p>This runtime exception is thrown when a required annotation is missing from 
  * a request method on the endpoint interface.</p>

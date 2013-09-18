@@ -28,9 +28,6 @@ import org.apache.http.client.methods.HttpRequestBase;
 import android.net.Uri;
 
 import com.lonepulse.robozombie.annotation.Request;
-import com.lonepulse.robozombie.core.request.AbstractRequestBuilder;
-import com.lonepulse.robozombie.core.request.MissingRequestAnnotationException;
-import com.lonepulse.robozombie.core.request.RequestUtils;
 import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**

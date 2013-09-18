@@ -25,7 +25,6 @@ import java.lang.reflect.Type;
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Parser;
-import com.lonepulse.robozombie.core.response.AsyncHandler;
 import com.lonepulse.robozombie.response.parser.ResponseParser;
 
 /**

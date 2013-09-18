@@ -33,10 +33,6 @@ import android.net.Uri;
 import com.lonepulse.robozombie.annotation.Param;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.annotation.Rest;
-import com.lonepulse.robozombie.core.request.ParamPopulator;
-import com.lonepulse.robozombie.core.request.ParamPopulatorException;
-import com.lonepulse.robozombie.core.request.RequestMethod;
-import com.lonepulse.robozombie.core.request.RequestUtils;
 import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**

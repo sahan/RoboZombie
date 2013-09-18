@@ -27,8 +27,6 @@ import java.lang.reflect.Method;
 import android.util.Log;
 
 import com.lonepulse.robozombie.annotation.Bite;
-import com.lonepulse.robozombie.core.inject.EndpointDirectory;
-import com.lonepulse.robozombie.core.inject.Zombie;
 import com.lonepulse.robozombie.processor.EndpointProxyFactory;
 
 /**

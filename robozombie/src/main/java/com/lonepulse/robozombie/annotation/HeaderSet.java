@@ -25,8 +25,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.lonepulse.robozombie.core.annotation.HeaderSet;
-
 /**
  * <p>Models the header associated with a request and groups a constant 
  * set of {@link HeaderSet.Header}s which is to be populated.</p>

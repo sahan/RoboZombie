@@ -25,10 +25,6 @@ import java.lang.reflect.Method;
 
 import org.apache.http.HttpResponse;
 
-import com.lonepulse.robozombie.core.response.BasicResponseHandler;
-import com.lonepulse.robozombie.core.response.ResponseHandler;
-import com.lonepulse.robozombie.core.response.ResponseHandlerException;
-import com.lonepulse.robozombie.core.response.ResponseHandlers;
 import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.processor.executor.RequestExecutor;
 import com.lonepulse.robozombie.response.parser.ResponseParser;

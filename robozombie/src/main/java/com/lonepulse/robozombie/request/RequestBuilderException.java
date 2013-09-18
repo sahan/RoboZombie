@@ -21,7 +21,6 @@ package com.lonepulse.robozombie.request;
  */
 
 import com.lonepulse.robozombie.RoboZombieRuntimeException;
-import com.lonepulse.robozombie.core.request.AbstractRequestBuilder;
 import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**

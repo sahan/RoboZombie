@@ -24,8 +24,6 @@ package com.lonepulse.robozombie.request;
 import org.apache.http.HttpRequest;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.core.request.ParamPopulatorException;
-import com.lonepulse.robozombie.core.request.RequestMethod;
 import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**
