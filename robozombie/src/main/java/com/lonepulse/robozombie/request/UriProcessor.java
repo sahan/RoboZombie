@@ -25,6 +25,7 @@ import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.utils.URIBuilder;
 
+import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**

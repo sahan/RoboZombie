@@ -25,8 +25,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.lonepulse.robozombie.response.parser.ResponseParser;
-import com.lonepulse.robozombie.response.parser.StringResponseParser;
+import com.lonepulse.robozombie.response.ResponseParser;
+import com.lonepulse.robozombie.response.StringResponseParser;
 
 /**
  * <p>Identifies the {@link ResponseParser} which is to be used to parse 
@@ -124,7 +124,7 @@ public @interface Parser {
 	 * 
 	 * <code>
      * <pre>@Request("/license.txt")<br><b>@Parser(type = CustomParser.class)</b>
-     *public abstract String getLicense();</b></b></pre>
+     *publbvic abstract String getLicense();</b></b></pre>
      * </code>
 	 * 
 	 * @return the {@link Class} of the {@link ResponseParser} to be used
