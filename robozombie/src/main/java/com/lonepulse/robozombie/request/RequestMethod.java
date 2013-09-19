@@ -31,6 +31,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.methods.HttpTrace;
 
+import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.util.Resolver;
 

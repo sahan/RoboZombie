@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
+import com.lonepulse.robozombie.annotation.Entity;
 import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**

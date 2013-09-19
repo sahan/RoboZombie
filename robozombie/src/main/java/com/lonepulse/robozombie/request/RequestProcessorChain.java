@@ -27,6 +27,9 @@ import org.apache.http.HttpRequest;
 import com.lonepulse.robozombie.annotation.FormParam;
 import com.lonepulse.robozombie.annotation.PathParam;
 import com.lonepulse.robozombie.annotation.QueryParam;
+import com.lonepulse.robozombie.processor.AbstractProcessorChain;
+import com.lonepulse.robozombie.processor.ProcessorChainFactory;
+import com.lonepulse.robozombie.processor.ProcessorChainLink;
 
 /**
  * <p>This is a concrete implementation of {@link AbstractProcessorChain} which creates a sequentially executed 
