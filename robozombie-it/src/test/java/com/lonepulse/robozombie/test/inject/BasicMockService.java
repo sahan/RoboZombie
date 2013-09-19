@@ -1,4 +1,4 @@
-package com.lonepulse.robozombie.test.service;
+package com.lonepulse.robozombie.test.inject;
 
 /*
  * #%L
@@ -23,17 +23,14 @@ package com.lonepulse.robozombie.test.service;
 
 import com.lonepulse.robozombie.annotation.Bite;
 import com.lonepulse.robozombie.inject.Zombie;
-import com.lonepulse.robozombie.test.endpoint.MockEndpoint;
 
 /**
  * <p>Emulates a service which works with an {@link MockEndpoint}.</p>
  * 
- * <p>Contains serveral {@link MockEndpoint} members with various 
- * accessibility qualifiers to test the {@link Zombie}'s property injection 
- * capabilities.</p>
+ * <p>Contains several {@link MockEndpoint} members with various accessibility qualifiers to test the 
+ * {@link Zombie}'s property injection capabilities.</p>
  * 
- * <p>Also contains a mutator and a parameterized contructor to test 
- * setter and contructor injection.</p>
+ * <p>Also contains a mutator and a parameterized constructor to test setter and constructor injection.</p>
  * 
  * @category test
  * <br><br> 
@@ -41,53 +38,54 @@ import com.lonepulse.robozombie.test.endpoint.MockEndpoint;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class MockService {
+public class BasicMockService {
 	
 	
-	/** <p>A public instance of {@link MockEndpoint} */
+	/** 
+	 * <p>A public instance of {@link MockEndpoint} 
+	 */
 	@Bite
 	public MockEndpoint publicMockEndpoint;
 	
-	/** <p>A protected instance of {@link MockEndpoint} */
+	/** 
+	 * <p>A protected instance of {@link MockEndpoint} 
+	 */
 	@Bite
 	protected MockEndpoint protectedMockEndpoint;
 	
-	/** <p>A package private instance of {@link MockEndpoint} */
+	/** 
+	 * <p>A package private instance of {@link MockEndpoint} 
+	 */
 	@Bite
 	MockEndpoint defaultMockEndpoint;
 	
 	/** 
-	 * <p>A private instance of {@link MockEndpoint} which is 
-	 * to be injected via it's mutator.
+	 * <p>A private instance of {@link MockEndpoint} which is to be injected via it's mutator.
 	 */
 	@Bite
 	private MockEndpoint privateMockEndpoint;
 	
 	/**  
-	 * <p>A private instance of {@link MockEndpoint} which is 
-	 * to be injected via the constructor.
+	 * <p>A private instance of {@link MockEndpoint} which is to be injected via the constructor.
 	 */
 	@Bite
 	private MockEndpoint constructedMockEndpoint;
 	
 	/**  
-	 * <p>A private instance of {@link MockEndpoint} which is 
-	 * to be injected by changing the <b>accessibility properties</b>.
+	 * <p>A private instance of {@link MockEndpoint} which is to be injected by changing the 
+	 * <b>accessibility properties</b>.
 	 */
 	@Bite
 	private MockEndpoint forcedPrivateMockEndpoint;
 	
 	
-	/**
-	 * <p>Default constructor.
-	 */
-	public MockService() {}
+	public BasicMockService() {}
 	
 	/**
 	 * <p>Facilitates constructor injection. 
 	 */
 	@Bite
-	public MockService(MockEndpoint icndbEndpoint) {
+	public BasicMockService(MockEndpoint icndbEndpoint) {
 		
 		this.constructedMockEndpoint = icndbEndpoint;
 	}

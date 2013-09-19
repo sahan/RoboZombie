@@ -24,7 +24,9 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;

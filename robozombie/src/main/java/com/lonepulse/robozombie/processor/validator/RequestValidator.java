@@ -23,6 +23,7 @@ package com.lonepulse.robozombie.processor.validator;
 
 import java.lang.reflect.Method;
 
+import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**

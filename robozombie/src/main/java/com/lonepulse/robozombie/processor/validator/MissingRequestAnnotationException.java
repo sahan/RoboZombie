@@ -2,6 +2,8 @@ package com.lonepulse.robozombie.processor.validator;
 
 import java.lang.reflect.Method;
 
+import com.lonepulse.robozombie.annotation.Request;
+
 /*
  * #%L
  * RoboZombie

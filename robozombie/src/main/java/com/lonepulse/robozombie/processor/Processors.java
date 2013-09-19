@@ -30,6 +30,7 @@ import com.lonepulse.robozombie.annotation.PathParam;
 import com.lonepulse.robozombie.annotation.QueryParam;
 import com.lonepulse.robozombie.request.AbstractRequestProcessor;
 import com.lonepulse.robozombie.request.RequestProcessorChain;
+import com.lonepulse.robozombie.response.AbstractResponseProcessor;
 import com.lonepulse.robozombie.response.ResponseProcessorChain;
 
 /**
