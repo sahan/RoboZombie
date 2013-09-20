@@ -39,6 +39,7 @@ import java.net.URISyntaxException;
 
 import org.apache.http.ParseException;
 import org.apache.http.entity.BasicHttpEntity;
+import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.SerializableEntity;
@@ -217,34 +218,33 @@ public class RequestParamEndpointTest {
 			   .withRequestBody(equalTo(EntityUtils.toString(fe))));
 	}
 	
-//	/**
-//	 * <p>Test for a {@link Request} with a {@link File} entity.
-//	 * 
-//	 * @since 1.2.4
-//	 */
-//	@Test
-//	public final void testBasicHttpEntity() throws ParseException, IOException {
-//		
-//		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
-//		
-//		String subpath = "/basichttpentity";
-//		
-//		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-//		InputStream inputStream = classLoader.getResourceAsStream("LICENSE.txt");
-//		InputStream parallelInputStream = classLoader.getResourceAsStream("LICENSE.txt");
-//		BasicHttpEntity bhe = new BasicHttpEntity();
-//		bhe.setContent(parallelInputStream);
-//		
-//		stubFor(put(urlEqualTo(subpath))
-//				.willReturn(aResponse()
-//				.withStatus(200)));
-//		
-//		requestEndpoint.basicHttpEntity(inputStream);
-//		
-//		verify(putRequestedFor(urlEqualTo(subpath)));
-//		verify(putRequestedFor(urlEqualTo(subpath))
-//			   .withRequestBody(equalTo(EntityUtils.toString(bhe))));
-//	}
+	/**
+	 * <p>Test for a {@link Request} with a <b>buffered</b> entity.
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test
+	public final void testBufferedHttpEntity() throws ParseException, IOException {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/bufferedhttpentity";
+		
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream inputStream = classLoader.getResourceAsStream("LICENSE.txt");
+		InputStream parallelInputStream = classLoader.getResourceAsStream("LICENSE.txt");
+		BasicHttpEntity bhe = new BasicHttpEntity();
+		bhe.setContent(parallelInputStream);
+		
+		stubFor(put(urlEqualTo(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		requestEndpoint.bufferedHttpEntity(inputStream);
+		
+		verify(putRequestedFor(urlEqualTo(subpath))
+			   .withRequestBody(equalTo(EntityUtils.toString(new BufferedHttpEntity(bhe)))));
+	}
 	
 	/**
 	 * <p>Test for a {@link Request} with a {@link String} entity.
@@ -266,7 +266,6 @@ public class RequestParamEndpointTest {
 		
 		requestEndpoint.stringEntity(entity);
 		
-		verify(putRequestedFor(urlEqualTo(subpath)));
 		verify(putRequestedFor(urlEqualTo(subpath))
 			   .withRequestBody(equalTo(EntityUtils.toString(se))));
 	}
@@ -291,7 +290,6 @@ public class RequestParamEndpointTest {
 		
 		requestEndpoint.serializableEntity(entity);
 		
-		verify(putRequestedFor(urlEqualTo(subpath)));
 		verify(putRequestedFor(urlEqualTo(subpath))
 			   .withRequestBody(equalTo(EntityUtils.toString(se))));
 	}

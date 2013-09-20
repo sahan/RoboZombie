@@ -35,6 +35,7 @@ import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.BasicHttpEntity;
+import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.SerializableEntity;
@@ -203,7 +204,7 @@ public final class RequestUtils {
 	 * 	<li>org.apache.http.{@link HttpEntity} --&gt; returned as-is.</li> 
 	 * 	<li>{@code byte[]}, {@link Byte}[] --&gt; {@link ByteArrayEntity}</li> 
 	 *  <li>java.io.{@link File} --&gt; {@link FileEntity}</li>
-	 * 	<li>java.io.{@link InputStream} --&gt; {@link BasicHttpEntity}</li>
+	 * 	<li>java.io.{@link InputStream} --&gt; {@link BufferedHttpEntity}</li>
 	 * 	<li>{@link CharSequence} --&gt; {@link StringEntity}</li>
 	 * 	<li>java.io.{@link Serializable} --&gt; {@link SerializableEntity} (with an internal buffer)</li>
 	 * </ol>
@@ -259,7 +260,7 @@ public final class RequestUtils {
 				BasicHttpEntity basicHttpEntity = new BasicHttpEntity();
 				basicHttpEntity.setContent((InputStream)genericEntity);
 				
-				return basicHttpEntity;
+				return new BufferedHttpEntity(basicHttpEntity);
 			}
 			else if(genericEntity instanceof CharSequence) {
 				

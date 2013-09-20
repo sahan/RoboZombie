@@ -63,7 +63,7 @@ class EntityProcessor extends AbstractRequestProcessor {
 	 * </ul>
 	 * 
 	 * <p>Parameter types are resolved to their {@link HttpEntity} as specified in 
-	 * {@link RequestUtils#resolveHttpEntity(Object)}.
+	 * {@link RequestUtils#resolveHttpEntity(Object)}.</p>
 	 * 
 	 * <p>See {@link RequestProcessor#process(HttpRequestBase, ProxyInvocationConfiguration)}.</p>
 	 *

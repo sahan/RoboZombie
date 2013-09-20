@@ -25,7 +25,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
 
-import org.apache.http.entity.BasicHttpEntity;
+import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.SerializableEntity;
@@ -119,15 +119,15 @@ public interface RequestParamEndpoint {
 	
 	/**
 	 * <p>Sends a request with an {@link InputStream} which should be resolved 
-	 * to an instance of {@link BasicHttpEntity}.
+	 * to an instance of {@link BufferedHttpEntity}.
 	 * 
 	 * @param entity
-	 * 			the {@link InputStream} to be converted to a {@link BasicHttpEntity}
+	 * 			the {@link InputStream} to be converted to a {@link BufferedHttpEntity}
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/basichttpentity", method = RequestMethod.PUT)
-	public void basicHttpEntity(@Entity InputStream entity);
+	@Request(path = "/bufferedhttpentity", method = RequestMethod.PUT)
+	public void bufferedHttpEntity(@Entity InputStream entity);
 	
 	/**
 	 * <p>Sends a request with a {@link String} which should be resolved to an 
