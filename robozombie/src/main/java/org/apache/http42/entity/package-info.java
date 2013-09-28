@@ -4,9 +4,10 @@
  * 
  * @since 1.2.4
  */
-package org.apache.http.entity;
+package org.apache.http42.entity;
 
 /*
+ * #%L
  * ====================================================================
  *
  *  Licensed to the Apache Software Foundation (ASF) under one or more
@@ -29,5 +30,5 @@ package org.apache.http.entity;
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- *
+ * #L%
  */

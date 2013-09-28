@@ -1,12 +1,13 @@
 /**
- * <p>Contains a <i>verbatim copy</i> of the <b>Consts</b> class which exists 
- * in API version 4.2 of <a href="http://hc.apache.org">Apache HTTP Components</a>.</p>
+ * <p>Contains <i>verbatim copies</i> of the <b>URIBuilder</b> and <b>URLEncodedUtils</b> 
+ * classes which exists in API version 4.2 of <a href="http://hc.apache.org">Apache HTTP Components</a>.</p>
  * 
  * @since 1.2.4
  */
-package org.apache.http;
+package org.apache.http42.client.utils;
 
 /*
+ * #%L
  * ====================================================================
  *
  *  Licensed to the Apache Software Foundation (ASF) under one or more
@@ -29,5 +30,5 @@ package org.apache.http;
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- *
+ * #L%
  */

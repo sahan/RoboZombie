@@ -32,7 +32,7 @@ import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
+import org.apache.http42.util.EntityUtils;
 
 import com.lonepulse.robozombie.MultiThreadedHttpClient;
 import com.lonepulse.robozombie.annotation.Stateful;

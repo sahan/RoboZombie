@@ -1,12 +1,13 @@
 /**
- * <p>Contains a <i>verbatim cpoy</i> of the <b>EntityUtils</b> class which 
+ * <p>Contains a <i>verbatim cpoy</i> of the <b>HTTP</b> class which 
  * exists in API version 4.2 of <a href="http://hc.apache.org">Apache HTTP Components</a>.</p>
  * 
  * @since 1.2.4
  */
-package org.apache.http.util;
+package org.apache.http42.protocol;
 
 /*
+ * #%L
  * ====================================================================
  *
  *  Licensed to the Apache Software Foundation (ASF) under one or more
@@ -29,5 +30,5 @@ package org.apache.http.util;
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- *
+ * #L%
  */

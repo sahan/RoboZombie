@@ -23,7 +23,7 @@ package com.lonepulse.robozombie.processor.validator;
 
 import java.net.URI;
 
-import org.apache.http.client.utils.URIBuilder;
+import org.apache.http42.client.utils.URIBuilder;
 
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;

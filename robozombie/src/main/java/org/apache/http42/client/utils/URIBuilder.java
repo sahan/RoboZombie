@@ -1,4 +1,7 @@
+package org.apache.http42.client.utils;
+
 /*
+ * #%L
  * ====================================================================
  *
  *  Licensed to the Apache Software Foundation (ASF) under one or more
@@ -21,10 +24,9 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- *
+ * #L%
  */
 
-package org.apache.http.client.utils;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -33,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.http.Consts;
+import org.apache.http42.Consts;
 import org.apache.http.NameValuePair;
 import org.apache.http.annotation.NotThreadSafe;
 import org.apache.http.conn.util.InetAddressUtils;
