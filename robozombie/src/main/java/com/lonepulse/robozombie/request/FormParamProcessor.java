@@ -26,19 +26,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.http42.HttpHeaders;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http42.entity.ContentType;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http42.HttpHeaders;
+import org.apache.http42.entity.ContentType;
 
+import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.annotation.FormParam;
 import com.lonepulse.robozombie.annotation.Request;
-import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which discovers <i>form parameters</i> 

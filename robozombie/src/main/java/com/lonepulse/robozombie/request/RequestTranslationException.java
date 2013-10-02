@@ -22,8 +22,8 @@ package com.lonepulse.robozombie.request;
 
 import org.apache.http.HttpRequest;
 
+import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.RoboZombieRuntimeException;
-import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**
  * <p>This runtime exception is thrown due to an unrecoverable error which occurred when 

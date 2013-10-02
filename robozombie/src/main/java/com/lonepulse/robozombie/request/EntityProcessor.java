@@ -23,14 +23,14 @@ package com.lonepulse.robozombie.request;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
-import org.apache.http42.HttpHeaders;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http42.HttpHeaders;
 import org.apache.http42.entity.ContentType;
 
+import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.annotation.Entity;
-import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which resolves and inserts the enclosing 

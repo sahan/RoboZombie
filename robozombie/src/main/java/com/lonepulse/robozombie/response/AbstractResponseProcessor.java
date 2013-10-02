@@ -24,8 +24,8 @@ package com.lonepulse.robozombie.response;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
+import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.processor.Processor;
-import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**
  * <p>This is an abstract implementation of {@link Processor} which specifies a template for processing the 
@@ -49,7 +49,7 @@ import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public abstract class AbstractResponseProcessor implements Processor<Object, ResponseProcessorException> {
+abstract class AbstractResponseProcessor implements Processor<Object, ResponseProcessorException> {
 
 	
 	/**

@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
-import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 
 /**
  * <p>This is an extension of {@link AbstractResponseParser} which allows an <b>XML response entity</b> 
@@ -46,7 +46,7 @@ import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class XmlResponseParser extends AbstractResponseParser<Object> {
+class XmlResponseParser extends AbstractResponseParser<Object> {
 
 	
 	/**

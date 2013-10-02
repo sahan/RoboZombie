@@ -22,7 +22,7 @@ package com.lonepulse.robozombie.response;
 
 import org.apache.http.HttpResponse;
 
-import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 
 /**
  * <p>This interface policy of a <i>response parser</i>. i.e. the unit which 

@@ -31,8 +31,8 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.methods.HttpTrace;
 
+import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.annotation.Request;
-import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.util.Resolver;
 
 /**
@@ -44,6 +44,8 @@ import com.lonepulse.robozombie.util.Resolver;
  * @since 1.1.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * 
+ * TODO separate public API from resolution and translation (prefer com.lonepulse.robozombie.annotation.Request.RequestMethod)
  */
 public enum RequestMethod {
 

@@ -28,8 +28,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.annotation.Header;
-import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**
  * <p>This utility class offers some common operations which are used in parsing responses using the information 
@@ -45,7 +45,7 @@ import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
  * 
  * TODO revise utilities isolate a common algorithm for annotated params extraction 
  */
-public final class ResponseUtils {
+final class ResponseUtils {
 	
 	
 	/**

@@ -33,7 +33,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.Locale;
 
-import org.apache.http42.Consts;
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HttpEntity;
@@ -41,6 +40,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
 import org.apache.http.annotation.Immutable;
 import org.apache.http.message.BasicHeaderValueParser;
+import org.apache.http42.Consts;
 
 /**
  * Content type information consisting of a MIME type and an optional charset.

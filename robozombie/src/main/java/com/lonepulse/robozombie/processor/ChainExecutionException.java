@@ -31,7 +31,7 @@ package com.lonepulse.robozombie.processor;
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class ChainExecutionException extends ProcessorChainException {
+class ChainExecutionException extends ProcessorChainException {
 	
 	
 	private static final long serialVersionUID = -352259198806492953L;

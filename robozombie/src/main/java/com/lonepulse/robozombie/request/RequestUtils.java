@@ -41,6 +41,7 @@ import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.SerializableEntity;
 import org.apache.http.entity.StringEntity;
 
+import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.annotation.Entity;
 import com.lonepulse.robozombie.annotation.FormParam;
 import com.lonepulse.robozombie.annotation.Header;
@@ -48,7 +49,6 @@ import com.lonepulse.robozombie.annotation.HeaderSet;
 import com.lonepulse.robozombie.annotation.PathParam;
 import com.lonepulse.robozombie.annotation.QueryParam;
 import com.lonepulse.robozombie.annotation.Request;
-import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**
  * <p>This utility class offers some common operations which are used in building requests - most commonly 
@@ -64,7 +64,7 @@ import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
  * 
  * TODO revise utilities isolate a common algorithm for annotated params extraction 
  */
-public final class RequestUtils {
+final class RequestUtils {
 	
 	
 	/**

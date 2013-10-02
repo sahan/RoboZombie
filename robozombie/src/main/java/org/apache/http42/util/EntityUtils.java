@@ -40,10 +40,10 @@ import org.apache.http.HeaderElement;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
-import org.apache.http42.entity.ContentType;
-import org.apache.http42.protocol.HTTP;
 import org.apache.http.util.ByteArrayBuffer;
 import org.apache.http.util.CharArrayBuffer;
+import org.apache.http42.entity.ContentType;
+import org.apache.http42.protocol.HTTP;
 
 /**
  * Static helpers for dealing with {@link HttpEntity}s.

@@ -26,7 +26,7 @@ import java.util.Map;
 
 import org.apache.http.HttpResponse;
 
-import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 
 /**
  * <p>This is a concrete implementation of {@link ResponseProcessor} which retrieves the <i>response-headers</i> 

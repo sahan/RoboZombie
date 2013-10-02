@@ -24,8 +24,8 @@ import java.util.Arrays;
 
 import org.apache.http.client.methods.HttpRequestBase;
 
+import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.RoboZombieRuntimeException;
-import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**
  * <p>This runtime exception is thrown when an HTTP {@link RequestProcessor} fails to execute successfully 

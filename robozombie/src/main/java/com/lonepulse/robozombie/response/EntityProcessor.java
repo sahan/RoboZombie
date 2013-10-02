@@ -26,9 +26,9 @@ import java.lang.reflect.Method;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 
+import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.annotation.Parser;
 import com.lonepulse.robozombie.annotation.Parser.ParserType;
-import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**
  * <p>This is a concrete implementation of {@link ResponseProcessor} which retrieves the {@link HttpEntity} 

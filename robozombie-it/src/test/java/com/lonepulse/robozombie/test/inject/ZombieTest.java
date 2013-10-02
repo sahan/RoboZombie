@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
-import com.lonepulse.robozombie.inject.Zombie;
+import com.lonepulse.robozombie.Zombie;
 
 
 /**
@@ -87,7 +87,7 @@ public class ZombieTest {
 	}
 	
 	/**
-	 * Test method for {@link com.lonepulse.robozombie.inject.Zombie#infect(Object)}.
+	 * Test method for {@link com.lonepulse.robozombie.Zombie#infect(Object)}.
 	 */
 	@Test
 	public final void testPropertyInjection() {
@@ -101,7 +101,7 @@ public class ZombieTest {
 	}
 	
 	/**
-	 * Test method for {@link com.lonepulse.robozombie.inject.Zombie#infect(java.lang.Class)}.
+	 * Test method for {@link com.lonepulse.robozombie.Zombie#infect(java.lang.Class)}.
 	 */
 	@Test
 	public final void testConstructorInstantiation() {

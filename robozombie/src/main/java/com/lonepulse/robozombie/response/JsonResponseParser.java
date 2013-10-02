@@ -25,7 +25,7 @@ import org.apache.http.util.EntityUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 
 /**
  * <p>This is an extension of {@link AbstractResponseParser} which allows the parsing 
@@ -38,7 +38,7 @@ import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class JsonResponseParser extends AbstractResponseParser<Object> {
+class JsonResponseParser extends AbstractResponseParser<Object> {
 
 	
 	/**

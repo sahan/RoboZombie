@@ -47,12 +47,11 @@ import org.apache.http.annotation.Immutable;
 import org.apache.http.message.BasicHeaderValueParser;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.message.ParserCursor;
-import org.apache.http42.protocol.HTTP;
 import org.apache.http.util.CharArrayBuffer;
-import org.apache.http42.util.EntityUtils;
-
 import org.apache.http42.Consts;
 import org.apache.http42.entity.ContentType;
+import org.apache.http42.protocol.HTTP;
+import org.apache.http42.util.EntityUtils;
 
 /**
  * A collection of utilities for encoding URLs.

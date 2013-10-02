@@ -26,8 +26,8 @@ import java.util.Map;
 
 import org.apache.http.client.methods.HttpRequestBase;
 
+import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.annotation.HeaderSet;
-import com.lonepulse.robozombie.processor.ProxyInvocationConfiguration;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which populates the <i>request-headers</i> 

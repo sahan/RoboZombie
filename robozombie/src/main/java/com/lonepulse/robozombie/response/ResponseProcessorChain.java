@@ -26,7 +26,6 @@ import org.apache.http.HttpResponse;
 import com.lonepulse.robozombie.processor.AbstractProcessorChain;
 import com.lonepulse.robozombie.processor.ProcessorChainFactory;
 import com.lonepulse.robozombie.processor.ProcessorChainLink;
-import com.lonepulse.robozombie.request.AbstractRequestProcessor;
 
 /**
  * <p>This is a concrete implementation of {@link AbstractProcessorChain} which creates a sequentially executed 
@@ -108,7 +107,7 @@ public final class ResponseProcessorChain extends AbstractProcessorChain<Object,
 	/**
 	 * <p>No terminal conditions are performed.</p>
 	 * 
-	 * <p>See {@link AbstractRequestProcessor}.</p>
+	 * <p>See {@link AbstractResponseProcessor}.</p>
 	 * 
 	 * {@inheritDoc}
 	 */

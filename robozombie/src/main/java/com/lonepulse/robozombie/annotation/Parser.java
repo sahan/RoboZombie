@@ -120,7 +120,7 @@ public @interface Parser {
 	 * create their own response parsers by extending {@link ResponseParser} and 
 	 * use them in this context.</p>
 	 * 
-	 * <p>By default, a {@link StringResponseParser} is used.</p>
+	 * <p>By default, a <b>String response parser</b> is used.</p>
 	 * 
 	 * <code>
      * <pre>@Request("/license.txt")<br><b>@Parser(type = CustomParser.class)</b>
