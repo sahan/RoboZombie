@@ -23,7 +23,7 @@ package com.lonepulse.robozombie.response;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
-import com.lonepulse.robozombie.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 
 /**
  * <p>This is an extension of {@link AbstractResponseParser} which allows the parsing 
@@ -51,7 +51,7 @@ public class StringResponseParser extends AbstractResponseParser<CharSequence> {
 	 * <p> Parses the content in the {@link HttpResponse} to any type which is 
 	 * assignable to a {@link CharSequence}.
 	 * 
-	 * @see AbstractResponseParser#parse(HttpResponse, com.lonepulse.robozombie.zombielink.processor.ProxyInvocationConfiguration)
+	 * @see AbstractResponseParser#parse(HttpResponse, com.lonepulse.robozombie.inject.robozombie.processor.ProxyInvocationConfiguration)
 	 */
 	@Override
 	public CharSequence processResponse(HttpResponse httpResponse, ProxyInvocationConfiguration config) throws Exception {

@@ -1,6 +1,6 @@
 package com.lonepulse.robozombie.validator;
 
-import com.lonepulse.robozombie.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 
 
 /*

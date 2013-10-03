@@ -24,7 +24,7 @@ package com.lonepulse.robozombie.response;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.processor.Processor;
 
 /**

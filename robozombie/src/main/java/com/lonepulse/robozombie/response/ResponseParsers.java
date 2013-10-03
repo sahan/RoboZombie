@@ -23,8 +23,8 @@ package com.lonepulse.robozombie.response;
 
 import org.apache.http.HttpResponse;
 
-import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.annotation.Parser.ParserType;
+import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.util.Resolver;
 
 /**

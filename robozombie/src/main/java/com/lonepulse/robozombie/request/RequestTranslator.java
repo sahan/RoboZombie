@@ -24,7 +24,7 @@ package com.lonepulse.robozombie.request;
 import org.apache.http.HttpRequest;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 
 /**
  * <p>This contract defines the services for a strategy which creates the {@link HttpRequest} base 

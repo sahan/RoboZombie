@@ -23,8 +23,8 @@ package com.lonepulse.robozombie.validator;
 
 import java.lang.reflect.Method;
 
-import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 
 /**
  * <p>A concrete implementation of {@link RequestValidator} which validates a request definition 

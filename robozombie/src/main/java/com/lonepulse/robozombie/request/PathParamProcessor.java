@@ -28,8 +28,8 @@ import java.util.regex.Pattern;
 
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.annotation.PathParam;
+import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which discovers <i>path parameters</i> 

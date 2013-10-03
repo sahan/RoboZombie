@@ -23,7 +23,7 @@ package com.lonepulse.robozombie.response;
 import org.apache.http.HttpResponse;
 import org.apache.http42.util.EntityUtils;
 
-import com.lonepulse.robozombie.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 
 /**
  * <p>This is an implementation of {@link ResponseParser} which defines and executes the 

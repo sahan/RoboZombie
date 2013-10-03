@@ -24,7 +24,7 @@ package com.lonepulse.robozombie.executor;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 
 /**
  * <p>Specifies the contract for executing HTTP requests. 

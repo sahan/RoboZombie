@@ -25,8 +25,8 @@ import java.net.URI;
 
 import org.apache.http42.client.utils.URIBuilder;
 
-import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.annotation.Endpoint;
+import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 
 /**
  * <p>A concrete implementation of {@link Validator} which validates an endpoint definition 

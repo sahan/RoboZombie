@@ -34,8 +34,8 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http42.util.EntityUtils;
 
-import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.annotation.Stateful;
+import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.processor.Processors;
 import com.lonepulse.robozombie.response.AsyncHandler;
 

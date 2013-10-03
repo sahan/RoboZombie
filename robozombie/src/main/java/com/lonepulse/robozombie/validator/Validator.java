@@ -23,8 +23,8 @@ package com.lonepulse.robozombie.validator;
 
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.executor.HttpClientContract;
+import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 
 /**
  * <p>Specifies the contract for validating endpoints and their 

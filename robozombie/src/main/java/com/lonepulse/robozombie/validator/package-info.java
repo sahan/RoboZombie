@@ -1,6 +1,6 @@
 /**
  * <p>Contains the set of classes which perform validation on endpoints. 
- * Use {@link com.lonepulse.zombielink.processor.validator.Validators} to 
+ * Use {@link com.lonepulse.robozombie.processor.validator.Validators} to 
  * access all available validators.</p>
  * 
  * @since 1.2.1

@@ -1,6 +1,5 @@
 /**
- * <p>Contains the <i>core</i> contracts and implementations which interface 
- * with the <b>Apache HTTP Components</b> library.
+ * <p>Contains the <i>core</i> contracts and implementations which common to all modules.
  * 
  * @since 1.1.1
  * <br><br>

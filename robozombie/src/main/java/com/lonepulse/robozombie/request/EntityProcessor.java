@@ -29,8 +29,8 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http42.HttpHeaders;
 import org.apache.http42.entity.ContentType;
 
-import com.lonepulse.robozombie.ProxyInvocationConfiguration;
 import com.lonepulse.robozombie.annotation.Entity;
+import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which resolves and inserts the enclosing 

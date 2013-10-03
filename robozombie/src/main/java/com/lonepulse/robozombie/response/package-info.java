@@ -1,6 +1,6 @@
 /**
  * <p>Contains the set of classes which initiates the processing of the 
- * results of an HTTP call. Use {@link com.lonepulse.zombielink.response.ResponseHandlers} 
+ * results of an HTTP call. Use {@link com.lonepulse.robozombie.response.ResponseHandlers} 
  * to access all available response handlers.</p>
  * 
  * @since 1.1.1
