@@ -25,10 +25,10 @@ import java.util.Map;
 
 import org.apache.http.protocol.HttpContext;
 
-import com.lonepulse.robozombie.util.ClassDirectory;
+import com.lonepulse.robozombie.util.Directory;
 
 /**
- * <p>A <b>singleton</b> implementation of the {@link ClassDirectory} policy 
+ * <p>A <b>singleton</b> implementation of the {@link Directory} policy 
  * which allows registering and retrieving {@link HttpContext}s for stateful 
  * endpoints.
  * 
@@ -36,7 +36,7 @@ import com.lonepulse.robozombie.util.ClassDirectory;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-enum HttpContextDirectory implements ClassDirectory<HttpContext> {
+enum HttpContextDirectory implements Directory<Class<?>, HttpContext> {
 	
 	/**
 	 * <p>The instance of {@link HttpContextDirectory} which allows 
@@ -61,7 +61,7 @@ enum HttpContextDirectory implements ClassDirectory<HttpContext> {
 	
 	
 	/**
-	 * See {@link ClassDirectory#put(Class, Object)}.
+	 * See {@link Directory#put(Class, Object)}.
 	 */
 	@Override
 	public synchronized HttpContext put(Class<?> entryKey, HttpContext entryValue) {
@@ -73,7 +73,7 @@ enum HttpContextDirectory implements ClassDirectory<HttpContext> {
 	}
 
 	/**
-	 * See {@link ClassDirectory#post(Class, Object)}.
+	 * See {@link Directory#post(Class, Object)}.
 	 */
 	@Override
 	public synchronized HttpContext post(Class<?> entryKey, HttpContext entryValue) {
@@ -82,7 +82,7 @@ enum HttpContextDirectory implements ClassDirectory<HttpContext> {
 	}
 
 	/**
-	 * See {@link ClassDirectory#get(Class)}.
+	 * See {@link Directory#get(Class)}.
 	 */
 	@Override
 	public synchronized HttpContext get(Class<?> entryKey) {
@@ -94,7 +94,7 @@ enum HttpContextDirectory implements ClassDirectory<HttpContext> {
 	}
 
 	/**
-	 * See {@link ClassDirectory#delete(Class)}.
+	 * See {@link Directory#delete(Class)}.
 	 */
 	@Override
 	public synchronized HttpContext delete(Class<?> entryKey) {

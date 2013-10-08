@@ -28,7 +28,7 @@ package com.lonepulse.robozombie.util;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public interface ClassDirectory<T extends Object> {
+public interface Directory<KEY, VALUE> {
 
 	
 	/**
@@ -47,7 +47,7 @@ public interface ClassDirectory<T extends Object> {
 	 * <br><br>
 	 * @since 1.1.1
 	 */
-	public T put(Class<?> entryKey, T entryValue);
+	public VALUE put(KEY entryKey, VALUE entryValue);
 	
 	/**
 	 * <p>Adds an entry to the class directory. If an entry is already defined 
@@ -64,7 +64,7 @@ public interface ClassDirectory<T extends Object> {
 	 * <br><br>
 	 * @since 1.1.1
 	 */
-	public T post(Class<?> entryKey, T entryValue);
+	public VALUE post(KEY entryKey, VALUE entryValue);
 
 	/**
 	 * <p>Retrieves an entry from the directory using the {@link Class} key.
@@ -76,7 +76,7 @@ public interface ClassDirectory<T extends Object> {
 	 * <br><br>
 	 * @since 1.1.1
 	 */
-	public T get(Class<?> entryKey);
+	public VALUE get(KEY entryKey);
 	
 	/**
 	 * <p>Deletes an entry from the directory using the {@link Class} key.
@@ -88,5 +88,5 @@ public interface ClassDirectory<T extends Object> {
 	 * <br><br>
 	 * @since 1.1.1
 	 */
-	public T delete(Class<?> entryKey);
+	public VALUE delete(KEY entryKey);
 }

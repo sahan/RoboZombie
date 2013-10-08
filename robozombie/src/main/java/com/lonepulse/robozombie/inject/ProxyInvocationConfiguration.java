@@ -26,7 +26,7 @@ import java.net.URI;
 /**
  * <p>This is a wrapper class which encompasses the <i>configuration</i> of a 
  * particular proxy invocation. It serves to consolidate method parameters for 
- * the functionality in {@link EndpointProxyFactory}.</p>
+ * the functionality in the endpoint proxy factory.</p>
  * 
  * @version 1.1.2
  * <br><br>

@@ -20,73 +20,74 @@ package com.lonepulse.robozombie.inject;
  * #L%
  */
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
 
-import com.lonepulse.robozombie.util.ClassDirectory;
+import com.lonepulse.robozombie.util.Directory;
 
 /**
- * <p>A <b>singleton</b> implementation of the {@link ClassDirectory} policy 
- * which allows registering and retrieving <b>endpoint proxies</b>. 
+ * <p>A directory of <b>dynamic proxies</b> which were created for endpoint interface definitions.</p> 
  * 
- * @version 1.1.1
+ * @version 1.2.0
+ * <br><br>
+ * @since 1.1.1
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-enum EndpointDirectory implements ClassDirectory<Object> {
+enum EndpointDirectory implements Directory<Class<?>, Object> {
 	
 	/**
-	 * <p>The only instance of {@link EndpointDirectory} which allows the clients 
-	 * to access its services.
+	 * <p>The instance of {@link EndpointDirectory} which caches all endpoint proxies. They can be stored or 
+	 * retrieved using the {@link Class} of their endpoint definition interface.</p>
 	 * 
 	 * @since 1.1.0
 	 */
 	INSTANCE;
 
 	
-	/**
-	 * <p>The {@link Map} of endpoint interface implementations which are maintained 
-	 * as <i>Singletons</i>. 
-	 */
-	private static Map<Class<?>, Object> ENDPOINTS = new HashMap<Class<?>, Object>();
+	private static Map<String, Object> ENDPOINTS = new HashMap<String, Object>();
 	
 	
 	/**
-	 * See {@link ClassDirectory#put(Class, Object)}.
+	 * See {@link Directory#put(Class, Object)}.
 	 */
 	@Override
-	public synchronized Object put(Class<?> entryKey, Object entryValue) {
+	public synchronized Object put(Class<?> endpointClass, Object proxy) {
 		
-		if(!ENDPOINTS.containsKey(entryKey))
-			ENDPOINTS.put(entryKey, entryValue);
+		String className = endpointClass.getName();
 		
-		return ENDPOINTS.get(entryKey);
+		if(!ENDPOINTS.containsKey(className)) {
+			
+			ENDPOINTS.put(className, proxy);
+		}
+		
+		return ENDPOINTS.get(className);
 	}
 
 	/**
-	 * See {@link ClassDirectory#post(Class, Object)}.
+	 * See {@link Directory#post(Class, Object)}.
 	 */
 	@Override
-	public synchronized Object post(Class<?> entryKey, Object entryValue) {
+	public synchronized Object post(Class<?> endpointClass, Object proxy) {
 		
-		return entryKey.cast(ENDPOINTS.put(entryKey, entryValue));
+		return ENDPOINTS.put(endpointClass.getName(), proxy);
 	}
 
 	/**
-	 * See {@link ClassDirectory#get(Class)}.
+	 * See {@link Directory#get(Class)}.
 	 */
 	@Override
-	public synchronized Object get(Class<?> entryKey) {
+	public synchronized Object get(Class<?> endpointClass) {
 		
-		return entryKey.cast(ENDPOINTS.get(entryKey));
+		return ENDPOINTS.get(endpointClass.getName());
 	}
 
 	/**
-	 * See {@link ClassDirectory#delete(Class)}.
+	 * See {@link Directory#delete(Class)}.
 	 */
 	@Override
-	public synchronized Object delete(Class<?> entryKey) {
+	public synchronized Object delete(Class<?> endpointClass) {
 		
-		return entryKey.cast(ENDPOINTS.remove(entryKey));
+		return ENDPOINTS.remove(endpointClass.getName());
 	}
 }

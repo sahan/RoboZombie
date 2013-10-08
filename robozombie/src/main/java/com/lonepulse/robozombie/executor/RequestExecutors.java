@@ -33,7 +33,7 @@ import com.lonepulse.robozombie.util.Resolver;
 /**
  * <p>Exposes all available {@link RequestExecutor}s and delegates communication. 
  * 
- * @version 1.1.0
+ * @version 1.2.0
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -102,7 +102,6 @@ public enum RequestExecutors implements RequestExecutor {
 		 * @return an {@link AsyncRequestExecutor} if the request method or 
 		 * 		   endpoint is annotated with {@link Asynchronous}, else a 
 		 * 		   basic request builder.
-		 * 
 		 * <br><br>
 		 * @since 1.1.0
 		 */
@@ -120,4 +119,14 @@ public enum RequestExecutors implements RequestExecutor {
 			}
 		}
 	};
+	
+	/**
+	 * <p>Manages services related to {@link Zombie.Configuration}s which govern all configurable aspects of 
+	 * request execution.</p>
+	 *  
+	 * <p>See {@link ConfigurationManager}</p>
+	 * 
+	 * @since 1.2.0
+	 */
+	public static final ConfigurationManager CONFIGURATION = new ConfigurationService();
 }

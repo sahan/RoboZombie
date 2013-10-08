@@ -26,8 +26,8 @@ import org.apache.http.util.EntityUtils;
 import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 
 /**
- * <p>This is an extension of {@link AbstractResponseParser} which allows the parsing 
- * of character data. 
+ * <p>This is an extension of {@link AbstractResponseParser} which extracts the response 
+ * data as a <b>raw String</b>. 
  * 
  * @version 1.1.4
  * <br><br>

@@ -24,19 +24,96 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+
 import android.util.Log;
 
 import com.lonepulse.robozombie.annotation.Bite;
+import com.lonepulse.robozombie.annotation.Endpoint;
+import com.lonepulse.robozombie.inject.Zombie;
+import com.lonepulse.robozombie.executor.ConfigurationFailedException;
+import com.lonepulse.robozombie.executor.RequestExecutors;
+import com.lonepulse.robozombie.inject.EndpointDirectory;
+import com.lonepulse.robozombie.inject.EndpointProxyFactory;
 
 /**
- * <p>Injects instance variables with the appropriate endpoint proxy. This hides 
- * the use of the {@link EndpointProxyFactory} and allows for a easy code integration.
- * 
- * @version 1.1.2
+ * <p>An animated corpse which spreads the {@link Endpoint} infection via a {@link Bite}. Used for <b>injecting</b> 
+ * concrete implementations of endpoint interface definitions. Place an @{@link Bite} annotation on all instance 
+ * properties which are endpoints and invoke {@link Zombie#infect(Object)} or {@link Zombie#infect(Class)}.</p> 
+ *  
+ * @version 1.3.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.1.1
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public final class Zombie {
+	
+	/**
+	 * <p>The <b>default configuration</b> which is used for endpoint request execution. The configured properties 
+	 * pertain to the <a href="http://hc.apache.org">Apache HTTP Components</a> library which provides the foundation 
+	 * for network communication.</p>
+	 * 
+	 * <p>Configurations can be revised for each {@link Endpoint} using <b>@Configuration</b> by specifying the 
+	 * {@link Class} of a {@link Configuration} extension. Simply override the required template methods and provide 
+	 * a <b>new instance</b> of the desired property. For example, override {@link Configuration#httpClient()} to 
+	 * return a custom {@link HttpClient} which might be configured with alternative {@link Scheme}s, timeouts ..etc.</p>
+	 * 
+	 * <p>For more information on configuring your own instance of {@link HttpClient} refer the 
+	 * <a href="http://hc.apache.org/httpcomponents-client-4.2.x/tutorial/html/index.html">Apache HC Tutorial</a>.</p>
+	 * 
+	 * <p><b>Note</b> that all extensions must expose a default non-parameterized constructor.</p>
+	 *  
+	 * @version 1.1.0
+	 * <br><br>
+	 * @since 1.2.4
+	 * <br><br>
+	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+	 */
+	public static abstract class Configuration {
+		
+		
+		private static final Configuration DEFAULT = RequestExecutors.CONFIGURATION.getDefault();
+		
+		
+		/**
+		 * <p>The <i>out-of-the-box</i> configuration for an instance of {@link HttpClient} which will be used for 
+		 * executing all endpoint requests.</p> 
+		 * 
+		 * <p>It registers two {@link Scheme}s:</p>
+		 * 
+		 * <ol>
+		 * 	<li><b>HTTP</b> on port <b>80</b> using sockets from {@link PlainSocketFactory#getSocketFactory}</li>
+		 * 	<li><b>HTTPS</b> on port <b>443</b> using sockets from {@link SSLSocketFactory#getSocketFactory}</li>
+		 * </ol>
+		 * 
+		 * <p>It uses a {@link ThreadSafeClientConnManager} with the following parameters:</p>
+		 * <ol>
+		 * 	<li><b>Redirecting:</b> enabled</li>
+		 * 	<li><b>Connection Timeout:</b> 30 seconds</li>
+		 * 	<li><b>Socket Timeout:</b> 30 seconds</li>
+		 * 	<li><b>Socket Buffer Size:</b> 12000 bytes</li>
+		 * 	<li><b>User-Agent:</b> via <code>System.getProperty("http.agent")</code></li>
+		 * </ol>
+		 *
+		 * @return the instance of {@link HttpClient} which will be used for request execution
+		 * <br><br>
+		 * @throws ConfigurationFailedException
+		 * 			if the default configuration for the {@link HttpClient} failed to be instantiated
+		 * <br><br>
+		 * @since 1.2.4
+		 * <br><br>
+		 * @see <a href="http://hc.apache.org/httpcomponents-client-4.2.x/tutorial/html/index.html">Apache HC Tutorial</a>
+		 */
+		public HttpClient httpClient() {
+			
+			return DEFAULT.httpClient();
+		}
+	}
 	
 	
 	/**
@@ -101,9 +178,7 @@ public final class Zombie {
 				if(field.isAnnotationPresent(Bite.class)) {
 					
 					endpointInterface = field.getType();
-					
-					Object proxyInstance = EndpointDirectory.INSTANCE.put(endpointInterface,
-										   		EndpointProxyFactory.INSTANCE.create(endpointInterface));
+					Object proxyInstance = Zombie.createAndRegisterProxy(endpointInterface);
 					
 					try { //1.Simple Property Injection 
 						
@@ -192,16 +267,13 @@ public final class Zombie {
 					try {
 
 						endpointInterface = constructorParameters[0];
-						
-						Object proxyInstance = EndpointDirectory.INSTANCE.put(endpointInterface, 
-													EndpointProxyFactory.INSTANCE.create(endpointInterface));
-
+						Object proxyInstance = Zombie.createAndRegisterProxy(endpointInterface);
+								
 						T instance = injectee.cast(constructor.newInstance(proxyInstance));
 						
 						Zombie.infect(instance); //constructor injection complete; now perform property injection 
 						
 						return instance;
-						
 					} 
 					catch (Exception e) {
 						
@@ -246,5 +318,15 @@ public final class Zombie {
 			
 			return null;
 		}
+	}
+	
+	private static Object createAndRegisterProxy(Class<?> endpointClass) throws InstantiationException, IllegalAccessException {
+		
+		Object proxyInstance = EndpointProxyFactory.INSTANCE.create(endpointClass); 
+		EndpointDirectory.INSTANCE.put(endpointClass, proxyInstance);
+		
+		RequestExecutors.CONFIGURATION.register(endpointClass);
+		
+		return proxyInstance;
 	}
 }
