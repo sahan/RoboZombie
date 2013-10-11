@@ -23,8 +23,6 @@ package com.lonepulse.robozombie.executor;
 
 import com.lonepulse.robozombie.annotation.Configuration;
 import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.annotation.Parser;
-import com.lonepulse.robozombie.annotation.Parser.ParserType;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.inject.Zombie;
 
@@ -39,7 +37,6 @@ import com.lonepulse.robozombie.inject.Zombie;
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Parser(ParserType.STRING)
 @Configuration(ZombieConfig.class)
 @Endpoint(host = "0.0.0.0", port = "8080")
 public interface ConfigEndpoint {

@@ -25,8 +25,6 @@ import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Header;
-import com.lonepulse.robozombie.annotation.Parser;
-import com.lonepulse.robozombie.annotation.Parser.ParserType;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.annotation.Stateful;
 
@@ -43,7 +41,6 @@ import com.lonepulse.robozombie.annotation.Stateful;
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Stateful
-@Parser(ParserType.STRING)
 @Endpoint(host = "0.0.0.0", port = "8080")
 public interface StateEndpoint {
 	

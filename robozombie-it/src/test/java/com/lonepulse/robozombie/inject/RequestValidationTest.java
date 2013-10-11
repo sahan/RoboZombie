@@ -27,9 +27,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.annotation.Parser;
-import com.lonepulse.robozombie.annotation.Parser.ParserType;
-import com.lonepulse.robozombie.inject.EndpointProxyFactory;
+import com.lonepulse.robozombie.annotation.Request;
 
 /**
  * <p>Performs unit testing for <b>request validation</b>.
@@ -48,7 +46,6 @@ public class RequestValidationTest {
 	 * <p>Represents an endpoint definition with a missing @{@link Request} annotation on 
 	 * one of its request definitions.
 	 */
-	@Parser(ParserType.STRING)
 	@Endpoint(host = "0.0.0.0", port = "8080")
 	private interface MissingRequestAnnotationEndpoint {
 		
@@ -57,7 +54,7 @@ public class RequestValidationTest {
 	
 	/**
 	 * <p>The {@link Class} of a package-private exception which is thrown due to a missing 
-	 * @{@link {@link Request}} annotation on an endpoint request definition. 
+	 * {@link Request} annotation on an endpoint request definition. 
 	 */
 	private Class<Throwable> missingRequestAnnotationException;
 	

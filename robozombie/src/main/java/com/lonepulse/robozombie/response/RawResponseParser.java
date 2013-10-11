@@ -33,16 +33,16 @@ import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class StringResponseParser extends AbstractResponseParser<CharSequence> {
+public class RawResponseParser extends AbstractResponseParser<CharSequence> {
 
 	
 	/**
-	 * <p>Creates a new instance of {@link StringResponseParser} and register the type 
+	 * <p>Creates a new instance of {@link RawResponseParser} and register the type 
 	 * {@link CharSequence} as the entity which results from its <i>parse</i> operation.
 	 *
 	 * @since 1.2.4
 	 */
-	public StringResponseParser() {
+	public RawResponseParser() {
 	
 		super(CharSequence.class);
 	}

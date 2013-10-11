@@ -25,7 +25,10 @@ import java.lang.reflect.Method;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http42.util.EntityUtils;
 
+import com.lonepulse.robozombie.annotation.Asynchronous;
+import com.lonepulse.robozombie.annotation.Header;
 import com.lonepulse.robozombie.annotation.Parser;
 import com.lonepulse.robozombie.annotation.Parser.ParserType;
 import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
@@ -71,15 +74,24 @@ class EntityProcessor extends AbstractResponseProcessor {
 	protected Object process(HttpResponse httpResponse, ProxyInvocationConfiguration config, Object parsedResponse)
 	throws ResponseProcessorException {
 
-		try {
-
-			if(httpResponse != null) {
+		HttpEntity httpEntity = httpResponse != null? httpResponse.getEntity() :null;
+		
+		if(httpEntity != null) {
+			
+			try {
 				
 				Method request = config.getRequest();
+				Class<?> responseType = request.getReturnType();
 				
-				if(!request.getReturnType().equals(Void.class) && !(httpResponse.getEntity() == null)) {
+				boolean handleAsync = (config.getEndpointClass().isAnnotationPresent(Asynchronous.class) 
+									   || request.isAnnotationPresent(Asynchronous.class));
+				
+				boolean responseExpected = !responseType.equals(void.class) && !responseType.equals(Void.class); 
+				
+				if(handleAsync || responseExpected) {
 					
 					Class<?> endpoint = config.getEndpointClass();
+					ResponseParser<?> responseParser = null;
 			
 					Parser parser = null;
 					
@@ -91,32 +103,41 @@ class EntityProcessor extends AbstractResponseProcessor {
 						
 						parser = endpoint.getAnnotation(Parser.class);
 					}
+					else if(handleAsync || CharSequence.class.isAssignableFrom(responseType)) {
+						
+						responseParser = ResponseParsers.RESOLVER.resolve(ParserType.RAW);
+					}
 					else {
 						
 						throw new ResponseParserUndefinedException(endpoint, request);
 					}
 					
-					ResponseParser<?> responseParser = null;
-					
-					if(parser.value() == ParserType.UNDEFINED) {
+					if(parser != null) {
 						
-						responseParser = ResponseParser.class.cast(parser.type().newInstance());
-					}
-					else {
-				
-						responseParser = ResponseParsers.RESOLVER.resolve(parser.value());
+						if(parser.value() == ParserType.UNDEFINED) {
+							
+							responseParser = ResponseParser.class.cast(parser.type().newInstance()); 
+						}
+						else {
+							
+							responseParser = ResponseParsers.RESOLVER.resolve(parser.value()); 
+						}
 					}
 					
 					return responseParser.parse(httpResponse, config);
 				}
 			}
-			
-			return parsedResponse;
+			catch(Exception e) {
+				
+				throw (e instanceof ResponseProcessorException)? 
+						(ResponseProcessorException)e :new ResponseProcessorException(getClass(), config, e);
+			}
+			finally {
+				
+				EntityUtils.consumeQuietly(httpEntity);
+			}
 		}
-		catch(Exception e) {
-			
-			throw (e instanceof ResponseProcessorException)? 
-					(ResponseProcessorException)e :new ResponseProcessorException(getClass(), config, e);
-		}
+		
+		return parsedResponse;
 	}
 }

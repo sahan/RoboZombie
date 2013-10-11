@@ -39,7 +39,7 @@ import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
  *  Retrieves the necessary information from {@link HttpResponse} and returns an instance of 
  *  a custom {@link ResponseParser}.
  *  <br><br><b>
- *  Sample Code from {@link StringResponseParser}:<br><br></b>
+ *  Sample Code from {@link RawResponseParser}:<br><br></b>
  *  <font color="#2E2E2E">
  *  <code>
  *  String responseString = EntityUtils.toString(httpResponse.getEntity());
@@ -54,7 +54,7 @@ import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
  *  <b>{@link AbstractResponseParser#getType()}</b><br>
  *  Returns the {@link Class} of the type handled by the custom {@link ResponseParser}. 
  *  <br><br><b>
- *  Sample Code from {@link StringResponseParser}:<br><br></b>
+ *  Sample Code from {@link RawResponseParser}:<br><br></b>
  *  <font color="#2E2E2E">
  *  <code>
  *  return CharSequence.class;

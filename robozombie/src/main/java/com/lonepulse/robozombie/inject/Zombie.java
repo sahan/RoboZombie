@@ -162,9 +162,17 @@ public final class Zombie {
 	 * @param injectee
 	 * 			the object to which the endpoint must be injected
 	 * <br><br>
+	 * @throws IllegalArgumentException
+	 * 			if the object supplied for endpoint injection is {@code null} 
+	 * <br><br>
 	 * @since 1.1.1
 	 */
 	public static void infect(Object injectee) {
+		
+		if(injectee == null) {
+			
+			throw new IllegalArgumentException("The object supplied for endpoint injection was <null>");
+		}
 		
 		Class<?> injecteeClass = injectee.getClass();
 		Field[] fields = injecteeClass.getDeclaredFields();
@@ -249,10 +257,18 @@ public final class Zombie {
 	 * 
 	 * @return a <b>new instance</b> of the injectee or {@code null} if constructor injection failed
 	 * <br><br>
+	 * @throws IllegalArgumentException
+	 * 			if the {@link Class} supplied for endpoint injection is {@code null} 
+	 * <br><br>
 	 * @since 1.1.1
 	 */
 	public static <T extends Object> T infect(Class<T> injectee) {
 
+		if(injectee == null) {
+			
+			throw new IllegalArgumentException("The java.lang.Class supplied for endpoint injection was <null>");
+		}
+		
 		Class<?> endpointInterface = null;
 		Constructor<?>[] constructors = injectee.getConstructors();
 

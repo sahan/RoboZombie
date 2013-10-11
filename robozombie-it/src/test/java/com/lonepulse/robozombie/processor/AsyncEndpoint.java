@@ -2,7 +2,7 @@ package com.lonepulse.robozombie.processor;
 
 /*
  * #%L
- * RoboZombie
+ * RoboZombie`
  * %%
  * Copyright (C) 2013 Lonepulse
  * %%
@@ -23,8 +23,6 @@ package com.lonepulse.robozombie.processor;
 
 import com.lonepulse.robozombie.annotation.Asynchronous;
 import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.annotation.Parser;
-import com.lonepulse.robozombie.annotation.Parser.ParserType;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.response.AsyncHandler;
 
@@ -40,7 +38,6 @@ import com.lonepulse.robozombie.response.AsyncHandler;
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Asynchronous
-@Parser(ParserType.STRING)
 @Endpoint(host = "0.0.0.0", port = "8080")
 public interface AsyncEndpoint {
 	

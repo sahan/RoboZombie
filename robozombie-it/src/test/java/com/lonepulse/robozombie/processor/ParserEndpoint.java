@@ -39,7 +39,6 @@ import com.lonepulse.robozombie.model.User;
  * <br><br> 
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Parser(ParserType.STRING)
 @Endpoint(host = "0.0.0.0", port = "8080")
 public interface ParserEndpoint {
 	
@@ -51,8 +50,9 @@ public interface ParserEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
+	@Parser(ParserType.RAW)
 	@Request(path = "/responseerror")
-	public String responseError();
+	String responseError();
 	
 	/**
 	 * <p>A mock request which receives a JSON response that is parsed to it model.
@@ -63,7 +63,7 @@ public interface ParserEndpoint {
 	 */
 	@Request(path = "/json")
 	@Parser(ParserType.JSON) 
-	public User parseJson();
+	User parseJson();
 	
 	/**
 	 * <p>A mock request which receives an XML response that is parsed to it model.
@@ -74,5 +74,16 @@ public interface ParserEndpoint {
 	 */
 	@Request(path = "/xml")
 	@Parser(ParserType.XML) 
-	public User parseXml();
+	User parseXml();
+	
+	/**
+	 * <p>A mock request which does not use an @{@link Parser} definition and defers to 
+	 * the <i>raw parser</i> which simple retrieves the response content as a String.</p>
+	 *
+	 * @return the parser <b>raw</b> response content
+	 * 
+	 * @since 1.2.4
+	 */
+	@Request(path = "/raw")
+	String raw();
 }

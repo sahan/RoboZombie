@@ -24,11 +24,13 @@ import java.lang.reflect.Type;
 
 import org.apache.http.HttpResponse;
 
+import com.lonepulse.robozombie.annotation.Parser;
+
 /**
  * <p>This is the <i>strategy</i> for a handler which can be used to process an 
  * HTTP request <b>asynchronously</b>. It executes an HTTP request on a separate 
  * thread and invokes either{@link AsyncHandler#onSuccess(HttpResponse, Object)} 
- * or {@link AsyncHandler#onFailure(HttpResponse) depending on whether the request 
+ * or {@link AsyncHandler#onFailure(HttpResponse)} depending on whether the request 
  * executed successfully or not.</p>
  * 
  * @version 1.1.3

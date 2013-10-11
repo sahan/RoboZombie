@@ -179,4 +179,26 @@ public class ParserEndpointTest {
 		assertEquals(user.getAge(), parsedUser.getAge());
 		assertEquals(user.isImmortal(), parsedUser.isImmortal());
 	}
+	
+	/**
+	 * <p>Test for {@link ParserEndpoint#raw()}.
+	 *
+	 * @since 1.2.4
+	 */
+	@Test  
+	public final void testRaw() throws ClassNotFoundException {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/raw", body = "SAO Nerve Gear";
+		
+		stubFor(get(urlEqualTo(subpath))
+				.willReturn(aResponse()
+				.withBody(body)));
+		
+		String responseContent = parserEndpoint.raw();
+		
+		verify(getRequestedFor(urlEqualTo(subpath)));
+		assertEquals(body, responseContent);
+	}
 }

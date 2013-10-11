@@ -33,8 +33,6 @@ import org.apache.http.entity.StringEntity;
 
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Entity;
-import com.lonepulse.robozombie.annotation.Parser;
-import com.lonepulse.robozombie.annotation.Parser.ParserType;
 import com.lonepulse.robozombie.annotation.QueryParam;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.model.User;
@@ -52,7 +50,6 @@ import com.lonepulse.robozombie.request.RequestMethod;
  * <br><br> 
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Parser(ParserType.STRING)
 @Endpoint(host = "0.0.0.0", port = "8080")
 public interface RequestParamEndpoint {
 	
