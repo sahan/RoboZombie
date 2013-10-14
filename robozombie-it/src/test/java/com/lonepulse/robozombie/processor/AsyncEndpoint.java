@@ -23,7 +23,10 @@ package com.lonepulse.robozombie.processor;
 
 import com.lonepulse.robozombie.annotation.Asynchronous;
 import com.lonepulse.robozombie.annotation.Endpoint;
+import com.lonepulse.robozombie.annotation.Parser;
+import com.lonepulse.robozombie.annotation.Parser.ParserType;
 import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.model.User;
 import com.lonepulse.robozombie.response.AsyncHandler;
 
 /**
@@ -31,7 +34,7 @@ import com.lonepulse.robozombie.response.AsyncHandler;
  * 
  * @category test
  * <br><br> 
- * @version 1.1.1
+ * @version 1.2.0
  * <br><br> 
  * @since 1.2.4
  * <br><br> 
@@ -68,6 +71,23 @@ public interface AsyncEndpoint {
 	public void asyncFailure(AsyncHandler<String> asyncHandler);
 	
 	/**
+	 * <p>Sends a request asynchronously using @{@link Asynchronous} and {@link AsyncHandler} 
+	 * whose execution is expected to fail with an exception and hence handled by the callback 
+	 * {@link AsyncHandler#onError(Exception)}.</p>
+	 * 
+	 * <p>The error is caused by the parser which attempts to parse the response content which 
+	 * is not of type JSON into the {@link User} model.</p> 
+	 * 
+	 * @param asyncHandler
+	 * 			the {@link AsyncHandler} which handles the results of the asynchronous request
+	 * 
+	 * @since 1.3.4
+	 */
+	@Parser(ParserType.JSON)
+	@Request(path = "/asyncerror")
+	public void asyncError(AsyncHandler<User> asyncHandler);
+	
+	/**
 	 * <p>Sends a request asynchronously using @{@link Asynchronous} but does not expect the 
 	 * response to be handled using an {@link AsyncHandler}.
 	 * 
@@ -90,7 +110,7 @@ public interface AsyncEndpoint {
 	
 	/**
 	 * <p>Processes a failed execution, but the user provided implementation of the callback 
-	 * {@link AsyncHandler#onFailure(org.apache.http.HttpResponse) throws an exception.
+	 * {@link AsyncHandler#onFailure(org.apache.http.HttpResponse)} throws an exception.
 	 * 
 	 * @param asyncHandler
 	 * 			the {@link AsyncHandler} which is expected to throw an exception in <i>onFailure</i>
@@ -99,4 +119,17 @@ public interface AsyncEndpoint {
 	 */
 	@Request(path = "/failurecallbackerror")
 	public void asyncFailureCallbackError(AsyncHandler<String> asyncHandler);
+	
+	/**
+	 * <p>Processes an erroneous execution, but the user provided implementation of the callback 
+	 * {@link AsyncHandler#onError(Exception)} throws an exception itself.
+	 * 
+	 * @param asyncHandler
+	 * 			the {@link AsyncHandler} which is expected to throw an exception in <i>onError</i>
+	 * 
+	 * @since 1.2.4
+	 */
+	@Parser(ParserType.JSON)
+	@Request(path = "/errorcallbackerror")
+	public void asyncErrorCallbackError(AsyncHandler<User> asyncHandler);
 }

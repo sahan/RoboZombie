@@ -7,7 +7,6 @@ package com.lonepulse.robozombie.executor;
  * Copyright (C) 2013 Lonepulse
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
  *      http://www.apache.org/licenses/LICENSE-2.0
@@ -26,13 +25,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http42.util.EntityUtils;
+
+import android.util.Log;
 
 import com.lonepulse.robozombie.annotation.Stateful;
 import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
@@ -53,9 +53,8 @@ import com.lonepulse.robozombie.response.AsyncHandler;
 class AsyncRequestExecutor implements RequestExecutor {
 
 	
-	/**
-	 * <p>A cached thread pool which will be used to execute asynchronous requests.
-	 */
+	private static final String CONTEXT = "AsyncRequestExecutor";
+	
 	private static final ExecutorService ASYNC_EXECUTOR_SERVICE;
 	
 	static
@@ -67,8 +66,6 @@ class AsyncRequestExecutor implements RequestExecutor {
 			@Override
 			public void run() {
 			
-				Log log = LogFactory.getLog(AsyncRequestExecutor.class);
-				
 				ASYNC_EXECUTOR_SERVICE.shutdown(); //finish executing all pending asynchronous requests 
 				
 				try {
@@ -76,16 +73,18 @@ class AsyncRequestExecutor implements RequestExecutor {
 					if(!ASYNC_EXECUTOR_SERVICE.awaitTermination(60, TimeUnit.SECONDS)) {
 						
 						List<Runnable> pendingRequests = ASYNC_EXECUTOR_SERVICE.shutdownNow();
-						log.info(pendingRequests.size() + " asynchronous requests aborted.");
+						Log.i(CONTEXT, pendingRequests.size() + " asynchronous requests aborted.");
 						
-						if(!ASYNC_EXECUTOR_SERVICE.awaitTermination(10, TimeUnit.SECONDS))
-							log.error(pendingRequests.size() + " failed to shutdown the cached thread pool for asynchronous requests.");
+						if(!ASYNC_EXECUTOR_SERVICE.awaitTermination(10, TimeUnit.SECONDS)) {
+							
+							Log.e(CONTEXT, "Failed to shutdown the cached thread pool for asynchronous requests.");
+						}
 					}
 				}
 				catch (InterruptedException ie) {
 
 					List<Runnable> pendingRequests = ASYNC_EXECUTOR_SERVICE.shutdownNow();
-					log.info(pendingRequests.size() + " asynchronous requests aborted.");
+					Log.i(CONTEXT, pendingRequests.size() + " asynchronous requests aborted.");
 					
 					Thread.currentThread().interrupt();
 				}
@@ -117,77 +116,91 @@ class AsyncRequestExecutor implements RequestExecutor {
 			@Override
 			public void run() {
 		
-				Log log = LogFactory.getLog(AsyncRequestExecutor.class);
-				String errorContext = "Asynchronous request execution failed. ";
-
-				Class<?> endpointClass = config.getEndpointClass();
-				HttpResponse httpResponse;
+				AsyncHandler<Object> asyncHandler = null;
 				
 				try {
 					
+					Object[] requestArgs = config.getRequestArgs();
+					
+					if(requestArgs != null) {
+					
+						for (Object object : requestArgs) {
+							
+							if(object instanceof AsyncHandler) {
+								
+								asyncHandler = AsyncHandler.class.cast(object);
+								break;
+							}
+						}
+					}
+					
+					Class<?> endpointClass = config.getEndpointClass();
+					HttpResponse httpResponse;
+					
 					if(endpointClass.isAnnotationPresent(Stateful.class)) {
-						
+							
 						HttpContext httpContext = HttpContextDirectory.INSTANCE.get(endpointClass);
 						httpResponse = HttpClientDirectory.INSTANCE.get(endpointClass).execute(httpRequestBase, httpContext);
 					}
 					else {
-						
+							
 						httpResponse = HttpClientDirectory.INSTANCE.get(endpointClass).execute(httpRequestBase);
 					}
-				} 
-				catch (Exception e) {
 					
-					log.error(errorContext, e);
-					return;
-				}
-					
-				Object[] requestArgs = config.getRequestArgs();
-				
-				if(requestArgs == null || requestArgs.length == 0) {
-					
-					EntityUtils.consumeQuietly(httpResponse.getEntity());
-					return;
-				}
-				
-				AsyncHandler<Object> asyncHandler = null;
-				
-				for (Object object : requestArgs) { //find the provided AsyncHandler (if any)
+					if(asyncHandler == null) {
 						
-					if(object instanceof AsyncHandler) {
-						
-						asyncHandler = AsyncHandler.class.cast(object);
-						break;
+						EntityUtils.consumeQuietly(httpResponse.getEntity());
+						return;
 					}
-				}
-				
-				int statusCode = httpResponse.getStatusLine().getStatusCode();
-				boolean successful = statusCode > 199 && statusCode < 300;
-				
-				if(asyncHandler != null) { //response handling has to commence
+					else {
 					
-					if(successful) {
+						int statusCode = httpResponse.getStatusLine().getStatusCode();
+						boolean successful = statusCode > 199 && statusCode < 300;
 						
-						try {
+						if(successful) {
 							
 							Object reponseEntity = Processors.RESPONSE.run(httpResponse, config);
-							asyncHandler.onSuccess(httpResponse, reponseEntity);
-						}
-						catch (Exception e) {
 							
-							log.error("Callback \"onSuccess\" aborted with an exception.", e);
+							try {
+								
+								asyncHandler.onSuccess(httpResponse, reponseEntity);
+							}
+							catch (Exception e) {
+								
+								Log.e(CONTEXT, "Callback \"onSuccess\" aborted with an exception.", e);
+							}
 						}
-					}
-					else { 
-						
-						try {
+						else { 
 							
 							EntityUtils.consumeQuietly(httpResponse.getEntity());
-							asyncHandler.onFailure(httpResponse);
-						}
-						catch (Exception e) {
 							
-							log.error("Callback \"onFailure\" aborted with an exception.", e);
+							try {
+								
+								asyncHandler.onFailure(httpResponse);
+							}
+							catch (Exception e) {
+								
+								Log.e(CONTEXT, "Callback \"onFailure\" aborted with an exception.", e);
+							}
 						}
+					}
+				}
+				catch(Exception error) {
+					
+					if(asyncHandler != null) {
+						
+						try {
+						
+							asyncHandler.onError(error);
+						}
+						catch(Exception e) {
+							
+							Log.e(CONTEXT, "Callback \"onError\" aborted with an exception.", e);
+						}
+					}
+					else {
+						
+						Log.e(CONTEXT, "Asynchronous request execution failed. ", error);
 					}
 				}
 			}

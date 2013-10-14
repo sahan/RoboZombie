@@ -20,68 +20,77 @@ package com.lonepulse.robozombie.response;
  * #L%
  */
 
-import java.lang.reflect.Type;
-
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Parser;
 
 /**
- * <p>This is the <i>strategy</i> for a handler which can be used to process an 
- * HTTP request <b>asynchronously</b>. It executes an HTTP request on a separate 
- * thread and invokes either{@link AsyncHandler#onSuccess(HttpResponse, Object)} 
- * or {@link AsyncHandler#onFailure(HttpResponse)} depending on whether the request 
- * executed successfully or not.</p>
+ * <p>To be used with <b>asynchronous request execution</b> for retrieving the parsed response content or 
+ * for gaining insight into any failures and errors which might have occurred.</p>
  * 
- * @version 1.1.3
+ * <p>Note that <i>response handling</i> will not commence without an {@link AsyncHandler} in an endpoint 
+ * request definition</p>.  
+ * 
+ * <p>This contract defines the following callbacks:</p>
+ * <ul>
+ * 	<li>{@link #onSuccess(HttpResponse, Object)} - handle a successful execution</li>
+ * 	<li>{@link #onFailure(HttpResponse)} - handle a failed response</li>
+ * 	<li>{@link #onError(Exception)} - handle an erroneous execution</li>
+ * </ul>
+ * 
+ * @version 1.2.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.1.0
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public abstract class AsyncHandler<E extends Object> {
+public abstract class AsyncHandler<RESPONSE extends Object> {
 
-	
 	/**
-	 * <p>Callback method to handle the a <i>successful request execution</i>.</p>
+	 * <p>Use this callback to handle a <i>successful request execution</i>.</p>
 	 * 
-	 * <p>Generic {@code E} is used to identify the {@link Type} of the response 
-	 * which is returned via the designated {@link ResponseParser}.</p>
-	 * 
-	 * <p><b>Note</b> that any <i>runtime exceptions</i> are handled <b>silently</b> 
-	 * and logged, while <i>check exceptions</i> are not promoted to be thrown. It's 
-	 * advised to secure all code within a try-catch and respond to any exception 
-	 * (recoverable or otherwise).</p> 
-	 *  
 	 * @param httpResponse
-	 * 			the original instance {@link HttpResponse} returned as a result of 
-	 * 			the execution
-	 * 
-	 * @param e
-	 * 			an instance of the response type ({@link HttpResponse} processed 
-	 * 			using the specified {@link Parser})
+	 * 			the {@link HttpResponse} which was returned for a successful request execution
 	 * <br><br>
-	 * @since 1.1.1
+	 * @param response
+	 * 			the response content parsed as specified by @{@link Parser}
+	 * <br><br>
+	 * @since 1.1.0
 	 */
-	public abstract void onSuccess(HttpResponse httpResponse, E e);
+	public abstract void onSuccess(HttpResponse httpResponse, RESPONSE response);
 
 	/**
-	 * <p>Callback method to handle a <i>failed request execution</i>.</p>
+	 * <p>Use this callback method to handle a <i>failed HTTP response</i>.</p>
 	 * 
-	 * <p>Generic {@code E} is used to identify the {@link Type} of the response 
-	 * which is returned via the designated {@link ResponseParser}.</p>
-	 *  
-	 * <p>Note that the default implementation does absolutely nothing. A minimal 
-	 * usage would be to override this method and log the HTTP status code.</p>
+	 * <p>A successful response must contain an <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">
+	 * HTTP status code</a> of range <b>2xx</b>. Any other response code is considered to be failure and initiates 
+	 * this callback.</p>
 	 * 
-	 * <p><b>Note</b> that any <i>runtime exceptions</i> are handled <b>silently</b> 
-	 * and logged, while <i>check exceptions</i> are not promoted to be thrown. It's 
-	 * advised to secure all code within a try-catch and respond to any exception 
-	 * (recoverable or otherwise).</p>
+	 * <p><b>Note</b> that the default implementation does absolutely nothing. A minimal usage would be to override 
+	 * this callback, retrieve the HTTP status code and act upon it as necessary.</p>
 	 * 
 	 * @param httpResponse
-	 * 			the original instance {@link HttpResponse} returned as a result of 
-	 * 			the execution
+	 * 			the resulting {@link HttpResponse} containing a failed status code 
 	 * <br><br>
-	 * @since 1.1.3
+	 * @since 1.1.0
 	 */
 	public void onFailure(HttpResponse httpResponse){}
+	
+	/**
+	 * <p>Callback to handle an <i>erroneous request execution</i>.</p>
+	 * 
+	 * <p>This callback will be invoked if request execution failed with an {@link Exception}. This signifies 
+	 * a failure to execute the request or handle the response; unlike {@link #onFailure(HttpResponse)} which 
+	 * indicates the return of a non-successful <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">
+	 * HTTP status code</a>.</p>
+	 *  
+	 * <p><b>Note</b> that the default implementation does absolutely nothing. A minimal usage would be to override 
+	 * this callback and log any exceptions.</p>
+	 * 
+	 * @param error
+	 * 			the {@link Exception} which caused a failure in asynchronous request execution
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	public void onError(Exception error){}
 }
