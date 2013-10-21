@@ -24,6 +24,7 @@ package com.lonepulse.robozombie.request;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 
+import com.lonepulse.robozombie.annotation.Entity;
 import com.lonepulse.robozombie.annotation.FormParam;
 import com.lonepulse.robozombie.annotation.PathParam;
 import com.lonepulse.robozombie.annotation.QueryParam;

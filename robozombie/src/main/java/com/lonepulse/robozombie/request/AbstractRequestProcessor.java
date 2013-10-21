@@ -26,16 +26,16 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.processor.Processor;
 
 /**
  * <p>This is an abstract implementation of {@link Processor} which specifies a template for processing the 
  * <i>data</i> and <i>metadata</i> on a proxy endpoint <b>request invocation</b>. It includes an implementation 
  * of {@link Processor#run(Object...)} that checks the preconditions for executing 
- * {@link #process(HttpRequestBase, ProxyInvocationConfiguration)}.</p>
+ * {@link #process(HttpRequestBase, InvocationContext)}.</p>
  * 
- * <p>All implementations must be aware of the {@link ProxyInvocationConfiguration} which can be used to discover 
+ * <p>All implementations must be aware of the {@link InvocationContext} which can be used to discover 
  * information about the endpoint and the request declaration. This information can be queried based on the 
  * <i>targeting criteria</i> for this request processor and the resulting information should be used to <i>build 
  * upon</i> the given {@link HttpRequest}.</p>
@@ -53,19 +53,19 @@ abstract class AbstractRequestProcessor implements Processor<Void, RequestProces
 
 	
 	/**
-	 * <p>Accepts an {@link HttpRequestBase} and a {@link ProxyInvocationConfiguration}, validates all preconditions 
+	 * <p>Accepts an {@link HttpRequestBase} and a {@link InvocationContext}, validates all preconditions 
 	 * and uses the metadata contained within the configuration to process and subsequently build upon the request. 
 	 * Any implementations that wish to check additional preconditions or those that wish to alter this basic approach 
 	 * should override this method.</p>
 	 * 
 	 * <p><b>Note</b> that this method returns {@code null} for all intents and purposes.</p>
 	 * 
-	 * <p>Delegates to {@link #process(HttpRequestBase, ProxyInvocationConfiguration)}.</p>
+	 * <p>Delegates to {@link #process(HttpRequestBase, InvocationContext)}.</p>
 	 * 
 	 * <p>See {@link Processor#run(Object...)}.</p>
 	 *
 	 * @param args
-	 * 			a array of <b>length 2</b> with an {@link HttpRequestBase} and a {@link ProxyInvocationConfiguration} 
+	 * 			a array of <b>length 2</b> with an {@link HttpRequestBase} and a {@link InvocationContext} 
 	 * 			in that <b>exact order</b> 
 	 * <br><br>
 	 * @return {@code null} for all intents and purposes; implementations should process the original instance of 
@@ -76,8 +76,8 @@ abstract class AbstractRequestProcessor implements Processor<Void, RequestProces
 	 * 			or if the arguments are not of the expected type 
 	 * <br><br>
 	 * @throws RequestProcessorException
-	 * 			if {@link #process(HttpRequestBase, ProxyInvocationConfiguration)} failed for the given 
-	 * 			{@link HttpRequestBase} and {@link ProxyInvocationConfiguration}
+	 * 			if {@link #process(HttpRequestBase, InvocationContext)} failed for the given 
+	 * 			{@link HttpRequestBase} and {@link InvocationContext}
 	 * <br><br>
 	 * @since 1.2.4
 	 */
@@ -91,7 +91,7 @@ abstract class AbstractRequestProcessor implements Processor<Void, RequestProces
 			.append(" requires exactly two arguments: the ")
 			.append(HttpRequestBase.class.getName())
 			.append(" which it should process and the ")
-			.append(ProxyInvocationConfiguration.class.getName())
+			.append(InvocationContext.class.getName())
 			.append(" which provides the data and metadata for processing. ");
 			
 			throw new IllegalArgumentException(errorContext.toString());
@@ -109,10 +109,10 @@ abstract class AbstractRequestProcessor implements Processor<Void, RequestProces
 			hasIllegalArguments = true;
 		}
 		
-		if(args[1] == null || !(args[1] instanceof ProxyInvocationConfiguration)) {
+		if(args[1] == null || !(args[1] instanceof InvocationContext)) {
 			
 			accumulatedContext.append("The second argument to should be an instance of ")
-			.append(ProxyInvocationConfiguration.class.getName())
+			.append(InvocationContext.class.getName())
 			.append(" which cannot be <null>. ");
 			
 			hasIllegalArguments = true;
@@ -123,13 +123,13 @@ abstract class AbstractRequestProcessor implements Processor<Void, RequestProces
 			throw new IllegalArgumentException(accumulatedContext.toString());
 		}
 		
-		process((HttpRequestBase)args[0], (ProxyInvocationConfiguration)args[1]);
+		process((HttpRequestBase)args[0], (InvocationContext)args[1]);
 		
 		return null;
 	}
 	
 	/**
-	 * <p>Takes the {@link ProxyInvocationConfiguration} for the given {@link HttpRequestBase} and uses the 
+	 * <p>Takes the {@link InvocationContext} for the given {@link HttpRequestBase} and uses the 
 	 * metadata contained within the configuration to <i>build upon</i> the request.</p>
 	 * 
 	 * <p>The provided {@link HttpRequestBase} will be a concrete implementation which coincides with one of 
@@ -143,7 +143,7 @@ abstract class AbstractRequestProcessor implements Processor<Void, RequestProces
 	 * 			be used to grow on based on the targeting criteria for this request processor
 	 * <br><br>
 	 * @param config
-	 * 			the {@link ProxyInvocationConfiguration} which is used to discover the request's 
+	 * 			the {@link InvocationContext} which is used to discover the request's 
 	 * 			{@link RequestMethod} and any annotated metadata along with the invocation arguments  
  	 * <br><br>
 	 * @throws RequestProcessorException
@@ -152,6 +152,6 @@ abstract class AbstractRequestProcessor implements Processor<Void, RequestProces
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	protected abstract void process(HttpRequestBase httpRequestBase, ProxyInvocationConfiguration config)
+	protected abstract void process(HttpRequestBase httpRequestBase, InvocationContext config)
 	throws RequestProcessorException;
 }

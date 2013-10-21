@@ -22,7 +22,6 @@ package com.lonepulse.robozombie.inject;
 
 
 import com.lonepulse.robozombie.annotation.Bite;
-import com.lonepulse.robozombie.inject.Zombie;
 
 /**
  * <p>Emulates a service on which constructor injection should be performed. It depends on an instance of 

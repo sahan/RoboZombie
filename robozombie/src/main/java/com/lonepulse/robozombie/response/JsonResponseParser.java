@@ -25,7 +25,7 @@ import org.apache.http.util.EntityUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This is an extension of {@link AbstractResponseParser} which allows the parsing 
@@ -57,7 +57,7 @@ class JsonResponseParser extends AbstractResponseParser<Object> {
      * and returns the entity representing the JSON data.
 	 */
 	@Override
-	protected Object processResponse(HttpResponse httpResponse, ProxyInvocationConfiguration config) throws Exception {
+	protected Object processResponse(HttpResponse httpResponse, InvocationContext config) throws Exception {
 		
 		String jsonString = EntityUtils.toString(httpResponse.getEntity());
 		

@@ -29,11 +29,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.lonepulse.robozombie.annotation.Header;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This utility class offers some common operations which are used in parsing responses using the information 
- * contained within a {@link ProxyInvocationConfiguration}.
+ * contained within a {@link InvocationContext}.
  * 
  * @version 1.1.0
  * <br><br>
@@ -54,7 +54,7 @@ final class ResponseUtils {
 	private ResponseUtils() {}
 	
 	/**
-	 * <p>Finds all <b>dynamic response headers</b> in the given {@link ProxyInvocationConfiguration} and 
+	 * <p>Finds all <b>dynamic response headers</b> in the given {@link InvocationContext} and 
 	 * returns an unmodifiable {@link List} of {@link Map.Entry} instances with the header <i>name</i> as the 
 	 * key and the runtime argument as the <i>value</i>. <b>Note</b> that this implementation of 
 	 * {@link Map.Entry#setValue(Object)} throws an {@link UnsupportedOperationException}. This list may contain 
@@ -64,18 +64,18 @@ final class ResponseUtils {
 	 * 
 	 * <br><br>
 	 * @param config
-	 * 			the {@link ProxyInvocationConfiguration} from which all response headers will be discovered
+	 * 			the {@link InvocationContext} from which all response headers will be discovered
 	 * <br><br>
 	 * @return an <b>unmodifiable</b> {@link List} of {@link Map.Entry} instances with the header <i>name</i> as 
 	 * 		   the key and the runtime argument as the <i>value</i>; <b>note</b> that this implementation of 
 	 * 		   {@link Map.Entry#setValue(Object)} throws an {@link UnsupportedOperationException} 
 	 * <br><br>
 	 * @throws IllegalArgumentException
-	 * 			if the supplied {@link ProxyInvocationConfiguration} was {@code null}
+	 * 			if the supplied {@link InvocationContext} was {@code null}
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static List<Map.Entry<String, Object>> findHeaders(ProxyInvocationConfiguration config) {
+	public static List<Map.Entry<String, Object>> findHeaders(InvocationContext config) {
 		
 		if(config == null) {
 			
@@ -83,7 +83,7 @@ final class ResponseUtils {
 		}
 		
 		Method request = config.getRequest();
-		Object[] paramValues = config.getRequestArgs();
+		List<Object> paramValues = config.getArguments();
 		
 		List<Map.Entry<String, Object>> headers = new ArrayList<Map.Entry<String, Object>>();
 		
@@ -96,7 +96,7 @@ final class ResponseUtils {
 				if(Header.class.isAssignableFrom(annotation.getClass())) {
 					
 					final Header header = (Header)annotation;
-					final Object paramValue = paramValues[i];
+					final Object paramValue = paramValues.get(i);
 					
 					headers.add(new Map.Entry<String, Object>() {
 

@@ -1,4 +1,5 @@
-package com.lonepulse.robozombie.validator;
+package com.lonepulse.robozombie;
+
 
 /*
  * #%L
@@ -20,31 +21,29 @@ package com.lonepulse.robozombie.validator;
  * #L%
  */
 
-import com.lonepulse.robozombie.RoboZombieRuntimeException;
 
 /**
- * <p>This runtime exception is thrown whenever a {@link Validator} fails 
- * on an endpoint or an endpoint method. 
- * an HTTP request.</p>
+ * <p>This runtime exception signals a <b>generic</b> validation failure when using {@link Validator}s.</p>
  * 
  * @version 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.2.4
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-class ValidationFailedException extends RoboZombieRuntimeException {
-
-
-	private static final long serialVersionUID = 4063102218823910819L;
-
+public class ValidationFailedException extends RoboZombieRuntimeException {
 	
-	/**
-	 * See {@link RuntimeException#RuntimeException()}.
-	 */
-	public ValidationFailedException() {
-	}
+	
+	private static final long serialVersionUID = -5493032484217834921L;
+	
 
 	/**
-	 * See {@link RuntimeException#RuntimeException(String)}.
+	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException()}.
+	 */
+	public ValidationFailedException() {}
+
+	/**
+	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String)}.
 	 */
 	public ValidationFailedException(String detailMessage) {
 		
@@ -52,7 +51,7 @@ class ValidationFailedException extends RoboZombieRuntimeException {
 	}
 
 	/**
-	 * See {@link RuntimeException#RuntimeException(Throwable)}.
+	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(Throwable)}.
 	 */
 	public ValidationFailedException(Throwable throwable) {
 		
@@ -60,7 +59,7 @@ class ValidationFailedException extends RoboZombieRuntimeException {
 	}
 
 	/**
-	 * See {@link RuntimeException#RuntimeException(String, Throwable)}.
+	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String, Throwable)}.
 	 */
 	public ValidationFailedException(String detailMessage, Throwable throwable) {
 

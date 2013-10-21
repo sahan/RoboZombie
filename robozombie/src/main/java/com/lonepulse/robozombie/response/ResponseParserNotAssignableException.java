@@ -1,5 +1,8 @@
 package com.lonepulse.robozombie.response;
 
+import com.lonepulse.robozombie.annotation.Parser;
+import com.lonepulse.robozombie.annotation.Request;
+
 /*
  * #%L
  * RoboZombie

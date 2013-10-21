@@ -31,7 +31,7 @@ import com.lonepulse.robozombie.annotation.Asynchronous;
 import com.lonepulse.robozombie.annotation.Header;
 import com.lonepulse.robozombie.annotation.Parser;
 import com.lonepulse.robozombie.annotation.Parser.ParserType;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This is a concrete implementation of {@link ResponseProcessor} which retrieves the {@link HttpEntity} 
@@ -50,7 +50,7 @@ class EntityProcessor extends AbstractResponseProcessor {
 
 	
 	/**
-	 * <p>Accepts the {@link ProxyInvocationConfiguration} along with the {@link HttpResponse} plus the results-map 
+	 * <p>Accepts the {@link InvocationContext} along with the {@link HttpResponse} plus the results-map 
 	 * and retrieves the {@link HttpEntity} form the response. This is then fed all HTTP response headers which 
 	 * are discovered in the {@link HttpResponse}. These are then injected into their matching {@link StringBuilder} 
 	 * which are identified by @{@link Header} on the endpoint request definition. The HTTP response headers and the 
@@ -62,7 +62,7 @@ class EntityProcessor extends AbstractResponseProcessor {
 	 * 			{@link StringBuilder} parameters found on the request definition
 	 * <br><br>
 	 * @param config
-	 * 			an immutable instance of {@link ProxyInvocationConfiguration} which is used to discover any 
+	 * 			an immutable instance of {@link InvocationContext} which is used to discover any 
 	 * 			@{@link Header} metadata in its <i>request</i> and <i>args</i> 
 	 * <br><br>
 	 * @throws ResponseProcessorException
@@ -71,7 +71,7 @@ class EntityProcessor extends AbstractResponseProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected Object process(HttpResponse httpResponse, ProxyInvocationConfiguration config, Object parsedResponse)
+	protected Object process(HttpResponse httpResponse, InvocationContext config, Object parsedResponse)
 	throws ResponseProcessorException {
 
 		HttpEntity httpEntity = httpResponse != null? httpResponse.getEntity() :null;
@@ -83,14 +83,14 @@ class EntityProcessor extends AbstractResponseProcessor {
 				Method request = config.getRequest();
 				Class<?> responseType = request.getReturnType();
 				
-				boolean handleAsync = (config.getEndpointClass().isAnnotationPresent(Asynchronous.class) 
+				boolean handleAsync = (config.getEndpoint().isAnnotationPresent(Asynchronous.class) 
 									   || request.isAnnotationPresent(Asynchronous.class));
 				
 				boolean responseExpected = !responseType.equals(void.class) && !responseType.equals(Void.class); 
 				
 				if(handleAsync || responseExpected) {
 					
-					Class<?> endpoint = config.getEndpointClass();
+					Class<?> endpoint = config.getEndpoint();
 					ResponseParser<?> responseParser = null;
 			
 					Parser parser = null;

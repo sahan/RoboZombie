@@ -21,6 +21,7 @@ package com.lonepulse.robozombie.inject;
  */
 
 import com.lonepulse.robozombie.annotation.Endpoint;
+import com.lonepulse.robozombie.annotation.Request;
 
 /**
  * <p>This is is a common policy which all proxy factories must implement.

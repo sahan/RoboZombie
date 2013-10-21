@@ -53,10 +53,10 @@ public class RequestValidationTest {
 	}
 	
 	/**
-	 * <p>The {@link Class} of a package-private exception which is thrown due to a missing 
-	 * {@link Request} annotation on an endpoint request definition. 
+	 * <p>The {@link Class} of a package-private exception which is thrown due to a missing @{@link Request} 
+	 * annotation on an endpoint request definition. 
 	 */
-	private Class<Throwable> missingRequestAnnotationException;
+	private Class<Throwable> strayRequestException;
 	
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
@@ -66,13 +66,13 @@ public class RequestValidationTest {
 	 * <p>Sets up the test case by reflectively accessing the {@link Class}es of the expected exceptions.
 	 * 
 	 * @throws java.lang.Exception
-	 * 			if reflection falied to retrieve the necessary {@link Class}es
+	 * 			if reflection failed to retrieve the necessary {@link Class}es
 	 */
 	@Before @SuppressWarnings("unchecked") //safe case to Class<Throwable> from a known exception
 	public void setUp() throws Exception {
 		
-		missingRequestAnnotationException = (Class<Throwable>) 
-			Class.forName("com.lonepulse.robozombie.validator.MissingRequestAnnotationException");
+		strayRequestException = (Class<Throwable>) 
+			Class.forName("com.lonepulse.robozombie.inject.StrayEndpointRequestException");
 	}
 	
 	/**
@@ -83,11 +83,7 @@ public class RequestValidationTest {
 	@Test
 	public final void testMissingRequestAnnotation() {
 		
-		MissingRequestAnnotationEndpoint endpoint = 
-			EndpointProxyFactory.INSTANCE.create(MissingRequestAnnotationEndpoint.class);
-		
-		expectedException.expectCause(Is.isA(missingRequestAnnotationException));
-		
-		endpoint.invalidRequest();
+		expectedException.expect(Is.isA(strayRequestException));
+		EndpointProxyFactory.INSTANCE.create(MissingRequestAnnotationEndpoint.class);
 	}
 }

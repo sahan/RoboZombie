@@ -23,7 +23,7 @@ package com.lonepulse.robozombie.response;
 import org.apache.http.HttpResponse;
 import org.apache.http42.util.EntityUtils;
 
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This is an implementation of {@link ResponseParser} which defines and executes the 
@@ -92,7 +92,7 @@ public abstract class AbstractResponseParser<T> implements ResponseParser<T> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final T parse(HttpResponse httpResponse, ProxyInvocationConfiguration config) {
+	public final T parse(HttpResponse httpResponse, InvocationContext config) {
 		
 		Class<?> requestReturnType = config.getRequest().getReturnType();
 		
@@ -150,7 +150,7 @@ public abstract class AbstractResponseParser<T> implements ResponseParser<T> {
 	 * 				the {@link HttpResponse} from which the content is extracted
 	 * 
 	 * @param config
-	 * 				the {@link ProxyInvocationConfiguration} which supplies all information 
+	 * 				the {@link InvocationContext} which supplies all information 
 	 * 				regarding the request and it's invocation
      * <br><br>
 	 * @return the entity which is created after parsing the output
@@ -160,6 +160,6 @@ public abstract class AbstractResponseParser<T> implements ResponseParser<T> {
 	 * <br><br>
 	 * @since 1.1.4
 	 */
-	protected abstract T processResponse(HttpResponse httpResponse, ProxyInvocationConfiguration config) 
+	protected abstract T processResponse(HttpResponse httpResponse, InvocationContext config) 
 	throws Exception;
 }

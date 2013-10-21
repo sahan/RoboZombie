@@ -26,7 +26,8 @@ import java.util.Map;
 
 import org.apache.http.HttpResponse;
 
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.annotation.Header;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This is a concrete implementation of {@link ResponseProcessor} which retrieves the <i>response-headers</i> 
@@ -49,20 +50,20 @@ class HeaderProcessor extends AbstractResponseProcessor {
 
 	
 	/**
-	 * <p>Accepts the {@link ProxyInvocationConfiguration} along with the {@link HttpResponse} plus the parsed entity 
+	 * <p>Accepts the {@link InvocationContext} along with the {@link HttpResponse} plus the parsed entity 
 	 * response (if any) and retrieves all HTTP response headers which are discovered in the {@link HttpResponse}. 
 	 * These are then injected into their matching {@link StringBuilder} which are identified by @{@link Header} on 
 	 * the endpoint request definition. The HTTP response headers and the in-out parameters are matched using the header 
 	 * name and all parameters with a runtime value of {@code null} will be ignored.</p> 
 	 * 
-	 * <p>See {@link ResponseUtils#findHeaders(ProxyInvocationConfiguration)}.</p>
+	 * <p>See {@link ResponseUtils#findHeaders(InvocationContext)}.</p>
 	 * 
 	 * @param httpResponse
 	 * 			the instance of {@link HttpResponse} whose headers are to be retrieves and injected in the in-out 
 	 * 			{@link StringBuilder} parameters found on the request definition
 	 * <br><br>
 	 * @param config
-	 * 			an immutable instance of {@link ProxyInvocationConfiguration} which is used to discover any 
+	 * 			an immutable instance of {@link InvocationContext} which is used to discover any 
 	 * 			@{@link Header} metadata in its <i>request</i> and <i>args</i>
 	 * <br><br>
 	 * @return the <i>same</i> parsed response entity instance which was supplied as a parameter 
@@ -73,7 +74,7 @@ class HeaderProcessor extends AbstractResponseProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected Object process(HttpResponse httpResponse, ProxyInvocationConfiguration config, Object parsedResponse)
+	protected Object process(HttpResponse httpResponse, InvocationContext config, Object parsedResponse)
 	throws ResponseProcessorException {
 
 		try {

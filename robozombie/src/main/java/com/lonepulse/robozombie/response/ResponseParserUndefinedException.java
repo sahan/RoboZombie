@@ -24,6 +24,7 @@ import java.lang.reflect.Method;
 
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Parser;
+import com.lonepulse.robozombie.annotation.Request;
 
 /**
  * <p>This runtime exception is thrown when a {@link ResponseParser} to be used for a particular 

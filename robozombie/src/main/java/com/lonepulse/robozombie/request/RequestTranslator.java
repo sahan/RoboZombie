@@ -24,7 +24,7 @@ package com.lonepulse.robozombie.request;
 import org.apache.http.HttpRequest;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This contract defines the services for a strategy which creates the {@link HttpRequest} base 
@@ -40,19 +40,19 @@ import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
 public interface RequestTranslator {
 
 	/**
-	 * <p>Takes the {@link ProxyInvocationConfiguration} of a request and translates it to a <b>basic</b> 
+	 * <p>Takes the {@link InvocationContext} of a request and translates it to a <b>basic</b> 
 	 * implementation of {@link HttpRequest}. No extra processing, such as header manipulation or parameter 
 	 * population, will be done on the returned request. These will be completed at successive stages. 
 	 *
 	 * @param config
-	 * 			the {@link ProxyInvocationConfiguration} whose <i>matching</i> {@link HttpRequest} is created 
+	 * 			the {@link InvocationContext} whose <i>matching</i> {@link HttpRequest} is created 
 	 * 
-	 * @return the {@link HttpRequest} implementation which suits the given {@link ProxyInvocationConfiguration}
+	 * @return the {@link HttpRequest} implementation which suits the given {@link InvocationContext}
 	 * 
 	 * @throws RequestTranslationException
-	 * 			if {@link ProxyInvocationConfiguration} to {@link HttpRequest} translation failed
+	 * 			if {@link InvocationContext} to {@link HttpRequest} translation failed
 	 * 
 	 * @since 1.2.4
 	 */
-	HttpRequestBase translate(ProxyInvocationConfiguration config) throws RequestTranslationException;
+	HttpRequestBase translate(InvocationContext config) throws RequestTranslationException;
 }

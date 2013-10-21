@@ -27,7 +27,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import com.lonepulse.robozombie.annotation.Asynchronous;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.util.Resolver;
 
 /**
@@ -76,7 +77,7 @@ public enum RequestExecutors implements RequestExecutor {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public HttpResponse execute(HttpRequestBase httpRequestBase, ProxyInvocationConfiguration config)
+	public HttpResponse execute(HttpRequestBase httpRequestBase, InvocationContext config)
 	throws RequestExecutionException {
 	
 		return this.requestExecutor.execute(httpRequestBase, config);
@@ -88,15 +89,15 @@ public enum RequestExecutors implements RequestExecutor {
 	 * 
 	 * @since 1.1.0
 	 */
-	public static final Resolver<ProxyInvocationConfiguration, RequestExecutor> RESOLVER 
-		= new Resolver<ProxyInvocationConfiguration, RequestExecutor>() {
+	public static final Resolver<InvocationContext, RequestExecutor> RESOLVER 
+		= new Resolver<InvocationContext, RequestExecutor>() {
 	
 		/**
 		 * <p>Takes an endpoint {@link Method} and discovers a suitable 
 		 * {@link RequestExecutor}.
 		 * 
 		 * @param config
-		 * 			the {@link ProxyInvocationConfiguration} for resolving 
+		 * 			the {@link InvocationContext} for resolving 
 		 * 			the associated {@link RequestExecutor}
 		 * 
 		 * @return an {@link AsyncRequestExecutor} if the request method or 
@@ -106,9 +107,9 @@ public enum RequestExecutors implements RequestExecutor {
 		 * @since 1.1.0
 		 */
 		@Override
-		public RequestExecutor resolve(ProxyInvocationConfiguration config) {
+		public RequestExecutor resolve(InvocationContext config) {
 	
-			if(config.getEndpointClass().isAnnotationPresent(Asynchronous.class)
+			if(config.getEndpoint().isAnnotationPresent(Asynchronous.class)
 				|| config.getRequest().isAnnotationPresent(Asynchronous.class)) {
 
 				return RequestExecutors.ASYNC.requestExecutor;

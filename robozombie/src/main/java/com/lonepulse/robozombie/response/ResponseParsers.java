@@ -24,7 +24,7 @@ package com.lonepulse.robozombie.response;
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Parser.ParserType;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.util.Resolver;
 
 /**
@@ -80,7 +80,7 @@ public enum ResponseParsers implements ResponseParser<Object> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object parse(HttpResponse httpResponse, ProxyInvocationConfiguration config) {
+	public Object parse(HttpResponse httpResponse, InvocationContext config) {
 		
 		return this.responseParser.parse(httpResponse, config);
 	}

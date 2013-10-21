@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This is an extension of {@link AbstractResponseParser} which allows an <b>XML response entity</b> 
@@ -64,7 +64,7 @@ class XmlResponseParser extends AbstractResponseParser<Object> {
      * <p>Parses the XML content in the {@link HttpResponse} entity using JAXB and returns the constructed 
      * instance of the model.</p>
      * 
-     * <p>See {@link AbstractResponseParser#processResponse(HttpResponse, ProxyInvocationConfiguration)}.
+     * <p>See {@link AbstractResponseParser#processResponse(HttpResponse, InvocationContext)}.
      * 
      * @throws JAXBException 
      * 			if the response XML content failed to be deserialized into the specified model
@@ -72,7 +72,7 @@ class XmlResponseParser extends AbstractResponseParser<Object> {
      * @since 1.2.4
 	 */
 	@Override
-	protected Object processResponse(HttpResponse httpResponse, ProxyInvocationConfiguration config) 
+	protected Object processResponse(HttpResponse httpResponse, InvocationContext config) 
 	throws Exception {
 		
 		JAXBContext jaxbContext = JAXBContext.newInstance(config.getRequest().getReturnType());

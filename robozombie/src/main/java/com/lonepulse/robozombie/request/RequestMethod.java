@@ -32,7 +32,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.methods.HttpTrace;
 
 import com.lonepulse.robozombie.annotation.Request;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.util.Resolver;
 
 /**
@@ -100,18 +100,18 @@ public enum RequestMethod {
 	
 	
 	/**
-	 * <p>Resolves the {@link RequestMethod} for the given {@link ProxyInvocationConfiguration}.</p>
+	 * <p>Resolves the {@link RequestMethod} for the given {@link InvocationContext}.</p>
 	 * 
-	 * <p>This implementation assumes that a {@link ProxyInvocationConfiguration} will never be 
+	 * <p>This implementation assumes that a {@link InvocationContext} will never be 
 	 * constructed for an endpoint request method without an @{@link Request} annotation.</p>
 	 * 
 	 * @since 1.2.4
 	 */
-	public static final Resolver<ProxyInvocationConfiguration, RequestMethod> RESOLVER 
-	= new Resolver<ProxyInvocationConfiguration, RequestMethod>() {
+	public static final Resolver<InvocationContext, RequestMethod> RESOLVER 
+	= new Resolver<InvocationContext, RequestMethod>() {
 
 		@Override
-		public RequestMethod resolve(ProxyInvocationConfiguration config) {
+		public RequestMethod resolve(InvocationContext config) {
 			
 			Method request = config.getRequest();
 			return request.getAnnotation(Request.class).method();
@@ -119,7 +119,7 @@ public enum RequestMethod {
 	};
 	
 	/**
-	 * <p>Translates a given {@link ProxyInvocationConfiguration} to its {@link RequestMethod}.</p>
+	 * <p>Translates a given {@link InvocationContext} to its {@link RequestMethod}.</p>
 	 * 
 	 * <p>This implementation is solely dependent upon the {@link RequestMethod} property in the 
 	 * annotated metdata of the endpoint method definition.</p>
@@ -130,7 +130,7 @@ public enum RequestMethod {
 	= new RequestTranslator() {
 		
 		@Override
-		public HttpRequestBase translate(ProxyInvocationConfiguration config) throws RequestTranslationException {
+		public HttpRequestBase translate(InvocationContext config) throws RequestTranslationException {
 			
 			RequestMethod requestMethod = RESOLVER.resolve(config);
 			

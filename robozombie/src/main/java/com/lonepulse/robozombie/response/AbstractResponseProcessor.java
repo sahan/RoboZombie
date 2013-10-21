@@ -24,16 +24,16 @@ package com.lonepulse.robozombie.response;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.processor.Processor;
 
 /**
  * <p>This is an abstract implementation of {@link Processor} which specifies a template for processing the 
  * <i>response</i> of a request execution by referencing the <i>metadata</i> on a proxy endpoint <b>request</b>. 
  * It includes an implementation of {@link Processor#run(Object...)} that checks the preconditions for executing 
- * {@link #process(HttpRequestBase, ProxyInvocationConfiguration)}.</p>
+ * {@link #process(HttpRequestBase, InvocationContext)}.</p>
  * 
- * <p>All implementations must be aware of the {@link ProxyInvocationConfiguration} which can be used to discover 
+ * <p>All implementations must be aware of the {@link InvocationContext} which can be used to discover 
  * information about the endpoint and the request declaration. This information can be queried based on the 
  * <i>targeting criteria</i> for this response processor and the resulting information should be used to <i>parse</i> 
  * the given {@link HttpResponse}.</p>
@@ -53,7 +53,7 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 
 	
 	/**
-	 * <p>Accepts an {@link HttpResponse} and a {@link ProxyInvocationConfiguration}, validates all preconditions 
+	 * <p>Accepts an {@link HttpResponse} and a {@link InvocationContext}, validates all preconditions 
 	 * and uses the metadata contained within the configuration to process and subsequently parse the request. Any 
 	 * implementations that wish to check additional preconditions or those that wish to alter this basic approach 
 	 * should override this method.</p>
@@ -61,12 +61,12 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 * <p><b>Note</b> that this method is expected to return the <i>parsed response entity</i> where an endpoint 
 	 * request definition specifies a return type. This should then be passed along in the processor arguments.</p>
 	 * 
-	 * <p>Delegates to {@link #process(HttpResponse, ProxyInvocationConfiguration, Object)}.</p>
+	 * <p>Delegates to {@link #process(HttpResponse, InvocationContext, Object)}.</p>
 	 * 
 	 * <p>See {@link Processor#run(Object...)}.</p>
 	 *
 	 * @param args
-	 * 			a array of <b>length 2 or more</b> with an {@link HttpResponse}, a {@link ProxyInvocationConfiguration} 
+	 * 			a array of <b>length 2 or more</b> with an {@link HttpResponse}, a {@link InvocationContext} 
 	 * 			and possible the result of the parsed response entity 
 	 * <br><br>
 	 * @return the parsed response entity, which may be {@code null} for endpoint request definitions which do not declare 
@@ -77,8 +77,8 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 * 			or if the arguments are not of the expected type
 	 * <br><br>
 	 * @throws RequestProcessorException
-	 * 			if {@link #process(HttpResponse, ProxyInvocationConfiguration, Object)} failed for the given 
-	 * 			{@link HttpResponse}, {@link ProxyInvocationConfiguration} and possible for the parsed response entity
+	 * 			if {@link #process(HttpResponse, InvocationContext, Object)} failed for the given 
+	 * 			{@link HttpResponse}, {@link InvocationContext} and possible for the parsed response entity
 	 * <br><br>
 	 * @since 1.2.4
 	 */
@@ -92,7 +92,7 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 			.append(" requires at least two arguments: the ")
 			.append(HttpResponse.class.getName())
 			.append(" which it should process and the ")
-			.append(ProxyInvocationConfiguration.class.getName())
+			.append(InvocationContext.class.getName())
 			.append(" which provides the data and metadata for processing.");
 			
 			throw new IllegalArgumentException(errorContext.toString());
@@ -101,10 +101,10 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 		StringBuilder accumulatedContext = new StringBuilder();
 		boolean hasIllegalArguments = false;
 		
-		if(args[1] == null || !(args[1] instanceof ProxyInvocationConfiguration)) {
+		if(args[1] == null || !(args[1] instanceof InvocationContext)) {
 			
 			accumulatedContext.append("The second argument to should be an instance of ")
-			.append(ProxyInvocationConfiguration.class.getName())
+			.append(InvocationContext.class.getName())
 			.append(" which cannot be <null>. ");
 			
 			hasIllegalArguments = true;
@@ -115,11 +115,11 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 			throw new IllegalArgumentException(accumulatedContext.toString());
 		}
 		
-		return process((HttpResponse)args[0], (ProxyInvocationConfiguration)args[1], (args.length > 2)? args[2] :null);
+		return process((HttpResponse)args[0], (InvocationContext)args[1], (args.length > 2)? args[2] :null);
 	}
 	
 	/**
-	 * <p>Takes the {@link ProxyInvocationConfiguration} for the given {@link HttpResponse} and uses the 
+	 * <p>Takes the {@link InvocationContext} for the given {@link HttpResponse} and uses the 
 	 * metadata contained within the configuration to <i>parse</i> the <i>response body</i> and perform 
 	 * additional processing based on the <i>response headers</i>.</p>
 	 * 
@@ -134,7 +134,7 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 * 			be parsed to the correct type and the response headers should be processed if required 
 	 * <br><br>
 	 * @param config
-	 * 			the {@link ProxyInvocationConfiguration} which is used to discover any annotated metadata 
+	 * 			the {@link InvocationContext} which is used to discover any annotated metadata 
 	 * 			for the request declarion which may help in processing the response and making the necessary 
 	 * 			information available for the result-map
 	 * <br><br>
@@ -151,6 +151,6 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 * @since 1.2.4
 	 */
 	protected abstract Object process(
-		HttpResponse HttpResponse, ProxyInvocationConfiguration config, Object parsedResponse) 
+		HttpResponse HttpResponse, InvocationContext config, Object parsedResponse) 
 		throws ResponseProcessorException;
 }

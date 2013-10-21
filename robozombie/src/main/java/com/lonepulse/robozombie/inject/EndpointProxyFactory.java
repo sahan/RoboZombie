@@ -20,76 +20,68 @@ package com.lonepulse.robozombie.inject;
  * #L%
  */
 
+import static com.lonepulse.robozombie.util.Assert.assertNotNull;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.net.URI;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpRequestBase;
-
-import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.executor.RequestExecutors;
-import com.lonepulse.robozombie.processor.Processors;
-import com.lonepulse.robozombie.request.RequestMethod;
-import com.lonepulse.robozombie.validator.Validators;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * <p>This factory is used for creating dynamic proxies for communication 
- * endpoint interfaces that are annotated with {@link Endpoint}.</p>
+ * <p>This is a concrete implementation of {@link ProxyFactory} which is used for constructing proxies 
+ * for endpoint definitions.</p>
  * 
- * @version 2.1.2
+ * @version 2.2.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.1.0
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 enum EndpointProxyFactory implements ProxyFactory {
+	
 	
 	/**
 	 * <p>The single instance of the factory which caters to all endpoint 
 	 * injection requirements by creating endpoint proxies.
 	 * 
-	 * @since 2.1.2
+	 * @since 1.1.0
 	 */
 	INSTANCE;
-
+	
+	
+	private static final Map<String, Object> ENDPOINTS = Collections.synchronizedMap(new HashMap<String, Object>());
+	
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized <T> T create(final Class<T> endpointClass) {
+	public synchronized <T> T create(final Class<T> endpoint) {
 
-		try {
+		String proxyKey = assertNotNull(endpoint).getName();
 		
-			final ProxyInvocationConfiguration.Builder builder = new  ProxyInvocationConfiguration.Builder()
-			.setEndpointClass(endpointClass);
+		if(ENDPOINTS.containsKey(proxyKey)) {
 			
-			final URI uri = (URI) Validators.ENDPOINT.validate(builder.build());
+			return endpoint.cast(ENDPOINTS.get(proxyKey));
+		}
+		
+		final ProxyInvocation.Template template = new ProxyInvocation.Template(endpoint){};
+		
+		try {
 			
-			T endpointProxy = endpointClass.cast(Proxy.newProxyInstance(endpointClass.getClassLoader(), 
-												 new Class<?>[] {endpointClass} , 
-												 new InvocationHandler() {
+			T endpointProxy = endpoint.cast(Proxy.newProxyInstance(
+				endpoint.getClassLoader(), new Class<?>[] {endpoint} , new InvocationHandler() {
 				
 				@Override
 				public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
-					
-					ProxyInvocationConfiguration config = builder
-					.setEndpointClass(endpointClass)
-					.setUri(uri)
-					.setProxy(proxy)
-					.setRequest(method)
-					.setRequestArgs(args)
-					.build();
-					
-					Validators.REQUEST.validate(config);
-					HttpRequestBase request = RequestMethod.TRANSLATOR.translate(config);
-					Processors.REQUEST.run(request, config);
-					
-					HttpResponse response = RequestExecutors.RESOLVER.resolve(config).execute(request, config);
-					
-					return (response == null)? null :Processors.RESPONSE.run(response, config);
+
+					return ProxyInvocation.newInstance(template, proxy, method, args).invoke();
 				}
 			}));
+			
+			ENDPOINTS.put(proxyKey, endpointProxy);
 			
 			return endpointProxy;
 		}

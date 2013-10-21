@@ -30,7 +30,7 @@ import org.apache.http42.HttpHeaders;
 import org.apache.http42.entity.ContentType;
 
 import com.lonepulse.robozombie.annotation.Entity;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which resolves and inserts the enclosing 
@@ -49,7 +49,7 @@ class EntityProcessor extends AbstractRequestProcessor {
 
 	
 	/**
-	 * <p>Accepts the {@link ProxyInvocationConfiguration} of an {@link HttpEntityEnclosingRequest} and inserts 
+	 * <p>Accepts the {@link InvocationContext} of an {@link HttpEntityEnclosingRequest} and inserts 
 	 * any <i>the</i> request parameter which was annotated with @{@link Entity} into its body.</p>
 	 * 
 	 * <p><b>Note</b> that it makes no sense to scope multiple entities within the same entity enclosing request 
@@ -65,14 +65,14 @@ class EntityProcessor extends AbstractRequestProcessor {
 	 * <p>Parameter types are resolved to their {@link HttpEntity} as specified in 
 	 * {@link RequestUtils#resolveHttpEntity(Object)}.</p>
 	 * 
-	 * <p>See {@link RequestProcessor#process(HttpRequestBase, ProxyInvocationConfiguration)}.</p>
+	 * <p>See {@link RequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
 	 *
 	 * @param httpRequestBase
 	 * 			an instance of {@link HttpEntityEnclosingRequestBase} which allows the inclusion of an 
 	 * 			{@link HttpEntity} in its body
 	 * <br><br>
 	 * @param config
-	 * 			an immutable instance of {@link ProxyInvocationConfiguration} which is used to retrieve the entity
+	 * 			an immutable instance of {@link InvocationContext} which is used to retrieve the entity
 	 * <br><br>
 	 * @throws RequestProcessorException
 	 * 			if an {@link HttpEntityEnclosingRequestBase} was discovered and yet the entity failed to be resolved 
@@ -81,7 +81,7 @@ class EntityProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected void process(HttpRequestBase httpRequestBase, ProxyInvocationConfiguration config) 
+	protected void process(HttpRequestBase httpRequestBase, InvocationContext config) 
 	throws RequestProcessorException {
 
 		try {

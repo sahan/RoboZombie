@@ -42,6 +42,7 @@ import org.robolectric.RobolectricTestRunner;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.lonepulse.robozombie.annotation.Bite;
 import com.lonepulse.robozombie.annotation.PathParam;
+import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.inject.Zombie;
 
 /**

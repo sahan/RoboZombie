@@ -21,7 +21,7 @@ package com.lonepulse.robozombie.request;
  */
 
 import com.lonepulse.robozombie.annotation.Entity;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This runtime exception is thrown when many @{@link Entity} annotations are discovered on the 
@@ -46,15 +46,15 @@ class MultipleEntityException extends RequestProcessorException {
 	 * <p>Displays a detailed description along with the stacktrace.
 	 * 
 	 * @param config
-	 * 			the {@link ProxyInvocationConfiguration} where multiple @{@link Entity} annotations were discovered
+	 * 			the {@link InvocationContext} where multiple @{@link Entity} annotations were discovered
 	 * 
 	 * @since 1.2.4
 	 */
-	public MultipleEntityException(ProxyInvocationConfiguration config) {
+	public MultipleEntityException(InvocationContext config) {
 	
-		this("Multiple entities annotated with @" + Entity.class.getSimpleName() + 
-			 " was not found on the request named [" + config.getRequest().getName() + "] for the URI [" + 
-			 config.getUri().toString() + "]. Only a single entity may be annotated and enclosed this request. ");
+		this(new StringBuilder("Multiple entities annotated with @").append(Entity.class.getSimpleName())
+				 .append(" was not found on the request named [").append(config.getRequest().getName())
+				 .append("]. Only a single entity may be annotated and enclosed this request. ").toString());
 	}
 	
 	/**

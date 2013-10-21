@@ -34,11 +34,8 @@ import android.util.Log;
 
 import com.lonepulse.robozombie.annotation.Bite;
 import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.executor.ConfigurationFailedException;
 import com.lonepulse.robozombie.executor.RequestExecutors;
-import com.lonepulse.robozombie.inject.EndpointDirectory;
-import com.lonepulse.robozombie.inject.EndpointProxyFactory;
 
 /**
  * <p>An animated corpse which spreads the {@link Endpoint} infection via a {@link Bite}. Used for <b>injecting</b> 
@@ -338,11 +335,7 @@ public final class Zombie {
 	
 	private static Object createAndRegisterProxy(Class<?> endpointClass) throws InstantiationException, IllegalAccessException {
 		
-		Object proxyInstance = EndpointProxyFactory.INSTANCE.create(endpointClass); 
-		EndpointDirectory.INSTANCE.put(endpointClass, proxyInstance);
-		
 		RequestExecutors.CONFIGURATION.register(endpointClass);
-		
-		return proxyInstance;
+		return EndpointProxyFactory.INSTANCE.create(endpointClass); 
 	}
 }

@@ -25,8 +25,9 @@ import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http42.client.utils.URIBuilder;
 
+import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Request;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which extracts the root path of an 
@@ -46,7 +47,7 @@ class UriProcessor extends AbstractRequestProcessor {
 
 	
 	/**
-	 * <p>Accepts the {@link ProxyInvocationConfiguration} along with the {@link HttpRequestBase} and forms 
+	 * <p>Accepts the {@link InvocationContext} along with the {@link HttpRequestBase} and forms 
 	 * the complete request URI by appending the request subpath to the root path defined on the endpoint. 
 	 * If no subpath is found the root path is set without any alterations. Requests and their subpaths are 
 	 * identified using the annotation @{@link Request}.</p>
@@ -54,14 +55,14 @@ class UriProcessor extends AbstractRequestProcessor {
 	 * <p>Any processors which extract information from the <i>complete</i> request URI or those which seek 
 	 * to manipulate the URI should use this processor as a prerequisite.</p>
 	 * 
-	 * <p>See {@link RequestProcessor#process(HttpRequestBase, ProxyInvocationConfiguration)}.</p>
+	 * <p>See {@link RequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
 	 * 
 	 * @param httpRequestBase
 	 * 			the {@link HttpRequestBase} whose URI will be initialized to the complete URI formualted using 
 	 * 			the endpoint's root path and the request's subpath
 	 * <br><br>
 	 * @param config
-	 * 			an immutable instance of {@link ProxyInvocationConfiguration} which has its Sendpoint and request 
+	 * 			an immutable instance of {@link InvocationContext} which has its Sendpoint and request 
 	 * 			properties correctly populated  
 	 * <br><br>
 	 * @throws RequestProcessorException
@@ -71,17 +72,30 @@ class UriProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected void process(HttpRequestBase httpRequestBase, ProxyInvocationConfiguration config) 
+	protected void process(HttpRequestBase httpRequestBase, InvocationContext config) 
 	throws RequestProcessorException {
 
 		try {
-
+			
+			Endpoint endpoint = config.getEndpoint().getAnnotation(Endpoint.class);
+			String value = endpoint.value();
+			String host = (value == null || value.isEmpty())? endpoint.host() :value;
+			
+			String scheme = endpoint.scheme();
+			String port = endpoint.port();
+			String path = endpoint.path();
+			
 			Request request = config.getRequest().getAnnotation(Request.class);
 			
-			URIBuilder uriBuilder = new URIBuilder(config.getUri());
-			uriBuilder.setPath(new StringBuilder(uriBuilder.getPath()).append(request.path()).toString());
+			URIBuilder uriBuilder = new URIBuilder();
+			uriBuilder.setScheme(scheme).setHost(host).setPath(path + request.path());
 			
-			httpRequestBase.setURI(uriBuilder.build()); //malformed URIs are corrected by the URIBuilder 
+			if(!port.equals("")) {
+				
+				uriBuilder.setPort(Integer.parseInt(port));
+			}
+			
+			httpRequestBase.setURI(uriBuilder.build());
 		}
 		catch(Exception e) {
 			

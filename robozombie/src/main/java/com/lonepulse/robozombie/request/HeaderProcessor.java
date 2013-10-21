@@ -26,8 +26,9 @@ import java.util.Map;
 
 import org.apache.http.client.methods.HttpRequestBase;
 
+import com.lonepulse.robozombie.annotation.Header;
 import com.lonepulse.robozombie.annotation.HeaderSet;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which populates the <i>request-headers</i> 
@@ -48,7 +49,7 @@ class HeaderProcessor extends AbstractRequestProcessor {
 
 	
 	/**
-	 * <p>Accepts the {@link ProxyInvocationConfiguration} along with an {@link HttpRequestBase} and populates 
+	 * <p>Accepts the {@link InvocationContext} along with an {@link HttpRequestBase} and populates 
 	 * the all HTTP headers which are discovered in the request method definition. These might be <i>static headers</i> 
 	 * or <i>dynamic headers</i>. <i>Static-headers</i> are specified directly on a request method with @{@link HeaderSet}, 
 	 * whereas <i>dynamic-headers</i> are specified on the method argument which provides the dynamic header using 
@@ -60,14 +61,14 @@ class HeaderProcessor extends AbstractRequestProcessor {
 	 * <p><b>Note</b> that header arguments which are {@code null} (or those that produce an <i>empty string</i>) 
 	 * are ignored. It is assumed that these headers are not being used for the current request invocation.</p>
 	 * 
-	 * <p>See {@link RequestUtils#findHeaders(ProxyInvocationConfiguration)}.</p>
+	 * <p>See {@link RequestUtils#findHeaders(InvocationContext)}.</p>
 	 * 
 	 * @param httpRequestBase
 	 * 			the instance of {@link HttpRequestBase} whose headers are to be populated by reading the metadata 
 	 * 			available in @{@link HeaderSet} and @{@link Header} annotations 
 	 * <br><br>
 	 * @param config
-	 * 			an immutable instance of {@link ProxyInvocationConfiguration} which is used to discover any 
+	 * 			an immutable instance of {@link InvocationContext} which is used to discover any 
 	 * 			@{@link HeaderSet} and @{@link Header} metadata in its <i>request</i> and <i>args</i> 
 	 * <br><br>
 	 * @throws RequestProcessorException
@@ -76,7 +77,7 @@ class HeaderProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected void process(HttpRequestBase httpRequestBase, ProxyInvocationConfiguration config) throws RequestProcessorException {
+	protected void process(HttpRequestBase httpRequestBase, InvocationContext config) throws RequestProcessorException {
 
 		try {
 			

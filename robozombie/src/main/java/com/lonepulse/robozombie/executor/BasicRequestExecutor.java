@@ -29,7 +29,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.protocol.HttpContext;
 
 import com.lonepulse.robozombie.annotation.Stateful;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>A concrete implementation of {@link RequestExecutor} which executes {@link HttpRequest}s. 
@@ -45,12 +45,12 @@ class BasicRequestExecutor implements RequestExecutor {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized HttpResponse execute(HttpRequestBase httpRequestBase, ProxyInvocationConfiguration config)
+	public synchronized HttpResponse execute(HttpRequestBase httpRequestBase, InvocationContext config)
 	throws RequestExecutionException {
 	
 		try {
 			
-			Class<?> endpointClass = config.getEndpointClass();
+			Class<?> endpointClass = config.getEndpoint();
 			HttpResponse httpResponse;
 			
 			if(endpointClass.isAnnotationPresent(Stateful.class)) {
@@ -82,7 +82,7 @@ class BasicRequestExecutor implements RequestExecutor {
 		}
 		catch (Exception e) {
 			
-			throw new RequestExecutionException(config.getRequest(), config.getEndpointClass(), e);
+			throw new RequestExecutionException(config.getRequest(), config.getEndpoint(), e);
 		}
 	}
 }

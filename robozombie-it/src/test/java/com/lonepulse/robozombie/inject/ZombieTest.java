@@ -28,8 +28,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
-import com.lonepulse.robozombie.inject.Zombie;
-
 
 /**
  * <p>Performs <b>Unit Testing</b> on the {@link Zombie} and its injection capabilities.

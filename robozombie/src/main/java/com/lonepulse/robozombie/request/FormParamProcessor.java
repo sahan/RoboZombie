@@ -38,7 +38,7 @@ import org.apache.http42.entity.ContentType;
 
 import com.lonepulse.robozombie.annotation.FormParam;
 import com.lonepulse.robozombie.annotation.Request;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which discovers <i>form parameters</i> 
@@ -60,7 +60,7 @@ class FormParamProcessor extends AbstractRequestProcessor {
 
 	
 	/**
-	 * <p>Accepts the {@link ProxyInvocationConfiguration} along with an {@link HttpEntityEnclosingRequestBase} and 
+	 * <p>Accepts the {@link InvocationContext} along with an {@link HttpEntityEnclosingRequestBase} and 
 	 * creates a list of <a href="http://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms">
 	 * form-urlencoded</a> <b>name-value</b> pairs using any arguments which were annotated with @{@link FormParam}. 
 	 * This is then inserted to the request body of the given {@link HttpEntityEnclosingRequestBase}.</p>
@@ -71,7 +71,7 @@ class FormParamProcessor extends AbstractRequestProcessor {
 	 * <p><b>Note</b> that any constant request parameters which are annotated with @{@link Request.Param} will be 
 	 * treated as <b>name-value</b> pairs to used as <b>form-urlencoded</b> params.</p>
 	 * 
-	 * <p>See {@link RequestProcessor#process(HttpRequestBase, ProxyInvocationConfiguration)}.</p>
+	 * <p>See {@link RequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
 	 * 
 	 * @param httpRequestBase
 	 * 			prefers an instance of {@link HttpPost} so as to conform with HTTP 1.1; however, other  
@@ -79,7 +79,7 @@ class FormParamProcessor extends AbstractRequestProcessor {
 	 * 			endpoint definitions (as long as they are {@link HttpEntityEnclosingRequestBase}s) 
 	 * <br><br>
 	 * @param config
-	 * 			an immutable instance of {@link ProxyInvocationConfiguration} which is used to form the query 
+	 * 			an immutable instance of {@link InvocationContext} which is used to form the query 
 	 * 			string and create the {@link HttpGet} request
 	 * <br><br>
 	 * @throws RequestProcessorException
@@ -88,7 +88,7 @@ class FormParamProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected void process(HttpRequestBase httpRequestBase, ProxyInvocationConfiguration config) throws RequestProcessorException {
+	protected void process(HttpRequestBase httpRequestBase, InvocationContext config) throws RequestProcessorException {
 
 		try {
 			

@@ -22,7 +22,7 @@ package com.lonepulse.robozombie.response;
 
 import org.apache.http.HttpResponse;
 
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This interface policy of a <i>response parser</i>. i.e. the unit which 
@@ -47,12 +47,12 @@ public interface ResponseParser<T extends Object> {
 	 * 				the {@link HttpResponse} from which the content is extracted
 	 * 
 	 * @param config
-	 * 				the {@link ProxyInvocationConfiguration} which supplies all information 
+	 * 				the {@link InvocationContext} which supplies all information 
 	 * 				regarding the request and it's invocation
 	 * <br><br>
 	 * @return the entity which is created after parsing the output
 	 * <br><br>
 	 * @since 1.1.1
 	 */
-	public T parse(HttpResponse httpResponse, ProxyInvocationConfiguration config);
+	public T parse(HttpResponse httpResponse, InvocationContext config);
 }

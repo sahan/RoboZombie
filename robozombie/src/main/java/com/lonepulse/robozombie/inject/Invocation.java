@@ -1,0 +1,47 @@
+package com.lonepulse.robozombie.inject;
+
+/*
+ * #%L
+ * RoboZombie
+ * %%
+ * Copyright (C) 2013 Lonepulse
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+
+/**
+ * <p>This contract specifies the services offered on a generic command which allows deferred invocations 
+ * to be carried out for the purposes of parallel processing, prioritized queuing, cached reuse, etc.</p>
+ * 
+ * <p>This contract may be extended to support additional responsibilities such as invalidation.</p> 
+ * 
+ * @version 1.1.0
+ * <br><br>
+ * @since 1.2.4
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ */
+interface Invocation {
+
+	
+	/**
+	 * <p><i>Initiates</i> the command and attempts to complete the duties defined in its implementation.</p>
+	 * 
+	 * @return the result of the invocation as defined by the implementation
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	Object invoke();
+}

@@ -23,7 +23,7 @@ package com.lonepulse.robozombie.request;
 import org.apache.http.HttpRequest;
 
 import com.lonepulse.robozombie.RoboZombieRuntimeException;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This runtime exception is thrown due to an unrecoverable error which occurred when 
@@ -43,22 +43,22 @@ class RequestTranslationException extends RoboZombieRuntimeException {
 	 * <p>Displays a detailed description along with the stacktrace.
 	 * 
 	 * @param config
-	 * 			the {@link ProxyInvocationConfiguration} which failed to be translated 
+	 * 			the {@link InvocationContext} which failed to be translated 
 	 * 			to an {@link HttpRequest}
 	 * 
 	 * @since 1.2.4
 	 */
-	public RequestTranslationException(ProxyInvocationConfiguration config) {
+	public RequestTranslationException(InvocationContext config) {
 	
 		this("Failed to translate an HTTP request for the method <" + config.getRequest().getName() + 
-			 "> on the endopint <" + config.getEndpointClass().getName());
+			 "> on the endopint <" + config.getEndpoint().getName());
 	}
 	
 	/**
 	 * <p>Displays a detailed description along with the stacktrace.
 	 * 
 	 * @param config
-	 * 			the {@link ProxyInvocationConfiguration} which failed to be translated 
+	 * 			the {@link InvocationContext} which failed to be translated 
 	 * 			to an {@link HttpRequest}
 	 * 
 	 * @param rootCause
@@ -66,10 +66,10 @@ class RequestTranslationException extends RoboZombieRuntimeException {
 	 * 
 	 * @since 1.2.4
 	 */
-	public RequestTranslationException(ProxyInvocationConfiguration config, Throwable rootCause) {
+	public RequestTranslationException(InvocationContext config, Throwable rootCause) {
 		
 		this("Failed to translate an HTTP request for the method <" + config.getRequest().getName() + 
-				"> on the endopint <" + config.getEndpointClass().getName(), rootCause);
+				"> on the endopint <" + config.getEndpoint().getName(), rootCause);
 	}
 	
 	/**

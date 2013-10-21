@@ -7,6 +7,7 @@ package com.lonepulse.robozombie.executor;
  * Copyright (C) 2013 Lonepulse
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
  *      http://www.apache.org/licenses/LICENSE-2.0
@@ -25,7 +26,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -35,7 +35,7 @@ import org.apache.http42.util.EntityUtils;
 import android.util.Log;
 
 import com.lonepulse.robozombie.annotation.Stateful;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.processor.Processors;
 import com.lonepulse.robozombie.response.AsyncHandler;
 
@@ -101,13 +101,13 @@ class AsyncRequestExecutor implements RequestExecutor {
 	 * 			the {@link HttpRequestBase} to be executed
 	 * 
 	 * @param config
-	 * 			the {@link ProxyInvocationConfiguration} associated with 
+	 * 			the {@link InvocationContext} associated with 
 	 * 			the current request
 	 * 
 	 * @since 1.1.0
 	 */
 	@Override
-	public HttpResponse execute(final HttpRequestBase httpRequestBase, final ProxyInvocationConfiguration config)
+	public HttpResponse execute(final HttpRequestBase httpRequestBase, final InvocationContext config)
 	throws RequestExecutionException {
 
 		ASYNC_EXECUTOR_SERVICE.execute(new Runnable() {
@@ -120,7 +120,7 @@ class AsyncRequestExecutor implements RequestExecutor {
 				
 				try {
 					
-					Object[] requestArgs = config.getRequestArgs();
+					List<Object> requestArgs = config.getArguments();
 					
 					if(requestArgs != null) {
 					
@@ -134,7 +134,7 @@ class AsyncRequestExecutor implements RequestExecutor {
 						}
 					}
 					
-					Class<?> endpointClass = config.getEndpointClass();
+					Class<?> endpointClass = config.getEndpoint();
 					HttpResponse httpResponse;
 					
 					if(endpointClass.isAnnotationPresent(Stateful.class)) {

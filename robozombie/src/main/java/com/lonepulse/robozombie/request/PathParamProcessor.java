@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import com.lonepulse.robozombie.annotation.PathParam;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which discovers <i>path parameters</i> 
@@ -54,17 +54,17 @@ class PathParamProcessor extends AbstractRequestProcessor {
 
 	
 	/**
-	 * <p>Accepts the {@link ProxyInvocationConfiguration} along with an {@link HttpRequestBase} and recreates 
+	 * <p>Accepts the {@link InvocationContext} along with an {@link HttpRequestBase} and recreates 
 	 * the URI by replacing all path parameter placeholders with the runtime value of their associated arguments 
 	 * that are annotated with @{@link PathParam}.</p> 
 	 * 
-	 * <p>See {@link ParamPopulator#populate(ProxyInvocationConfiguration)}.</p>
+	 * <p>See {@link ParamPopulator#populate(InvocationContext)}.</p>
 	 * 
 	 * @param httpRequestBase
 	 * 			the {@link HttpRequestBase} whose path parameters will be used to reconstruct the URI
 	 * <br><br>
 	 * @param config
-	 * 			an immutable instance of {@link ProxyInvocationConfiguration} which is used to discover 
+	 * 			an immutable instance of {@link InvocationContext} which is used to discover 
 	 * 			any arguments which are annotated with @{@link PathParam}
 	 * <br><br>
 	 * @throws RequestProcessorException
@@ -73,7 +73,7 @@ class PathParamProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected void process(HttpRequestBase httpRequestBase, ProxyInvocationConfiguration config) 
+	protected void process(HttpRequestBase httpRequestBase, InvocationContext config) 
 	throws RequestProcessorException {
 
 		try {

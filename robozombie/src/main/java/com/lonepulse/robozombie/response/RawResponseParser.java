@@ -23,7 +23,7 @@ package com.lonepulse.robozombie.response;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This is an extension of {@link AbstractResponseParser} which extracts the response 
@@ -51,10 +51,10 @@ public class RawResponseParser extends AbstractResponseParser<CharSequence> {
 	 * <p> Parses the content in the {@link HttpResponse} to any type which is 
 	 * assignable to a {@link CharSequence}.
 	 * 
-	 * @see AbstractResponseParser#parse(HttpResponse, com.lonepulse.robozombie.inject.robozombie.processor.ProxyInvocationConfiguration)
+	 * @see AbstractResponseParser#parse(HttpResponse, com.lonepulse.robozombie.inject.InvocationContext.processor.ProxyInvocationConfiguration)
 	 */
 	@Override
-	public CharSequence processResponse(HttpResponse httpResponse, ProxyInvocationConfiguration config) throws Exception {
+	public CharSequence processResponse(HttpResponse httpResponse, InvocationContext config) throws Exception {
 
 		String responseString = EntityUtils.toString(httpResponse.getEntity());
 		return responseString.subSequence(0, responseString.length());

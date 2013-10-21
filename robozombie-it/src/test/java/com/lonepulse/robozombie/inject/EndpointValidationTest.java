@@ -27,8 +27,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
-import com.lonepulse.robozombie.validator.Validators;
 
 /**
  * <p>Performs unit testing for <b>endpoint validation</b>.
@@ -80,10 +78,10 @@ public class EndpointValidationTest {
 	public void setUp() throws Exception {
 		
 		missingEndpointAnnotationExceptionClass = (Class<Throwable>) 
-			Class.forName("com.lonepulse.robozombie.validator.MissingEndpointAnnotationException");
+			Class.forName("com.lonepulse.robozombie.inject.MissingEndpointAnnotationException");
 		
 		missingEndpointHostExceptionClass = (Class<Throwable>) 
-			Class.forName("com.lonepulse.robozombie.validator.MissingEndpointHostException");
+			Class.forName("com.lonepulse.robozombie.inject.MissingEndpointHostException");
 	}
 	
 	/**
@@ -94,12 +92,8 @@ public class EndpointValidationTest {
 	@Test
 	public final void testMissingEndpointAnnotation() {
 		
-		expectedException.expectCause(Is.isA(missingEndpointAnnotationExceptionClass));
-
-		ProxyInvocationConfiguration.Builder builder = new  ProxyInvocationConfiguration.Builder()
-		.setEndpointClass(MissingEndpointAnnotationEndpoint.class);
-		
-		Validators.ENDPOINT.validate(builder.build());
+		expectedException.expect(Is.isA(missingEndpointAnnotationExceptionClass));
+		Validators.ENDPOINT.validate(MissingEndpointAnnotationEndpoint.class);
 	}
 	
 	/**
@@ -110,11 +104,7 @@ public class EndpointValidationTest {
 	@Test
 	public final void testMissingEndpointHost() {
 		
-		expectedException.expectCause(Is.isA(missingEndpointHostExceptionClass));
-		
-		ProxyInvocationConfiguration.Builder builder = new  ProxyInvocationConfiguration.Builder()
-		.setEndpointClass(MissingEndpointHostEndpoint.class);
-		
-		Validators.ENDPOINT.validate(builder.build());
+		expectedException.expect(Is.isA(missingEndpointHostExceptionClass));
+		Validators.ENDPOINT.validate(MissingEndpointHostEndpoint.class);
 	}
 }

@@ -24,7 +24,7 @@ package com.lonepulse.robozombie.executor;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.inject.ProxyInvocationConfiguration;
+import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>Specifies the contract for executing HTTP requests. 
@@ -48,6 +48,6 @@ public interface RequestExecutor {
 	 * @throws RequestExecutionException
 	 * 			if the HTTP request execution failed
 	 */
-	HttpResponse execute(HttpRequestBase httpRequestBase, ProxyInvocationConfiguration config) 
+	HttpResponse execute(HttpRequestBase httpRequestBase, InvocationContext config) 
 	throws RequestExecutionException;
 }

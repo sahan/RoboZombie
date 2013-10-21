@@ -1,4 +1,4 @@
-package com.lonepulse.robozombie.validator;
+package com.lonepulse.robozombie.inject;
 
 
 /*
@@ -23,7 +23,7 @@ package com.lonepulse.robozombie.validator;
 
 
 /**
- * <p>This runtime exception is thrown when a hostname is not specified on an endpoint interface.</p>
+ * <p>This runtime exception is thrown when the <b>hostname</b> is not specified for an endpoint definition.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -38,21 +38,30 @@ class MissingEndpointHostException extends EndpointValidationFailedException {
 	
 
 	/**
-	 * <p>Displays a detailed description along with the stacktrace. 
+	 * <p>Displays a detailed description using the endpoint interface {@link Class} along with the stacktrace.</p>
+	 * 
+	 * @param endpoint
+	 * 			the {@link Class} of the endpoint definition interface
+	 * 
+	 * @since 1.2.4
 	 */
-	public MissingEndpointHostException(Class<?> endpointInterface) {
+	public MissingEndpointHostException(Class<?> endpoint) {
 		
-		this("The endpoint " + endpointInterface.getName() + " should specify a host name via the @Endpoint annotation.");
+		this(new StringBuilder("The endpoint ").append(endpoint == null? "<null>" :endpoint.getName())
+			 .append(" should specify a host name via the @Endpoint annotation.").toString());
 	}
 	
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException()}.
+	 * 
+	 * @since 1.2.4
 	 */
-	public MissingEndpointHostException() {
-	}
+	public MissingEndpointHostException() {}
 
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(String)}.
+	 * 
+	 * @since 1.2.4
 	 */
 	public MissingEndpointHostException(String detailMessage) {
 		
@@ -61,6 +70,8 @@ class MissingEndpointHostException extends EndpointValidationFailedException {
 
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(Throwable)}.
+	 * 
+	 * @since 1.2.4
 	 */
 	public MissingEndpointHostException(Throwable throwable) {
 		
@@ -69,6 +80,8 @@ class MissingEndpointHostException extends EndpointValidationFailedException {
 
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(String, Throwable)}.
+	 * 
+	 * @since 1.2.4
 	 */
 	public MissingEndpointHostException(String detailMessage, Throwable throwable) {
 
