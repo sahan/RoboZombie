@@ -38,7 +38,7 @@ import java.lang.annotation.Target;
  * <p>
  * <code>
  * <pre>
- * <br><b>@Request(path = "/:username/posts.json")</b>
+ * <br><b>@Request(path = "/{username}/posts.json")</b>
  *public abstract String getPosts(<b>@PathParam("username")</b> String username);
  * </pre>
  * </code>

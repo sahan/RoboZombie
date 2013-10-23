@@ -80,6 +80,8 @@ class ProxyInvocation implements Invocation {
 		 * is mandatory. The provided interface will be validated against a set of predetermined rules to 
 		 * ensure its integrity. See {@link Validators#ENDPOINT}.</p>
 		 * 
+		 * <p>Any custom {@link Zombie.Configuration} on the endpoint will be registered after validation.</p>
+		 * 
 		 * @param endpoint
 		 * 			the endpoint definition interface for which {@link ProxyInvocation}s are to be made
 		 * <br><br>
@@ -91,6 +93,7 @@ class ProxyInvocation implements Invocation {
 		public Template(Class<?> endpoint) {
 			
 			this.endpoint = assertValid(endpoint, Validators.ENDPOINT);
+			RequestExecutors.CONFIGURATION.register(this.endpoint);
 		}
 
 		/**

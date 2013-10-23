@@ -22,6 +22,7 @@ package com.lonepulse.robozombie.request;
 
 
 import java.net.URI;
+import java.net.URLDecoder;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
@@ -36,15 +37,15 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * in a request URI by searching for any arguments which are annotated with @{@link PathParam}. The 
  * placeholders that identify these are then replaced by the runtime values of the path parameters. This 
  * may be used in scenarios where the same contextual URI must be manipulated several times over the same 
- * session - for example in the case of RESTful service endpoints (e.g. {@code example.com/users/update/:username}, 
- * {@code example.com/users/delete/:username} ...etc). For request URIs which bear a resemblance but are 
+ * session - for example in the case of RESTful service endpoints (e.g. <code>example.com/users/update/{username}, 
+ * example.com/users/delete/{username}</code> ...etc). For request URIs which bear a resemblance but are 
  * <i>contextually different</i> it is advised to isolated them in their own request definitions and treat 
  * them separately.</p>
  * 
  * <p><b>Prefers</b> that only the subpath of a request contains path parameters. Although the root path 
  * defined on the endpoint is processed just the same, variant roots should use unique endpoint definitions.</p>
  * 
- * @version 1.1.0
+ * @version 1.1.1
  * <br><br>
  * @since 1.2.4
  * <br><br>
@@ -80,7 +81,7 @@ class PathParamProcessor extends AbstractRequestProcessor {
 			
 			Map<String, Object> queryParams = RequestUtils.findPathParams(config);
 			
-			String path = httpRequestBase.getURI().toASCIIString();
+			String path = URLDecoder.decode(httpRequestBase.getURI().toString(), "UTF-8");
 			
 			for (Entry<String, Object> entry : queryParams.entrySet()) {
 				
@@ -99,7 +100,7 @@ class PathParamProcessor extends AbstractRequestProcessor {
 					throw new RequestProcessorException(new IllegalArgumentException(errorContext.toString()));
 				}
 				
-				path = path.replaceAll(Pattern.quote(":" + name), ((CharSequence)value).toString());
+				path = path.replaceAll(Pattern.quote("{" + name + "}"), ((CharSequence)value).toString());
 			}
 			
 			httpRequestBase.setURI(URI.create(path));

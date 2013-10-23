@@ -91,7 +91,7 @@ public interface HttpMethodEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/deleterequest/:id", method = RequestMethod.DELETE)
+	@Request(path = "/deleterequest/{id}", method = RequestMethod.DELETE)
 	public String deleteRequest(@PathParam("id") String id);
 	
 	/**

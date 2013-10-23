@@ -59,7 +59,7 @@ public interface PathEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/restfulsubpathwithparam/:id")
+	@Request(path = "/restfulsubpathwithparam/{id}")
 	public String restfulSubpathWithParam(@PathParam("id") String id);
 	
 	/**
@@ -73,6 +73,6 @@ public interface PathEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/restfulsubpathwithillegalparamtype/:id")
+	@Request(path = "/restfulsubpathwithillegalparamtype/{id}")
 	public String restfulSubpathWithIllegalParamType(@PathParam("id") Long id);
 }

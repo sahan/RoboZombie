@@ -20,7 +20,8 @@ package com.lonepulse.robozombie.inject;
  * #L%
  */
 
-import java.lang.reflect.Constructor;
+import static com.lonepulse.robozombie.util.Assert.assertNotNull;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -36,6 +37,7 @@ import com.lonepulse.robozombie.annotation.Bite;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.executor.ConfigurationFailedException;
 import com.lonepulse.robozombie.executor.RequestExecutors;
+import com.lonepulse.robozombie.util.Fields;
 
 /**
  * <p>An animated corpse which spreads the {@link Endpoint} infection via a {@link Bite}. Used for <b>injecting</b> 
@@ -113,9 +115,6 @@ public final class Zombie {
 	}
 	
 	
-	/**
-	 * <p>Constructor visibility restricted. Instantiation is nonsensical. 
-	 */
 	private Zombie() {}
 	
 	/**
@@ -166,44 +165,35 @@ public final class Zombie {
 	 */
 	public static void infect(Object injectee) {
 		
-		if(injectee == null) {
-			
-			throw new IllegalArgumentException("The object supplied for endpoint injection was <null>");
-		}
-		
-		Class<?> injecteeClass = injectee.getClass();
-		Field[] fields = injecteeClass.getDeclaredFields();
+		assertNotNull(injectee);
 		
 		Class<?> endpointInterface = null;
 		
-		for (Field field : fields) {
+		for (Field field : Fields.in(injectee).annotatedWith(Bite.class).list()) {
 			
 			try {
 				
-				if(field.isAnnotationPresent(Bite.class)) {
+				endpointInterface = field.getType();
+				Object proxyInstance = EndpointProxyFactory.INSTANCE.create(endpointInterface); 
+				
+				try { //1.Simple Field Injection 
 					
-					endpointInterface = field.getType();
-					Object proxyInstance = Zombie.createAndRegisterProxy(endpointInterface);
+					field.set(injectee, proxyInstance);
+				}
+				catch (IllegalAccessException iae) { //2.Setter Injection 
 					
-					try { //1.Simple Property Injection 
-						
-						field.set(injectee, proxyInstance);
+					String fieldName = field.getName();
+					String mutatorName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
+					
+					try {
+					
+						Method mutator = injectee.getClass().getDeclaredMethod(mutatorName, endpointInterface);
+						mutator.invoke(injectee, proxyInstance);
 					}
-					catch (IllegalAccessException iae) { //2.Setter Injection 
+					catch (NoSuchMethodException nsme) { //3.Forced Field Injection
 						
-						String fieldName = field.getName();
-						String mutatorName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1); 
-						
-						try {
-						
-							Method mutator = injecteeClass.getDeclaredMethod(mutatorName, endpointInterface);
-							mutator.invoke(injectee, proxyInstance);
-						}
-						catch (NoSuchMethodException nsme) { //3.Forced Property Injection
-							
-							field.setAccessible(true);
-							field.set(injectee, proxyInstance);
-						}
+						field.setAccessible(true);
+						field.set(injectee, proxyInstance);
 					}
 				}
 			} 
@@ -215,127 +205,11 @@ public final class Zombie {
 				.append(" on property ")
 				.append(field.getName())
 				.append(" at ")
-				.append(injecteeClass.getName())
+				.append(injectee.getClass().getName())
 				.append(". ");
 				
 				Log.e(Zombie.class.getName(), stringBuilder.toString(), e);
 			}
 		}
-	}
-	
-	/**
-	 * <p>Takes the {@link Class} structure of the injectee and uses the designated 
-	 * parameterized constructor to create a new instance via <i>constructor injection</i>.</p>
-	 * <br>
-	 * <b>Usage:</b>
-	 * <br><br>
-	 * <ul>
-	 * <li>
-	 * <h5>Constructor Injection</h5>
-	 * <br>
-	 * <p>The implication is that endpoint <b>instantiation</b> is delegated to the {@link Zombie}.</p> 
-	 * <pre>
-	 * <code>@Bite
-	 * public TwitterService(TwitterEndpoint twitterEndpoint) {
-	 * 
-	 * &nbsp; &nbsp; this.twitterEndpoint = twitterEndpoint;
-	 * } 
-	 * 
-	 * <i>Instantiation:</i>
-	 * 
-	 * TwitterService twitterService = Zombie.infect(TwitterService.class);
-	 * </code>
-	 * </pre>
-	 * </li>
-	 * </ul>
-	 * 
-	 * @param injectee
-	 * 			the {@link Class} structure of the object to be created with the constructor injection endpoint
-	 * 
-	 * @return a <b>new instance</b> of the injectee or {@code null} if constructor injection failed
-	 * <br><br>
-	 * @throws IllegalArgumentException
-	 * 			if the {@link Class} supplied for endpoint injection is {@code null} 
-	 * <br><br>
-	 * @since 1.1.1
-	 */
-	public static <T extends Object> T infect(Class<T> injectee) {
-
-		if(injectee == null) {
-			
-			throw new IllegalArgumentException("The java.lang.Class supplied for endpoint injection was <null>");
-		}
-		
-		Class<?> endpointInterface = null;
-		Constructor<?>[] constructors = injectee.getConstructors();
-
-		for (Constructor<?> constructor : constructors) { //inject with the first annotated constructor
-
-			if (constructor.isAnnotationPresent(Bite.class)) {
-
-				Class<?>[] constructorParameters = constructor.getParameterTypes();
-
-				if (constructorParameters.length > 0) {
-
-					try {
-
-						endpointInterface = constructorParameters[0];
-						Object proxyInstance = Zombie.createAndRegisterProxy(endpointInterface);
-								
-						T instance = injectee.cast(constructor.newInstance(proxyInstance));
-						
-						Zombie.infect(instance); //constructor injection complete; now perform property injection 
-						
-						return instance;
-					} 
-					catch (Exception e) {
-						
-						StringBuilder stringBuilder = new StringBuilder()
-						.append("Failed to inject the endpoint proxy instance of type ")
-						.append(endpointInterface.getName())
-						.append(" on constructor ")
-						.append(constructor.getName())
-						.append(" at ")
-						.append(injectee.getName())
-						.append(". ");
-						
-						Log.e(Zombie.class.getName(), stringBuilder.toString(), e);
-					}
-				}
-			}
-		}
-
-		try { //constructor injection failed, attempt instantiation without injection
-			
-			StringBuilder stringBuilder = new StringBuilder()
-			.append("Incompatible contructor(s) for injection on ")
-			.append(injectee.getName())
-			.append(". Are you missing an @Bite annotation on the constructor? \n")
-			.append("Attempting property injection. ");
-			
-			Log.e(Zombie.class.getName(), stringBuilder.toString());
-			
-			T instance = injectee.newInstance();
-			Zombie.infect(instance);
-			
-			return instance; 
-		}
-		catch (Exception e) {
-
-			StringBuilder stringBuilder = new StringBuilder()
-			.append("Failed to create an instance of  ")
-			.append(injectee.getName())
-			.append(" with constructor injection. ");
-			
-			Log.e(Zombie.class.getName(), stringBuilder.toString(), e);
-			
-			return null;
-		}
-	}
-	
-	private static Object createAndRegisterProxy(Class<?> endpointClass) throws InstantiationException, IllegalAccessException {
-		
-		RequestExecutors.CONFIGURATION.register(endpointClass);
-		return EndpointProxyFactory.INSTANCE.create(endpointClass); 
 	}
 }
