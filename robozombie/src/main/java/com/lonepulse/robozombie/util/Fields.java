@@ -49,12 +49,12 @@ import java.util.Set;
 public final class Fields {
 	
 	
-	private static interface Criterion {
+	public static interface Criterion {
 		
 		boolean evaluate(Field field);
 	}
 	
-	private List<Field> evaluate(Criterion criterion) {
+	private List<Field> filter(Criterion criterion) {
 		
 		List<Field> filteredFields = new ArrayList<Field>();
 		
@@ -136,7 +136,7 @@ public final class Fields {
 		
 		assertNotNull(annotation, Class.class);
 		
-		return new Fields(evaluate(new Criterion() {
+		return new Fields(filter(new Criterion() {
 
 			@Override
 			public boolean evaluate(Field field) {
@@ -161,7 +161,7 @@ public final class Fields {
 		
 		assertNotNull(annotations, Class[].class);
 		
-		return new Fields(evaluate(new Criterion() {
+		return new Fields(filter(new Criterion() {
 
 			@Override
 			public boolean evaluate(Field field) {
@@ -197,7 +197,7 @@ public final class Fields {
 		
 		assertNotNull(annotations, Class[].class);
 		
-		return new Fields(evaluate(new Criterion() {
+		return new Fields(filter(new Criterion() {
 
 			@Override
 			public boolean evaluate(Field field) {
@@ -230,7 +230,7 @@ public final class Fields {
 		
 		assertNotEmpty(fieldName);
 		
-		return new Fields(evaluate(new Criterion() {
+		return new Fields(filter(new Criterion() {
 
 			@Override
 			public boolean evaluate(Field field) {
@@ -255,7 +255,7 @@ public final class Fields {
 		
 		assertNotEmpty(fieldName);
 		
-		return new Fields(evaluate(new Criterion() {
+		return new Fields(filter(new Criterion() {
 
 			@Override
 			public boolean evaluate(Field field) {
@@ -280,7 +280,7 @@ public final class Fields {
 		
 		assertNotEmpty(type);
 		
-		return new Fields(evaluate(new Criterion() {
+		return new Fields(filter(new Criterion() {
 
 			@Override
 			public boolean evaluate(Field field) {
@@ -305,7 +305,7 @@ public final class Fields {
 		
 		assertNotEmpty(type);
 		
-		return new Fields(evaluate(new Criterion() {
+		return new Fields(filter(new Criterion() {
 
 			@Override
 			public boolean evaluate(Field field) {
@@ -416,6 +416,22 @@ public final class Fields {
 		view.retainAll(new HashSet<Field>(fields.list()));
 		
 		return new Fields(view);
+	}
+	
+	/**
+	 * <p>Filters the {@link Field}s which match the given {@link Criterion} and returns a new instance 
+	 * of {@link Fields} that wrap the filtered collection.</p>
+	 *
+	 * @param criterion
+	 * 			the {@link Criterion} whose evaluation determines the filtered field
+	 * <br><br>
+	 * @return a <b>new instance</b> of {@link Fields} which wraps the filtered {@link Field}s
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	public Fields matching(Criterion criterion) {
+		
+		return new Fields(filter(criterion));
 	}
 	
 	/**

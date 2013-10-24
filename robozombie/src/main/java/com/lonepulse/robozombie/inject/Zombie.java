@@ -24,6 +24,9 @@ import static com.lonepulse.robozombie.util.Assert.assertNotNull;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.scheme.PlainSocketFactory;
@@ -67,7 +70,7 @@ public final class Zombie {
 	 * 
 	 * <p><b>Note</b> that all extensions must expose a default non-parameterized constructor.</p>
 	 *  
-	 * @version 1.1.0
+	 * @version 1.2.0
 	 * <br><br>
 	 * @since 1.2.4
 	 * <br><br>
@@ -155,60 +158,74 @@ public final class Zombie {
 	 * </li>
 	 * </ul>
 	 * 
-	 * @param injectee
-	 * 			the object to which the endpoint must be injected
+	 * @param victim
+	 * 			an object with endpoint references marked to be <i>bitten</i> and infected 
 	 * <br><br>
-	 * @throws IllegalArgumentException
+	 * @param moreVictims
+	 * 			more unsuspecting objects with endpoint references to be infected
+	 * <br><br>
+	 * @throws NullPointerException
 	 * 			if the object supplied for endpoint injection is {@code null} 
 	 * <br><br>
-	 * @since 1.1.1
+	 * @since 1.2.4
 	 */
-	public static void infect(Object injectee) {
+	public static void infect(Object victim, Object... moreVictims) {
 		
-		assertNotNull(injectee);
+		assertNotNull(victim);
+		
+		List<Object> injectees = new ArrayList<Object>();
+		injectees.add(victim);
+		
+		if(moreVictims != null && moreVictims.length > 0) {
+			
+			injectees.addAll(Arrays.asList(moreVictims));
+		}
 		
 		Class<?> endpointInterface = null;
 		
-		for (Field field : Fields.in(injectee).annotatedWith(Bite.class).list()) {
-			
-			try {
+		for (Object injectee : injectees) {
+		
+			for (Field field : Fields.in(injectee).annotatedWith(Bite.class).list()) {
 				
-				endpointInterface = field.getType();
-				Object proxyInstance = EndpointProxyFactory.INSTANCE.create(endpointInterface); 
-				
-				try { //1.Simple Field Injection 
+				try {
 					
-					field.set(injectee, proxyInstance);
-				}
-				catch (IllegalAccessException iae) { //2.Setter Injection 
+					endpointInterface = field.getType();
+					Object proxyInstance = EndpointProxyFactory.INSTANCE.create(endpointInterface); 
 					
-					String fieldName = field.getName();
-					String mutatorName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
-					
-					try {
-					
-						Method mutator = injectee.getClass().getDeclaredMethod(mutatorName, endpointInterface);
-						mutator.invoke(injectee, proxyInstance);
-					}
-					catch (NoSuchMethodException nsme) { //3.Forced Field Injection
+					try { //1.Simple Field Injection 
 						
-						field.setAccessible(true);
 						field.set(injectee, proxyInstance);
 					}
+					catch (IllegalAccessException iae) { //2.Setter Injection 
+						
+						String fieldName = field.getName();
+						String mutatorName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
+						
+						try {
+						
+							Method mutator = injectee.getClass().getDeclaredMethod(mutatorName, endpointInterface);
+							mutator.invoke(injectee, proxyInstance);
+						}
+						catch (NoSuchMethodException nsme) { //3.Forced Field Injection
+							
+							field.setAccessible(true);
+							field.set(injectee, proxyInstance);
+						}
+					}
+				} 
+				catch (Exception e) {
+					
+					StringBuilder stringBuilder = new StringBuilder()
+					.append("Failed to inject the endpoint proxy instance of type ")
+					.append(endpointInterface.getName())
+					.append(" on property ")
+					.append(field.getName())
+					.append(" at ")
+					.append(injectee.getClass().getName())
+					.append(". ");
+					
+					Log.e(Zombie.class.getName(), stringBuilder.toString(), e);
 				}
-			} 
-			catch (Exception e) {
-				
-				StringBuilder stringBuilder = new StringBuilder()
-				.append("Failed to inject the endpoint proxy instance of type ")
-				.append(endpointInterface.getName())
-				.append(" on property ")
-				.append(field.getName())
-				.append(" at ")
-				.append(injectee.getClass().getName())
-				.append(". ");
-				
-				Log.e(Zombie.class.getName(), stringBuilder.toString(), e);
 			}
 		}
 	}
