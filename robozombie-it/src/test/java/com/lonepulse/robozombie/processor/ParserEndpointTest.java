@@ -31,9 +31,6 @@ import static org.junit.Assert.assertNull;
 
 import java.io.ByteArrayOutputStream;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,6 +38,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.simpleframework.xml.core.Persister;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.lonepulse.robozombie.annotation.Bite;
@@ -158,11 +156,8 @@ public class ParserEndpointTest {
 		
 		User user = new User(1, "Shiro", "Wretched-Egg", 17, true);
 		
-		JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
-		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		jaxbMarshaller.marshal(user, baos);
+		new Persister().write(user, baos);
 		
 		stubFor(get(urlEqualTo(subpath))
 				.willReturn(aResponse()

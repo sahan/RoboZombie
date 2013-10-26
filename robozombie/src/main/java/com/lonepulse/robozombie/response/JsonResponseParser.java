@@ -20,32 +20,98 @@ package com.lonepulse.robozombie.response;
  * #L%
  */
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import android.util.Log;
+
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This is an extension of {@link AbstractResponseParser} which allows the parsing 
- * of JSON strings into its entity-object counterpart.</p>
+ * <p>This is an extension of {@link AbstractResponseParser} which parses b>JSON response content</b> 
+ * to an instance of the model specified on the endpoint definition.</p>
  * 
- * <p>This parser uses the <a href="http://code.google.com/p/google-gson/">GSON Library</a> 
- * for converting JSON strings to their respective entity objects automatically.</p>
+ * <p><b>Note</b> that this parser requires the <a href="http://code.google.com/p/google-gson">GSON</a> 
+ * library to be available on the classpath to be active. If GSON is not detected, this parser will 
+ * be disabled and any attempt to use it will result in an {@link IllegalStateException}.</p>
  * 
- * @version 1.1.2
+ * @version 1.2.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.1.0
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-class JsonResponseParser extends AbstractResponseParser<Object> {
-
+final class JsonResponseParser extends AbstractResponseParser<Object> {
+	
+	
+	private static final String ERROR_CONTEXT_UNAVAILABLE = new StringBuilder()
+	.append("\n\nGSON (gson-2.2.4.jar) was not detected on the classpath. ")
+	.append("To enable JSON response parsing with @Parser(ParserType.JSON) ")
+	.append("add the following dependency to your build configuration.\n\n")
+	.append("Maven:\n")
+	.append("<dependency>\n")
+	.append("  <groupId>com.google.code.gson</groupId>\n")
+	.append("  <artifactId>gson</artifactId>\n")
+	.append("  <version>2.2.4</version>\n")
+	.append("</dependency>\n\n")
+	.append("Scala SBT:\n")
+	.append("libraryDependencies += \"com.google.code.gson\" % \"gson\" % \"2.2.4\"\n\n")
+	.append("Gradle:\n")
+	.append("compile 'com.google.code.gson:gson:2.2.4'\n\n")
+	.append("...or grab the JAR from ")
+	.append("http://code.google.com/p/google-gson/downloads/list \n\n").toString();
+	
+	private static final String ERROR_CONTEXT_INCOMPATIBLE = new StringBuilder()
+	.append("\n\nFailed to initialize JsonResponseParser; use of @Parser(ParserType.JSON) is disabled.\n")
+	.append("Please make sure that you are using version 2.2.4 of GSON.\n\n").toString();
+	
+	
+	private static Class<?> Gson;
+	private static Class<?> TypeToken;
+	
+	private static Method Gson_fromJson;
+	private static Method TypeToken_GET;
+	private static Method TypeToken_getType;
+	
+	private static Object gson; //thread-safe, as proven by http://goo.gl/RUyPdn
+	
+	private static boolean unavailable;
+	private static boolean incompatible;
+	
+	static {
+		
+		try {
+			
+			Gson = Class.forName("com.google.gson.Gson");
+			Gson_fromJson = Gson.getDeclaredMethod("fromJson", String.class, Type.class);
+			
+			TypeToken = Class.forName("com.google.gson.reflect.TypeToken");
+			TypeToken_GET = TypeToken.getDeclaredMethod("get", Class.class);
+			TypeToken_getType = TypeToken.getDeclaredMethod("getType");
+			
+			gson = Gson.newInstance();
+		}
+		catch (ClassNotFoundException cnfe) { 
+			
+			unavailable = true;
+			Log.w(JsonResponseParser.class.getSimpleName(), ERROR_CONTEXT_UNAVAILABLE);
+		}
+		catch(Exception e) {
+			
+			incompatible = true;
+			Log.w(JsonResponseParser.class.getSimpleName(), ERROR_CONTEXT_INCOMPATIBLE);
+		}
+	}
+	
 	
 	/**
-	 * <p>Creates a new instance of {@link JsonResponseParser} and register the generic 
-	 * type {@link Object} as the entity which results from its <i>parse</i> operation.
+	 * <p>Creates a new instance of {@link JsonResponseParser} and register the generic type {@link Object} 
+	 * as the entity which results from its <i>parse</i> operation.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.1.0
 	 */
 	public JsonResponseParser() {
 		
@@ -53,14 +119,41 @@ class JsonResponseParser extends AbstractResponseParser<Object> {
 	}
 	
 	/**
-     * <p> Parses the JSON String in the {@link HttpResponse} via the <b>GSON library</b> 
-     * and returns the entity representing the JSON data.
+     * <p>Parses the JSON String in the {@link HttpResponse} using <b>GSON</b> and returns the entity modeled 
+     * by the JSON data.</p>
+     * 
+     * <p>See {@link AbstractResponseParser#processResponse(HttpResponse, InvocationContext)}.
+     * 
+	 * @param httpResponse
+	 * 				the {@link HttpResponse} which contains the JSON content to be parsed to a model
+	 * <br><br>
+	 * @param context
+	 * 				the {@link InvocationContext} which is used to discover further information regarding 
+	 * 				the proxy invocation
+     * <br><br>
+	 * @return the model which was parsed from the JSON response content
+	 * <br><br>
+	 * @throws IllegalStateException 
+	 * 				if the <b>GSON library</b> was not found on the classpath or if an incompatible version 
+	 * 				of the library is being used
+	 * <br><br>
+	 * @throws Exception 
+	 * 				if the JSON content failed to be parsed to the specified model
+	 * <br><br>
+	 * @since 1.1.0
 	 */
 	@Override
-	protected Object processResponse(HttpResponse httpResponse, InvocationContext config) throws Exception {
+	protected Object processResponse(HttpResponse httpResponse, InvocationContext context) throws Exception {
+		
+		if(unavailable || incompatible) {
+			
+			throw new IllegalStateException(unavailable? ERROR_CONTEXT_UNAVAILABLE :ERROR_CONTEXT_INCOMPATIBLE);
+		}
 		
 		String jsonString = EntityUtils.toString(httpResponse.getEntity());
 		
-		return new Gson().fromJson(jsonString, TypeToken.get(config.getRequest().getReturnType()).getType());
+		Object typeToken = TypeToken_GET.invoke(null, context.getRequest().getReturnType());
+		
+		return Gson_fromJson.invoke(gson, jsonString, TypeToken_getType.invoke(typeToken));
 	}
 }

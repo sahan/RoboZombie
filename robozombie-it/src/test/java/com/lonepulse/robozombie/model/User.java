@@ -23,8 +23,6 @@ package com.lonepulse.robozombie.model;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * <p>A mock entity which is used to test the response parsers and the response processor chain.</p>
  * 
@@ -36,7 +34,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@XmlRootElement
 public class User implements Serializable {
 
 
