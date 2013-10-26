@@ -40,21 +40,23 @@ import com.lonepulse.robozombie.response.ResponseParser;
  * <p>At <b>type-level</b> on an endpoint <i>interface</i>; attaches this parser for all requests.</p><br>
  * <code>
  * <pre>@Endpoint(scheme = "https", host = "api.twitter.com/1")<b>
- *&#064;Parser(ParserType.RAW)</b><br>public interface TwitterEndpoint {<br>}</b>
+ *&#064;Parser(ParserType.JSON)</b><br>public interface TwitterEndpoint {<br>}</b>
  * </pre>
  * </code>
  * </li>
  * <li>
  * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
  * <code>
- * <pre>@Request("/license.txt")<br><b>@Parser(ParserType.RAW)</b>
- *public abstract String getLicense();</b></b></pre>
+ * <pre>@Request("/users/{id}")<br><b>@Parser(ParserType.JSON)</b>
+ *public abstract String getUser();</b></b></pre>
  * </code>
  * </li>
  * </ol>
  * </p>
  * 
  * @version 1.1.2
+ * <br><br>
+ * @since 1.1.0
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -64,70 +66,76 @@ public @interface Parser {
 
 
 	/**
-	 * <p>Indicates the type of the parser to be used for parsing the content 
-	 * of the response.</p>
+	 * <p>Indicates the type of the parser to be used for parsing the response content.</p>
 	 * 
-	 * @version 1.1.1
+	 * @version 1.2.0
+	 * <br><br> 
+	 * @since 1.1.0
 	 * <br><br> 
 	 * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
 	public static enum ParserType {
 		
+		
 		/**
-		 * <p>Identifies a response parser which makes the response available as its 
-		 * raw string content.</p>
+		 * <p>This response parser makes the response content available as <b>raw text</b>.</p>
 		 * 
-		 * @since 1.1.1
+		 * @since 1.1.0
 		 */
 		RAW,
 		
 		/**
-		 * <p>Identifies a response parser which deserializes JSON content into models.</p>
+		 * <p>This response parser deserializes JSON content into the model specified on the request 
+		 * definition.</p>
 		 * 
-		 * @since 1.1.1
+		 * <p><b>Note</b> that this parser requires the <a href="http://code.google.com/p/google-gson">GSON</a> 
+		 * library to be available on the classpath to be active. If GSON is not detected, this parser will 
+		 * be disabled and any attempt to use it will result in an {@link IllegalStateException}.</p>
+		 * 
+		 * @since 1.1.0
 		 */
 		JSON,
 		
 		/**
-		 * <p>Identifies a response parser which deserializes XML content into models.</p>
+		 * <p>This response parser deserializes XML content into the model specified on the request 
+		 * definition.</p>
 		 * 
-		 * @since 1.2.4
+		 * <p><b>Note</b> that this parser requires the <a href="http://simple.sourceforge.net">Simple-XML</a> 
+		 * library to be available on the classpath to be active. If Simple-XML is not detected, this parser will 
+		 * be disabled and any attempt to use it will result in an {@link IllegalStateException}.</p>
+		 * 
+		 * @since 1.1.0
 		 */
 		XML,
 		
 		/**
-		 * <p>The default value which indicates that the {@link Class} set in the 
-		 * {@link Parser#value()} property should be used.</p>
+		 * <p>The default value which indicates that a custom {@link AbstractResponseParser} extendsion is being 
+		 * used, whose {@link Class} is specified via {@link Parser#type()}.</p>
 		 * 
-		 * @since 1.1.1
+		 * @since 1.1.0
 		 */
 		UNDEFINED;
 	};
 	
 	
 	/**
-	 * <p>An instance of the {@link ParserType} enum which is used to identify 
-	 * a pre-packaged {@link ResponseParser} available in the library.</p> 
+	 * <p>The prefabricated instance of ResponseParser<?> to be used, which can be identified using {@link ParserType}.</p>
 	 * 
-	 * @return an instance of the {@link ParserType}. 
+	 * @return the selected {@link ParserType} or the {@link Class} of a custom {@link ResponseParser}
 	 * <br><br>
-	 * @since 1.1.2
+	 * @since 1.2.4
 	 */
 	public ParserType value() default ParserType.UNDEFINED;
 	
 	/**
-	 * <p>The {@link Class} of the {@link ResponseParser} to be used. Users can 
-	 * create their own response parsers by extending {@link ResponseParser} and 
-	 * use them in this context.</p>
-	 * 
-	 * <p>By default, a <b>raw response parser</b> is used.</p>
+	 * <p>The {@link Class} of the custom {@link AbstractResponseParser} extension to be used.</p> 
 	 * 
 	 * <code>
      * <pre>@Request("/license.txt")<br><b>@Parser(type = CustomParser.class)</b>
-     *public abstract String getLicense();</b></b></pre>
+     *public abstract License getLicense();</b></b></pre>
      * </code>
 	 * 
-	 * @return the {@link Class} of the {@link ResponseParser} to be used
+	 * @return the {@link Class} of the custom {@link AbstractResponseParser} to be used
 	 * <br><br>
 	 * @since 1.1.1
 	 */

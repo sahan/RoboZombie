@@ -105,7 +105,7 @@ class EntityProcessor extends AbstractResponseProcessor {
 					}
 					else if(handleAsync || CharSequence.class.isAssignableFrom(responseType)) {
 						
-						responseParser = ResponseParsers.RESOLVER.resolve(ParserType.RAW);
+						responseParser = ResponseParsers.resolve(ParserType.RAW);
 					}
 					else {
 						
@@ -114,14 +114,8 @@ class EntityProcessor extends AbstractResponseProcessor {
 					
 					if(parser != null) {
 						
-						if(parser.value() == ParserType.UNDEFINED) {
-							
-							responseParser = ResponseParser.class.cast(parser.type().newInstance()); 
-						}
-						else {
-							
-							responseParser = ResponseParsers.RESOLVER.resolve(parser.value()); 
-						}
+						responseParser = (parser.value() == ParserType.UNDEFINED)? 
+							ResponseParsers.resolve(parser.type()) :ResponseParsers.resolve(parser.value()); 
 					}
 					
 					return responseParser.parse(httpResponse, config);
