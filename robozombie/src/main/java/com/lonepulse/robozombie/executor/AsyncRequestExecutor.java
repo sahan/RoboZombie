@@ -26,34 +26,27 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http42.util.EntityUtils;
 
 import android.util.Log;
 
-import com.lonepulse.robozombie.annotation.Stateful;
+import com.lonepulse.robozombie.annotation.Asynchronous;
 import com.lonepulse.robozombie.inject.InvocationContext;
-import com.lonepulse.robozombie.processor.Processors;
-import com.lonepulse.robozombie.response.AsyncHandler;
 
 /**
- * <p>A concrete implementation of {@link RequestExecutor} which executes 
- * {@link HttpRequest}s asynchronously.</p>
+ * <p>This is an extension of {@link BasicRequestExecutor} which is responsible for executing <b>asynchronous 
+ * requests</b> identified by the @{@link Asynchronous} annotation placed on the endpoint or request method.</p>
  * 
- * <p>The thread pool is managed by {@link MultiThreadedHttpClient} using 
- * a {@link PoolingClientConnectionManager}.</p>
- * 
- * @version 1.2.0
+ * @version 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.2.4
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-class AsyncRequestExecutor implements RequestExecutor {
+class AsyncRequestExecutor extends BasicRequestExecutor {
 
-	
-	private static final String CONTEXT = "AsyncRequestExecutor";
 	
 	private static final ExecutorService ASYNC_EXECUTOR_SERVICE;
 	
@@ -73,18 +66,19 @@ class AsyncRequestExecutor implements RequestExecutor {
 					if(!ASYNC_EXECUTOR_SERVICE.awaitTermination(60, TimeUnit.SECONDS)) {
 						
 						List<Runnable> pendingRequests = ASYNC_EXECUTOR_SERVICE.shutdownNow();
-						Log.i(CONTEXT, pendingRequests.size() + " asynchronous requests aborted.");
+						Log.i(getClass().getSimpleName(), pendingRequests.size() + " asynchronous requests aborted.");
 						
 						if(!ASYNC_EXECUTOR_SERVICE.awaitTermination(10, TimeUnit.SECONDS)) {
 							
-							Log.e(CONTEXT, "Failed to shutdown the cached thread pool for asynchronous requests.");
+							Log.e(getClass().getSimpleName(), 
+									"Failed to shutdown the cached thread pool for asynchronous requests.");
 						}
 					}
 				}
 				catch (InterruptedException ie) {
 
 					List<Runnable> pendingRequests = ASYNC_EXECUTOR_SERVICE.shutdownNow();
-					Log.i(CONTEXT, pendingRequests.size() + " asynchronous requests aborted.");
+					Log.i(getClass().getSimpleName(), pendingRequests.size() + " asynchronous requests aborted.");
 					
 					Thread.currentThread().interrupt();
 				}
@@ -94,115 +88,48 @@ class AsyncRequestExecutor implements RequestExecutor {
 	
 	
 	/**
-	 * <p>Takes an {@link HttpRequestBase} and executes it asynchronously. 
-	 * This method returns {@code null} immediately.
+	 * <p>Creates a new instance of {@link AsyncRequestExecutor} using the given {@link ExecutionHandler}.</p>
 	 * 
-	 * @param httpRequestBase
-	 * 			the {@link HttpRequestBase} to be executed
+	 * <p>See {@link BasicRequestExecutor#BasicRequestExecutor(ExecutionHandler)}</p>
+	 *
+	 * @param responseHandler
+	 * 			the instance of {@link ExecutionHandler} which will be invoked during request execution
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	AsyncRequestExecutor(ExecutionHandler responseHandler) {
+		
+		super(responseHandler);
+	}
+	
+	/**
+	 * <p>Executes an {@link HttpRequestBase} <b>asynchronously</b> with the endpoint's {@link HttpClient}, 
+	 * which causes it to return immediately with {@code null}. Directing the request execution is delegated 
+	 * to the super class' implementation.</p> 
 	 * 
-	 * @param config
-	 * 			the {@link InvocationContext} associated with 
-	 * 			the current request
+	 * <p>See {@link BasicRequestExecutor#execute(HttpRequestBase, InvocationContext)}</p>
 	 * 
-	 * @since 1.1.0
+	 * @param request
+	 * 			the {@link HttpRequestBase} to be executed using the endpoint's {@link HttpClient}
+	 * <br><br>
+	 * @param context
+	 * 			the {@link InvocationContext} used to discover information about the proxy invocation
+	 * <br><br>
+	 * @throws RequestExecutionException
+	 * 			if the HTTP request execution failed
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	@Override
-	public HttpResponse execute(final HttpRequestBase httpRequestBase, final InvocationContext config)
+	public HttpResponse execute(final HttpRequestBase httpRequestBase, final InvocationContext context)
 	throws RequestExecutionException {
-
+		
 		ASYNC_EXECUTOR_SERVICE.execute(new Runnable() {
-			
-			@SuppressWarnings("unchecked") //type-safe cast from Object to AsyncHandler
+
 			@Override
 			public void run() {
-		
-				AsyncHandler<Object> asyncHandler = null;
 				
-				try {
-					
-					List<Object> requestArgs = config.getArguments();
-					
-					if(requestArgs != null) {
-					
-						for (Object object : requestArgs) {
-							
-							if(object instanceof AsyncHandler) {
-								
-								asyncHandler = AsyncHandler.class.cast(object);
-								break;
-							}
-						}
-					}
-					
-					Class<?> endpointClass = config.getEndpoint();
-					HttpResponse httpResponse;
-					
-					if(endpointClass.isAnnotationPresent(Stateful.class)) {
-							
-						HttpContext httpContext = HttpContextDirectory.INSTANCE.get(endpointClass);
-						httpResponse = HttpClientDirectory.INSTANCE.get(endpointClass).execute(httpRequestBase, httpContext);
-					}
-					else {
-							
-						httpResponse = HttpClientDirectory.INSTANCE.get(endpointClass).execute(httpRequestBase);
-					}
-					
-					if(asyncHandler == null) {
-						
-						EntityUtils.consumeQuietly(httpResponse.getEntity());
-						return;
-					}
-					else {
-					
-						int statusCode = httpResponse.getStatusLine().getStatusCode();
-						boolean successful = statusCode > 199 && statusCode < 300;
-						
-						if(successful) {
-							
-							Object reponseEntity = Processors.RESPONSE.run(httpResponse, config);
-							
-							try {
-								
-								asyncHandler.onSuccess(httpResponse, reponseEntity);
-							}
-							catch (Exception e) {
-								
-								Log.e(CONTEXT, "Callback \"onSuccess\" aborted with an exception.", e);
-							}
-						}
-						else { 
-							
-							EntityUtils.consumeQuietly(httpResponse.getEntity());
-							
-							try {
-								
-								asyncHandler.onFailure(httpResponse);
-							}
-							catch (Exception e) {
-								
-								Log.e(CONTEXT, "Callback \"onFailure\" aborted with an exception.", e);
-							}
-						}
-					}
-				}
-				catch(Exception error) {
-					
-					if(asyncHandler != null) {
-						
-						try {
-						
-							asyncHandler.onError(error);
-						}
-						catch(Exception e) {
-							
-							Log.e(CONTEXT, "Callback \"onError\" aborted with an exception.", e);
-						}
-					}
-					else {
-						
-						Log.e(CONTEXT, "Asynchronous request execution failed. ", error);
-					}
-				}
+				AsyncRequestExecutor.super.execute(httpRequestBase, context);
 			}
 		});
 		

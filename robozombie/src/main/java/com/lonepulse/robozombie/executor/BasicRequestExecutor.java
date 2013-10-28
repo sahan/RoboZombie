@@ -21,68 +21,146 @@ package com.lonepulse.robozombie.executor;
  */
 
 
-import java.io.IOException;
-
-import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.protocol.HttpContext;
 
 import com.lonepulse.robozombie.annotation.Stateful;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>A concrete implementation of {@link RequestExecutor} which executes {@link HttpRequest}s. 
+ * <p>This is an implementation of {@link RequestExecutor} which isolates responsibilities that are common 
+ * to all concrete {@link RequestExecutor}s.</p> 
  * 
  * @version 1.2.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.1.0
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 class BasicRequestExecutor implements RequestExecutor {
-
+	
+	
+	private final ExecutionHandler responseHandler;
+	
 	
 	/**
-	 * {@inheritDoc}
+	 * <p>Creates a new instance of {@link BasicRequestExecutor} using the given {@link ExecutionHandler}.</p>
+	 *
+	 * @param responseHandler
+	 * 			the instance of {@link ExecutionHandler} which will be invoked during request execution
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	BasicRequestExecutor(ExecutionHandler responseHandler) {
+		
+		this.responseHandler = responseHandler;
+	}
+	
+	/**
+	 * <p>Performs the actual request execution with the {@link HttpClient} to be used for the endpoint 
+	 * (fetched using the {@link HttpClientDirectory}). See {@link HttpClient#execute(HttpUriRequest)}</p>
+	 * 
+	 * <p>If the endpoint is annotated with @{@link Stateful}, the relevant {@link HttpContext} from the 
+	 * {@link HttpContextDirectory} is used. See {@link HttpClient#execute(HttpUriRequest, HttpContext)}</p>
+	 *
+	 * @param request
+	 * 			the {@link HttpRequestBase} to be executed using the endpoint's {@link HttpClient}
+	 * <br><br>
+	 * @param context
+	 * 			the {@link InvocationContext} used to discover information about the proxy invocation
+	 * <br><br>
+	 * @return the {@link HttpResponse} which resulted from the execution
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	protected HttpResponse fetchResponse(HttpRequestBase request, InvocationContext context) {
+
+		try {
+		
+			Class<?> endpoint = context.getEndpoint();
+			
+			HttpClient httpClient = HttpClientDirectory.INSTANCE.get(endpoint);
+			
+			return endpoint.isAnnotationPresent(Stateful.class)? 
+					httpClient.execute(request, HttpContextDirectory.INSTANCE.get(endpoint)) 
+					:httpClient.execute(request);
+		}
+		catch(Exception e) {
+			
+			throw new RequestExecutionException(context.getRequest(), context.getEndpoint(), e);
+		}
+	}
+	
+	/**
+	 * <p>Determines whether the {@link HttpResponse} signifies a successful request execution or not.</p>
+	 *
+	 * @param response
+	 * 			the {@link HttpResponse} whose success status is to be determined
+	 * <br><br>
+	 * @return {@code true} if the {@link HttpResponse} signifies a successful request execution 
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	protected boolean isSuccessful(HttpResponse response) {
+		
+		int status = response.getStatusLine().getStatusCode();
+		return status > 199 && status < 300;
+	}
+	
+	
+	/**
+	 * <p>Executes an {@link HttpRequestBase} using the endpoint's {@link HttpClient} and handles the 
+	 * resulting {@link HttpResponse} using this executor's {@link ExecutionHandler}.</p>
+	 * 
+	 * <p>See {@link #fetchResponse(HttpRequestBase, InvocationContext)}</p>
+	 * 
+	 * <p>See {@link #isSuccessful(HttpResponse)}</p>
+	 * 
+	 * @param request
+	 * 			the {@link HttpRequestBase} to be executed using the endpoint's {@link HttpClient}
+	 * <br><br>
+	 * @param context
+	 * 			the {@link InvocationContext} used to discover information about the proxy invocation
+	 * <br><br>
+	 * @throws RequestExecutionException
+	 * 			if the HTTP request execution failed
+	 * <br><br>
+	 * @since 1.1.0
 	 */
 	@Override
-	public synchronized HttpResponse execute(HttpRequestBase httpRequestBase, InvocationContext config)
+	public HttpResponse execute(HttpRequestBase request, InvocationContext context) 
 	throws RequestExecutionException {
-	
+		
 		try {
 			
-			Class<?> endpointClass = config.getEndpoint();
-			HttpResponse httpResponse;
+			HttpResponse response = fetchResponse(request, context);
 			
-			if(endpointClass.isAnnotationPresent(Stateful.class)) {
+			if(isSuccessful(response)) {
 				
-				HttpContext httpContext = HttpContextDirectory.INSTANCE.get(endpointClass);
-				httpResponse = HttpClientDirectory.INSTANCE.get(endpointClass).execute(httpRequestBase, httpContext);
+				responseHandler.onSuccess(response, context);
 			}
 			else {
 				
-				httpResponse = HttpClientDirectory.INSTANCE.get(endpointClass).execute(httpRequestBase);
+				responseHandler.onFailure(response, context);
 			}
 			
-			int statusCode = httpResponse.getStatusLine().getStatusCode();
-			
-			if(!(statusCode > 199 && statusCode < 300)) {
-				
-				StringBuilder builder = new StringBuilder()
-				.append("HTTP request for ")
-				.append(httpRequestBase.getURI())
-				.append(" failed with status code ")
-				.append(statusCode)
-				.append(", ")
-				.append(httpResponse.getStatusLine().getReasonPhrase());
-				
-				throw new IOException(builder.toString());
-			}
-		
-			return httpResponse;
+			return response;
 		}
-		catch (Exception e) {
+		catch (Exception error) {
 			
-			throw new RequestExecutionException(config.getRequest(), config.getEndpoint(), e);
+			try {
+			
+				responseHandler.onError(context, error);
+			}
+			catch(Exception e) {
+				
+				throw RequestExecutionException.wrap(context.getRequest(), context.getEndpoint(), e);
+			}
+			
+			throw RequestExecutionException.wrap(context.getRequest(), context.getEndpoint(), error);
 		}
 	}
 }

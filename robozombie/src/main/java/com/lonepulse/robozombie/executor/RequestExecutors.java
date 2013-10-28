@@ -45,14 +45,14 @@ public enum RequestExecutors implements RequestExecutor {
 	 * 
 	 * @since 1.1.0
 	 */
-	BASIC(new BasicRequestExecutor()),
+	BASIC(new BasicRequestExecutor(new BasicExecutionHandler())),
 	
 	/**
 	 * See {@link AsyncRequestExecutor}.
 	 * 
 	 * @since 1.1.0
 	 */
-	ASYNC(new AsyncRequestExecutor());
+	ASYNC(new AsyncRequestExecutor(new AsyncExecutionHandler()));
 	
 	
 	/**

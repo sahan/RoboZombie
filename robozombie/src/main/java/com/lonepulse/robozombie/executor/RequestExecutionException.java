@@ -25,52 +25,68 @@ import java.lang.reflect.Method;
 import com.lonepulse.robozombie.RoboZombieRuntimeException;
 
 /**
- * <p>This runtime exception is thrown whenever a failure occurs in executing 
- * an HTTP request.</p>
+ * <p>This runtime exception is thrown whenever a failure occurs in processing a request invocation.</p>
  * 
- * @version 1.1.0
+ * @version 1.2.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.1.0
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 class RequestExecutionException extends RoboZombieRuntimeException {
 
 	
 	private static final long serialVersionUID = -7083028842706994616L;
 	
-
+	
 	/**
-	 * <p>Displays a detailed description along with the stacktrace. 
+	 * <p>If the given exception is an instance of {@link RequestExecutionException} it is returned as is, 
+	 * else a new {@link RequestExecutionException} is created using the given exception as the root cause.</p>
+	 *
+	 * @param request
+	 * 			the {@link Method} which represents the invoked request's definition
+	 * <br><br>
+	 * @param endpoint
+	 * 			the endpoint {@link Class} whose request execution resulted in a failure
+	 * <br><br>
+	 * @param e
+	 * 			the exception to be wrapped in an instance of {@link RequestExecutionException}
+	 * <br><br>
+	 * @return the wrapped instance of {@link RequestExecutionException}
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	public static final RequestExecutionException wrap(Method request, Class<?> endpoint, Exception e) {
+		
+		return (e instanceof RequestExecutionException)? 
+				(RequestExecutionException)e :new RequestExecutionException(request, endpoint, e);
+	}
+	
+	
+	/**
+	 * <p>Displays a detailed description with information on the endpoint and request definition.<p>
+	 * 
+	 * @param request
+	 * 			the {@link Method} which represents the invoked request's definition
+	 * <br><br>
+	 * @param endpoint
+	 * 			the endpoint {@link Class} whose request execution resulted in a failure
+	 * <br><br>
+	 * @param rootCause
+	 * 			the parent cause which resulted in the request execution failure 
+	 * <br><br>
+	 * @since 1.1.0
 	 */
 	public RequestExecutionException(Method request, Class<?> endpoint, Throwable rootCause) {
 		
-		this("Failed to execute request " + request.getName() + 
-			 " on " + endpoint.getSimpleName(), rootCause);
+		super(new StringBuilder("Failed to execute request ").append(request.getName())
+			  .append(" on ").append(endpoint.getSimpleName()).toString(), rootCause);
 	}
 	
 	/**
-	 * See {@link RuntimeException#RuntimeException()}.
-	 */
-	public RequestExecutionException() {
-	}
-
-	/**
-	 * See {@link RuntimeException#RuntimeException(String)}.
-	 */
-	public RequestExecutionException(String detailMessage) {
-		
-		super(detailMessage);
-	}
-
-	/**
-	 * See {@link RuntimeException#RuntimeException(Throwable)}.
-	 */
-	public RequestExecutionException(Throwable throwable) {
-		
-		super(throwable);
-	}
-
-	/**
-	 * See {@link RuntimeException#RuntimeException(String, Throwable)}.
+	 * <p>See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String, Throwable)}.</p>
+	 * <br><br>
+	 * @since 1.1.0
 	 */
 	public RequestExecutionException(String detailMessage, Throwable throwable) {
 
