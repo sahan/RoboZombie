@@ -32,7 +32,6 @@ import org.apache.http.client.methods.HttpRequestBase;
 import com.lonepulse.robozombie.RoboZombieRuntimeException;
 import com.lonepulse.robozombie.executor.RequestExecutors;
 import com.lonepulse.robozombie.processor.Processors;
-import com.lonepulse.robozombie.request.RequestMethod;
 
 /**
  * <p>This is a concrete implementation of {@link Invocation} which models a command for a request invocation 
@@ -40,7 +39,7 @@ import com.lonepulse.robozombie.request.RequestMethod;
  * direct the invocation as defined on an {@link ProxyInvocation.Template}. Instances of {@link ProxyInvocation} 
  * may be used for deferred request execution using a queuing strategy, reuse via caching, etc.</p>
  * 
- * @version 1.1.0
+ * @version 1.2.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
@@ -110,9 +109,7 @@ class ProxyInvocation implements Invocation {
 		 */
 		protected HttpRequestBase buildRequest(InvocationContext context) {
 			
-			HttpRequestBase request = RequestMethod.TRANSLATOR.translate(context); 
-			Processors.REQUEST.run(request, context);
-			return request;
+			return (HttpRequestBase) Processors.REQUEST.run(context);
 		}
 		
 		/**

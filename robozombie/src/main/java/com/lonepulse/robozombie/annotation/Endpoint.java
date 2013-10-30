@@ -25,7 +25,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.lonepulse.robozombie.request.RequestMethod;
+import com.lonepulse.robozombie.annotation.Request.RequestMethod;
 
 /**
  * <p>Marks the policy of a <b>remote endpoint</b>. For example, an interface which mirrors the method 

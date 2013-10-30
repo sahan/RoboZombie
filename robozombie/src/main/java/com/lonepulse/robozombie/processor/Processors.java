@@ -24,11 +24,13 @@ package com.lonepulse.robozombie.processor;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpRequestBase;
 
 import com.lonepulse.robozombie.annotation.Entity;
 import com.lonepulse.robozombie.annotation.FormParam;
 import com.lonepulse.robozombie.annotation.PathParam;
 import com.lonepulse.robozombie.annotation.QueryParam;
+import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.request.RequestProcessorChain;
 import com.lonepulse.robozombie.response.ResponseProcessorChain;
 
@@ -38,7 +40,7 @@ import com.lonepulse.robozombie.response.ResponseProcessorChain;
  * implementation for its enhancement) for the same target criteria occurs transparently. Refer the documentation for 
  * the enum instance for more information on the current version of the processor-chain in use.</p>
  * 
- * @version 1.1.0
+ * @version 1.2.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
@@ -63,8 +65,8 @@ public enum Processors {
 	 *  <li>{@link EntityProcessor} - inserts the {@link HttpEntity} identified using @{@link Entity}</li>
 	 * </ol>
 	 * 
-	 * <p><b>Note</b> that this processor-chain acts solely on the input arguments to {@link #run(Object...)} and returns 
-	 * {@code null} for all intents and purposes.</p>
+	 * <p><b>Note</b> that this processor-chain requires a single {@link InvocationContext} to be {@link #run(Object...)}} 
+	 * and returns the {@link HttpRequestBase} which was processed through the entire chain.</p>
 	 * 
 	 * <p><b>Note</b> that a chain-wide failure is <b>NOT recoverable</b>. All failures are of type RequestProcessorException 
 	 * which may be thrown from any arbitrary {@link ProcessorChainLink}. Any changes made on the arguments to the chain 

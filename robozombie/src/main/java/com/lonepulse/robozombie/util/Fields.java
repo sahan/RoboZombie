@@ -31,6 +31,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -46,9 +47,22 @@ import java.util.Set;
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public final class Fields {
+public final class Fields implements Iterable<Field> {
 	
 	
+	/**
+	 * <p>This contract defines a strategy for filtering the {@link Field}s within an instance 
+	 * of {@link Fields} by evaluating each {@link Field} to determine if it should be included 
+	 * in the filtered result.</p>
+	 * 
+	 * <p>Instances of {@link Criterion} can be used via {@link Fields#filter(Criterion)}.</p>
+	 * 
+	 * @version 1.1.0
+	 * <br><br>
+	 * @since 1.2.4
+	 * <br><br>
+	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+	 */
 	public static interface Criterion {
 		
 		boolean evaluate(Field field);
@@ -344,7 +358,7 @@ public final class Fields {
 		assertNotNull(fields);
 		
 		Set<Field> view = new HashSet<Field>(this.fields);
-		view.removeAll(new HashSet<Field>(fields.list()));
+		view.removeAll(new HashSet<Field>(fields.fields));
 		
 		return new Fields(view);
 	}
@@ -379,7 +393,7 @@ public final class Fields {
 		assertNotNull(fields);
 		
 		Set<Field> view = new HashSet<Field>(this.fields);
-		view.addAll(new HashSet<Field>(fields.list()));
+		view.addAll(new HashSet<Field>(fields.fields));
 		
 		return new Fields(view);
 	}
@@ -413,7 +427,7 @@ public final class Fields {
 		assertNotNull(fields);
 		
 		Set<Field> view = new HashSet<Field>(this.fields);
-		view.retainAll(new HashSet<Field>(fields.list()));
+		view.retainAll(new HashSet<Field>(fields.fields));
 		
 		return new Fields(view);
 	}
@@ -435,13 +449,19 @@ public final class Fields {
 	}
 	
 	/**
-	 * <p>Retrieves all the {@link Field}s which are wrapped by this instance of {@link Fields} 
-	 * as an instance of {@link ArrayList}.</p>
+	 * <p>Allows the {@link Field}s envelopped by this instance of {@link Fields} to be traversed sequentially 
+	 * using the returned {@link Iterator}.</p> 
+	 * 
+	 * <p><b>Note</b> this {@link Iterator} does not allow the underlying {@link Field}s to be modified, for 
+	 * example using {@link Iterator#remove()}. Doing so will result in an {@link UnsupportedOperationException}.</p>
 	 *
-	 * @return the fields which are wrapped by this instance of {@link Fields}
+	 * @return the iterator which allows the enclosed {@link Field}s to traversed sequentially
+	 * <br><br>
+	 * @since 1.2.4
 	 */
-	public List<Field> list() {
+	@Override
+	public Iterator<Field> iterator() {
 		
-		return new ArrayList<Field>(fields);
-	} 
+		return this.fields.iterator();
+	}
 }

@@ -35,8 +35,8 @@ import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Entity;
 import com.lonepulse.robozombie.annotation.QueryParam;
 import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.annotation.Request.RequestMethod;
 import com.lonepulse.robozombie.model.User;
-import com.lonepulse.robozombie.request.RequestMethod;
 
 /**
  * <p>An interface which represents a dummy endpoint with request method definitions 

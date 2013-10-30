@@ -26,6 +26,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 
+import com.lonepulse.robozombie.annotation.Request.RequestMethod;
 import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.processor.Processor;
 
@@ -43,13 +44,13 @@ import com.lonepulse.robozombie.processor.Processor;
  * <p>It is advised to adhere to <a href="www.w3.org/Protocols/rfc2616/rfc2616.html‎">RFC 2616</a> of <b>HTTP 1.1</b> 
  * when designing an implementation.</p>
  * 
- * @version 1.1.0
+ * @version 1.2.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-abstract class AbstractRequestProcessor implements Processor<Void, RequestProcessorException> {
+abstract class AbstractRequestProcessor implements Processor<HttpRequestBase, RequestProcessorException> {
 
 	
 	/**
@@ -58,7 +59,8 @@ abstract class AbstractRequestProcessor implements Processor<Void, RequestProces
 	 * Any implementations that wish to check additional preconditions or those that wish to alter this basic approach 
 	 * should override this method.</p>
 	 * 
-	 * <p><b>Note</b> that this method returns {@code null} for all intents and purposes.</p>
+	 * <p><b>Note</b> that this method is expected to return the {@link HttpRequestBase} which was processed using 
+	 * the implementation of {@link #process(HttpRequestBase, InvocationContext)}.</p> 
 	 * 
 	 * <p>Delegates to {@link #process(HttpRequestBase, InvocationContext)}.</p>
 	 * 
@@ -68,21 +70,20 @@ abstract class AbstractRequestProcessor implements Processor<Void, RequestProces
 	 * 			a array of <b>length 2</b> with an {@link HttpRequestBase} and a {@link InvocationContext} 
 	 * 			in that <b>exact order</b> 
 	 * <br><br>
-	 * @return {@code null} for all intents and purposes; implementations should process the original instance of 
-	 * 		   {@link HttpRequestBase} without recreating or reusing a separate instance with similar properties
+	 * @return the {@link HttpRequestBase} processed using {@link #process(HttpRequestBase, InvocationContext)}
 	 * <br><br>
 	 * @throws IllegalArgumentException
 	 * 			if the supplied arguments array is {@code null} or if the number of arguments does not equal 2, 
 	 * 			or if the arguments are not of the expected type 
 	 * <br><br>
 	 * @throws RequestProcessorException
-	 * 			if {@link #process(HttpRequestBase, InvocationContext)} failed for the given 
-	 * 			{@link HttpRequestBase} and {@link InvocationContext}
+	 * 			if {@link #process(HttpRequestBase, InvocationContext)} failed for the given {@link HttpRequestBase} 
+	 * 			and {@link InvocationContext}
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	public Void run(Object... args) throws RequestProcessorException {
+	public HttpRequestBase run(Object... args) throws RequestProcessorException {
 
 		if(args == null || args.length != 2) {
 			
@@ -123,20 +124,21 @@ abstract class AbstractRequestProcessor implements Processor<Void, RequestProces
 			throw new IllegalArgumentException(accumulatedContext.toString());
 		}
 		
-		process((HttpRequestBase)args[0], (InvocationContext)args[1]);
-		
-		return null;
+		return process((HttpRequestBase)args[0], (InvocationContext)args[1]);
 	}
 	
 	/**
-	 * <p>Takes the {@link InvocationContext} for the given {@link HttpRequestBase} and uses the 
-	 * metadata contained within the configuration to <i>build upon</i> the request.</p>
+	 * <p>Takes the {@link InvocationContext} for the given {@link HttpRequestBase} and uses the metadata 
+	 * contained within the configuration to <i>build upon</i> the request.</p>
 	 * 
 	 * <p>The provided {@link HttpRequestBase} will be a concrete implementation which coincides with one of 
 	 * the {@link RequestMethod}s, such as {@link HttpGet} or {@link HttpPut}. It would be sensible to check 
 	 * the type of the request-method so that you treat each request in a way that complies with 
 	 * <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">Section 9</a> of the <b>HTTP 1.1</b> 
 	 * RFC when designing an implementation.</p>   
+	 * 
+	 * <p><b>Note</b> that all implementations should process the original instance of {@link HttpRequestBase} 
+	 * without recreating or reusing a separate instance with similar properties.</p>
 	 * 
 	 * @param httpRequestBase
 	 * 			a concrete implementation of {@link HttpRequestBase}, such as {@link HttpGet} which should 
@@ -146,12 +148,14 @@ abstract class AbstractRequestProcessor implements Processor<Void, RequestProces
 	 * 			the {@link InvocationContext} which is used to discover the request's 
 	 * 			{@link RequestMethod} and any annotated metadata along with the invocation arguments  
  	 * <br><br>
+ 	 * @return the <b>same instance</b> of {@link HttpRequestBase} which was passed in for processing 
+ 	 * <br><br>
 	 * @throws RequestProcessorException
 	 * 			if the processor finds an {@link HttpRequestBase} <i>which it should act upon</i> and yet 
 	 * 			fails to perform the necessary processing 
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	protected abstract void process(HttpRequestBase httpRequestBase, InvocationContext config)
+	protected abstract HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext config)
 	throws RequestProcessorException;
 }

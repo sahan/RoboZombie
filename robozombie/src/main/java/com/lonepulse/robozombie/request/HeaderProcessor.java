@@ -39,7 +39,7 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * <p><b>Note</b> that all headers will be <b>added</b> and <b>not overwritten</b>. This allows multiple 
  * headers with the same name (having the same or different values) to be used in the same HTTP request.</p> 
  * 
- * @version 1.1.0
+ * @version 1.2.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
@@ -71,13 +71,15 @@ class HeaderProcessor extends AbstractRequestProcessor {
 	 * 			an immutable instance of {@link InvocationContext} which is used to discover any 
 	 * 			@{@link HeaderSet} and @{@link Header} metadata in its <i>request</i> and <i>args</i> 
 	 * <br><br>
+ 	 * @return the same instance of {@link HttpRequestBase} which was given for processing headers
+	 * <br><br>
 	 * @throws RequestProcessorException
 	 * 			if the request-header discovery or population failed due to an unrecoverable error
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	protected void process(HttpRequestBase httpRequestBase, InvocationContext config) throws RequestProcessorException {
+	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext config) throws RequestProcessorException {
 
 		try {
 			
@@ -112,6 +114,8 @@ class HeaderProcessor extends AbstractRequestProcessor {
 				
 				httpRequestBase.addHeader(name, value.toString());
 			}
+			
+			return httpRequestBase;
 		}
 		catch(Exception e) {
 			

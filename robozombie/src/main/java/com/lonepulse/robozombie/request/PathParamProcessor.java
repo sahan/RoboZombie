@@ -45,7 +45,7 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * <p><b>Prefers</b> that only the subpath of a request contains path parameters. Although the root path 
  * defined on the endpoint is processed just the same, variant roots should use unique endpoint definitions.</p>
  * 
- * @version 1.1.1
+ * @version 1.2.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
@@ -68,13 +68,15 @@ class PathParamProcessor extends AbstractRequestProcessor {
 	 * 			an immutable instance of {@link InvocationContext} which is used to discover 
 	 * 			any arguments which are annotated with @{@link PathParam}
 	 * <br><br>
+ 	 * @return the same instance of {@link HttpRequestBase} which was given for processing path params
+	 * <br><br>
 	 * @throws RequestProcessorException
 	 * 			if an unrecoverable error occurred when recreating the URI using path parameters
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	protected void process(HttpRequestBase httpRequestBase, InvocationContext config) 
+	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext config) 
 	throws RequestProcessorException {
 
 		try {
@@ -104,6 +106,8 @@ class PathParamProcessor extends AbstractRequestProcessor {
 			}
 			
 			httpRequestBase.setURI(URI.create(path));
+			
+			return httpRequestBase;
 		}
 		catch(Exception e) {
 			

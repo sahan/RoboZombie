@@ -101,6 +101,15 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 		StringBuilder accumulatedContext = new StringBuilder();
 		boolean hasIllegalArguments = false;
 		
+		if(args[0] == null || !(args[0] instanceof HttpResponse)) {
+			
+			accumulatedContext.append("The first argument should be an instance of ")
+			.append(HttpResponse.class.getName())
+			.append(" which cannot be <null>. ");
+			
+			hasIllegalArguments = true;
+		}
+		
 		if(args[1] == null || !(args[1] instanceof InvocationContext)) {
 			
 			accumulatedContext.append("The second argument to should be an instance of ")

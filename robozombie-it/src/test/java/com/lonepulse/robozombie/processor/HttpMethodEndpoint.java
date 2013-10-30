@@ -30,7 +30,7 @@ import com.lonepulse.robozombie.annotation.Header;
 import com.lonepulse.robozombie.annotation.HeaderSet;
 import com.lonepulse.robozombie.annotation.PathParam;
 import com.lonepulse.robozombie.annotation.Request;
-import com.lonepulse.robozombie.request.RequestMethod;
+import com.lonepulse.robozombie.annotation.Request.RequestMethod;
 
 /**
  * <p>An interface which represents a dummy endpoint with request method definitions which 

@@ -50,7 +50,7 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * provides the <i>value</i> for each <i>name-value</i> pair; and the supplied {@link FormParam#value()} 
  * provides the <i>name</i>.</p>
  * 
- * @version 1.1.0
+ * @version 1.2.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
@@ -82,13 +82,15 @@ class FormParamProcessor extends AbstractRequestProcessor {
 	 * 			an immutable instance of {@link InvocationContext} which is used to form the query 
 	 * 			string and create the {@link HttpGet} request
 	 * <br><br>
+ 	 * @return the same instance of {@link HttpRequestBase} which was given for processing form params 
+	 * <br><br>
 	 * @throws RequestProcessorException
 	 * 			if an {@link HttpGet} instance failed to be created or if a query parameter failed to be inserted
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	protected void process(HttpRequestBase httpRequestBase, InvocationContext config) throws RequestProcessorException {
+	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext config) throws RequestProcessorException {
 
 		try {
 			
@@ -130,6 +132,8 @@ class FormParamProcessor extends AbstractRequestProcessor {
 				httpRequestBase.setHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_FORM_URLENCODED.getMimeType());
 				((HttpEntityEnclosingRequestBase)httpRequestBase).setEntity(new UrlEncodedFormEntity(nameValuePairs));
 			}
+			
+			return httpRequestBase;
 		}
 		catch(Exception e) {
 			

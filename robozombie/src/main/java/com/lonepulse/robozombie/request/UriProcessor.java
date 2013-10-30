@@ -37,7 +37,7 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * <p><b>Note</b> that this processor is a prerequisite for any other processors which extract information 
  * from the <i>complete</i> request URI or manipulate in some way.</p> 
  * 
- * @version 1.1.0
+ * @version 1.2.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
@@ -65,6 +65,8 @@ class UriProcessor extends AbstractRequestProcessor {
 	 * 			an immutable instance of {@link InvocationContext} which has its Sendpoint and request 
 	 * 			properties correctly populated  
 	 * <br><br>
+	 * @return the same instance of {@link HttpRequestBase} which was given for processing the URI
+	 * <br><br>
 	 * @throws RequestProcessorException
 	 * 			if an {@link HttpEntityEnclosingRequestBase} was discovered and yet the entity failed to be resolved 
 	 * 			and inserted into the request body
@@ -72,7 +74,7 @@ class UriProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected void process(HttpRequestBase httpRequestBase, InvocationContext config) 
+	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext config) 
 	throws RequestProcessorException {
 
 		try {
@@ -96,6 +98,8 @@ class UriProcessor extends AbstractRequestProcessor {
 			}
 			
 			httpRequestBase.setURI(uriBuilder.build());
+			
+			return httpRequestBase;
 		}
 		catch(Exception e) {
 			

@@ -20,21 +20,24 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
+import static com.lonepulse.robozombie.util.Assert.assertAssignable;
+import static com.lonepulse.robozombie.util.Assert.assertNotEmpty;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpRequest;
+import org.apache.http.client.methods.HttpRequestBase;
 
 import com.lonepulse.robozombie.annotation.Entity;
 import com.lonepulse.robozombie.annotation.FormParam;
 import com.lonepulse.robozombie.annotation.PathParam;
 import com.lonepulse.robozombie.annotation.QueryParam;
+import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.processor.AbstractProcessorChain;
 import com.lonepulse.robozombie.processor.ProcessorChainFactory;
 import com.lonepulse.robozombie.processor.ProcessorChainLink;
 
 /**
  * <p>This is a concrete implementation of {@link AbstractProcessorChain} which creates a sequentially executed 
- * series of {@link AbstractRequestProcessor}s responsible for building the {@link HttpRequest} for a request 
+ * series of {@link AbstractRequestProcessor}s responsible for building the {@link HttpRequestBase} for a request 
  * invocation.</p>
  * 
  * <p>This chain consists of the {@link AbstractRequestProcessor}s listed below in the given order:  
@@ -48,20 +51,20 @@ import com.lonepulse.robozombie.processor.ProcessorChainLink;
  *  <li>{@link EntityProcessor} - inserts the {@link HttpEntity} identified using @{@link Entity}</li>
  * </ol>
  * 
- * <p><b>Note</b> that this processor-chain acts solely on the input arguments to {@link #run(Object...)} and returns 
- * {@code null} for all intents and purposes.</p>
+ * <p><b>Note</b> that this processor-chain requires a single {@link InvocationContext} to be {@link #run(Object...)}} 
+ * and returns the {@link HttpRequestBase} which was processed through the entire chain.</p>
  * 
  * <p><b>Note</b> that a chain-wide failure is <b>NOT recoverable</b>. All failures are of type {@link RequestProcessorException} 
  * which may be thrown from any arbitrary {@link ProcessorChainLink}. Any changes made on the arguments to the chain 
  * are <b>NOT rolled back</b>.</p> 
  * 
- * @version 1.1.0
+ * @version 1.2.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public final class RequestProcessorChain extends AbstractProcessorChain<Void, RequestProcessorException> {
+public final class RequestProcessorChain extends AbstractProcessorChain<HttpRequestBase, RequestProcessorException> {
 	
 	
 	/**
@@ -82,7 +85,7 @@ public final class RequestProcessorChain extends AbstractProcessorChain<Void, Re
 	@SuppressWarnings("unchecked") //safe generic array of Processor<Void, RequestProcessorException> for varargs (see http://tinyurl.com/coc4om)
 	public RequestProcessorChain() {
 		
-		super(new ProcessorChainFactory<Void, RequestProcessorException>().newInstance(
+		super(new ProcessorChainFactory<HttpRequestBase, RequestProcessorException>().newInstance(
 			  new UriProcessor(), 
 			  new HeaderProcessor(),
 			  new PathParamProcessor(), 
@@ -92,35 +95,38 @@ public final class RequestProcessorChain extends AbstractProcessorChain<Void, Re
 	}
 
 	/**
-	 * <p>Executed for the root link which runs the {@link UriProcessor}. Takes the argument array which was provided 
-	 * in {@link #run(Object...)} and invokes the root link, i.e. the {@link UriProcessor} and returns {@code null}.</p>
+	 * <p>Accepts the {@link InvocationContext} given to {@link #run(Object...)}} the {@link RequestProcessorChain} 
+	 * and translates the request metadata to a concrete instance of {@link HttpRequestBase}. The {@link HttpRequestBase}, 
+	 * together with the {@link InvocationContext} is then given to the root link which runs the {@link UriProcessor} 
+	 * and returns the resulting {@link HttpRequestBase}.</p> 
 	 * 
 	 * <p>See {@link AbstractRequestProcessor}.</p>
 	 * 
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Void onInitiate(ProcessorChainLink<Void, RequestProcessorException> root, Object... args) {
+	protected HttpRequestBase onInitiate(ProcessorChainLink<HttpRequestBase, RequestProcessorException> root, Object... args) {
 		
-		root.getProcessor().run(args); //allow any exceptions to elevate to a chain-wide failure
+		InvocationContext context = assertAssignable(assertNotEmpty(args)[0], InvocationContext.class);
 		
-		return null;
+		HttpRequestBase httpRequestBase = RequestUtils.translateRequestMethod(context);
+		
+		return root.getProcessor().run(httpRequestBase, context); //allow any exceptions to elevate to a chain-wide failure
 	}
 
 	/**
-	 * <p>Executed for each "link-crossing" from the root {@link UriProcessor} onwards. Takes the <b>successor</b> 
-	 * and invokes it with the argument array which was provided in {@link #run(Object...)} and returns {@code null}.
+	 * <p>Executed for each "link-traversal" from the root {@link UriProcessor} onwards. Takes the <b>successor</b> 
+	 * and invokes it with the argument array which was provided in {@link #run(Object...)} and returns the resulting 
+	 * {@link HttpRequestBase}.</p>
 	 * 
 	 * <p>See {@link AbstractRequestProcessor}.</p>
 	 * 
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Void onTraverse(Void result, ProcessorChainLink<Void, RequestProcessorException> successor, Object... args) {
+	protected HttpRequestBase onTraverse(HttpRequestBase result, ProcessorChainLink<HttpRequestBase, RequestProcessorException> successor, Object... args) {
 		
-		successor.getProcessor().run(args);  //allow any exceptions to elevate to a chain-wide failure
-		
-		return null;
+		return successor.getProcessor().run(result, args[0]);  //allow any exceptions to elevate to a chain-wide failure
 	}
 
 	/**
@@ -131,5 +137,5 @@ public final class RequestProcessorChain extends AbstractProcessorChain<Void, Re
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void onTerminate(Void result, Object... args) {}
+	protected void onTerminate(HttpRequestBase result, Object... args) {}
 }

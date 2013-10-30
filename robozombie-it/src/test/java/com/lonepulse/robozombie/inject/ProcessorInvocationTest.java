@@ -54,34 +54,22 @@ public class ProcessorInvocationTest {
 	 * @since 1.2.4
 	 */
 	@Test
-	public final void testRequestArgumentCount() {
+	public final void testRequestArgumentType() {
 		
 		expectedException.expectCause(Is.isA(IllegalArgumentException.class));
+		Processors.REQUEST.run(new Object[]{});
+	}
+	
+	/**
+	 * <p>Tests {@link Processors#REQUEST} invocation with an illegal {@link InvocationContext} type.
+	 *  
+	 * @since 1.2.4
+	 */
+	@Test
+	public final void testRequestArgumentContextType() {
+		
+		expectedException.expectCause(Is.isA(ClassCastException.class));
 		Processors.REQUEST.run(new Object());
-	}
-	
-	/**
-	 * <p>Tests {@link Processors#REQUEST} invocation with an illegal request base type.
-	 *  
-	 * @since 1.2.4
-	 */
-	@Test
-	public final void testRequestArgumentRequestBaseType() {
-		
-		expectedException.expectCause(Is.isA(IllegalArgumentException.class));
-		Processors.REQUEST.run(new Object(), InvocationContext.newBuilder().build());
-	}
-	
-	/**
-	 * <p>Tests {@link Processors#REQUEST} invocation with an illegal proxy configuration type.
-	 *  
-	 * @since 1.2.4
-	 */
-	@Test
-	public final void testRequestArgumentProxyConfigType() {
-		
-		expectedException.expectCause(Is.isA(IllegalArgumentException.class));
-		Processors.REQUEST.run(new HttpGet(), new Object());
 	}
 	
 	/**
@@ -97,12 +85,12 @@ public class ProcessorInvocationTest {
 	}
 	
 	/**
-	 * <p>Tests {@link Processors#RESPONSE} invocation with an illegal proxy configuration type.
+	 * <p>Tests {@link Processors#RESPONSE} invocation with an illegal {@link InvocationContext} type.
 	 *  
 	 * @since 1.2.4
 	 */
 	@Test
-	public final void testResponseArgumentProxyConfigType() {
+	public final void testResponseArgumentContextType() {
 		
 		expectedException.expectCause(Is.isA(IllegalArgumentException.class));
 		Processors.RESPONSE.run(new HttpGet(), new Object());
@@ -117,7 +105,7 @@ public class ProcessorInvocationTest {
 	@Test @SuppressWarnings("unchecked") //an intentional array of NULLs
 	public final void testProcessorChainFactoryRoot() {
 		
-		expectedException.expect(IllegalArgumentException.class);
+		expectedException.expect(NullPointerException.class);
 		new ProcessorChainFactory<Void, Throwable>().newInstance(null, null, null);
 	}
 	

@@ -34,6 +34,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
+import org.apache.http.client.methods.HttpOptions;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.HttpTrace;
 import org.apache.http.entity.BasicHttpEntity;
 import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.entity.ByteArrayEntity;
@@ -48,13 +56,14 @@ import com.lonepulse.robozombie.annotation.HeaderSet;
 import com.lonepulse.robozombie.annotation.PathParam;
 import com.lonepulse.robozombie.annotation.QueryParam;
 import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.annotation.Request.RequestMethod;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This utility class offers some common operations which are used in building requests - most commonly 
  * using the information contained within a {@link InvocationContext}.
  * 
- * @version 1.1.0
+ * @version 1.2.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
@@ -90,7 +99,7 @@ final class RequestUtils {
 	 * 
 	 * @since 1.2.4
 	 */
-	public static List<Request.Param> findConstantRequestParams(InvocationContext config) {
+	static List<Request.Param> findConstantRequestParams(InvocationContext config) {
 		
 		if(config == null) {
 			
@@ -120,7 +129,7 @@ final class RequestUtils {
 	 * 
 	 * @since 1.2.4
 	 */
-	public static Map<String, Object> findQueryParams(InvocationContext config) {
+	 static Map<String, Object> findQueryParams(InvocationContext config) {
 		
 		if(config == null) {
 			
@@ -167,7 +176,7 @@ final class RequestUtils {
 	 * 
 	 * @since 1.2.4
 	 */
-	public static Map<String, Object> findFormParams(InvocationContext config) {
+	static Map<String, Object> findFormParams(InvocationContext config) {
 		
 		if(config == null) {
 			
@@ -222,7 +231,7 @@ final class RequestUtils {
 	 * 
 	 * @since 1.2.4
 	 */
-	public static HttpEntity resolveHttpEntity(Object genericEntity) {
+	static HttpEntity resolveHttpEntity(Object genericEntity) {
 		
 		if(genericEntity == null) {
 			
@@ -310,7 +319,7 @@ final class RequestUtils {
 	 * 
 	 * @since 1.2.4
 	 */
-	public static HttpEntity findAndResolveEntity(InvocationContext config) {
+	static HttpEntity findAndResolveEntity(InvocationContext config) {
 		
 		List<Object> paramValues = config.getArguments();
 		Annotation[][] annotationsForAllParams = config.getRequest().getParameterAnnotations();
@@ -358,7 +367,7 @@ final class RequestUtils {
 	 * 
 	 * @since 1.2.4
 	 */
-	public static Map<String, Object> findPathParams(InvocationContext config) {
+	static Map<String, Object> findPathParams(InvocationContext config) {
 		
 		if(config == null) {
 			
@@ -411,7 +420,7 @@ final class RequestUtils {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static List<Map.Entry<String, Object>> findHeaders(InvocationContext config) {
+	static List<Map.Entry<String, Object>> findHeaders(InvocationContext config) {
 		
 		if(config == null) {
 			
@@ -486,5 +495,34 @@ final class RequestUtils {
 		}
 		
 		return Collections.unmodifiableList(headers);
+	}
+	
+	/**
+	 * <p>Retrieves the proper extension of {@link HttpRequestBase} for the given {@link InvocationContext}. This 
+	 * implementation is solely dependent upon the {@link RequestMethod} property in the annotated metdata of the 
+	 * endpoint method definition.</p>
+	 *
+	 * @param context
+	 * 			the {@link InvocationContext} for which a {@link HttpRequestBase} is to be generated 
+	 * 
+	 * @return the {@link HttpRequestBase} translated from the {@link InvocationContext}'s {@link RequestMethod} 
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	static final HttpRequestBase translateRequestMethod(InvocationContext context) {
+		
+		RequestMethod requestMethod = context.getRequest().getAnnotation(Request.class).method();
+		
+		switch (requestMethod) {
+		
+			case POST: return new HttpPost();
+			case PUT: return new HttpPut();
+			case DELETE: return new HttpDelete();
+			case HEAD: return new HttpHead();
+			case TRACE: return new HttpTrace();
+			case OPTIONS: return new HttpOptions();
+			
+			case GET: default: return new HttpGet();
+		}
 	}
 }

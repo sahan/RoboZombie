@@ -48,7 +48,7 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * 	<li>{@link PathParamProcessor}</li>
  * </ul>
  * 
- * @version 1.1.0
+ * @version 1.2.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
@@ -75,13 +75,15 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 	 * 			an immutable instance of {@link InvocationContext} which is used to form the query 
 	 * 			string and append it to the request URL
 	 * <br><br>
+ 	 * @return the same instance of {@link HttpRequestBase} which was given for processing query params
+	 * <br><br>
 	 * @throws RequestProcessorException
 	 * 			if the creation of a query string failed due to an unrecoverable error
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	protected void process(HttpRequestBase httpRequestBase, InvocationContext config) throws RequestProcessorException {
+	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext config) throws RequestProcessorException {
 
 		try {
 			
@@ -117,6 +119,8 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 			}
 			
 			httpRequestBase.setURI(uriBuilder.build());
+			
+			return httpRequestBase;
 		}
 		catch(Exception e) {
 			

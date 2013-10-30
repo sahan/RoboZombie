@@ -185,7 +185,7 @@ public final class Zombie {
 		
 		for (Object injectee : injectees) {
 		
-			for (Field field : Fields.in(injectee).annotatedWith(Bite.class).list()) {
+			for (Field field : Fields.in(injectee).annotatedWith(Bite.class)) {
 				
 				try {
 					

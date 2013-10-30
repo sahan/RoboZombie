@@ -25,7 +25,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.lonepulse.robozombie.request.RequestMethod;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
+import org.apache.http.client.methods.HttpOptions;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpTrace;
 
 /**
  * <p>This annotation is used to mark a method which initiates an HTTP request.</p>
@@ -41,9 +47,11 @@ import com.lonepulse.robozombie.request.RequestMethod;
  * </code>
  * </p>
  * 
- * @version 1.1.3
+ * @version 1.2.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.1.0
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
@@ -51,21 +59,88 @@ public @interface Request {
 	
 	
 	/**
+	 * <p>Identifies the <i>method</i> of a request as specified in <a href="">
+	 * Section 9</a> of the HTTP 1.1 RFC.</p>
+	 * 
+	 * <p>The default request method used by an @{@link Request} annotation is 
+	 * {@link RequestMethod#GET}. To alter this, use {@link Request#method()}</p>
+	 * 
+	 * @version 1.1.0
+	 * <br><br>
+	 * @since 1.2.4
+	 * <br><br>
+	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+	 */
+	public static enum RequestMethod {
+
+		/**
+		 * <p>Identifies an {@link HttpGet} request.</p>
+		 * 
+		 * @since 1.2.4
+		 */
+		GET,
+		
+		/**
+		 * <p>Identifies an {@link HttpPost} request.</p>
+		 * 
+		 * @since 1.2.4
+		 */
+		POST,
+		
+		/**
+		 * <p>Identifies an {@link HttpPut} request.</p>
+		 * 
+		 * @since 1.2.4
+		 */
+		PUT,
+		
+		/**
+		 * <p>Identifies an {@link HttpDelete} request.</p>
+		 * 
+		 * @since 1.2.4
+		 */
+		DELETE,
+		
+		/**
+		 * <p>Identifies an {@link HttpHead} request.</p>
+		 * 
+		 * @since 1.2.4
+		 */
+		HEAD,
+		
+		/**
+		 * <p>Identifies an {@link HttpTrace} request.</p>
+		 * 
+		 * @since 1.2.4
+		 */
+		TRACE,
+		
+		/**
+		 * <p>Identifies an {@link HttpOptions} request.</p>
+		 * 
+		 * @since 1.2.4
+		 */
+		OPTIONS;
+	}
+	
+	/**
 	 * <p>Specifies a query parameter name and value pair which is common 
 	 * to all submissions of a particular request. 
 	 * 
 	 * @version 1.1.1
 	 * <br><br> 
+	 * @since 1.1.0
+	 * <br><br> 
 	 * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
-	public @interface Param { 
+	public static @interface Param { 
 		
 		/**
 		 * <p>The name of the request parameter.
 		 * 
 		 * @return the name of the request parameter
 		 * <br><br>
-		 * @since 1.1.1
+		 * @since 1.1.0
 		 */
 		public String name();
 		
@@ -74,7 +149,7 @@ public @interface Request {
 		 * 
 		 * @return a serialized {@link String} value for the parameter
 		 * <br><br>
-		 * @since 1.1.1
+		 * @since 1.1.0
 		 */
 		public String value();
 	}
@@ -83,11 +158,11 @@ public @interface Request {
 	 * <p>The type of the HTTP request which can be indicated using 
 	 * {@link RequestMethod}.</p>
 	 * <br>
-	 * <p>The default method type is {@link RequestMethod#GET}.
+	 * <p>The default method type is {@link RequestMethod#GET}.</p>
 	 * 
 	 * @return the type of the HTTP request
 	 * <br><br>
-	 * @since 1.1.1
+	 * @since 1.1.0
 	 */
 	public RequestMethod method() default RequestMethod.GET;
 	
@@ -98,7 +173,7 @@ public @interface Request {
 	 * 
 	 * @return the sub-path on which the resource is located 
 	 * <br><br>
-	 * @since 1.1.2
+	 * @since 1.1.0
 	 */
 	public String path() default "";
 	
@@ -108,7 +183,7 @@ public @interface Request {
 	 * 
 	 * @return an array of {@link Request.Param}s for this particular request
 	 * <br><br>
-	 * @since 1.1.3
+	 * @since 1.1.0
 	 */
 	public Request.Param[] params() default {};
 }

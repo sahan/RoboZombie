@@ -46,6 +46,41 @@ public final class Assert {
 	
 	
 	/**
+	 * <p>Asserts that the given Object is assignable to the specified type. If either the generic Object 
+	 * or the {@link Class} is {@code null} a {@link NullPointerException} will be thrown with the message, 
+	 * <i>"The supplied argument was found to be &lt;null&gt;"</i>. If the object was not found to be in 
+	 * conformance with the specified type, a {@link ClassCastException} will be thrown with the message, 
+	 * <i>"The instance of type &lt;argument-type&gt; cannot be assigned to a &lt;specified-type&gt;"</i>.</p>
+	 *
+	 * @param arg
+	 * 			the argument to be asserted for type conformance 
+	 * <br><br>
+	 * @param type
+	 * 			the {@link Class} type to which the argument must conform 
+	 * <br><br>
+	 * @return the argument which was asserted to conform to the specified type
+	 * <br><br>
+	 * @throws ClassCastException
+	 * 			if the supplied argument does not conform to the specified type
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	public static final <T extends Object> T assertAssignable(Object arg, Class<T> type) {
+		
+		assertNotNull(arg);
+		assertNotNull(type);
+		
+		if(!type.isAssignableFrom(arg.getClass())) {
+		
+			throw new ClassCastException(new StringBuilder("The instance of type ")
+			.append(arg.getClass().getName()).append(" cannot be assigned to a ")
+			.append(type.getName()).toString());
+		}
+		
+		return type.cast(arg);
+	}
+	
+	/**
 	 * <p>Asserts that the given argument is <b>{@code not null}</b>. If the argument is {@code null} 
 	 * a {@link NullPointerException} will be thrown with the message, <i>"The supplied argument was 
 	 * found to be &lt;null&gt;"</i>.</p>
@@ -65,6 +100,33 @@ public final class Assert {
 		if(arg == null) {
 		
 			throw new NullPointerException("The supplied argument was found to be <null>");
+		}
+		
+		return arg;
+	}
+	
+	/**
+	 * <p>Asserts that the given argument is <b>{@code not null}</b>. If the argument is {@code null} 
+	 * a {@link NullPointerException} will be thrown with the provided message.</p>
+	 *
+	 * @param arg
+	 * 			the argument to be asserted as being {@code not null}
+	 * <br><br>
+	 * @param arg
+	 * 			the message to be provided with the {@link NullPointerException} if the assertion fails  
+	 * <br><br>
+	 * @return the argument which was asserted to be {@code not null}
+	 * <br><br>
+	 * @throws NullPointerException
+	 * 			if the supplied argument was found to be {@code null}
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	public static final <T extends Object> T assertNotNull(T arg, String message) {
+		
+		if(arg == null) {
+			
+			throw new NullPointerException(message);
 		}
 		
 		return arg;
@@ -99,16 +161,6 @@ public final class Assert {
 		return arg;
 	}
 
-	
-	/**
-	 * <p>.</p>
-	 *
-	 * @param arg
-	 * @return
-	 *
-	 * <br><br>
-	 * @since 1.2.4
-	 */
 	/**
 	 * <p>Asserts that the given argument is neither <b>{@code null} nor {@code empty}</b>. The null 
 	 * check is performed using {@link #assertNotNull(Object)}. If the argument is {@code empty} a 

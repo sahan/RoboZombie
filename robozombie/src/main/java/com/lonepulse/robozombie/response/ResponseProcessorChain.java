@@ -101,7 +101,7 @@ public final class ResponseProcessorChain extends AbstractProcessorChain<Object,
 	@Override
 	protected Object onTraverse(Object result, ProcessorChainLink<Object, ResponseProcessorException> successor, Object... args) {
 	
-		return successor.getProcessor().run(args);  //allow any exceptions to elevate to a chain-wide failure
+		return successor.getProcessor().run(args[0], args[1], result);  //allow any exceptions to elevate to a chain-wide failure
 	}
 
 	/**
