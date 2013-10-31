@@ -59,7 +59,7 @@ class ProxyInvocation implements Invocation {
 	 * 	<li>{@link #handleResponse(HttpResponse, InvocationContext)} - transforms the response to a consumable</li>
 	 * </ol>
 	 * 
-	 * @version 1.1.0
+	 * @version 1.2.0
 	 * <br><br>
 	 * @since 1.2.4
 	 * <br><br>
@@ -129,7 +129,7 @@ class ProxyInvocation implements Invocation {
 		 */
 		protected HttpResponse executeRequest(HttpRequestBase request, InvocationContext context) {
 			
-			return RequestExecutors.RESOLVER.resolve(context).execute(request, context);
+			return RequestExecutors.resolve(context).execute(request, context);
 		}
 		
 		/**

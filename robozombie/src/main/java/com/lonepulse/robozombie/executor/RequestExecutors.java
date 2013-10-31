@@ -21,15 +21,12 @@ package com.lonepulse.robozombie.executor;
  */
 
 
-import java.lang.reflect.Method;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import com.lonepulse.robozombie.annotation.Asynchronous;
 import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.inject.Zombie;
-import com.lonepulse.robozombie.util.Resolver;
 
 /**
  * <p>Exposes all available {@link RequestExecutor}s and delegates communication. 
@@ -84,42 +81,28 @@ public enum RequestExecutors implements RequestExecutor {
 	}
 	
 	/**
-	 * <p>The instance of {@link Resolver} which retrieves suitable 
-	 * {@link RequestExecutor}s for a given endpoint request.
+	 * <p>Discovers a suitable {@link RequestExecutor} for a {@link InvocationContext}.</p>
 	 * 
-	 * @since 1.1.0
+	 * @param config
+	 * 			the {@link InvocationContext} for resolving a {@link RequestExecutor}
+	 * 
+	 * @return {@link RequestExecutors#ASYNC} if the request method or endpoint is annotated with 
+	 * 		   {@link Asynchronous}, else {@link RequestExecutors#BASIC}
+	 * <br><br>
+	 * @since 1.2.4
 	 */
-	public static final Resolver<InvocationContext, RequestExecutor> RESOLVER 
-		= new Resolver<InvocationContext, RequestExecutor>() {
-	
-		/**
-		 * <p>Takes an endpoint {@link Method} and discovers a suitable 
-		 * {@link RequestExecutor}.
-		 * 
-		 * @param config
-		 * 			the {@link InvocationContext} for resolving 
-		 * 			the associated {@link RequestExecutor}
-		 * 
-		 * @return an {@link AsyncRequestExecutor} if the request method or 
-		 * 		   endpoint is annotated with {@link Asynchronous}, else a 
-		 * 		   basic request builder.
-		 * <br><br>
-		 * @since 1.1.0
-		 */
-		@Override
-		public RequestExecutor resolve(InvocationContext config) {
-	
-			if(config.getEndpoint().isAnnotationPresent(Asynchronous.class)
-				|| config.getRequest().isAnnotationPresent(Asynchronous.class)) {
+	public static final RequestExecutor resolve(InvocationContext config) {
 
-				return RequestExecutors.ASYNC.requestExecutor;
-			}
-			else {
-				 
-				return RequestExecutors.BASIC.requestExecutor;
-			}
+		if(config.getEndpoint().isAnnotationPresent(Asynchronous.class)
+			|| config.getRequest().isAnnotationPresent(Asynchronous.class)) {
+
+			return RequestExecutors.ASYNC.requestExecutor;
 		}
-	};
+		else {
+			 
+			return RequestExecutors.BASIC.requestExecutor;
+		}
+	}
 	
 	/**
 	 * <p>Manages services related to {@link Zombie.Configuration}s which govern all configurable aspects of 

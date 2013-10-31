@@ -27,10 +27,9 @@ import org.apache.http.client.HttpClient;
 
 import com.lonepulse.robozombie.annotation.Configuration;
 import com.lonepulse.robozombie.inject.Zombie;
-import com.lonepulse.robozombie.util.Directory;
 
 /**
- * <p>A directory of {@link HttpClient}s which are configured to be used for a specific endpoint.</p>
+ * <p>A registry of {@link HttpClient}s which are configured to be used for a specific endpoint.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -38,7 +37,7 @@ import com.lonepulse.robozombie.util.Directory;
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-enum HttpClientDirectory implements Directory<Class<?>, HttpClient> {
+enum HttpClientDirectory {
 	
 	/**
 	 * <p>The instance of {@link HttpClientDirectory} which caches {@link HttpClient}s that are uniquely configured 
@@ -49,19 +48,19 @@ enum HttpClientDirectory implements Directory<Class<?>, HttpClient> {
 	INSTANCE;
 	
 	
-	private static Map<String, HttpClient> DIRECTORY  = new HashMap<String, HttpClient>();
-	
-	private static Map<String, String> ENDPOINT_CONFIGS = new HashMap<String, String>();
-	
 	/**
 	 * <p>The default configuration for an {@link HttpClient} which will be used to executing endpoint requests if 
 	 * no specialized configuration is provided.</p>
 	 * 
-	 * <p></p>
-	 *  
 	 * @since 1.2.4
 	 */
 	public static final HttpClient DEFAULT;
+	
+	
+	private static final Map<String, HttpClient> DIRECTORY  = new HashMap<String, HttpClient>();
+	
+	private static final Map<String, String> ENDPOINT_CONFIGS = new HashMap<String, String>();
+	
 	
 	static {
 		
@@ -73,137 +72,73 @@ enum HttpClientDirectory implements Directory<Class<?>, HttpClient> {
 			@Override
 			public void run() {
 				
-				HttpClientDirectory.shutdownAll();
+				synchronized (DIRECTORY) {
+					
+					for (HttpClient httpClient : DIRECTORY.values()) {
+						
+						try {
+							
+							httpClient.getConnectionManager().shutdown();
+						}
+						catch(Exception e) {}
+					}
+				}
 			}
 		}));
 	}
 	
 	
 	/**
-	 * <p>Adds an instance of {@link HttpClient} to the directory keyed under the given {@link Class} of the endpoint 
-	 * interface. If an {@link HttpClient} already exists under the given endpoint, <i>no attempt will be made to replace 
+	 * <p>Registers an instance of {@link HttpClient} under the given {@link Class} of the endpoint definition. 
+	 * If an {@link HttpClient} already exists under the given endpoint, <i>no attempt will be made to replace 
 	 * the existing instance</i>.</p>
 	 * 
-	 * @param endpointClass
+	 * @param endpoint
 	 * 			the {@link Class} of the endpoint whose {@link HttpClient} is to be added to the directory
 	 * <br><br>
 	 * @param httpClient
-	 * 			the {@link HttpClient} which is to be added to the directory under the given endpoint {@link Class}
+	 * 			the {@link HttpClient} to be registered under the given endpoint definition
 	 * <br><br>
-	 * @return the {@link HttpClient} which was added under the given endpoint {@link Class}
+	 * @return the {@link HttpClient} which was registered under the given endpoint definition
 	 * <br><br> 
 	 * @since 1.2.4
 	 */
-	@Override
-	public synchronized HttpClient put(Class<?> endpointClass, HttpClient httpClient) {
+	public synchronized HttpClient bind(Class<?> endpoint, HttpClient httpClient) {
 		
-		String configClassName = HttpClientDirectory.getConfigClassName(endpointClass);
-		String endpointClassName = endpointClass.getName();
+		String configClassName = endpoint.isAnnotationPresent(Configuration.class)?
+			endpoint.getAnnotation(Configuration.class).value().getName() :Zombie.Configuration.class.getName();
 			
-		if(!ENDPOINT_CONFIGS.containsKey(endpointClassName)) {
+		String endpointClassName = endpoint.getName();
 			
-			ENDPOINT_CONFIGS.put(endpointClassName, configClassName);
-		}
-		
 		if(!DIRECTORY.containsKey(configClassName)) {
 			
 			DIRECTORY.put(configClassName, httpClient);
 		}
 		
-		return get(endpointClass);
+		if(!ENDPOINT_CONFIGS.containsKey(endpointClassName)) {
+			
+			ENDPOINT_CONFIGS.put(endpointClassName, configClassName);
+		}
+		
+		return lookup(endpoint);
 	}
 
 	/**
-	 * <p>Adds an instance of {@link HttpClient} to the directory keyed under the given {@link Class} of the endpoint 
-	 * interface. If an {@link HttpClient} already exists under the given endpoint class, <i>it will be replaced with 
-	 * the given instance</i>.</p>
-	 * 
-	 * @param endpointClass
-	 * 			the {@link Class} of the endpoint whose {@link HttpClient} is to be added to the directory
-	 * <br><br>
-	 * @param httpClient
-	 * 			the {@link HttpClient} which is to be added to the directory under the given endpoint {@link Class}
-	 * <br><br>
-	 * @return the given {@link HttpClient} which replaces any instance which may have existed under its key
-	 * <br><br>
-	 * @since 1.2.4
-	 */
-	@Override
-	public synchronized HttpClient post(Class<?> endpointClass, HttpClient httpClient) {
-		
-		String configClassName = HttpClientDirectory.getConfigClassName(endpointClass);
-		
-		ENDPOINT_CONFIGS.put(endpointClass.getName(), configClassName);
-		DIRECTORY.put(configClassName, httpClient);
-		
-		return get(endpointClass);
-	}
-
-	/**
-	 * <p>Retrieves the {@link HttpClient} which was added under the given endpoint. If no instance was keyed for this 
-	 * endpoint {@link Class}, {@code null} is returned.</p>
+	 * <p>Retrieves the {@link HttpClient} which was added under the given endpoint. If no instance was registered 
+	 * for this endpoint {@link Class}, the {@link #DEFAULT} instance is returned.</p>
 	 *  
 	 * @param endpointClass
-	 * 			the {@link Class} of the endpoint whose {@link HttpClient} is to be retrieved
+	 * 			the {@link Class} of the endpoint definition whose {@link HttpClient} is to be retrieved
 	 * <br><br>
-	 * @return the {@link HttpClient} which was added under the given endpoint, else the pre-configured instance of 
-	 * 		   (see {@link Zombie.Configuration#httpClient()}) if not {@link HttpClient} can be found for the endpoint
+	 * @return the {@link HttpClient} which was registered under the given endpoint, else the pre-configured 
+	 * 		   {@link #DEFAULT} instance if no existing {@link HttpClient} was found
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	@Override
-	public synchronized HttpClient get(Class<?> endpointClass) {
+	public synchronized HttpClient lookup(Class<?> endpointClass) {
 		
 		HttpClient httpClient = DIRECTORY.get(ENDPOINT_CONFIGS.get(endpointClass.getName()));
+		
 		return httpClient == null? DEFAULT :httpClient;
-	}
-
-	/**
-	 * <p>Removes the {@link HttpClient} which was added under the given endpoint {@link Class} after 
-	 * its connection manager has been shutdown.</p>
-	 * 
-	 * <p><b>Note</b> that this may affect other endpoints which share this {@link HttpClient}.</p>
-	 * 
-	 * @param endpointClass
-	 * 			the {@link Class} of the endpoint whose entry is to be removed from this directory
-	 * <br><br>
-	 * @return the {@link HttpClient} which existed under the given endpoint {@link Class}, else {@code null} 
-	 * 		   if not {@link HttpClient} existed or if the shutdown operation on the client failed
-	 * <br><br>
-	 * @since 1.2.4
-	 */
-	@Override
-	public synchronized HttpClient delete(Class<?> endpointClass) {
-		
-		String key = ENDPOINT_CONFIGS.remove(endpointClass.getName());
-		HttpClient httpClient = DIRECTORY.get(key);
-		
-		if(httpClient != null) {
-			
-			httpClient.getConnectionManager().shutdown();
-		}
-		
-		return DIRECTORY.remove(key);
-	}
-	
-	private static String getConfigClassName(Class<?> endpointClass) {
-		
-		return endpointClass.isAnnotationPresent(Configuration.class)?
-				endpointClass.getAnnotation(Configuration.class).value().getName() :Zombie.Configuration.class.getName();
-	}
-	
-	private static void shutdownAll() {
-		
-		synchronized (DIRECTORY) {
-			
-			for (HttpClient httpClient : DIRECTORY.values()) {
-				
-				try {
-					
-					httpClient.getConnectionManager().shutdown();
-				}
-				catch(Exception e) {}
-			}
-		}
 	}
 }

@@ -27,9 +27,9 @@ import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
+import com.lonepulse.robozombie.AbstractGenericFactory;
+import com.lonepulse.robozombie.GenericFactory;
 import com.lonepulse.robozombie.RoboZombieRuntimeException;
-import com.lonepulse.robozombie.util.AbstractGenericFactory;
-import com.lonepulse.robozombie.util.GenericFactory;
 
 /**
  * <p>Follows the {@link GenericFactory} policy to create local {@link HttpContext}s 

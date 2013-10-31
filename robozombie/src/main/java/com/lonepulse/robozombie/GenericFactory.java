@@ -1,4 +1,4 @@
-package com.lonepulse.robozombie.util;
+package com.lonepulse.robozombie;
 
 import java.util.Map;
 

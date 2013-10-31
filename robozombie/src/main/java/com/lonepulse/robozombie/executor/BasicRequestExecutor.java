@@ -82,10 +82,10 @@ class BasicRequestExecutor implements RequestExecutor {
 		
 			Class<?> endpoint = context.getEndpoint();
 			
-			HttpClient httpClient = HttpClientDirectory.INSTANCE.get(endpoint);
+			HttpClient httpClient = HttpClientDirectory.INSTANCE.lookup(endpoint);
 			
 			return endpoint.isAnnotationPresent(Stateful.class)? 
-					httpClient.execute(request, HttpContextDirectory.INSTANCE.get(endpoint)) 
+					httpClient.execute(request, HttpContextDirectory.INSTANCE.lookup(endpoint)) 
 					:httpClient.execute(request);
 		}
 		catch(Exception e) {

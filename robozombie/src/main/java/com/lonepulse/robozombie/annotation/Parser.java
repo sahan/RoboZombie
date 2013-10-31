@@ -25,6 +25,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.lonepulse.robozombie.response.AbstractResponseParser;
 import com.lonepulse.robozombie.response.RawResponseParser;
 import com.lonepulse.robozombie.response.ResponseParser;
 

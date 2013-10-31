@@ -127,13 +127,13 @@ final class ConfigurationService implements ConfigurationManager {
 					com.lonepulse.robozombie.annotation.Configuration.class).value().newInstance();
 				
 				HttpClient httpClient = configuration.httpClient();
-				HttpClientDirectory.INSTANCE.put(endpointClass, httpClient); //currently the only configurable property
+				HttpClientDirectory.INSTANCE.bind(endpointClass, httpClient); //currently the only configurable property
 				
 				return configuration;
 			}
 			else {
 				
-				HttpClientDirectory.INSTANCE.put(endpointClass, HttpClientDirectory.DEFAULT);
+				HttpClientDirectory.INSTANCE.bind(endpointClass, HttpClientDirectory.DEFAULT);
 				
 				return new Configuration(){};
 			}

@@ -23,7 +23,7 @@ package com.lonepulse.robozombie.processor;
 
 import static com.lonepulse.robozombie.util.Assert.assertNotNull;
 
-import com.lonepulse.robozombie.util.AbstractGenericFactory;
+import com.lonepulse.robozombie.AbstractGenericFactory;
 
 /**
  * <p>This is a concrete implementation of {@link AbstractGenericFactory} which creates a <b>processor-chain</b> 

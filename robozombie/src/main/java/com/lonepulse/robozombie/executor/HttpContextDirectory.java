@@ -25,80 +25,74 @@ import java.util.Map;
 
 import org.apache.http.protocol.HttpContext;
 
-import com.lonepulse.robozombie.util.Directory;
-
 /**
- * <p>A <b>singleton</b> implementation of the {@link Directory} policy 
- * which allows registering and retrieving {@link HttpContext}s for stateful 
- * endpoints.
+ * <p>A registry of {@link HttpContext}s which maintain endpoint <i>state</i>.</p>
  * 
  * @version 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.2.4
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-enum HttpContextDirectory implements Directory<Class<?>, HttpContext> {
+enum HttpContextDirectory {
 	
 	/**
-	 * <p>The instance of {@link HttpContextDirectory} which allows 
-	 * access to the {@link HttpContext} cache.
+	 * <p>The instance of {@link HttpContextDirectory} which exposes the {@link HttpContext} which 
+	 * can be bound and looked up using their endpoints.</p>
 	 * 
-	 * @since 1.1.0
+	 * @since 1.2.4
 	 */
 	INSTANCE;
 
 	
-	/**
-	 * <p>The {@link Map} of {@link HttpContext}s which are maintained for 
-	 * stateful endpoints. 
-	 */
-	private static Map<Class<?>, HttpContext> CONTEXTS = new HashMap<Class<?>, HttpContext>();
-
-	/**
-	 * <p>The instance of {@link HttpContextFactory} which creates new instance of 
-	 * {@link HttpContext}s.
-	 */
+	private static Map<String, HttpContext> CONTEXTS = new HashMap<String, HttpContext>();
+	
 	private final HttpContextFactory httpContextFactory = new HttpContextFactory();
 	
 	
 	/**
-	 * See {@link Directory#put(Class, Object)}.
+	 * <p>Registers the given {@link HttpContext} under the specified endpoint's name. If an instance 
+	 * of {@link HttpContext} is already registered under the endpoint, the existing will be returned 
+	 * without being replaced by the given {@link HttpContext}.</p>
+	 *
+	 * @param endpoint
+	 * 			the {@link Class} of the endpoint definition for which the {@link HttpContext} is bound
+	 * <br><br>
+	 * @param httpContext
+	 * 			the {@link HttpContext} which is to be bound under the given endpoint definition
+	 * <br><br>
+	 * @return the bound {@link HttpContext} for the specified endpoint definition 
+	 * <br><br>
+	 * @since 1.2.4
 	 */
-	@Override
-	public synchronized HttpContext put(Class<?> entryKey, HttpContext entryValue) {
+	public synchronized HttpContext bind(Class<?> endpoint, HttpContext httpContext) {
 		
-		if(!CONTEXTS.containsKey(entryKey))
-			CONTEXTS.put(entryKey, entryValue);
+		String name = endpoint.getName();
 		
-		return entryValue;
+		if(!CONTEXTS.containsKey(name)) {
+			
+			CONTEXTS.put(name, httpContext);
+		}
+		
+		return lookup(endpoint);
 	}
 
 	/**
-	 * See {@link Directory#post(Class, Object)}.
+	 * <p>Retrieves the bound {@link HttpContext} for the specified endpoint. If no {@link HttpContext} 
+	 * exists, a new instance will be created, registered under the endpoint and returned.</p>
+	 *
+	 * @param endpoint
+	 * 			the {@link Class} of the endpoint definition whose {@link HttpContext} is to be retrieved
+	 * <br><br>
+	 * @return the bound {@link HttpContext} or a new {@link HttpContext} if no instance was bound
+	 * <br><br>
+	 * @since 1.2.4
 	 */
-	@Override
-	public synchronized HttpContext post(Class<?> entryKey, HttpContext entryValue) {
+	public synchronized HttpContext lookup(Class<?> endpoint) {
 		
-		return CONTEXTS.put(entryKey, entryValue);
-	}
-
-	/**
-	 * See {@link Directory#get(Class)}.
-	 */
-	@Override
-	public synchronized HttpContext get(Class<?> entryKey) {
-		
-		HttpContext httpContext = CONTEXTS.get(entryKey); 
+		HttpContext httpContext = CONTEXTS.get(endpoint.getName());
 		
 		return (httpContext == null)? 
-					put(entryKey, httpContextFactory.newInstance()) :httpContext;
-	}
-
-	/**
-	 * See {@link Directory#delete(Class)}.
-	 */
-	@Override
-	public synchronized HttpContext delete(Class<?> entryKey) {
-		
-		return CONTEXTS.remove(entryKey);
+				bind(endpoint, httpContextFactory.newInstance()) :httpContext;
 	}
 }

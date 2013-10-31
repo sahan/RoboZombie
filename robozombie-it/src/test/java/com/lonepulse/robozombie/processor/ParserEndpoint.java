@@ -21,11 +21,17 @@ package com.lonepulse.robozombie.processor;
  */
 
 
+import org.apache.http.HttpResponse;
+import org.apache.http42.util.EntityUtils;
+
+import com.google.gson.Gson;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Parser;
 import com.lonepulse.robozombie.annotation.Parser.ParserType;
 import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.model.User;
+import com.lonepulse.robozombie.response.AbstractResponseParser;
 
 /**
  * <p>An interface which represents a dummy endpoint with request method definitions 
@@ -86,4 +92,38 @@ public interface ParserEndpoint {
 	 */
 	@Request(path = "/raw")
 	String raw();
+	
+	
+	static final class RedactParser extends AbstractResponseParser<User> {
+		
+		
+		public RedactParser() {
+			
+			super(User.class);
+		}
+
+		@Override
+		protected User processResponse(HttpResponse httpResponse, InvocationContext context) 
+		throws Exception {
+
+			String json = EntityUtils.toString(httpResponse.getEntity());
+			
+			User user = new Gson().fromJson(json, User.class);
+			user.setFirstName("<redacted>");
+			user.setLastName("<redacted>");
+			
+			return user;
+		}
+	}
+	
+	/**
+	 * <p>A mock request with a response which should be parsed by a custom parser.</p>
+	 * 
+	 * @return the parsed response entity
+	 * 
+	 * @since 1.2.4
+	 */
+	@Request(path = "/custom")
+	@Parser(type = RedactParser.class) 
+	User parseCustom();
 }
