@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
 
 /**
  * <p>Models the header associated with a request and groups a constant 
- * set of {@link HeaderSet.Header}s which is to be populated.</p>
+ * set of {@link Headers.Header}s which is to be populated.</p>
  * 
  * <b>Usage:</b>
  * <br>
@@ -35,8 +35,8 @@ import java.lang.annotation.Target;
  * <p>
  * <code>
  * <pre><b>
- * &#064;HeaderSet({&#064;HeaderSet.Header(name = "</b>Accept<b>", value = "</b>text/plain<b>"),
- * 	    &#064;HeaderSet.Header(name = "</b>Accept-Charset<b>", value = "</b>utf-8<b>")})</b>
+ * &#064;Headers({&#064;Headers.Header(name = "</b>Accept<b>", value = "</b>text/plain<b>"),
+ * 	    &#064;Headers.Header(name = "</b>Accept-Charset<b>", value = "</b>utf-8<b>")})</b>
  * public abstract String getRSSFeed();
  * </pre>
  * </code>
@@ -48,7 +48,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface HeaderSet {
+public @interface Headers {
 
 	
 	/**
@@ -83,9 +83,9 @@ public @interface HeaderSet {
 	/**
 	 * <p>The parameters to be included in this header.</p>
 	 * 
-	 * @return the array of {@link HeaderSet.Header}s
+	 * @return the array of {@link Headers.Header}s
 	 * <br><br>
 	 * @since 1.1.1
 	 */
-	public HeaderSet.Header[] value();
+	public Headers.Header[] value();
 }

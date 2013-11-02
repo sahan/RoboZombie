@@ -44,7 +44,7 @@ import org.robolectric.RobolectricTestRunner;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.lonepulse.robozombie.annotation.Bite;
 import com.lonepulse.robozombie.annotation.Header;
-import com.lonepulse.robozombie.annotation.HeaderSet;
+import com.lonepulse.robozombie.annotation.Headers;
 import com.lonepulse.robozombie.inject.Zombie;
 
 /**
@@ -203,7 +203,7 @@ public class HeaderEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for {@link HeaderSet} and {@link HeaderSet.Header}.</p>
+	 * <p>Test for {@link Headers} and {@link Headers.Header}.</p>
 	 * 
 	 * @since 1.2.4
 	 */

@@ -25,7 +25,7 @@ import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Header;
-import com.lonepulse.robozombie.annotation.HeaderSet;
+import com.lonepulse.robozombie.annotation.Headers;
 import com.lonepulse.robozombie.annotation.Request;
 
 /**
@@ -121,7 +121,7 @@ public interface HeaderEndpoint {
 	 * @since 1.2.4
 	 */
 	@Request(path = "/headerset")
-	@HeaderSet({@HeaderSet.Header(name = "Accept", value = "application/json"),
-				@HeaderSet.Header(name = "Accept-Charset", value = "utf-8")})
+	@Headers({@Headers.Header(name = "Accept", value = "application/json"),
+				@Headers.Header(name = "Accept-Charset", value = "utf-8")})
 	public String headerSet();
 }

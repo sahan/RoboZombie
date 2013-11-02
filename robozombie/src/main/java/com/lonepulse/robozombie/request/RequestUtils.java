@@ -20,16 +20,15 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
+import static com.lonepulse.robozombie.util.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,12 +48,7 @@ import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.SerializableEntity;
 import org.apache.http.entity.StringEntity;
 
-import com.lonepulse.robozombie.annotation.Entity;
-import com.lonepulse.robozombie.annotation.FormParam;
-import com.lonepulse.robozombie.annotation.Header;
-import com.lonepulse.robozombie.annotation.HeaderSet;
-import com.lonepulse.robozombie.annotation.PathParam;
-import com.lonepulse.robozombie.annotation.QueryParam;
+import com.lonepulse.robozombie.annotation.Headers;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.annotation.Request.RequestMethod;
 import com.lonepulse.robozombie.inject.InvocationContext;
@@ -70,140 +64,11 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * @category utility
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
- * 
- * TODO revise utilities isolate a common algorithm for annotated params extraction 
  */
 final class RequestUtils {
 	
 	
-	/**
-	 * <p>Constructor visibility restricted. Instantiation is nonsensical. 
-	 */
 	private RequestUtils() {}
-	
-	
-	/**
-	 * <p>Finds all <b><i>constant</i> request parameters</b> in the given {@link InvocationContext}.</p> 
-	 * <p>Constant request parameters are introduced with @{@link Request.Param} at <b>request level</b> using 
-	 * the @{@link Request} annotation.</p>
-	 *
-	 * @param config
-	 * 			the {@link InvocationContext} from which all {@link Request.Param} annotations applied 
-	 * 			on the endpoint method will be extracted
-	 * 
-	 * @return an <b>unmodifiable</b> {@link List} which aggregates all the @{@link Request.Param} annotations 
-	 * `	   found on the {@link Request} annotation 
-	 * 
-	 * @throws IllegalArgumentException
-	 * 			if the supplied {@link InvocationContext} was {@code null}
-	 * 
-	 * @since 1.2.4
-	 */
-	static List<Request.Param> findConstantRequestParams(InvocationContext config) {
-		
-		if(config == null) {
-			
-			new IllegalArgumentException("The supplied Proxy Invocation Configuration cannot be <null>.");
-		}
-		
-		Method request = config.getRequest();
-		Request.Param[] requestParams = request.getAnnotation(Request.class).params();
-		
-		return Collections.unmodifiableList(Arrays.asList(requestParams));
-	}
-	
-	/**
-	 * <p>Finds all <b>query parameters</b> in the given {@link InvocationContext}.</p> 
-	 * 
-	 * <p>Query parameters are introduced with @{@link QueryParam} on the arguments to a request method.</p>
-	 *
-	 * @param config
-	 * 			the {@link InvocationContext} from which all @{@link QueryParam} annotations applied 
-	 * 			on the endpoint method arguments will be extracted
-	 * 
-	 * @return an <b>unmodifiable</b> {@link Map} in the form {@code Map<name, value>} which aggregates all the 
-	 * 		   param names coupled with the value of the linked method argument annotated with @{@link QueryParam}
-	 * 
-	 * @throws IllegalArgumentException
-	 * 			if the supplied {@link InvocationContext} was {@code null} 
-	 * 
-	 * @since 1.2.4
-	 */
-	 static Map<String, Object> findQueryParams(InvocationContext config) {
-		
-		if(config == null) {
-			
-			new IllegalArgumentException("The supplied Proxy Invocation Configuration cannot be <null>.");
-		}
-		
-		Map<String, Object> paramMap = new LinkedHashMap<String, Object>(); 
-		
-		Method request = config.getRequest();
-		List<Object> paramValues = config.getArguments();
-		
-		Annotation[][] annotationsForAllParams = request.getParameterAnnotations();
-		
-		for (int i = 0; i < annotationsForAllParams.length; i++) {
-			
-			for (Annotation annotation : annotationsForAllParams[i]) {
-				
-				if(QueryParam.class.isAssignableFrom(annotation.getClass())) {
-					
-					paramMap.put(((QueryParam)annotation).value(), paramValues.get(i));
-					break; //only one @QueryParam annotation is expected per endpoint method argument
-				}
-			}
-		}
-		
-		return Collections.unmodifiableMap(paramMap);
-	}
-	
-	/**
-	 * <p>Finds all <a href="http://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms">
-	 * form-urlencoded</a> parameters in the given {@link InvocationContext}.</p> 
-	 *
-	 * <p>Form parameters are introduced with @{@link FormParam} on the arguments to a request method.</p>
-	 *
-	 * @param config
-	 * 			the {@link InvocationContext} from which all @{@link FormParam} annotations applied 
-	 * 			on the endpoint method arguments will be extracted
-	 * 
-	 * @return an <b>unmodifiable</b> {@link Map} in the form {@code Map<name, value>} which aggregates all the 
-	 * 		   param names coupled with the value of the linked method argument
-	 * 
-	 * @throws IllegalArgumentException
-	 * 			if the supplied {@link InvocationContext} was {@code null} 
-	 * 
-	 * @since 1.2.4
-	 */
-	static Map<String, Object> findFormParams(InvocationContext config) {
-		
-		if(config == null) {
-			
-			new IllegalArgumentException("The supplied Proxy Invocation Configuration cannot be <null>.");
-		}
-		
-		Map<String, Object> paramMap = new LinkedHashMap<String, Object>(); 
-		
-		Method request = config.getRequest();
-		List<Object> paramValues = config.getArguments();
-		
-		Annotation[][] annotationsForAllParams = request.getParameterAnnotations();
-		
-		for (int i = 0; i < annotationsForAllParams.length; i++) {
-			
-			for (Annotation annotation : annotationsForAllParams[i]) {
-				
-				if(FormParam.class.isAssignableFrom(annotation.getClass())) {
-					
-					paramMap.put(((FormParam)annotation).value(), paramValues.get(i));
-					break; //only one @FormParam annotation is expected per endpoint method argument
-				}
-			}
-		}
-		
-		return Collections.unmodifiableMap(paramMap);
-	}
 	
 	/**
 	 * <p>Discovers which concrete implementation of {@link HttpEntity} is suitable for wrapping the given object. 
@@ -231,7 +96,7 @@ final class RequestUtils {
 	 * 
 	 * @since 1.2.4
 	 */
-	static HttpEntity resolveHttpEntity(Object genericEntity) {
+	static HttpEntity resolveEntity(Object genericEntity) {
 		
 		if(genericEntity == null) {
 			
@@ -290,137 +155,25 @@ final class RequestUtils {
 					(EntityResolutionFailedException)e :new EntityResolutionFailedException(genericEntity, e);
 		}
 	}
-	
+
 	/**
-	 * <p>Finds the single <b>entity parameter</b> in the given {@link InvocationContext} which 
-	 * is identified by placing an @{@link Entity} annotation on an endpoint method argument. If found, the 
-	 * corresponding {@link HttpEntity} is resolved via {@link #resolveHttpEntity(Object)} and returned.</p> 
-	 * 
-	 * <p>Only one such entity is expected to be found, if multiple @{@link Entity} annotations are discovered 
-	 * a {@link MultipleEntityException} is thrown. If no @{@link Entity} annotation is discovered a
-	 * {@link MissingEntityException} is thrown. These might be caught and recovered from if preferred.</p>
+	 * <p>Finds all <b><i>constant</i> request parameters</b> in the given {@link InvocationContext}.</p> 
+	 * <p>Constant request parameters are introduced with @{@link Request.Param} at <b>request level</b> using 
+	 * the @{@link Request} annotation.</p>
 	 *
 	 * @param config
-	 * 			the {@link InvocationContext} whose single entity is to be discovered and resolved
-	 * 
-	 * @return the resolved {@link HttpEntity} which was discovered as an argument annotated with @{@link Entity}
-	 * 
-	 * @throws IllegalArgumentException
-	 * 			if the {@link InvocationContext} was {@code null}
-	 * 
-	 * @throws MultipleEntityException
-	 * 			if many arguments were found to be annotated with @{@link Entity} 
-	 * 
-	 * @throws MissingEntityException
-	 * 			if no arguments were found to be annotated with @{@link Entity}
-	 * 
-	 * @throws EntityResolutionFailedException
-	 * 			if a specific {@link HttpEntity} implementation failed to be resolved
-	 * 
-	 * @since 1.2.4
-	 */
-	static HttpEntity findAndResolveEntity(InvocationContext config) {
-		
-		List<Object> paramValues = config.getArguments();
-		Annotation[][] annotationsForAllParams = config.getRequest().getParameterAnnotations();
-		
-		List<Object> entities = new ArrayList<Object>();
-		
-		for (int i = 0; i < annotationsForAllParams.length; i++) {
-			
-			for (Annotation annotation : annotationsForAllParams[i]) {
-
-				if(Entity.class.isAssignableFrom(annotation.getClass())) {
-					
-					entities.add(paramValues.get(i));
-					break; //only one @Entity annotation is expected per endpoint method argument
-				}
-			}
-		}
-		
-		if(entities.isEmpty()) {
-			
-			throw new MissingEntityException(config);
-		}
-		
-		if(entities.size() > 1) {
-			
-			throw new MultipleEntityException(config);
-		}
-		
-		return RequestUtils.resolveHttpEntity(entities.get(0));
-	}
-	
-	/**
-	 * <p>Finds all <b>path parameters</b> in the given {@link InvocationContext}. Path parameters 
-	 * are introduced with @{@link PathParam} on the arguments to a request method.</p>
-	 * 
-	 * @param config
-	 * 			the {@link InvocationContext} from which all @{@link PathParam} annotations applied 
-	 * 			on the endpoint method arguments will be extracted
-	 * 
-	 * @return an <b>unmodifiable</b> {@link Map} in the form {@code Map<name, value>} which aggregates all the 
-	 * 		   param names coupled with the value of the linked method argument annotated with @{@link PathParam}
-	 * 
-	 * @throws IllegalArgumentException
-	 * 			if the supplied {@link InvocationContext} was {@code null}
-	 * 
-	 * @since 1.2.4
-	 */
-	static Map<String, Object> findPathParams(InvocationContext config) {
-		
-		if(config == null) {
-			
-			new IllegalArgumentException("The supplied Proxy Invocation Configuration cannot be <null>.");
-		}
-		
-		Map<String, Object> paramMap = new LinkedHashMap<String, Object>(); 
-		
-		Method request = config.getRequest();
-		List<Object> paramValues = config.getArguments();
-		
-		Annotation[][] annotationsForAllParams = request.getParameterAnnotations();
-		
-		for (int i = 0; i < annotationsForAllParams.length; i++) {
-			
-			for (Annotation annotation : annotationsForAllParams[i]) {
-				
-				if(PathParam.class.isAssignableFrom(annotation.getClass())) {
-					
-					paramMap.put(((PathParam)annotation).value(), paramValues.get(i));
-					break; //only one @PathParam annotation is expected per endpoint method argument
-				}
-			}
-		}
-		
-		return Collections.unmodifiableMap(paramMap);
-	}
-	
-	/**
-	 * <p>Finds all <b>static and dynamic headers</b> in the given {@link InvocationContext} and 
-	 * returns an unmodifiable {@link List} of {@link Map.Entry} instances with the header <i>name</i> as the 
-	 * key and the runtime argument as the <i>value</i>. <b>Note</b> that this implementation of 
-	 * {@link Map.Entry#setValue(Object)} throws an {@link UnsupportedOperationException}. This list may contain 
-	 * multiple entries with the <i>same name</i> as these headers are meant to be <b>added</b> ant not overwritten 
-	 * for a request.</p>
-	 * 
-	 * <p><i>Static-headers</i> are specified at request-level with @{@link HeaderSet} and <i>dynamic-headers</i> 
-	 * are specified at argument-level with @{@link Header}.</p>
-	 * 
+	 * 			the {@link InvocationContext} from which all {@link Request.Param} annotations applied 
+	 * 			on the endpoint method will be extracted
 	 * <br><br>
-	 * @param config
-	 * 			the {@link InvocationContext} from which all static and dynamic headers will be discovered
-	 * <br><br>
-	 * @return an <b>unmodifiable</b> {@link List} of {@link Map.Entry} instances with the header <i>name</i> as the 
-	 * 		   key and the runtime argument as the <i>value</i>; <b>note</b> that this implementation of 
-	 * 		   {@link Map.Entry#setValue(Object)} throws an {@link UnsupportedOperationException} 
+	 * @return an <b>unmodifiable</b> {@link List} which aggregates all the @{@link Request.Param} annotations 
+	 * 	   	   found on the {@link Request} annotation 
 	 * <br><br>
 	 * @throws IllegalArgumentException
 	 * 			if the supplied {@link InvocationContext} was {@code null}
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	static List<Map.Entry<String, Object>> findHeaders(InvocationContext config) {
+	 static List<Request.Param> findStaticRequestParams(InvocationContext config) {
 		
 		if(config == null) {
 			
@@ -428,15 +181,45 @@ final class RequestUtils {
 		}
 		
 		Method request = config.getRequest();
-		HeaderSet headerSet = request.getAnnotation(HeaderSet.class);
+		Request.Param[] requestParams = request.getAnnotation(Request.class).params();
+		
+		return Collections.unmodifiableList(Arrays.asList(requestParams));
+	 }
+	
+	/**
+	 * <p>Finds all <b>static headers</b> in the given {@link InvocationContext} and returns an unmodifiable {@link List} 
+	 * of {@link Map.Entry} instances with the header <i>name</i> as the key and the runtime argument as the <i>value</i>.
+	 *  
+	 * <b>Note</b> that this implementation of {@link Map.Entry#setValue(Object)} throws an {@link UnsupportedOperationException}. 
+	 * This list may contain multiple entries with the <i>same name</i> as these headers are meant to be <b>added</b> ant not 
+	 * overwritten for a request.</p>
+	 * 
+	 * <p><i>Static-headers</i> are specified at request-level with @{@link Headers}</p>
+	 * 
+	 * <br><br>
+	 * @param context
+	 * 			the {@link InvocationContext} from which all static headers will be discovered
+	 * <br><br>
+	 * @return an <b>unmodifiable</b> {@link List} of {@link Map.Entry} instances with the header <i>name</i> as the key and 
+	 * 		   the runtime argument as the <i>value</i>; <b>note</b> that this implementation of {@link Map.Entry#setValue(Object)} 
+	 * 		   throws an {@link UnsupportedOperationException} 
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	static List<Map.Entry<String, Object>> findStaticHeaders(InvocationContext context) {
+		
+		assertNotNull(context);
+		
+		Method request = context.getRequest();
+		Headers headerSet = request.getAnnotation(Headers.class);
 		
 		List<Map.Entry<String, Object>> headers = new ArrayList<Map.Entry<String, Object>>();
 		
 		if(headerSet != null && headerSet.value() != null && headerSet.value().length > 0) {
 		
-			List<HeaderSet.Header> staticHeaders = Arrays.asList(headerSet.value());
+			List<Headers.Header> staticHeaders = Arrays.asList(headerSet.value());
 			
-			for (final HeaderSet.Header staticHeader : staticHeaders) {
+			for (final Headers.Header staticHeader : staticHeaders) {
 				
 				headers.add(new Map.Entry<String, Object>() {
 
@@ -455,42 +238,6 @@ final class RequestUtils {
 						throw new UnsupportedOperationException();
 					}
 				});
-			}
-		}
-		
-		List<Object> paramValues = config.getArguments();
-		
-		Annotation[][] annotationsForAllParams = request.getParameterAnnotations();
-		
-		for (int i = 0; i < annotationsForAllParams.length; i++) {
-			
-			for (Annotation annotation : annotationsForAllParams[i]) {
-				
-				if(Header.class.isAssignableFrom(annotation.getClass())) {
-					
-					final Header header = (Header)annotation;
-					final Object paramValue = paramValues.get(i);
-					
-					headers.add(new Map.Entry<String, Object>() {
-
-						@Override
-						public String getKey() {
-							return header.value();
-						}
-
-						@Override
-						public Object getValue() {
-							return paramValue;
-						}
-
-						@Override
-						public Object setValue(Object value) {
-							throw new UnsupportedOperationException();
-						}
-					});
-					
-					break; //only one @Header annotation is expected per endpoint method argument
-				}
 			}
 		}
 		

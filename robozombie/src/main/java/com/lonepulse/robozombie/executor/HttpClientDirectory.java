@@ -25,6 +25,7 @@ import java.util.Map;
 
 import org.apache.http.client.HttpClient;
 
+import com.lonepulse.robozombie.Directory;
 import com.lonepulse.robozombie.annotation.Configuration;
 import com.lonepulse.robozombie.inject.Zombie;
 
@@ -37,7 +38,7 @@ import com.lonepulse.robozombie.inject.Zombie;
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-enum HttpClientDirectory {
+enum HttpClientDirectory implements Directory<Class<?>, HttpClient> {
 	
 	/**
 	 * <p>The instance of {@link HttpClientDirectory} which caches {@link HttpClient}s that are uniquely configured 
@@ -103,6 +104,7 @@ enum HttpClientDirectory {
 	 * <br><br> 
 	 * @since 1.2.4
 	 */
+	@Override
 	public synchronized HttpClient bind(Class<?> endpoint, HttpClient httpClient) {
 		
 		String configClassName = endpoint.isAnnotationPresent(Configuration.class)?
@@ -135,6 +137,7 @@ enum HttpClientDirectory {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
+	@Override
 	public synchronized HttpClient lookup(Class<?> endpointClass) {
 		
 		HttpClient httpClient = DIRECTORY.get(ENDPOINT_CONFIGS.get(endpointClass.getName()));

@@ -24,15 +24,15 @@ package com.lonepulse.robozombie;
 import java.util.Map;
 
 /**
- * <p>An abstract implementation of {@link GenericFactory} which provides a stub 
- * implementation of the contract that throws {@link UnsupportedOperationException}s 
- * upon invocation.
+ * <p>An abstract implementation of {@link GenericFactory} which provides default implementations for the 
+ * factory methods. All default implementations throw an {@link UnsupportedOperationException}. Concrete 
+ * factories are expected to override the methods they offer.</p>
  * 
  * @version 1.1.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public class AbstractGenericFactory<INPUT, OUTPUT, FAILURE extends Throwable> 
 implements GenericFactory <INPUT, OUTPUT, FAILURE> {

@@ -23,7 +23,16 @@ package com.lonepulse.robozombie.executor;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.client.CookieStore;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+
+import com.lonepulse.robozombie.AbstractGenericFactory;
+import com.lonepulse.robozombie.Directory;
+import com.lonepulse.robozombie.GenericFactory;
+import com.lonepulse.robozombie.RoboZombieRuntimeException;
 
 /**
  * <p>A registry of {@link HttpContext}s which maintain endpoint <i>state</i>.</p>
@@ -34,7 +43,7 @@ import org.apache.http.protocol.HttpContext;
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-enum HttpContextDirectory {
+enum HttpContextDirectory implements Directory<Class<?>, HttpContext> {
 	
 	/**
 	 * <p>The instance of {@link HttpContextDirectory} which exposes the {@link HttpContext} which 
@@ -45,9 +54,29 @@ enum HttpContextDirectory {
 	INSTANCE;
 
 	
-	private static Map<String, HttpContext> CONTEXTS = new HashMap<String, HttpContext>();
+	private static final GenericFactory<Void, HttpContext, RoboZombieRuntimeException> 
+	CONTEXT_FACTORY = new AbstractGenericFactory<Void, HttpContext, RoboZombieRuntimeException>() {
+		
+		@Override
+		public HttpContext newInstance() throws RoboZombieRuntimeException {
+			
+			try {
+				
+				CookieStore cookieStore = new BasicCookieStore();
+				HttpContext httpContext = new BasicHttpContext();
+				
+				httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+				
+				return httpContext;
+			}
+			catch(Exception e) {
+				
+				throw new RoboZombieRuntimeException(e);
+			}
+		}
+	};
 	
-	private final HttpContextFactory httpContextFactory = new HttpContextFactory();
+	private static final Map<String, HttpContext> CONTEXTS = new HashMap<String, HttpContext>();
 	
 	
 	/**
@@ -65,6 +94,7 @@ enum HttpContextDirectory {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
+	@Override
 	public synchronized HttpContext bind(Class<?> endpoint, HttpContext httpContext) {
 		
 		String name = endpoint.getName();
@@ -88,11 +118,12 @@ enum HttpContextDirectory {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
+	@Override
 	public synchronized HttpContext lookup(Class<?> endpoint) {
 		
 		HttpContext httpContext = CONTEXTS.get(endpoint.getName());
 		
 		return (httpContext == null)? 
-				bind(endpoint, httpContextFactory.newInstance()) :httpContext;
+				bind(endpoint, CONTEXT_FACTORY.newInstance()) :httpContext;
 	}
 }

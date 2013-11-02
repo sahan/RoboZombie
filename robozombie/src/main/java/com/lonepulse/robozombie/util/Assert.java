@@ -37,6 +37,8 @@ import com.lonepulse.robozombie.Validator;
  * <br><br>
  * @since 1.2.4
  * <br><br>
+ * @category utility
+ * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public final class Assert {

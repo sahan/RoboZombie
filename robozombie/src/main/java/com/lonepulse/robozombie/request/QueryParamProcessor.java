@@ -22,7 +22,6 @@ package com.lonepulse.robozombie.request;
 
 
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.http.client.methods.HttpGet;
@@ -32,6 +31,7 @@ import org.apache.http42.client.utils.URIBuilder;
 import com.lonepulse.robozombie.annotation.QueryParam;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.util.Metadata;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which discovers <i>query parameters</i> 
@@ -71,7 +71,7 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 	 * 			prefers an instance of {@link HttpGet} so as to conform with HTTP 1.1; however, other request 
 	 * 			types will be entertained to allow compliance with unusual endpoint definitions 
 	 * <br><br>
-	 * @param config
+	 * @param context
 	 * 			an immutable instance of {@link InvocationContext} which is used to form the query 
 	 * 			string and append it to the request URL
 	 * <br><br>
@@ -83,24 +83,24 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext config) throws RequestProcessorException {
+	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) throws RequestProcessorException {
 
 		try {
 			
 			URIBuilder uriBuilder = new URIBuilder(httpRequestBase.getURI());
 			
-			List<Request.Param> constantQueryParams = RequestUtils.findConstantRequestParams(config);
+			List<Request.Param> constantQueryParams = RequestUtils.findStaticRequestParams(context);
 			
 			for (Request.Param param : constantQueryParams) {
 				
 				uriBuilder.setParameter(param.name(), param.value());
 			}
 			
-			Map<String, Object> queryParams = RequestUtils.findQueryParams(config);
+			List<Entry<QueryParam, Object>> queryParams = Metadata.onParams(QueryParam.class, context);
 			
-			for (Entry<String, Object> entry : queryParams.entrySet()) {
+			for (Entry<QueryParam, Object> entry : queryParams) {
 				
-				String name = entry.getKey();
+				String name = entry.getKey().value();
 				Object value = entry.getValue();
 				
 				if(!(value instanceof CharSequence)) {
@@ -125,7 +125,7 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 		catch(Exception e) {
 			
 			throw (e instanceof RequestProcessorException)? 
-					(RequestProcessorException)e :new RequestProcessorException(getClass(), config, e);
+					(RequestProcessorException)e :new RequestProcessorException(getClass(), context, e);
 		}
 	}
 }

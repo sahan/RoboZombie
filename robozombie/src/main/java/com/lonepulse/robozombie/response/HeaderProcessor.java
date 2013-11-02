@@ -28,6 +28,7 @@ import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Header;
 import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.util.Metadata;
 
 /**
  * <p>This is a concrete implementation of {@link ResponseProcessor} which retrieves the <i>response-headers</i> 
@@ -81,18 +82,18 @@ class HeaderProcessor extends AbstractResponseProcessor {
 			
 			if(httpResponse != null) {
 			
-				List<Map.Entry<String, Object>> headers = ResponseUtils.findHeaders(config);
+				List<Map.Entry<Header, Object>> headers = Metadata.onParams(Header.class, config);
 				
 				String name;
 				StringBuilder value;
 				
-				for (Map.Entry<String, Object> header : headers) {
+				for (Map.Entry<Header, Object> header : headers) {
 					
 					if(header.getValue() instanceof StringBuilder) {
 						
-						name = header.getKey();
+						name = header.getKey().value();
 						value = (StringBuilder)header.getValue();
-						
+										
 						if(value == null || value.equals("")) {
 							
 							continue; //skip headers which are omitted for the current invocation

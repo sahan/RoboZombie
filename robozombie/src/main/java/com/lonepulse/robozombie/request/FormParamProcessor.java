@@ -23,7 +23,6 @@ package com.lonepulse.robozombie.request;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.http.NameValuePair;
@@ -39,6 +38,7 @@ import org.apache.http42.entity.ContentType;
 import com.lonepulse.robozombie.annotation.FormParam;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.util.Metadata;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which discovers <i>form parameters</i> 
@@ -78,7 +78,7 @@ class FormParamProcessor extends AbstractRequestProcessor {
 	 * 			{@link HttpEntityEnclosingRequestBase}s will be entertained to allow compliance with unusual 
 	 * 			endpoint definitions (as long as they are {@link HttpEntityEnclosingRequestBase}s) 
 	 * <br><br>
-	 * @param config
+	 * @param context
 	 * 			an immutable instance of {@link InvocationContext} which is used to form the query 
 	 * 			string and create the {@link HttpGet} request
 	 * <br><br>
@@ -90,7 +90,7 @@ class FormParamProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext config) throws RequestProcessorException {
+	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) throws RequestProcessorException {
 
 		try {
 			
@@ -98,17 +98,17 @@ class FormParamProcessor extends AbstractRequestProcessor {
 				
 				List<NameValuePair> nameValuePairs = new LinkedList<NameValuePair>();
 				
-				List<Request.Param> constantFormParams = RequestUtils.findConstantRequestParams(config);
-				Map<String, Object> formParams = RequestUtils.findFormParams(config);
+				List<Request.Param> constantFormParams = RequestUtils.findStaticRequestParams(context);
+				List<Entry<FormParam, Object>> formParams = Metadata.onParams(FormParam.class, context);
 				
 				for (Request.Param param : constantFormParams) {
 					
 					nameValuePairs.add(new BasicNameValuePair(param.name(), param.value()));
 				}
 				
-				for (Entry<String, Object> entry : formParams.entrySet()) {
+				for (Entry<FormParam, Object> entry : formParams) {
 					
-					String name = entry.getKey();
+					String name = entry.getKey().value();
 					Object value = entry.getValue();
 					
 					if(!(value instanceof CharSequence)) {
@@ -138,7 +138,7 @@ class FormParamProcessor extends AbstractRequestProcessor {
 		catch(Exception e) {
 			
 			throw (e instanceof RequestProcessorException)? 
-					(RequestProcessorException)e :new RequestProcessorException(getClass(), config, e);
+					(RequestProcessorException)e :new RequestProcessorException(getClass(), context, e);
 		}
 	}
 }

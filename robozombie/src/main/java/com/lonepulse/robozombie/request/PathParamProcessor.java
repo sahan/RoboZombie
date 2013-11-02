@@ -23,7 +23,7 @@ package com.lonepulse.robozombie.request;
 
 import java.net.URI;
 import java.net.URLDecoder;
-import java.util.Map;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
@@ -31,6 +31,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 
 import com.lonepulse.robozombie.annotation.PathParam;
 import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.util.Metadata;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which discovers <i>path parameters</i> 
@@ -64,7 +65,7 @@ class PathParamProcessor extends AbstractRequestProcessor {
 	 * @param httpRequestBase
 	 * 			the {@link HttpRequestBase} whose path parameters will be used to reconstruct the URI
 	 * <br><br>
-	 * @param config
+	 * @param context
 	 * 			an immutable instance of {@link InvocationContext} which is used to discover 
 	 * 			any arguments which are annotated with @{@link PathParam}
 	 * <br><br>
@@ -76,18 +77,18 @@ class PathParamProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext config) 
+	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) 
 	throws RequestProcessorException {
 
 		try {
 			
-			Map<String, Object> queryParams = RequestUtils.findPathParams(config);
+			List<Entry<PathParam, Object>> queryParams = Metadata.onParams(PathParam.class, context);
 			
 			String path = URLDecoder.decode(httpRequestBase.getURI().toString(), "UTF-8");
 			
-			for (Entry<String, Object> entry : queryParams.entrySet()) {
+			for (Entry<PathParam, Object> entry : queryParams) {
 				
-				String name = entry.getKey();
+				String name = entry.getKey().value();
 				Object value = entry.getValue();
 				
 				if(!(value instanceof CharSequence)) {
@@ -112,7 +113,7 @@ class PathParamProcessor extends AbstractRequestProcessor {
 		catch(Exception e) {
 			
 			throw (e instanceof RequestProcessorException)? 
-					(RequestProcessorException)e :new RequestProcessorException(getClass(), config, e);
+					(RequestProcessorException)e :new RequestProcessorException(getClass(), context, e);
 		}
 	}
 }

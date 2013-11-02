@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
  * <br>
  * <p>
  * <code>
- * <pre>@Request(path = "/users/update", method = RequestMethod.POST)<br>@HeaderSet(@HeaderSet.Header(name = "Content-Type", value = "application/json"))
+ * <pre>@Request(path = "/users/update", method = RequestMethod.POST)<br>@Headers(@Headers.Header(name = "Content-Type", value = "application/json"))
  *public abstract String updateUser(<b>@Entity</b> String userJson);</pre>
  * </code>
  * </p>
