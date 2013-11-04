@@ -1,0 +1,67 @@
+package com.lonepulse.robozombie.annotation;
+
+/*
+ * #%L
+ * RoboZombie
+ * %%
+ * Copyright (C) 2013 Lonepulse
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.util.Map;
+
+/**
+ * <p>Identifies multiple static or dynamic <b>form parameters</b> which are to be included as 
+ * <a href="http://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms">form-urlencoded</a> 
+ * <b>name-value</b> pairs.
+ * 
+ * <p>This annotation can be used on the request definition to identify static form parameters 
+ * as well as on a request parameter of type {@link Map}&lt;String, String&gt; to identify a set 
+ * of dynamic form parameters.</p> 
+ * 
+ * <b>Usage:</b>
+ * <br>
+ * <br>
+ * <p>
+ * <code>
+ * <pre><b>@FormParams</b>({@Param(name = "n1", value = "v1"), @Param(name = "n2", value = "v2")})
+ *public abstract void updateProfile(<b>@FormParams</b> Map&lt;String, String&gt; params);</pre>
+ * </code>
+ * </p>
+ * 
+ * @version 1.1.0
+ * <br><br>
+ * @since 1.2.4
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD, ElementType.PARAMETER})
+public @interface FormParams {
+
+	/**
+	 * <p>An array of {@link Param}s which identifies a set of form parameters which are constant 
+	 * for every invocation of this request.</p> 
+	 * 
+	 * @return an array of static form {@link Param}s for every invocation of this request
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	public Param[] value() default {};
+}

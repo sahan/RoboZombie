@@ -23,6 +23,7 @@ package com.lonepulse.robozombie.request;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.http.NameValuePair;
@@ -36,21 +37,25 @@ import org.apache.http42.HttpHeaders;
 import org.apache.http42.entity.ContentType;
 
 import com.lonepulse.robozombie.annotation.FormParam;
-import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.annotation.FormParams;
+import com.lonepulse.robozombie.annotation.Param;
 import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which discovers <i>form parameters</i> 
- * in a request declaration by searching for any arguments which are annotated with @{@link FormParam} and 
- * constructs a list of <a href="http://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms">
- * form-urlencoded</a> <b>name-value</b> pairs which will be sent in the request body.</p> 
+ * in a request which are annotated with @{@link FormParam} or @{@link FormParams} and constructs a 
+ * a list of <a href="http://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms"> form-urlencoded
+ * </a> <b>name-value</b> pairs which will be sent in the request body.</p> 
  * 
  * <p>The @{@link FormParam} annotation should be used on an implementation of {@link CharSequence} which 
  * provides the <i>value</i> for each <i>name-value</i> pair; and the supplied {@link FormParam#value()} 
  * provides the <i>name</i>.</p>
  * 
- * @version 1.2.0
+ * <p>The @{@link FormParams} annotation should be used on a {@code Map<CharSequence, CharSequence>} of 
+ * name and value pairs.</p>
+ * 
+ * @version 1.3.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
@@ -62,14 +67,11 @@ class FormParamProcessor extends AbstractRequestProcessor {
 	/**
 	 * <p>Accepts the {@link InvocationContext} along with an {@link HttpEntityEnclosingRequestBase} and 
 	 * creates a list of <a href="http://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms">
-	 * form-urlencoded</a> <b>name-value</b> pairs using any arguments which were annotated with @{@link FormParam}. 
-	 * This is then inserted to the request body of the given {@link HttpEntityEnclosingRequestBase}.</p>
+	 * form-urlencoded</a> <b>name-value</b> pairs using any arguments which were annotated with @{@link FormParam} 
+	 * and @{@link FormParams}. It's then inserted to the request body of an {@link HttpEntityEnclosingRequestBase}.</p>
 	 * 
-	 * <p><b>Note</b> that any {@link HttpRequestBase}s which does not extend {@link HttpEntityEnclosingRequestBase} 
+	 * <p><b>Note</b> that any {@link HttpRequestBase}s which do not extend {@link HttpEntityEnclosingRequestBase} 
 	 * will be ignored.</p>
-	 * 
-	 * <p><b>Note</b> that any constant request parameters which are annotated with @{@link Request.Param} will be 
-	 * treated as <b>name-value</b> pairs to used as <b>form-urlencoded</b> params.</p>
 	 * 
 	 * <p>See {@link RequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
 	 * 
@@ -85,7 +87,7 @@ class FormParamProcessor extends AbstractRequestProcessor {
  	 * @return the same instance of {@link HttpRequestBase} which was given for processing form params 
 	 * <br><br>
 	 * @throws RequestProcessorException
-	 * 			if an {@link HttpGet} instance failed to be created or if a query parameter failed to be inserted
+	 * 			if an {@link HttpGet} instance failed to be created or if a form parameter failed to be inserted
 	 * <br><br>
 	 * @since 1.2.4
 	 */
@@ -98,13 +100,16 @@ class FormParamProcessor extends AbstractRequestProcessor {
 				
 				List<NameValuePair> nameValuePairs = new LinkedList<NameValuePair>();
 				
-				List<Request.Param> constantFormParams = RequestUtils.findStaticRequestParams(context);
-				List<Entry<FormParam, Object>> formParams = Metadata.onParams(FormParam.class, context);
+				//add static name and value pairs
+				List<Param> constantFormParams = RequestUtils.findStaticFormParams(context);
 				
-				for (Request.Param param : constantFormParams) {
+				for (Param param : constantFormParams) {
 					
 					nameValuePairs.add(new BasicNameValuePair(param.name(), param.value()));
 				}
+				
+				//add individual name and value pairs
+				List<Entry<FormParam, Object>> formParams = Metadata.onParams(FormParam.class, context);
 				
 				for (Entry<FormParam, Object> entry : formParams) {
 					
@@ -124,6 +129,53 @@ class FormParamProcessor extends AbstractRequestProcessor {
 					}
 					
 					nameValuePairs.add(new BasicNameValuePair(name, String.valueOf(value)));
+				}
+				
+				//add batch name and value pairs (along with any static params)
+				List<Entry<FormParams, Object>> queryParamMaps = Metadata.onParams(FormParams.class, context); //batch N&V pairs
+				
+				for (Entry<FormParams, Object> entry : queryParamMaps) {
+					
+					Param[] constantParams = entry.getKey().value();
+					
+					if(constantParams != null && constantParams.length > 0) {
+					
+						for (Param param : constantParams) {
+							
+							nameValuePairs.add(new BasicNameValuePair(param.name(), param.value()));
+						}
+					}
+					
+					Object map = entry.getValue();
+					
+					if(!(map instanceof Map)) {
+					
+						StringBuilder errorContext = new StringBuilder()
+						.append("@FormParams can only be applied on <java.util.Map>s. ")
+						.append("Please refactor the method to provide a Map of name and value pairs. ");
+						
+						throw new RequestProcessorException(new IllegalArgumentException(errorContext.toString()));
+					}
+					
+					Map<?, ?> nameAndValues = (Map<?, ?>)map;
+					
+					for (Entry<?, ?> nameAndValue : nameAndValues.entrySet()) {
+						
+						Object name = nameAndValue.getKey();
+						Object value = nameAndValue.getValue();
+						
+						if(!(name instanceof CharSequence && value instanceof CharSequence)) {
+							
+							StringBuilder errorContext = new StringBuilder()
+							.append("The <java.util.Map> identified by @FormParams can only contain mappings of type ")
+							.append("<java.lang.CharSequence, java.lang.CharSequence>");
+							
+							throw new RequestProcessorException(new IllegalArgumentException(errorContext.toString()));
+						}
+						
+						nameValuePairs.add(new BasicNameValuePair(
+							((CharSequence)name).toString(), ((CharSequence)value).toString()));
+					}
 				}
 				
 				UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(nameValuePairs);

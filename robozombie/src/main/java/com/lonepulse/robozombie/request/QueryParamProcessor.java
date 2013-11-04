@@ -20,35 +20,38 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
-
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http42.client.utils.URIBuilder;
 
+import com.lonepulse.robozombie.annotation.Param;
 import com.lonepulse.robozombie.annotation.QueryParam;
-import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.annotation.QueryParams;
 import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**
  * <p>This is a concrete implementation of {@link RequestProcessor} which discovers <i>query parameters</i> 
- * in a request declaration by searching for any arguments which are annotated with @{@link QueryParam} and 
- * constructs a <a href="http://en.wikipedia.org/wiki/Query_string">query string</a> which will be appended 
- * to the request URL.</p> 
+ * in a request which are annotated with @{@link QueryParam} or @{@link QueryParams} and constructs a 
+ * <a href="http://en.wikipedia.org/wiki/Query_string">query string</a> to be appended to the request URL.</p> 
  * 
  * <p>The @{@link QueryParam} annotation should be used on an implementation of {@link CharSequence} which 
  * provides the <i>value</i> for each <i>name-value</i> pair; and the supplied {@link QueryParam#value()} 
  * provides the <i>name</i>.</p>
+ * 
+ * <p>The @{@link QueryParams} annotation should be used on a {@code Map<CharSequence, CharSequence>} of 
+ * name and value pairs.</p>
  * 
  * <p>Processor Dependencies:</p>
  * <ul>
  * 	<li>{@link PathParamProcessor}</li>
  * </ul>
  * 
- * @version 1.2.0
+ * @version 1.3.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
@@ -60,12 +63,9 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 	/**
 	 * <p>Accepts the {@link InvocationContext} along with an {@link HttpRequestBase} and creates 
 	 * a <a href="http://en.wikipedia.org/wiki/Query_string">query string</a> using any arguments which were 
-	 * annotated with @{@link QueryParam} and @{@link Request.Param} which is subsequently appended to the URI.</p>
+	 * annotated with @{@link QueryParam} and @{@link QueryParams} which is subsequently appended to the URI.</p>
 	 * 
-	 * <p><b>Note</b> that any constant request parameters which are annotated with @{@link Request.Param} 
-	 * will be treated as <b>name-value</b> pairs to be used in the query string.</p>
-	 * 
-	 * <p>See {@link ParamPopulator#populate(InvocationContext)}.</p>
+	 * <p>See {@link RequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
 	 * 
 	 * @param httpRequestBase
 	 * 			prefers an instance of {@link HttpGet} so as to conform with HTTP 1.1; however, other request 
@@ -89,13 +89,15 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 			
 			URIBuilder uriBuilder = new URIBuilder(httpRequestBase.getURI());
 			
-			List<Request.Param> constantQueryParams = RequestUtils.findStaticRequestParams(context);
+			//add static name and value pairs
+			List<Param> constantQueryParams = RequestUtils.findStaticQueryParams(context);
 			
-			for (Request.Param param : constantQueryParams) {
+			for (Param param : constantQueryParams) {
 				
 				uriBuilder.setParameter(param.name(), param.value());
 			}
 			
+			//add individual name and value pairs
 			List<Entry<QueryParam, Object>> queryParams = Metadata.onParams(QueryParam.class, context);
 			
 			for (Entry<QueryParam, Object> entry : queryParams) {
@@ -116,6 +118,52 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 				}
 			
 				uriBuilder.setParameter(name, ((CharSequence)value).toString());
+			}
+			
+			//add batch name and value pairs (along with any static params)
+			List<Entry<QueryParams, Object>> queryParamMaps = Metadata.onParams(QueryParams.class, context);
+			
+			for (Entry<QueryParams, Object> entry : queryParamMaps) {
+				
+				Param[] constantParams = entry.getKey().value();
+				
+				if(constantParams != null && constantParams.length > 0) {
+				
+					for (Param param : constantParams) {
+						
+						uriBuilder.setParameter(param.name(), param.value());
+					}
+				}
+				
+				Object map = entry.getValue();
+				
+				if(!(map instanceof Map)) {
+				
+					StringBuilder errorContext = new StringBuilder()
+					.append("@QueryParams can only be applied on <java.util.Map>s. ")
+					.append("Please refactor the method to provide a Map of name and value pairs. ");
+					
+					throw new RequestProcessorException(new IllegalArgumentException(errorContext.toString()));
+				}
+				
+				Map<?, ?> nameAndValues = (Map<?, ?>)map;
+				
+				for (Entry<?, ?> nameAndValue : nameAndValues.entrySet()) {
+					
+					Object name = nameAndValue.getKey();
+					Object value = nameAndValue.getValue();
+					
+					if(!(name instanceof CharSequence && value instanceof CharSequence)) {
+						
+						StringBuilder errorContext = new StringBuilder()
+						.append("The <java.util.Map> identified by @QueryParams can only contain mappings of type ")
+						.append("<java.lang.CharSequence, java.lang.CharSequence>");
+						
+						throw new RequestProcessorException(new IllegalArgumentException(errorContext.toString()));
+					}
+					
+					uriBuilder.setParameter(((CharSequence)name).toString(), ((CharSequence)value).toString());
+				}
 			}
 			
 			httpRequestBase.setURI(uriBuilder.build());

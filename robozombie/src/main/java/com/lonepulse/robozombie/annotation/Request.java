@@ -42,7 +42,7 @@ import org.apache.http.client.methods.HttpTrace;
  * <p>
  * <code>
  * <pre>@Request(path = "/search")</b>
- *public abstract String search(@Param(name = "q") String searchTerm);
+ *public abstract String search(@QueryParam(name = "q") String searchTerm);
  * </pre>
  * </code>
  * </p>
@@ -124,37 +124,6 @@ public @interface Request {
 	}
 	
 	/**
-	 * <p>Specifies a query parameter name and value pair which is common 
-	 * to all submissions of a particular request. 
-	 * 
-	 * @version 1.1.1
-	 * <br><br> 
-	 * @since 1.1.0
-	 * <br><br> 
-	 * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
-	 */
-	public static @interface Param { 
-		
-		/**
-		 * <p>The name of the request parameter.
-		 * 
-		 * @return the name of the request parameter
-		 * <br><br>
-		 * @since 1.1.0
-		 */
-		public String name();
-		
-		/**
-		 * <p>The serialized {@link String} value of the request parameter.</p>
-		 * 
-		 * @return a serialized {@link String} value for the parameter
-		 * <br><br>
-		 * @since 1.1.0
-		 */
-		public String value();
-	}
-	
-	/**
 	 * <p>The type of the HTTP request which can be indicated using 
 	 * {@link RequestMethod}.</p>
 	 * <br>
@@ -176,14 +145,4 @@ public @interface Request {
 	 * @since 1.1.0
 	 */
 	public String path() default "";
-	
-	/**
-	 * <p>An array of {@link Request.Param}s which indicate query parameters that 
-	 * never change for a particular request.
-	 * 
-	 * @return an array of {@link Request.Param}s for this particular request
-	 * <br><br>
-	 * @since 1.1.0
-	 */
-	public Request.Param[] params() default {};
 }
