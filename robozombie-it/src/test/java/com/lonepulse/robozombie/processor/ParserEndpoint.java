@@ -21,17 +21,20 @@ package com.lonepulse.robozombie.processor;
  */
 
 
+import static com.lonepulse.robozombie.ContentType.JSON;
+import static com.lonepulse.robozombie.ContentType.PLAIN;
+import static com.lonepulse.robozombie.ContentType.XML;
+
 import org.apache.http.HttpResponse;
 import org.apache.http42.util.EntityUtils;
 
 import com.google.gson.Gson;
+import com.lonepulse.robozombie.annotation.Deserializer;
 import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.annotation.Parser;
-import com.lonepulse.robozombie.annotation.Parser.ParserType;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.model.User;
-import com.lonepulse.robozombie.response.AbstractResponseParser;
+import com.lonepulse.robozombie.response.AbstractDeserializer;
 
 /**
  * <p>An interface which represents a dummy endpoint with request method definitions 
@@ -43,7 +46,7 @@ import com.lonepulse.robozombie.response.AbstractResponseParser;
  * <br><br> 
  * @since 1.2.4
  * <br><br> 
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Endpoint(host = "0.0.0.0", port = "8080")
 public interface ParserEndpoint {
@@ -56,7 +59,7 @@ public interface ParserEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Parser(ParserType.RAW)
+	@Deserializer(PLAIN)
 	@Request(path = "/responseerror")
 	String responseError();
 	
@@ -67,8 +70,8 @@ public interface ParserEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
+	@Deserializer(JSON)
 	@Request(path = "/json")
-	@Parser(ParserType.JSON) 
 	User parseJson();
 	
 	/**
@@ -78,12 +81,12 @@ public interface ParserEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
+	@Deserializer(XML) 
 	@Request(path = "/xml")
-	@Parser(ParserType.XML) 
 	User parseXml();
 	
 	/**
-	 * <p>A mock request which does not use an @{@link Parser} definition and defers to 
+	 * <p>A mock request which does not use an @{@link Deserializer} definition and defers to 
 	 * the <i>raw parser</i> which simple retrieves the response content as a String.</p>
 	 *
 	 * @return the parser <b>raw</b> response content
@@ -94,16 +97,16 @@ public interface ParserEndpoint {
 	String raw();
 	
 	
-	static final class RedactParser extends AbstractResponseParser<User> {
+	static final class Redactor extends AbstractDeserializer<User> {
 		
 		
-		public RedactParser() {
+		public Redactor() {
 			
 			super(User.class);
 		}
 
 		@Override
-		protected User processResponse(HttpResponse httpResponse, InvocationContext context) 
+		protected User deserialize(HttpResponse httpResponse, InvocationContext context) 
 		throws Exception {
 
 			String json = EntityUtils.toString(httpResponse.getEntity());
@@ -124,6 +127,6 @@ public interface ParserEndpoint {
 	 * @since 1.2.4
 	 */
 	@Request(path = "/custom")
-	@Parser(type = RedactParser.class) 
+	@Deserializer(type = Redactor.class) 
 	User parseCustom();
 }

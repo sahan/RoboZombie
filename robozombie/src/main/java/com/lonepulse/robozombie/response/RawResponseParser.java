@@ -26,14 +26,14 @@ import org.apache.http.util.EntityUtils;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This is an extension of {@link AbstractResponseParser} which extracts the response 
+ * <p>This is an extension of {@link AbstractDeserializer} which extracts the response 
  * data as a <b>raw String</b>. 
  * 
  * @version 1.1.4
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class RawResponseParser extends AbstractResponseParser<CharSequence> {
+public class RawResponseParser extends AbstractDeserializer<CharSequence> {
 
 	
 	/**
@@ -51,10 +51,10 @@ public class RawResponseParser extends AbstractResponseParser<CharSequence> {
 	 * <p> Parses the content in the {@link HttpResponse} to any type which is 
 	 * assignable to a {@link CharSequence}.
 	 * 
-	 * @see AbstractResponseParser#parse(HttpResponse, com.lonepulse.robozombie.inject.InvocationContext.processor.ProxyInvocationConfiguration)
+	 * @see AbstractDeserializer#run(HttpResponse, com.lonepulse.robozombie.inject.InvocationContext.processor.ProxyInvocationConfiguration)
 	 */
 	@Override
-	public CharSequence processResponse(HttpResponse httpResponse, InvocationContext config) throws Exception {
+	public CharSequence deserialize(HttpResponse httpResponse, InvocationContext config) throws Exception {
 
 		String responseString = EntityUtils.toString(httpResponse.getEntity());
 		return responseString.subSequence(0, responseString.length());

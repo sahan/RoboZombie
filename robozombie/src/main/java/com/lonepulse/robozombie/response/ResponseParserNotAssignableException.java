@@ -1,6 +1,6 @@
 package com.lonepulse.robozombie.response;
 
-import com.lonepulse.robozombie.annotation.Parser;
+import com.lonepulse.robozombie.annotation.Deserializer;
 import com.lonepulse.robozombie.annotation.Request;
 
 /*
@@ -26,7 +26,7 @@ import com.lonepulse.robozombie.annotation.Request;
 
 /**
  * <p>This runtime exception is thrown when the return type of a {@link Request} method 
- * cannot be assigned to the designated {@link Parser}'s return type. 
+ * cannot be assigned to the designated {@link Deserializer}'s return type. 
  * 
  * @version 1.1.1
  * <br><br>

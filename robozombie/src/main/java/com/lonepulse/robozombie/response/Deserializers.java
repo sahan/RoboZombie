@@ -26,11 +26,11 @@ import java.util.Map;
 
 import org.apache.http.HttpResponse;
 
-import com.lonepulse.robozombie.annotation.Parser.ParserType;
+import com.lonepulse.robozombie.ContentType;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>Exposes all available {@link ResponseParser}s, resolves concrete instances of their parser types 
+ * <p>Exposes all available {@link AbstractDeserializer}s, resolves concrete instances of their parser types 
  * and mediates communication.</p> 
  * 
  * @version 1.2.0
@@ -39,7 +39,7 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public enum ResponseParsers implements ResponseParser<Object> {
+public enum Deserializers implements Deserializer<Object> {
 
 	/**
 	 * See {@link RawResponseParser}.
@@ -63,64 +63,65 @@ public enum ResponseParsers implements ResponseParser<Object> {
 	XML(new XmlResponseParser());
 	
 
-	private static final Map<String, ResponseParser<?>> PARSERS = new HashMap<String, ResponseParser<?>>();
 	
-	private final ResponseParser<?> responseParser;
+	private static final Map<String, AbstractDeserializer<?>> PARSERS = new HashMap<String, AbstractDeserializer<?>>();
+	
+	private final AbstractDeserializer<?> deserializer;
 	
 	
-	private ResponseParsers(ResponseParser<?> responseParser) {
+	private Deserializers(AbstractDeserializer<?> deserializer) {
 	
-		this.responseParser = responseParser;
+		this.deserializer = deserializer;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object parse(HttpResponse httpResponse, InvocationContext context) {
+	public Object run(HttpResponse httpResponse, InvocationContext context) {
 		
-		return this.responseParser.parse(httpResponse, context);
+		return this.deserializer.run(httpResponse, context);
 	}
 	
 	/**
-	 * <p>Retrieves the {@link ResponseParser} which is identified by the given {@link ParserType}.</p>
+	 * <p>Retrieves the {@link AbstractDeserializer} which is identified by the given {@link ContentType}.</p>
 	 * 
 	 * @param config
-	 * 			the {@link ParserType} whose implementation of {@link ResponseParser} is retrieved
+	 * 			the {@link ContentType} whose implementation of {@link AbstractDeserializer} is retrieved
 	 * 
-	 * @return the implementation of {@link ResponseParser} which serves the given {@link ParserType}
+	 * @return the implementation of {@link AbstractDeserializer} which serves the given {@link ContentType}
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final ResponseParser<?> resolve(ParserType parserType) {
+	public static final AbstractDeserializer<?> resolve(ContentType parserType) {
 		
 		switch (parserType) {
 		
 			case JSON:
-				return ResponseParsers.JSON.responseParser;
+				return Deserializers.JSON.deserializer;
 					
 			case XML:
-				return ResponseParsers.XML.responseParser;
+				return Deserializers.XML.deserializer;
 				
-			case RAW: case UNDEFINED: default:
-				return ResponseParsers.RAW.responseParser;
+			case PLAIN: case UNDEFINED: default:
+				return Deserializers.RAW.deserializer;
 		}
 	}
 	
 	/**
-	 * <p>Retrieves the {@link ResponseParser} which is defined for the given {@link Class}.</p>
+	 * <p>Retrieves the {@link AbstractDeserializer} which is defined for the given {@link Class}.</p>
 	 * 
 	 * @param parserType
-	 * 			the {@link Class} whose implementation of {@link ResponseParser} is retrieved
+	 * 			the {@link Class} whose implementation of {@link AbstractDeserializer} is retrieved
 	 * 
-	 * @return the implementation of {@link ResponseParser} for the given {@link Class}
+	 * @return the implementation of {@link AbstractDeserializer} for the given {@link Class}
 	 * <br><br>
 	 * @throws ResponseParserInstantiationException
 	 * 			if a custom response parser failed to be instantiated using its <b>default constructor</b> 
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final ResponseParser<?> resolve(Class<? extends ResponseParser<?>> parserType) {
+	public static final AbstractDeserializer<?> resolve(Class<? extends AbstractDeserializer<?>> parserType) {
 		
 		try {
 			
@@ -128,7 +129,7 @@ public enum ResponseParsers implements ResponseParser<Object> {
 				
 				String key = parserType.getName();
 				
-				ResponseParser<?> parser = PARSERS.get(key);
+				AbstractDeserializer<?> parser = PARSERS.get(key);
 				
 				if(parser == null) {
 					

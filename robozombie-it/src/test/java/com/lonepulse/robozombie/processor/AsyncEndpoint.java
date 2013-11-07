@@ -21,10 +21,10 @@ package com.lonepulse.robozombie.processor;
  */
 
 
+import com.lonepulse.robozombie.ContentType;
 import com.lonepulse.robozombie.annotation.Asynchronous;
+import com.lonepulse.robozombie.annotation.Deserializer;
 import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.annotation.Parser;
-import com.lonepulse.robozombie.annotation.Parser.ParserType;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.model.User;
 import com.lonepulse.robozombie.response.AsyncHandler;
@@ -83,7 +83,7 @@ public interface AsyncEndpoint {
 	 * 
 	 * @since 1.3.4
 	 */
-	@Parser(ParserType.JSON)
+	@Deserializer(ContentType.JSON)
 	@Request(path = "/asyncerror")
 	public void asyncError(AsyncHandler<User> asyncHandler);
 	
@@ -129,7 +129,7 @@ public interface AsyncEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Parser(ParserType.JSON)
+	@Deserializer(ContentType.JSON)
 	@Request(path = "/errorcallbackerror")
 	public void asyncErrorCallbackError(AsyncHandler<User> asyncHandler);
 }

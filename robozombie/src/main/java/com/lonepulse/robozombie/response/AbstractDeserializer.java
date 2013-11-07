@@ -26,18 +26,18 @@ import org.apache.http42.util.EntityUtils;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This is an implementation of {@link ResponseParser} which defines and executes the 
+ * <p>This is an implementation of {@link Deserializer} which defines and executes the 
  * steps in <i>parsing</i>.</p>
  * 
- * <p>User defined {@link ResponseParser}s must extend this class and override the 
- * {@link AbstractResponseParser#processResponse(HttpResponse)} and {@link AbstractResponseParser#getType()} 
+ * <p>User defined {@link Deserializer}s must extend this class and override the 
+ * {@link AbstractDeserializer#processResponse(HttpResponse)} and {@link AbstractDeserializer#getType()} 
  * methods.</p>
  * <br><br>
  * <ul>
  *  <li>
- *  <b>{@link AbstractResponseParser#processResponse(HttpResponse)}</b><br>
+ *  <b>{@link AbstractDeserializer#processResponse(HttpResponse)}</b><br>
  *  Retrieves the necessary information from {@link HttpResponse} and returns an instance of 
- *  a custom {@link ResponseParser}.
+ *  a custom {@link Deserializer}.
  *  <br><br><b>
  *  Sample Code from {@link RawResponseParser}:<br><br></b>
  *  <font color="#2E2E2E">
@@ -51,8 +51,8 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  *  </li>
  *  <br><br><br>
  *  <li>
- *  <b>{@link AbstractResponseParser#getType()}</b><br>
- *  Returns the {@link Class} of the type handled by the custom {@link ResponseParser}. 
+ *  <b>{@link AbstractDeserializer#getType()}</b><br>
+ *  Returns the {@link Class} of the type handled by the custom {@link Deserializer}. 
  *  <br><br><b>
  *  Sample Code from {@link RawResponseParser}:<br><br></b>
  *  <font color="#2E2E2E">
@@ -64,18 +64,20 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * </ul> 
  * <br>
  * 
- * @version 1.1.6
+ * @version 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.2.4
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public abstract class AbstractResponseParser<T> implements ResponseParser<T> {
+public abstract class AbstractDeserializer<T> implements Deserializer<T> {
 
 	
 	private Class<T> parserType;
 	
 	
 	/**
-	 * <p>Initializes a new {@link AbstractResponseParser} with the given {@link Class} which 
+	 * <p>Initializes a new {@link AbstractDeserializer} with the given {@link Class} which 
 	 * represents the output of this parser.
 	 *
 	 * @param parserType
@@ -83,7 +85,7 @@ public abstract class AbstractResponseParser<T> implements ResponseParser<T> {
 	 *
 	 * @since 1.2.4
 	 */
-	protected AbstractResponseParser(Class<T> parserType) {
+	protected AbstractDeserializer(Class<T> parserType) {
 		
 		this.parserType = parserType;
 	}
@@ -92,14 +94,14 @@ public abstract class AbstractResponseParser<T> implements ResponseParser<T> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final T parse(HttpResponse httpResponse, InvocationContext config) {
+	public final T run(HttpResponse httpResponse, InvocationContext config) {
 		
 		Class<?> requestReturnType = config.getRequest().getReturnType();
 		
 		try {
 			
 			throwIfNotAssignable(requestReturnType);
-			return processResponse(httpResponse, config);
+			return deserialize(httpResponse, config);
 		}
 		catch(Exception e) {
 		
@@ -129,10 +131,10 @@ public abstract class AbstractResponseParser<T> implements ResponseParser<T> {
 	}
 
 	/**
-	 * <p>Allows any {@link ResponseParser} extension to determine the type 
-	 * {@link Class} of the instantiated {@link ResponseParser}.</p>
+	 * <p>Allows any {@link Deserializer} extension to determine the type 
+	 * {@link Class} of the instantiated {@link Deserializer}.</p>
 	 * 
-	 * @return the type {@link Class} of the instantiated {@link ResponseParser}
+	 * @return the type {@link Class} of the instantiated {@link Deserializer}
 	 * <br><br>
 	 * @since 1.1.4
 	 */
@@ -160,6 +162,6 @@ public abstract class AbstractResponseParser<T> implements ResponseParser<T> {
 	 * <br><br>
 	 * @since 1.1.4
 	 */
-	protected abstract T processResponse(HttpResponse httpResponse, InvocationContext config) 
+	protected abstract T deserialize(HttpResponse httpResponse, InvocationContext config) 
 	throws Exception;
 }

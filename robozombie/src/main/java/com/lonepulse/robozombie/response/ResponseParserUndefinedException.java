@@ -22,13 +22,13 @@ package com.lonepulse.robozombie.response;
 
 import java.lang.reflect.Method;
 
+import com.lonepulse.robozombie.annotation.Deserializer;
 import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.annotation.Parser;
 import com.lonepulse.robozombie.annotation.Request;
 
 /**
- * <p>This runtime exception is thrown when a {@link ResponseParser} to be used for a particular 
- * {@link Endpoint}, or {@link Request} thereof, has not been declared using {@link Parser}.
+ * <p>This runtime exception is thrown when a {@link Deserializer} to be used for a particular 
+ * {@link Endpoint}, or {@link Request} thereof, has not been declared using {@link Deserializer}.
  * 
  * @version 1.1.1
  * <br><br>
@@ -48,8 +48,8 @@ class ResponseParserUndefinedException extends ResponseProcessorException {
 	public ResponseParserUndefinedException(Class<?> endpoint, Method method) {
 		
 		this(new StringBuilder("Reponse parsing failed for request ").append(method.getName())
-			 .append(" on endpoint ").append(endpoint.getName()).append(": a ").append(ResponseParser.class.getName())
-			 .append(" has not been defined via the ").append(Parser.class.getName()).append(" annotation.").toString());
+			 .append(" on endpoint ").append(endpoint.getName()).append(": a ").append(Deserializer.class.getName())
+			 .append(" has not been defined via the ").append(Deserializer.class.getName()).append(" annotation.").toString());
 	}
 
 	/**
@@ -57,8 +57,8 @@ class ResponseParserUndefinedException extends ResponseProcessorException {
 	 */
 	public ResponseParserUndefinedException() {
 		
-		this("Reponse parsing failed for request. A " + ResponseParser.class.getName() + 
-			  " has not been defined via the " + Parser.class.getName() + " annotation.");
+		this("Reponse parsing failed for request. A " + Deserializer.class.getName() + 
+			  " has not been defined via the " + Deserializer.class.getName() + " annotation.");
 	}
 
 	/**

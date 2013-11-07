@@ -22,7 +22,7 @@ package com.lonepulse.robozombie.response;
 
 
 /**
- * <p>This runtime exception is thrown when a <b>custom</b> {@link ResponseParser} failed to be 
+ * <p>This runtime exception is thrown when a <b>custom</b> {@link Deserializer} failed to be 
  * instantiated using the <b>default constructor</b> on its {@link Class}.</p>
  * 
  * @version 1.1.1
@@ -46,7 +46,7 @@ class ResponseParserInstantiationException extends ResponseParserException {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public ResponseParserInstantiationException(Class<? extends ResponseParser<?>> parserType) {
+	public ResponseParserInstantiationException(Class<? extends Deserializer<?>> parserType) {
 		
 		super(new StringBuilder("The response parser of type ").append(parserType.getName())
 			  .append(" failed to be instantiated using its default constructor. Please ensure that an")
@@ -65,7 +65,7 @@ class ResponseParserInstantiationException extends ResponseParserException {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public ResponseParserInstantiationException(Class<? extends ResponseParser<?>> parserType, Throwable rootCause) {
+	public ResponseParserInstantiationException(Class<? extends Deserializer<?>> parserType, Throwable rootCause) {
 		
 		super(new StringBuilder("The response parser of type ").append(parserType.getName())
 			  .append(" failed to be instantiated using its default constructor. Please ensure that an")

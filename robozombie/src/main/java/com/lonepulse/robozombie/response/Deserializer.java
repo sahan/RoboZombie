@@ -33,7 +33,7 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public interface ResponseParser<T extends Object> {
+public interface Deserializer<T extends Object> {
 
 	/**
 	 * <p>Executes the following steps for parsing in order. 
@@ -54,5 +54,5 @@ public interface ResponseParser<T extends Object> {
 	 * <br><br>
 	 * @since 1.1.1
 	 */
-	public T parse(HttpResponse httpResponse, InvocationContext config);
+	public T run(HttpResponse httpResponse, InvocationContext config);
 }

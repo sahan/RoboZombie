@@ -27,18 +27,18 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http42.util.EntityUtils;
 
+import com.lonepulse.robozombie.ContentType;
 import com.lonepulse.robozombie.annotation.Asynchronous;
+import com.lonepulse.robozombie.annotation.Deserializer;
 import com.lonepulse.robozombie.annotation.Header;
-import com.lonepulse.robozombie.annotation.Parser;
-import com.lonepulse.robozombie.annotation.Parser.ParserType;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This is a concrete implementation of {@link ResponseProcessor} which retrieves the {@link HttpEntity} 
- * of an {@link HttpResponse} and parses it using the defined {@link ParserType}. {@link ParserType}s are defined 
- * using @{@link Parser} either at the endpoint level or at the request level. All endpoint request declarations 
+ * of an {@link HttpResponse} and parses it using the defined {@link ContentType}. {@link ContentType}s are defined 
+ * using @{@link Deserializer} either at the endpoint level or at the request level. All endpoint request declarations 
  * which defined a return type should be associated with a response parser. Custom response parsers may be used 
- * by extending {@link AbstractResponseParser} and defining its type on {@link Parser#type()}.</p>
+ * by extending {@link AbstractDeserializer} and defining its type on {@link Deserializer#type()}.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -91,21 +91,21 @@ class EntityProcessor extends AbstractResponseProcessor {
 				if(handleAsync || responseExpected) {
 					
 					Class<?> endpoint = config.getEndpoint();
-					ResponseParser<?> responseParser = null;
+					AbstractDeserializer<?> responseParser = null;
 			
-					Parser parser = null;
+					Deserializer parser = null;
 					
-					if(request.isAnnotationPresent(Parser.class)) {
+					if(request.isAnnotationPresent(Deserializer.class)) {
 						
-						parser = request.getAnnotation(Parser.class);
+						parser = request.getAnnotation(Deserializer.class);
 					}
-					else if(endpoint.isAnnotationPresent(Parser.class)) {
+					else if(endpoint.isAnnotationPresent(Deserializer.class)) {
 						
-						parser = endpoint.getAnnotation(Parser.class);
+						parser = endpoint.getAnnotation(Deserializer.class);
 					}
 					else if(handleAsync || CharSequence.class.isAssignableFrom(responseType)) {
 						
-						responseParser = ResponseParsers.resolve(ParserType.RAW);
+						responseParser = Deserializers.resolve(ContentType.PLAIN);
 					}
 					else {
 						
@@ -114,11 +114,11 @@ class EntityProcessor extends AbstractResponseProcessor {
 					
 					if(parser != null) {
 						
-						responseParser = (parser.value() == ParserType.UNDEFINED)? 
-							ResponseParsers.resolve(parser.type()) :ResponseParsers.resolve(parser.value()); 
+						responseParser = (parser.value() == ContentType.UNDEFINED)? 
+							Deserializers.resolve(parser.type()) :Deserializers.resolve(parser.value()); 
 					}
 					
-					return responseParser.parse(httpResponse, config);
+					return responseParser.run(httpResponse, config);
 				}
 			}
 			catch(Exception e) {

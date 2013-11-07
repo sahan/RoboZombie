@@ -38,7 +38,7 @@ import com.lonepulse.robozombie.util.Metadata;
  * 
  * <p><b>Note</b> that the endpoint may return multiple response headers with the same name and each of these may 
  * be retrieved by annotating multiple parameters with @{@link Header}. An alternative would be to implement an 
- * {@link AbstractResponseParser} and processing the headers manually (this could also be achieved by running the 
+ * {@link AbstractDeserializer} and processing the headers manually (this could also be achieved by running the 
  * request <i>asynchronously</i> and processing the headers in an {@link AsyncHandler}).</p> 
  * 
  * @version 1.1.0
