@@ -48,7 +48,7 @@ import com.lonepulse.robozombie.response.AbstractDeserializer;
 import com.lonepulse.robozombie.response.Deserializers;
 
 /**
- * <p>Performs <b>Unit Testing</b> on the proxy of {@link ParserEndpoint}.
+ * <p>Performs <b>Unit Testing</b> on the proxy of {@link DeserializerEndpoint}.
  * 
  * @category test
  * <br><br>
@@ -59,7 +59,7 @@ import com.lonepulse.robozombie.response.Deserializers;
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @RunWith(RobolectricTestRunner.class)
-public class ParserEndpointTest {
+public class DeserializerEndpointTest {
 
 	
 	@Rule
@@ -69,11 +69,11 @@ public class ParserEndpointTest {
 	public ExpectedException expectedException = ExpectedException.none();
 	
 	@Bite
-	private ParserEndpoint parserEndpoint;
+	private DeserializerEndpoint deserializerEndpoint;
 	
 	
 	/**
-	 * <p>Sets up the test case by performing endpoint injection on {@link #parserEndpoint}.
+	 * <p>Sets up the test case by performing endpoint injection on {@link #deserializerEndpoint}.
 	 * 
 	 * @throws java.lang.Exception
 	 * 			if the test case setup or endpoint injection failed
@@ -85,7 +85,7 @@ public class ParserEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for {@link ParserEndpoint#responseError()}
+	 * <p>Test for {@link DeserializerEndpoint#responseError()}
 	 *
 	 * @since 1.2.4
 	 */
@@ -104,10 +104,10 @@ public class ParserEndpointTest {
 		expectedException.expect((Class<Throwable>)
 			Class.forName("com.lonepulse.robozombie.executor.RequestExecutionException"));
 		
-		String parsedContent = parserEndpoint.responseError();
+		String deserializedContent = deserializerEndpoint.responseError();
 		
 		verify(getRequestedFor(urlEqualTo(subpath)));
-		assertNull(parsedContent);
+		assertNull(deserializedContent);
 	}
 	
 	/**
@@ -129,15 +129,15 @@ public class ParserEndpointTest {
 				.withStatus(200)
 				.withBody(user.toString())));
 		
-		User parsedUser = parserEndpoint.parseJson();
+		User deserializedUser = deserializerEndpoint.parseJson();
 		
 		verify(getRequestedFor(urlEqualTo(subpath)));
 		
-		assertEquals(user.getId(), parsedUser.getId());
-		assertEquals(user.getFirstName(), parsedUser.getFirstName());
-		assertEquals(user.getLastName(), parsedUser.getLastName());
-		assertEquals(user.getAge(), parsedUser.getAge());
-		assertEquals(user.isImmortal(), parsedUser.isImmortal());
+		assertEquals(user.getId(), deserializedUser.getId());
+		assertEquals(user.getFirstName(), deserializedUser.getFirstName());
+		assertEquals(user.getLastName(), deserializedUser.getLastName());
+		assertEquals(user.getAge(), deserializedUser.getAge());
+		assertEquals(user.isImmortal(), deserializedUser.isImmortal());
 	}
 	
 	/**
@@ -165,19 +165,19 @@ public class ParserEndpointTest {
 				.withStatus(200)
 				.withBody(baos.toString())));
 		
-		User parsedUser = parserEndpoint.parseXml();
+		User deserializedUser = deserializerEndpoint.parseXml();
 		
 		verify(getRequestedFor(urlEqualTo(subpath)));
 		
-		assertEquals(user.getId(), parsedUser.getId());
-		assertEquals(user.getFirstName(), parsedUser.getFirstName());
-		assertEquals(user.getLastName(), parsedUser.getLastName());
-		assertEquals(user.getAge(), parsedUser.getAge());
-		assertEquals(user.isImmortal(), parsedUser.isImmortal());
+		assertEquals(user.getId(), deserializedUser.getId());
+		assertEquals(user.getFirstName(), deserializedUser.getFirstName());
+		assertEquals(user.getLastName(), deserializedUser.getLastName());
+		assertEquals(user.getAge(), deserializedUser.getAge());
+		assertEquals(user.isImmortal(), deserializedUser.isImmortal());
 	}
 	
 	/**
-	 * <p>Test for {@link ParserEndpoint#raw()}.
+	 * <p>Test for {@link DeserializerEndpoint#raw()}.
 	 *
 	 * @since 1.2.4
 	 */
@@ -192,7 +192,7 @@ public class ParserEndpointTest {
 				.willReturn(aResponse()
 				.withBody(body)));
 		
-		String responseContent = parserEndpoint.raw();
+		String responseContent = deserializerEndpoint.raw();
 		
 		verify(getRequestedFor(urlEqualTo(subpath)));
 		assertEquals(body, responseContent);
@@ -217,14 +217,14 @@ public class ParserEndpointTest {
 				.withStatus(200)
 				.withBody(user.toString())));
 		
-		User parsedUser = parserEndpoint.parseCustom();
+		User deserializedUser = deserializerEndpoint.parseCustom();
 		
 		verify(getRequestedFor(urlEqualTo(subpath)));
 		
-		assertEquals(user.getId(), parsedUser.getId());
-		assertEquals(redacted, parsedUser.getFirstName());
-		assertEquals(redacted, parsedUser.getLastName());
-		assertEquals(user.getAge(), parsedUser.getAge());
-		assertEquals(user.isImmortal(), parsedUser.isImmortal());
+		assertEquals(user.getId(), deserializedUser.getId());
+		assertEquals(redacted, deserializedUser.getFirstName());
+		assertEquals(redacted, deserializedUser.getLastName());
+		assertEquals(user.getAge(), deserializedUser.getAge());
+		assertEquals(user.isImmortal(), deserializedUser.isImmortal());
 	}
 }

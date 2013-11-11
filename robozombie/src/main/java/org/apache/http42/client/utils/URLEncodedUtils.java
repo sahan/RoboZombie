@@ -71,12 +71,12 @@ public class URLEncodedUtils {
      * http://example.org/path/to/file?a=1&b=2&c=3 would return a list of three
      * NameValuePairs, one for a=1, one for b=2, and one for c=3.
      * <p>
-     * This is typically useful while parsing an HTTP PUT.
+     * This is typically useful while deserializing an HTTP PUT.
      *
      * @param uri
      *            uri to parse
      * @param encoding
-     *            encoding to use while parsing the query
+     *            encoding to use while deserializing the query
      */
     public static List <NameValuePair> parse (final URI uri, final String encoding) {
         final String query = uri.getRawQuery();
@@ -91,11 +91,11 @@ public class URLEncodedUtils {
     }
 
     /**
-     * Returns a list of {@link NameValuePair NameValuePairs} as parsed from an
+     * Returns a list of {@link NameValuePair NameValuePairs} as deserialized from an
      * {@link HttpEntity}. The encoding is taken from the entity's
      * Content-Encoding header.
      * <p>
-     * This is typically used while parsing an HTTP POST.
+     * This is typically used while deserializing an HTTP POST.
      *
      * @param entity
      *            The entity to parse
@@ -174,7 +174,7 @@ public class URLEncodedUtils {
     private static final char[] DELIM = new char[] { '&' };
 
     /**
-     * Returns a list of {@link NameValuePair NameValuePairs} as parsed from the given string
+     * Returns a list of {@link NameValuePair NameValuePairs} as deserialized from the given string
      * using the given character encoding.
      *
      * @param s
@@ -188,13 +188,13 @@ public class URLEncodedUtils {
         if (s == null) {
             return Collections.emptyList();
         }
-        BasicHeaderValueParser parser = BasicHeaderValueParser.DEFAULT;
+        BasicHeaderValueParser deserializer = BasicHeaderValueParser.DEFAULT;
         CharArrayBuffer buffer = new CharArrayBuffer(s.length());
         buffer.append(s);
         ParserCursor cursor = new ParserCursor(0, buffer.length());
         List<NameValuePair> list = new ArrayList<NameValuePair>();
         while (!cursor.atEnd()) {
-            NameValuePair nvp = parser.parseNameValuePair(buffer, cursor, DELIM);
+            NameValuePair nvp = deserializer.parseNameValuePair(buffer, cursor, DELIM);
             if (nvp.getName().length() > 0) {
                 list.add(new BasicNameValuePair(
                         decodeFormFields(nvp.getName(), charset),

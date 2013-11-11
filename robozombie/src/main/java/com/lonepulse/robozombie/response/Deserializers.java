@@ -26,11 +26,11 @@ import java.util.Map;
 
 import org.apache.http.HttpResponse;
 
-import com.lonepulse.robozombie.ContentType;
+import com.lonepulse.robozombie.annotation.Entity.ContentType;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>Exposes all available {@link AbstractDeserializer}s, resolves concrete instances of their parser types 
+ * <p>Exposes all available {@link AbstractDeserializer}s, resolves concrete instances of their deserializer types 
  * and mediates communication.</p> 
  * 
  * @version 1.2.0
@@ -42,29 +42,29 @@ import com.lonepulse.robozombie.inject.InvocationContext;
 public enum Deserializers implements Deserializer<Object> {
 
 	/**
-	 * See {@link RawResponseParser}.
+	 * See {@link PlainDeserializer}.
 	 * 
 	 * @since 1.1.0
 	 */
-	RAW(new RawResponseParser()),
+	RAW(new PlainDeserializer()),
 	
 	/**
-	 * See {@link JsonResponseParser}.
+	 * See {@link JsonDeserializer}.
 	 * 
 	 * @since 1.1.0
 	 */
-	JSON(new JsonResponseParser()),
+	JSON(new JsonDeserializer()),
 	
 	/**
-	 * See {@link XmlResponseParser}.
+	 * See {@link XmlDeserializer}.
 	 * 
 	 * @since 1.2.4
 	 */
-	XML(new XmlResponseParser());
+	XML(new XmlDeserializer());
 	
 
 	
-	private static final Map<String, AbstractDeserializer<?>> PARSERS = new HashMap<String, AbstractDeserializer<?>>();
+	private static final Map<String, AbstractDeserializer<?>> DESERIALIZERS = new HashMap<String, AbstractDeserializer<?>>();
 	
 	private final AbstractDeserializer<?> deserializer;
 	
@@ -93,9 +93,9 @@ public enum Deserializers implements Deserializer<Object> {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final AbstractDeserializer<?> resolve(ContentType parserType) {
+	public static final AbstractDeserializer<?> resolve(ContentType deserializerType) {
 		
-		switch (parserType) {
+		switch (deserializerType) {
 		
 			case JSON:
 				return Deserializers.JSON.deserializer;
@@ -111,38 +111,38 @@ public enum Deserializers implements Deserializer<Object> {
 	/**
 	 * <p>Retrieves the {@link AbstractDeserializer} which is defined for the given {@link Class}.</p>
 	 * 
-	 * @param parserType
+	 * @param deserializerType
 	 * 			the {@link Class} whose implementation of {@link AbstractDeserializer} is retrieved
 	 * 
 	 * @return the implementation of {@link AbstractDeserializer} for the given {@link Class}
 	 * <br><br>
-	 * @throws ResponseParserInstantiationException
-	 * 			if a custom response parser failed to be instantiated using its <b>default constructor</b> 
+	 * @throws DeserializerInstantiationException
+	 * 			if a custom deserializer failed to be instantiated using its <b>default constructor</b> 
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final AbstractDeserializer<?> resolve(Class<? extends AbstractDeserializer<?>> parserType) {
+	public static final AbstractDeserializer<?> resolve(Class<? extends AbstractDeserializer<?>> deserializerType) {
 		
 		try {
 			
-			synchronized(PARSERS) {
+			synchronized(DESERIALIZERS) {
 				
-				String key = parserType.getName();
+				String key = deserializerType.getName();
 				
-				AbstractDeserializer<?> parser = PARSERS.get(key);
+				AbstractDeserializer<?> deserializer = DESERIALIZERS.get(key);
 				
-				if(parser == null) {
+				if(deserializer == null) {
 					
-					parser = parserType.newInstance();
-					PARSERS.put(key, parser);
+					deserializer = deserializerType.newInstance();
+					DESERIALIZERS.put(key, deserializer);
 				}
 				
-				return parser;
+				return deserializer;
 			}
 		}
 		catch(Exception e) {
 			
-			throw new ResponseParserInstantiationException(parserType);
+			throw new DeserializerInstantiationException(deserializerType);
 		}
 	}
 }

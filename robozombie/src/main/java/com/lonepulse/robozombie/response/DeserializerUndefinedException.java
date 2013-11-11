@@ -36,7 +36,7 @@ import com.lonepulse.robozombie.annotation.Request;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-class ResponseParserUndefinedException extends ResponseProcessorException {
+class DeserializerUndefinedException extends ResponseProcessorException {
 
 	
 	private static final long serialVersionUID = -7605261918947538557L;
@@ -45,9 +45,9 @@ class ResponseParserUndefinedException extends ResponseProcessorException {
 	/**
 	 * <p>Displays a detailed description along with the stacktrace. 
 	 */
-	public ResponseParserUndefinedException(Class<?> endpoint, Method method) {
+	public DeserializerUndefinedException(Class<?> endpoint, Method method) {
 		
-		this(new StringBuilder("Reponse parsing failed for request ").append(method.getName())
+		this(new StringBuilder("Deserialization failed for request ").append(method.getName())
 			 .append(" on endpoint ").append(endpoint.getName()).append(": a ").append(Deserializer.class.getName())
 			 .append(" has not been defined via the ").append(Deserializer.class.getName()).append(" annotation.").toString());
 	}
@@ -55,16 +55,16 @@ class ResponseParserUndefinedException extends ResponseProcessorException {
 	/**
 	 * <p>Displays a detailed description along with the stacktrace. 
 	 */
-	public ResponseParserUndefinedException() {
+	public DeserializerUndefinedException() {
 		
-		this("Reponse parsing failed for request. A " + Deserializer.class.getName() + 
+		this("Deserialization failed for request. A " + Deserializer.class.getName() + 
 			  " has not been defined via the " + Deserializer.class.getName() + " annotation.");
 	}
 
 	/**
 	 * <p>See {@link ResponseProcessorException#ResponseProcessorException(String)}.
 	 */
-	public ResponseParserUndefinedException(String detailMessage) {
+	public DeserializerUndefinedException(String detailMessage) {
 		
 		super(detailMessage);
 	}
@@ -72,7 +72,7 @@ class ResponseParserUndefinedException extends ResponseProcessorException {
 	/**
 	 * <p>See {@link ResponseProcessorException#ResponseProcessorException(Throwable)}.
 	 */
-	public ResponseParserUndefinedException(Throwable throwable) {
+	public DeserializerUndefinedException(Throwable throwable) {
 		
 		super(throwable);
 	}
@@ -80,7 +80,7 @@ class ResponseParserUndefinedException extends ResponseProcessorException {
 	/**
 	 * <p>See {@link ResponseProcessorException#ResponseProcessorException(String, Throwable)}.
 	 */
-	public ResponseParserUndefinedException(String detailMessage, Throwable throwable) {
+	public DeserializerUndefinedException(String detailMessage, Throwable throwable) {
 
 		super(detailMessage, throwable);
 	}

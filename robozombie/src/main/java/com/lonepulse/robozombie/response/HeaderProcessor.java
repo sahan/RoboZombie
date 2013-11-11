@@ -51,7 +51,7 @@ class HeaderProcessor extends AbstractResponseProcessor {
 
 	
 	/**
-	 * <p>Accepts the {@link InvocationContext} along with the {@link HttpResponse} plus the parsed entity 
+	 * <p>Accepts the {@link InvocationContext} along with the {@link HttpResponse} plus the deserialized entity 
 	 * response (if any) and retrieves all HTTP response headers which are discovered in the {@link HttpResponse}. 
 	 * These are then injected into their matching {@link StringBuilder} which are identified by @{@link Header} on 
 	 * the endpoint request definition. The HTTP response headers and the in-out parameters are matched using the header 
@@ -67,7 +67,7 @@ class HeaderProcessor extends AbstractResponseProcessor {
 	 * 			an immutable instance of {@link InvocationContext} which is used to discover any 
 	 * 			@{@link Header} metadata in its <i>request</i> and <i>args</i>
 	 * <br><br>
-	 * @return the <i>same</i> parsed response entity instance which was supplied as a parameter 
+	 * @return the <i>same</i> deserialized response entity instance which was supplied as a parameter 
 	 * <br><br>
 	 * @throws ResponseProcessorException
 	 * 			if the response-header retrieval or injection failed due to an unrecoverable error
@@ -75,7 +75,7 @@ class HeaderProcessor extends AbstractResponseProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected Object process(HttpResponse httpResponse, InvocationContext config, Object parsedResponse)
+	protected Object process(HttpResponse httpResponse, InvocationContext config, Object deserializedResponse)
 	throws ResponseProcessorException {
 
 		try {
@@ -112,7 +112,7 @@ class HeaderProcessor extends AbstractResponseProcessor {
 				}
 			}
 			
-			return parsedResponse;
+			return deserializedResponse;
 		}
 		catch(Exception e) {
 			

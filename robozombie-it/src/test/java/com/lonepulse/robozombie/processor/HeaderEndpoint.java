@@ -106,7 +106,7 @@ public interface HeaderEndpoint {
 	 * @param contentLength
 	 * 			a variable header of the illegal type {@code int} 
 	 * 
-	 * @return the parsed response content, which in this case should not be available
+	 * @return the deserialized response content, which in this case should not be available
 	 * 
 	 * @since 1.2.4
 	 */

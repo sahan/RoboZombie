@@ -26,7 +26,6 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpResponse;
-import org.apache.http42.util.EntityUtils;
 
 import com.lonepulse.robozombie.annotation.Asynchronous;
 import com.lonepulse.robozombie.inject.InvocationContext;
@@ -72,17 +71,12 @@ public final class AsyncExecutionHandler implements ExecutionHandler {
 		return asyncHandler;
 	}
 	
-	private static final void consume(HttpResponse response) {
-		
-		EntityUtils.consumeQuietly(response.getEntity());
-	}
-	
 	
 	/**
 	 * <p>The given {@link HttpResponse} with a successful status code is processed using the response processor 
 	 * chain ({@link Processors#RESPONSE} and if an {@link AsyncHandler} is defined, the result of the processor 
-	 * chain is submitted to the <i>onSuccess</i> callback. Finally, any open content streams are closed.</p>
-	 * 
+	 * chain is submitted to the <i>onSuccess</i> callback.</p>
+	 *  
 	 * <p>See {@link ExecutionHandler#onSuccess(HttpResponse, InvocationContext)}</p>
 	 * 
 	 * @param response
@@ -96,9 +90,9 @@ public final class AsyncExecutionHandler implements ExecutionHandler {
 	@Override
 	public void onSuccess(HttpResponse response, InvocationContext context) {
 		
-		AsyncHandler<Object> asyncHandler = getAsyncHandler(context);
-		
 		Object reponseEntity = Processors.RESPONSE.run(response, context); //process, regardless of an AsyncHandler definition
+		
+		AsyncHandler<Object> asyncHandler = getAsyncHandler(context);
 		
 		if(asyncHandler != null) {
 			
@@ -111,14 +105,12 @@ public final class AsyncExecutionHandler implements ExecutionHandler {
 				LOGGER.error("Callback \"onSuccess\" aborted with an exception.", e);
 			}
 		}
-		
-		consume(response);
 	}
 
 	/**
 	 * <p>If an {@link AsyncHandler} is defined, the given {@link HttpResponse} with a failed status code 
-	 * is submitted to the <i>onFailure</i> callback. Finally, any open content streams are closed.</p>
-	 * 
+	 * is submitted to the <i>onFailure</i> callback.</p>
+	 *  
 	 * <p>See {@link ExecutionHandler#onFailure(HttpResponse, InvocationContext)}</p>
 	 * 
 	 * @param response
@@ -146,13 +138,12 @@ public final class AsyncExecutionHandler implements ExecutionHandler {
 			}
 		}
 		
-		consume(response);
+		Processors.RESPONSE.run(response, context); //process, regardless of a failed response
 	}
 
 	/**
-	 * <p>If an {@link AsyncHandler} is defined, the given exception is submitted to the <i>onError</i> 
-	 * callback. Finally, any open content streams are closed.</p>
-	 * 
+	 * <p>If an {@link AsyncHandler} is defined, the exception is submitted to the <i>onError</i> callback.</p>
+	 *  
 	 * <p>See {@link ExecutionHandler#onError(InvocationContext, Exception)}</p>
 	 * 
 	 * @param context

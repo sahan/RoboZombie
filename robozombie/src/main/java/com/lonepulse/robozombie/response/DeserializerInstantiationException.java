@@ -31,43 +31,43 @@ package com.lonepulse.robozombie.response;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-class ResponseParserInstantiationException extends ResponseParserException {
+class DeserializerInstantiationException extends DeserializerException {
 
 	
 	private static final long serialVersionUID = 1181478243813659896L;
 	
 
 	/**
-	 * <p>Displays a detailed error message with the {@link Class} of the response parser type 
+	 * <p>Displays a detailed error message with the {@link Class} of the deserializer type 
 	 * which failed to be instantiated.</p>
 	 * 
-	 * @param parserType
-	 * 			the {@link Class} of the parser which failed to be instantiated
+	 * @param deserializerType
+	 * 			the {@link Class} of the deserializer which failed to be instantiated
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public ResponseParserInstantiationException(Class<? extends Deserializer<?>> parserType) {
+	public DeserializerInstantiationException(Class<? extends Deserializer<?>> deserializerType) {
 		
-		super(new StringBuilder("The response parser of type ").append(parserType.getName())
+		super(new StringBuilder("The deserializer of type ").append(deserializerType.getName())
 			  .append(" failed to be instantiated using its default constructor. Please ensure that an")
 			  .append(" accessible default constructor is available. ").toString());
 	}
 	
 	/**
-	 * <p>Displays a detailed error message with the {@link Class} of the response parser type 
+	 * <p>Displays a detailed error message with the {@link Class} of the deserializer type 
 	 * which failed to be instantiated.</p>
 	 * 
-	 * @param parserType
-	 * 			the {@link Class} of the parser which failed to be instantiated
+	 * @param deserializerType
+	 * 			the {@link Class} of the deserializer which failed to be instantiated
 	 * <br><br>
 	 * @param rootCause
 	 * 			the root {@link Throwable} cause which led to instantiation failure
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public ResponseParserInstantiationException(Class<? extends Deserializer<?>> parserType, Throwable rootCause) {
+	public DeserializerInstantiationException(Class<? extends Deserializer<?>> deserializerType, Throwable rootCause) {
 		
-		super(new StringBuilder("The response parser of type ").append(parserType.getName())
+		super(new StringBuilder("The deserializer of type ").append(deserializerType.getName())
 			  .append(" failed to be instantiated using its default constructor. Please ensure that an")
 			  .append(" accessible default constructor is available. ").toString(), rootCause);
 	}

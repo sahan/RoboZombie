@@ -54,7 +54,7 @@ public final class BasicExecutionHandler implements ExecutionHandler {
 	 */
 	@Override
 	public void onFailure(HttpResponse response, InvocationContext context) {
-
+		
 		StringBuilder errorContext = new StringBuilder()
 		.append("HTTP request for ")
 		.append(context.getRequest().getName())

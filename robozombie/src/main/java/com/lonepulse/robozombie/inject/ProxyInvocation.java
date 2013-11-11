@@ -133,7 +133,7 @@ class ProxyInvocation implements Invocation {
 		}
 		
 		/**
-		 * <p>Responsible for parsing the response content to produce a <i>meaningful</i> result which 
+		 * <p>Responsible for deserializing the response content to produce a <i>meaningful</i> result which 
 		 * can the readily consumed by clients.</p>
 		 *
 		 * @param response

@@ -25,7 +25,7 @@ import org.apache.http.HttpResponse;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This interface policy of a <i>response parser</i>. i.e. the unit which 
+ * <p>This interface policy of a <i>deserializer</i>. i.e. the unit which 
  * examines the content of a {@link HttpResponse} and parses that content 
  * into the desired entity.</p>
  * 
@@ -36,7 +36,7 @@ import com.lonepulse.robozombie.inject.InvocationContext;
 public interface Deserializer<T extends Object> {
 
 	/**
-	 * <p>Executes the following steps for parsing in order. 
+	 * <p>Executes the following steps for deserialization in order. 
 	 * <br><br>
 	 * <ol>
 	 * 	 <li>Check type compatibility</li>
@@ -50,7 +50,7 @@ public interface Deserializer<T extends Object> {
 	 * 				the {@link InvocationContext} which supplies all information 
 	 * 				regarding the request and it's invocation
 	 * <br><br>
-	 * @return the entity which is created after parsing the output
+	 * @return the entity which is created after deserializing the output
 	 * <br><br>
 	 * @since 1.1.1
 	 */

@@ -20,10 +20,9 @@ package com.lonepulse.robozombie.processor;
  * #L%
  */
 
-
-import static com.lonepulse.robozombie.ContentType.JSON;
-import static com.lonepulse.robozombie.ContentType.PLAIN;
-import static com.lonepulse.robozombie.ContentType.XML;
+import static com.lonepulse.robozombie.annotation.Entity.ContentType.JSON;
+import static com.lonepulse.robozombie.annotation.Entity.ContentType.XML;
+import static com.lonepulse.robozombie.annotation.Entity.ContentType.PLAIN;
 
 import org.apache.http.HttpResponse;
 import org.apache.http42.util.EntityUtils;
@@ -38,7 +37,7 @@ import com.lonepulse.robozombie.response.AbstractDeserializer;
 
 /**
  * <p>An interface which represents a dummy endpoint with request method definitions 
- * that use various pre-fabricated and custom response parsers.
+ * that use various pre-fabricated and custom deserializers.
  * 
  * @category test
  * <br><br> 
@@ -49,13 +48,13 @@ import com.lonepulse.robozombie.response.AbstractDeserializer;
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Endpoint(host = "0.0.0.0", port = "8080")
-public interface ParserEndpoint {
+public interface DeserializerEndpoint {
 	
 	/**
 	 * <p>A mock request which receives a response with a code that signals a failure. 
-	 * Expects a domain specific exception to be thrown rather than the parsed result.  
+	 * Expects a domain specific exception to be thrown rather than the deserialized result.  
 	 *
-	 * @return the parsed response content, which in this case should not be available
+	 * @return the deserialized response content, which in this case should not be available
 	 * 
 	 * @since 1.2.4
 	 */
@@ -64,9 +63,9 @@ public interface ParserEndpoint {
 	String responseError();
 	
 	/**
-	 * <p>A mock request which receives a JSON response that is parsed to it model.
+	 * <p>A mock request which receives a JSON response that is deserialized to it model.
 	 * 
-	 * @return the parsed response entity
+	 * @return the deserialized response entity
 	 * 
 	 * @since 1.2.4
 	 */
@@ -75,9 +74,9 @@ public interface ParserEndpoint {
 	User parseJson();
 	
 	/**
-	 * <p>A mock request which receives an XML response that is parsed to it model.
+	 * <p>A mock request which receives an XML response that is deserialized to it model.
 	 * 
-	 * @return the parsed response entity
+	 * @return the deserialized response entity
 	 * 
 	 * @since 1.2.4
 	 */
@@ -87,9 +86,9 @@ public interface ParserEndpoint {
 	
 	/**
 	 * <p>A mock request which does not use an @{@link Deserializer} definition and defers to 
-	 * the <i>raw parser</i> which simple retrieves the response content as a String.</p>
+	 * the <i>raw deserializer</i> which simple retrieves the response content as a String.</p>
 	 *
-	 * @return the parser <b>raw</b> response content
+	 * @return the deserializer <b>raw</b> response content
 	 * 
 	 * @since 1.2.4
 	 */
@@ -120,9 +119,9 @@ public interface ParserEndpoint {
 	}
 	
 	/**
-	 * <p>A mock request with a response which should be parsed by a custom parser.</p>
+	 * <p>A mock request with a response which should be deserialized by a custom deserializer.</p>
 	 * 
-	 * @return the parsed response entity
+	 * @return the deserialized response entity
 	 * 
 	 * @since 1.2.4
 	 */

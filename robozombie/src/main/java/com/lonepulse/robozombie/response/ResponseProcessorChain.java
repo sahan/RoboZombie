@@ -39,7 +39,7 @@ import com.lonepulse.robozombie.processor.ProcessorChainLink;
  * 	<li>{@link EntityProcessor} - parses and returns the content of the response body</li>
  * </ol>
  * 
- * <p><b>Note</b> that this processor-chain <b>may or may not</b> return the parsed response entity depending 
+ * <p><b>Note</b> that this processor-chain <b>may or may not</b> return the deserialized response entity depending 
  * on the availability of response content.</p>
  * 
  * <p><b>Note</b> that a chain-wide failure is <b>NOT recoverable</b>. All failures are of type 
@@ -77,7 +77,7 @@ public final class ResponseProcessorChain extends AbstractProcessorChain<Object,
 	/**
 	 * <p>Executed for the root link which runs the {@link HeaderProcessor}. Takes the argument array which was provided 
 	 * in {@link #run(Object...)} and invokes the root link, i.e. the {@link HeaderProcessor} and returns {@code null} 
-	 * for the parsed response content - which is passed on to the next processor.</p>
+	 * for the deserialized response content - which is passed on to the next processor.</p>
 	 * 
 	 * <p>See {@link AbstractResponseProcessor}.</p>
 	 * 
@@ -91,7 +91,7 @@ public final class ResponseProcessorChain extends AbstractProcessorChain<Object,
 
 	/**
 	 * <p>Executed for each "link-crossing" from the root {@link HeaderProcessor} onwards. Takes the <b>successor</b> 
-	 * and invokes it with the argument array which was provided in {@link #run(Object...)} and returns the parsed 
+	 * and invokes it with the argument array which was provided in {@link #run(Object...)} and returns the deserialized 
 	 * response body (if any).</p>
 	 * 
 	 * <p>See {@link AbstractResponseProcessor}.</p>

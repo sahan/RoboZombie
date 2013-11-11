@@ -47,4 +47,62 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Entity {}
+public @interface Entity {
+	
+	
+	/**
+	 * <p>Identifies a specific format for <i>serialized</i> content. These {@link ContentType}s mirror the sub-category 
+	 * of <a href="http://en.wikipedia.org/wiki/Internet_media_type">MIME</a> types.</p>
+	 * 
+	 * @version 1.1.0
+	 * <br><br> 
+	 * @since 1.2.4
+	 * <br><br> 
+	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+	 */
+	public static enum ContentType {
+		
+		
+		/**
+		 * <p>Identifies <b>raw textual content</b> <i>("text/plain")</i>, which is already assumed to be in its 
+		 * serialized format.</p>
+		 * 
+		 * @since 1.2.4
+		 */
+		PLAIN,
+		
+		/**
+		 * <p>Identifies <a href="www.json.org">JSON</a> content <i>("application/json")</i>.</p>
+		 * 
+		 * <p><b>Note</b> that activation of the <i>out-of-the-box</i> serializer and deserializer for JSON requires 
+		 * the <a href="http://code.google.com/p/google-gson">GSON</a> library to be available on the classpath. If 
+		 * GSON is not detected, both the serializer and deserializer will be disabled and any attempt to use them 
+		 * will result in an {@link IllegalStateException}.</p>
+		 * 
+		 * @since 1.2.4
+		 */
+		JSON,
+		
+		/**
+		 * <p>Identifies <a href="http://en.wikipedia.org/wiki/XML">XML</a> content <i>("application/xml")</i>.</p>
+		 * 
+		 * <p><b>Note</b> that activation of the <i>out-of-the-box</i> serializer and deserializer for XML requires 
+		 * the <a href="http://simple.sourceforge.net">Simple-XML</a> library to be available on the classpath. If 
+		 * Simple-XML is not detected, both the serializer and deserializer will be disabled and any attempt to use 
+		 * them will result in an {@link IllegalStateException}.</p>
+		 * 
+		 * @since 1.2.4
+		 */
+		XML,
+		
+		/**
+		 * <p>Indicates the inapplicability of a standardized content type.</p>  
+		 * 
+		 * <p>When used with {@code @Serializer} or {@code @Deserializer}, it indicates the use of a custom serializer 
+		 * or deserializer.</p>
+		 * 
+		 * @since 1.2.4
+		 */
+		UNDEFINED;
+	};
+}

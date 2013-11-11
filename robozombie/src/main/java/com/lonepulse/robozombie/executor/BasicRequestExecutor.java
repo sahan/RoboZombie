@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.executor;
  * #L%
  */
 
+import static com.lonepulse.robozombie.util.Is.successful; 
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -43,20 +44,20 @@ import com.lonepulse.robozombie.inject.InvocationContext;
 class BasicRequestExecutor implements RequestExecutor {
 	
 	
-	private final ExecutionHandler responseHandler;
+	private final ExecutionHandler executionHandler;
 	
 	
 	/**
 	 * <p>Creates a new instance of {@link BasicRequestExecutor} using the given {@link ExecutionHandler}.</p>
 	 *
-	 * @param responseHandler
+	 * @param executionHandler
 	 * 			the instance of {@link ExecutionHandler} which will be invoked during request execution
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	BasicRequestExecutor(ExecutionHandler responseHandler) {
+	BasicRequestExecutor(ExecutionHandler executionHandler) {
 		
-		this.responseHandler = responseHandler;
+		this.executionHandler = executionHandler;
 	}
 	
 	/**
@@ -95,23 +96,6 @@ class BasicRequestExecutor implements RequestExecutor {
 	}
 	
 	/**
-	 * <p>Determines whether the {@link HttpResponse} signifies a successful request execution or not.</p>
-	 *
-	 * @param response
-	 * 			the {@link HttpResponse} whose success status is to be determined
-	 * <br><br>
-	 * @return {@code true} if the {@link HttpResponse} signifies a successful request execution 
-	 * <br><br>
-	 * @since 1.2.4
-	 */
-	protected boolean isSuccessful(HttpResponse response) {
-		
-		int status = response.getStatusLine().getStatusCode();
-		return status > 199 && status < 300;
-	}
-	
-	
-	/**
 	 * <p>Executes an {@link HttpRequestBase} using the endpoint's {@link HttpClient} and handles the 
 	 * resulting {@link HttpResponse} using this executor's {@link ExecutionHandler}.</p>
 	 * 
@@ -138,13 +122,13 @@ class BasicRequestExecutor implements RequestExecutor {
 			
 			HttpResponse response = fetchResponse(request, context);
 			
-			if(isSuccessful(response)) {
+			if(successful(response)) {
 				
-				responseHandler.onSuccess(response, context);
+				executionHandler.onSuccess(response, context);
 			}
 			else {
 				
-				responseHandler.onFailure(response, context);
+				executionHandler.onFailure(response, context);
 			}
 			
 			return response;
@@ -153,7 +137,7 @@ class BasicRequestExecutor implements RequestExecutor {
 			
 			try {
 			
-				responseHandler.onError(context, error);
+				executionHandler.onError(context, error);
 			}
 			catch(Exception e) {
 				

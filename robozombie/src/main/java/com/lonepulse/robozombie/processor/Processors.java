@@ -90,7 +90,7 @@ public enum Processors {
 	 * 	<li>{@link EntityProcessor} - parses and returns the content of the response body</li>
 	 * </ol>
 	 * 
-	 * <p><b>Note</b> that this processor-chain <b>may or may not</b> return the parsed response entity depending 
+	 * <p><b>Note</b> that this processor-chain <b>may or may not</b> return the deserialized response entity depending 
 	 * on the availability of response content.</p>
 	 * 
 	 * <p><b>Note</b> that a chain-wide failure is <b>NOT recoverable</b>. All failures are of type ResponseProcessorException 

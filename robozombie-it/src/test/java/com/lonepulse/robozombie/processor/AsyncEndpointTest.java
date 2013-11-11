@@ -117,12 +117,12 @@ public class AsyncEndpointTest {
 		String result = asyncEndpoint.asyncSuccess(new AsyncHandler<String>() {
 			
 			@Override
-			public void onSuccess(HttpResponse httpResponse, String parsedContent) {
+			public void onSuccess(HttpResponse httpResponse, String deserializedContent) {
 
 				lock.lock();
 				
 				content[0] = httpResponse;
-				content[1] = parsedContent;
+				content[1] = deserializedContent;
 				
 				condition.signal();
 				lock.unlock();

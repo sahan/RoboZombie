@@ -23,14 +23,14 @@ package com.lonepulse.robozombie.response;
 import org.apache.http.HttpResponse;
 
 /**
- * <p>This runtime exception is thrown dow whenever there is a failure in parsing 
+ * <p>This runtime exception is thrown dow whenever there is a failure in deserializing 
  * the content of an {@link HttpResponse} to the desired entity.
  * 
  * @version 1.1.1
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-class ResponseParserException extends ResponseProcessorException {
+class DeserializerException extends ResponseProcessorException {
 
 	
 	private static final long serialVersionUID = 8193182870145739105L;
@@ -39,12 +39,12 @@ class ResponseParserException extends ResponseProcessorException {
 	/**
 	 * See {@link ResponseProcessorException#ResponseProcessorException()}.
 	 */
-	public ResponseParserException() {}
+	public DeserializerException() {}
 
 	/**
 	 * See {@link ResponseProcessorException#ResponseProcessorException(String)}.
 	 */
-	public ResponseParserException(String detailMessage) {
+	public DeserializerException(String detailMessage) {
 		
 		super(detailMessage);
 	}
@@ -52,7 +52,7 @@ class ResponseParserException extends ResponseProcessorException {
 	/**
 	 * See {@link ResponseProcessorException#ResponseProcessorException(Throwable)}.
 	 */
-	public ResponseParserException(Throwable throwable) {
+	public DeserializerException(Throwable throwable) {
 		
 		super(throwable);
 	}
@@ -60,7 +60,7 @@ class ResponseParserException extends ResponseProcessorException {
 	/**
 	 * See {@link ResponseProcessorException#ResponseProcessorException(String, Throwable)}.
 	 */
-	public ResponseParserException(String detailMessage, Throwable throwable) {
+	public DeserializerException(String detailMessage, Throwable throwable) {
 
 		super(detailMessage, throwable);
 	}

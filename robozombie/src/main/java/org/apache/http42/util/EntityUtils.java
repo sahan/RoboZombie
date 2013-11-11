@@ -134,7 +134,7 @@ public final class EntityUtils {
      *
      * @param entity must not be null
      * @return the character set, or null if not found
-     * @throws ParseException if header elements cannot be parsed
+     * @throws ParseException if header elements cannot be deserialized
      * @throws IllegalArgumentException if entity is null
      *
      * @deprecated (4.1.3) use {@link ContentType#getOrDefault(HttpEntity)}
@@ -162,7 +162,7 @@ public final class EntityUtils {
      *
      * @param entity must not be null
      * @return the character set, or null if not found
-     * @throws ParseException if header elements cannot be parsed
+     * @throws ParseException if header elements cannot be deserialized
      * @throws IllegalArgumentException if entity is null
      *
      * @since 4.1
@@ -193,7 +193,7 @@ public final class EntityUtils {
      * @param defaultCharset character set to be applied if none found in the entity
      * @return the entity content as a String. May be null if
      *   {@link HttpEntity#getContent()} is null.
-     * @throws ParseException if header elements cannot be parsed
+     * @throws ParseException if header elements cannot be deserialized
      * @throws IllegalArgumentException if entity is null or if content length > Integer.MAX_VALUE
      * @throws IOException if an error occurs reading the input stream
      */
@@ -249,7 +249,7 @@ public final class EntityUtils {
      * @param defaultCharset character set to be applied if none found in the entity
      * @return the entity content as a String. May be null if
      *   {@link HttpEntity#getContent()} is null.
-     * @throws ParseException if header elements cannot be parsed
+     * @throws ParseException if header elements cannot be deserialized
      * @throws IllegalArgumentException if entity is null or if content length > Integer.MAX_VALUE
      * @throws IOException if an error occurs reading the input stream
      */
@@ -265,7 +265,7 @@ public final class EntityUtils {
      *
      * @param entity
      * @return String containing the content.
-     * @throws ParseException if header elements cannot be parsed
+     * @throws ParseException if header elements cannot be deserialized
      * @throws IllegalArgumentException if entity is null or if content length > Integer.MAX_VALUE
      * @throws IOException if an error occurs reading the input stream
      */

@@ -92,14 +92,14 @@ class AsyncRequestExecutor extends BasicRequestExecutor {
 	 * 
 	 * <p>See {@link BasicRequestExecutor#BasicRequestExecutor(ExecutionHandler)}</p>
 	 *
-	 * @param responseHandler
+	 * @param executionHandler
 	 * 			the instance of {@link ExecutionHandler} which will be invoked during request execution
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	AsyncRequestExecutor(ExecutionHandler responseHandler) {
+	AsyncRequestExecutor(ExecutionHandler executionHandler) {
 		
-		super(responseHandler);
+		super(executionHandler);
 	}
 	
 	/**

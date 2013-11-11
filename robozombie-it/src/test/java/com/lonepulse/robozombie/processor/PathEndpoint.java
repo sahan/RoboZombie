@@ -69,7 +69,7 @@ public interface PathEndpoint {
 	 * @param id
 	 * 			the restful path parameter of the illegal type {@link Long}
 	 * 
-	 * @return the parsed response content, which in this case should not be available
+	 * @return the deserialized response content, which in this case should not be available
 	 * 
 	 * @since 1.2.4
 	 */

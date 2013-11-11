@@ -33,16 +33,16 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class RawResponseParser extends AbstractDeserializer<CharSequence> {
+public class PlainDeserializer extends AbstractDeserializer<CharSequence> {
 
 	
 	/**
-	 * <p>Creates a new instance of {@link RawResponseParser} and register the type 
+	 * <p>Creates a new instance of {@link PlainDeserializer} and register the type 
 	 * {@link CharSequence} as the entity which results from its <i>parse</i> operation.
 	 *
 	 * @since 1.2.4
 	 */
-	public RawResponseParser() {
+	public PlainDeserializer() {
 	
 		super(CharSequence.class);
 	}

@@ -58,7 +58,7 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 * implementations that wish to check additional preconditions or those that wish to alter this basic approach 
 	 * should override this method.</p>
 	 * 
-	 * <p><b>Note</b> that this method is expected to return the <i>parsed response entity</i> where an endpoint 
+	 * <p><b>Note</b> that this method is expected to return the <i>deserialized response entity</i> where an endpoint 
 	 * request definition specifies a return type. This should then be passed along in the processor arguments.</p>
 	 * 
 	 * <p>Delegates to {@link #process(HttpResponse, InvocationContext, Object)}.</p>
@@ -67,9 +67,9 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 *
 	 * @param args
 	 * 			a array of <b>length 2 or more</b> with an {@link HttpResponse}, a {@link InvocationContext} 
-	 * 			and possible the result of the parsed response entity 
+	 * 			and possible the result of the deserialized response entity 
 	 * <br><br>
-	 * @return the parsed response entity, which may be {@code null} for endpoint request definitions which do not declare 
+	 * @return the deserialized response entity, which may be {@code null} for endpoint request definitions which do not declare 
 	 * 		   a return type or for those which the return type is {@link Void}
 	 * <br><br>
 	 * @throws IllegalArgumentException
@@ -78,7 +78,7 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 * <br><br>
 	 * @throws RequestProcessorException
 	 * 			if {@link #process(HttpResponse, InvocationContext, Object)} failed for the given 
-	 * 			{@link HttpResponse}, {@link InvocationContext} and possible for the parsed response entity
+	 * 			{@link HttpResponse}, {@link InvocationContext} and possible for the deserialized response entity
 	 * <br><br>
 	 * @since 1.2.4
 	 */
@@ -132,7 +132,7 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 * metadata contained within the configuration to <i>parse</i> the <i>response body</i> and perform 
 	 * additional processing based on the <i>response headers</i>.</p>
 	 * 
-	 * <p>The provided {@link HttpResponse} may contain a response entity which should be parsed to the 
+	 * <p>The provided {@link HttpResponse} may contain a response entity which should be deserialized to the 
 	 * correct type and it may contain certain essential response headers which should be processed. Any 
 	 * implementation may wish to perform processing conditionally based on the response code. Refer 
 	 * <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">Section 9</a> of the <b>HTTP 1.1</b> 
@@ -140,7 +140,7 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 * 
 	 * @param HttpResponse
 	 * 			the {@link HttpResponse} received as result of a request execution; the response body should 
-	 * 			be parsed to the correct type and the response headers should be processed if required 
+	 * 			be deserialized to the correct type and the response headers should be processed if required 
 	 * <br><br>
 	 * @param config
 	 * 			the {@link InvocationContext} which is used to discover any annotated metadata 
@@ -151,7 +151,7 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 * 			the result-map which contains an aggregation of all the results produced by the chain insofar 
 	 * 			and serves as the container for the results produced by this processor
  	 * <br><br>
- 	 * @return the parsed response entity of the type associated with the endpoint request definition
+ 	 * @return the deserialized response entity of the type associated with the endpoint request definition
  	 * <br><br>
 	 * @throws RequestProcessorException
 	 * 			if the processor finds an {@link HttpResponse} <i>which it should act upon</i> and yet fails 
@@ -160,6 +160,6 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 * @since 1.2.4
 	 */
 	protected abstract Object process(
-		HttpResponse HttpResponse, InvocationContext config, Object parsedResponse) 
+		HttpResponse HttpResponse, InvocationContext config, Object deserializedResponse) 
 		throws ResponseProcessorException;
 }

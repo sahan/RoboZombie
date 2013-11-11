@@ -25,9 +25,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.lonepulse.robozombie.ContentType;
+import com.lonepulse.robozombie.annotation.Entity.ContentType;
 import com.lonepulse.robozombie.response.AbstractDeserializer;
-import com.lonepulse.robozombie.response.RawResponseParser;
+import com.lonepulse.robozombie.response.PlainDeserializer;
 
 /**
  * <p>Identifies the {@link Deserializer} which is to be used to parse 
@@ -38,7 +38,7 @@ import com.lonepulse.robozombie.response.RawResponseParser;
  * <br>
  * <ol>
  * <li>
- * <p>At <b>type-level</b> on an endpoint <i>interface</i>; attaches this parser for all requests.</p><br>
+ * <p>At <b>type-level</b> on an endpoint <i>interface</i>; attaches this deserializer for all requests.</p><br>
  * <code>
  * <pre>@Endpoint(scheme = "https", host = "api.twitter.com/1")<b>
  *&#064;Deserializer(ContentType.JSON)</b><br>public interface TwitterEndpoint {<br>}</b>
@@ -79,7 +79,7 @@ public @interface Deserializer {
 	 * <p>The {@link Class} of the custom {@link AbstractDeserializer} extension to be used.</p> 
 	 * 
 	 * <code>
-     * <pre>@Request("/license.txt")<br><b>@Deserializer(type = CustomParser.class)</b>
+     * <pre>@Request("/license.txt")<br><b>@Deserializer(type = CustomDeserializer.class)</b>
      *public abstract License getLicense();</b></b></pre>
      * </code>
 	 * 
@@ -87,5 +87,5 @@ public @interface Deserializer {
 	 * <br><br>
 	 * @since 1.1.1
 	 */
-	public Class<? extends AbstractDeserializer<?>> type() default RawResponseParser.class;
+	public Class<? extends AbstractDeserializer<?>> type() default PlainDeserializer.class;
 }

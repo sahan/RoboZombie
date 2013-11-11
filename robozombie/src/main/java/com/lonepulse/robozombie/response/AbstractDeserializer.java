@@ -21,13 +21,12 @@ package com.lonepulse.robozombie.response;
  */
 
 import org.apache.http.HttpResponse;
-import org.apache.http42.util.EntityUtils;
 
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This is an implementation of {@link Deserializer} which defines and executes the 
- * steps in <i>parsing</i>.</p>
+ * steps in <i>deserialization</i>.</p>
  * 
  * <p>User defined {@link Deserializer}s must extend this class and override the 
  * {@link AbstractDeserializer#processResponse(HttpResponse)} and {@link AbstractDeserializer#getType()} 
@@ -39,7 +38,7 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  *  Retrieves the necessary information from {@link HttpResponse} and returns an instance of 
  *  a custom {@link Deserializer}.
  *  <br><br><b>
- *  Sample Code from {@link RawResponseParser}:<br><br></b>
+ *  Sample Code from {@link PlainDeserializer}:<br><br></b>
  *  <font color="#2E2E2E">
  *  <code>
  *  String responseString = EntityUtils.toString(httpResponse.getEntity());
@@ -54,7 +53,7 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  *  <b>{@link AbstractDeserializer#getType()}</b><br>
  *  Returns the {@link Class} of the type handled by the custom {@link Deserializer}. 
  *  <br><br><b>
- *  Sample Code from {@link RawResponseParser}:<br><br></b>
+ *  Sample Code from {@link PlainDeserializer}:<br><br></b>
  *  <font color="#2E2E2E">
  *  <code>
  *  return CharSequence.class;
@@ -73,21 +72,21 @@ import com.lonepulse.robozombie.inject.InvocationContext;
 public abstract class AbstractDeserializer<T> implements Deserializer<T> {
 
 	
-	private Class<T> parserType;
+	private Class<T> deserializerType;
 	
 	
 	/**
 	 * <p>Initializes a new {@link AbstractDeserializer} with the given {@link Class} which 
-	 * represents the output of this parser.
+	 * represents the output of this deserializer.
 	 *
-	 * @param parserType
-	 * 			the {@link Class} type of the entity which is produced by this parser
+	 * @param deserializerType
+	 * 			the {@link Class} type of the entity which is produced by this deserializer
 	 *
 	 * @since 1.2.4
 	 */
-	protected AbstractDeserializer(Class<T> parserType) {
+	protected AbstractDeserializer(Class<T> deserializerType) {
 		
-		this.parserType = parserType;
+		this.deserializerType = deserializerType;
 	}
 	
 	/**
@@ -105,17 +104,13 @@ public abstract class AbstractDeserializer<T> implements Deserializer<T> {
 		}
 		catch(Exception e) {
 		
-			throw new ResponseParserException(e);
-		}
-		finally {
-			
-			EntityUtils.consumeQuietly(httpResponse.getEntity());
+			throw new DeserializerException(e);
 		}
 	}
 	
 	/**
 	 * <p>Checks if the desired request return type can be instantiated from 
-	 * an instance of the parser's return type.</p>
+	 * an instance of the deserializer's return type.</p>
 	 * 
 	 * @param requestReturnType
 	 * 				the {@link Class} of the request return type
@@ -126,7 +121,7 @@ public abstract class AbstractDeserializer<T> implements Deserializer<T> {
 		   && !Void.class.isAssignableFrom(requestReturnType)
 		   && !getType().isAssignableFrom(requestReturnType)) {
 			
-			throw new ResponseParserNotAssignableException(getType(), requestReturnType);
+			throw new DeserializerNotAssignableException(getType(), requestReturnType);
 		}
 	}
 
@@ -140,7 +135,7 @@ public abstract class AbstractDeserializer<T> implements Deserializer<T> {
 	 */
 	protected final Class<T> getType() {
 		
-		return this.parserType;
+		return this.deserializerType;
 	}
 	
 	/**
@@ -155,10 +150,10 @@ public abstract class AbstractDeserializer<T> implements Deserializer<T> {
 	 * 				the {@link InvocationContext} which supplies all information 
 	 * 				regarding the request and it's invocation
      * <br><br>
-	 * @return the entity which is created after parsing the output
+	 * @return the entity which is created after deserializing the output
 	 * <br><br>
 	 * @throws Exception 
-	 * 				Parsing failures may occur due to many reasons
+	 * 				deserialization failures may occur due to many reasons
 	 * <br><br>
 	 * @since 1.1.4
 	 */

@@ -24,7 +24,7 @@ package com.lonepulse.robozombie.model;
 import java.io.Serializable;
 
 /**
- * <p>A mock entity which is used to test the response parsers and the response processor chain.</p>
+ * <p>A mock entity which is used to test the deserializers and the response processor chain.</p>
  * 
  * <p><b>Note</b> that {@link #toString()} produces the JSON representation of this entity.</p> 
  * 
