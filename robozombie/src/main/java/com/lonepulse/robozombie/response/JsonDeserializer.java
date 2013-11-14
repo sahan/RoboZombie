@@ -23,6 +23,7 @@ package com.lonepulse.robozombie.response;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
@@ -40,7 +41,7 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.1.0
+ * @since 1.2.4
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -111,7 +112,7 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
 	 * <p>Creates a new instance of {@link JsonDeserializer} and register the generic type {@link Object} 
 	 * as the entity which results from its <i>parse</i> operation.</p>
 	 *
-	 * @since 1.1.0
+	 * @since 1.2.4
 	 */
 	public JsonDeserializer() {
 		
@@ -131,7 +132,8 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
 	 * 				the {@link InvocationContext} which is used to discover further information regarding 
 	 * 				the proxy invocation
      * <br><br>
-	 * @return the model which was deserialized from the JSON response content
+	 * @return the model which was deserialized from the JSON response content, else {@code null} if the 
+	 * 		   given {@link HttpResponse} did not contain an {@link HttpEntity}
 	 * <br><br>
 	 * @throws IllegalStateException 
 	 * 				if the <b>GSON library</b> was not found on the classpath or if an incompatible version 
@@ -140,7 +142,7 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
 	 * @throws Exception 
 	 * 				if the JSON content failed to be deserialized to the specified model
 	 * <br><br>
-	 * @since 1.1.0
+	 * @since 1.2.4
 	 */
 	@Override
 	protected Object deserialize(HttpResponse httpResponse, InvocationContext context) throws Exception {
@@ -150,10 +152,9 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
 			throw new IllegalStateException(unavailable? ERROR_CONTEXT_UNAVAILABLE :ERROR_CONTEXT_INCOMPATIBLE);
 		}
 		
-		String jsonString = EntityUtils.toString(httpResponse.getEntity());
+		HttpEntity entity = httpResponse.getEntity();
 		
-		Object typeToken = TypeToken_GET.invoke(null, context.getRequest().getReturnType());
-		
-		return Gson_fromJson.invoke(gson, jsonString, TypeToken_getType.invoke(typeToken));
+		return entity == null? null :Gson_fromJson.invoke(gson, EntityUtils.toString(entity), 
+				TypeToken_getType.invoke(TypeToken_GET.invoke(null, context.getRequest().getReturnType())));
 	}
 }

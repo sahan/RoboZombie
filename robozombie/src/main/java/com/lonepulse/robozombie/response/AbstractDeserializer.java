@@ -20,48 +20,16 @@ package com.lonepulse.robozombie.response;
  * #L%
  */
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
 
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This is an implementation of {@link Deserializer} which defines and executes the 
- * steps in <i>deserialization</i>.</p>
- * 
- * <p>User defined {@link Deserializer}s must extend this class and override the 
- * {@link AbstractDeserializer#processResponse(HttpResponse)} and {@link AbstractDeserializer#getType()} 
- * methods.</p>
- * <br><br>
- * <ul>
- *  <li>
- *  <b>{@link AbstractDeserializer#processResponse(HttpResponse)}</b><br>
- *  Retrieves the necessary information from {@link HttpResponse} and returns an instance of 
- *  a custom {@link Deserializer}.
- *  <br><br><b>
- *  Sample Code from {@link PlainDeserializer}:<br><br></b>
- *  <font color="#2E2E2E">
- *  <code>
- *  String responseString = EntityUtils.toString(httpResponse.getEntity());
- *	return responseString.subSequence(0, responseString.length());
- *  </code>
- *  </font><br><br>
- *  <p>The request's return type can be obtained by calling {@link #getRequestReturnType()}. 
- *  This may be used within the {@link #processResponse(HttpResponse)} as necessary.</p> 
- *  </li>
- *  <br><br><br>
- *  <li>
- *  <b>{@link AbstractDeserializer#getType()}</b><br>
- *  Returns the {@link Class} of the type handled by the custom {@link Deserializer}. 
- *  <br><br><b>
- *  Sample Code from {@link PlainDeserializer}:<br><br></b>
- *  <font color="#2E2E2E">
- *  <code>
- *  return CharSequence.class;
- *  </code>
- *  </font>
- *  </li>
- * </ul> 
- * <br>
+ * <p>An abstract implementation of {@link Deserializer} which directs <i>deserialization</i> for 
+ * all {@link Deserializer}s. To create a custom {@link Deserializer} extend this class and override 
+ * {@link #deserialize(HttpResponse, InvocationContext)}.</p> 
  * 
  * @version 1.1.0
  * <br><br>
@@ -69,31 +37,31 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public abstract class AbstractDeserializer<T> implements Deserializer<T> {
+public abstract class AbstractDeserializer<OUTPUT> implements Deserializer<OUTPUT> {
 
 	
-	private Class<T> deserializerType;
+	private Class<OUTPUT> outputType;
 	
 	
 	/**
 	 * <p>Initializes a new {@link AbstractDeserializer} with the given {@link Class} which 
 	 * represents the output of this deserializer.
 	 *
-	 * @param deserializerType
+	 * @param outputType
 	 * 			the {@link Class} type of the entity which is produced by this deserializer
 	 *
 	 * @since 1.2.4
 	 */
-	protected AbstractDeserializer(Class<T> deserializerType) {
+	public AbstractDeserializer(Class<OUTPUT> outputType) {
 		
-		this.deserializerType = deserializerType;
+		this.outputType = outputType;
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final T run(HttpResponse httpResponse, InvocationContext config) {
+	public final OUTPUT run(HttpResponse httpResponse, InvocationContext config) {
 		
 		Class<?> requestReturnType = config.getRequest().getReturnType();
 		
@@ -109,8 +77,8 @@ public abstract class AbstractDeserializer<T> implements Deserializer<T> {
 	}
 	
 	/**
-	 * <p>Checks if the desired request return type can be instantiated from 
-	 * an instance of the deserializer's return type.</p>
+	 * <p>Checks if the desired request return type can be instantiated from an instance of the 
+	 * deserializer's output type.</p>
 	 * 
 	 * @param requestReturnType
 	 * 				the {@link Class} of the request return type
@@ -119,34 +87,25 @@ public abstract class AbstractDeserializer<T> implements Deserializer<T> {
 		
 		if(!void.class.isAssignableFrom(requestReturnType)
 		   && !Void.class.isAssignableFrom(requestReturnType)
-		   && !getType().isAssignableFrom(requestReturnType)) {
+		   && !outputType.isAssignableFrom(requestReturnType)) {
 			
-			throw new DeserializerNotAssignableException(getType(), requestReturnType);
+			throw new DeserializerNotAssignableException(outputType, requestReturnType);
 		}
-	}
-
-	/**
-	 * <p>Allows any {@link Deserializer} extension to determine the type 
-	 * {@link Class} of the instantiated {@link Deserializer}.</p>
-	 * 
-	 * @return the type {@link Class} of the instantiated {@link Deserializer}
-	 * <br><br>
-	 * @since 1.1.4
-	 */
-	protected final Class<T> getType() {
-		
-		return this.deserializerType;
 	}
 	
 	/**
-	 * <p>Takes in the {@link HttpResponse} returned from the request execution 
-	 * and parses the content within the response into and instance of the 
-	 * specified type.</p>
+	 * <p>Takes an {@link HttpResponse} which resulted from a successful request execution and deserializes 
+	 * its content to an instance of the output type.</p>
+	 * 
+	 * <p>The response {@link HttpEntity} can be obtained using {@link HttpResponse#getEntity()} and it's 
+	 * content can be <i>stringified</i> with {@link EntityUtils#toString(HttpEntity)}.</p>
+	 * 
+	 * <p><b>Note</b> that certain {@link HttpResponse}s may not contain an {@link HttpEntity} which areturn {@code null} up#getEntity()}
 	 * 
 	 * @param httpResponse
-	 * 				the {@link HttpResponse} from which the content is extracted
-	 * 
-	 * @param config
+	 * 				the {@link HttpResponse} of a successful request execution
+	 * <br><br>
+	 * @param context
 	 * 				the {@link InvocationContext} which supplies all information 
 	 * 				regarding the request and it's invocation
      * <br><br>
@@ -157,6 +116,6 @@ public abstract class AbstractDeserializer<T> implements Deserializer<T> {
 	 * <br><br>
 	 * @since 1.1.4
 	 */
-	protected abstract T deserialize(HttpResponse httpResponse, InvocationContext config) 
+	protected abstract OUTPUT deserialize(HttpResponse httpResponse, InvocationContext context) 
 	throws Exception;
 }

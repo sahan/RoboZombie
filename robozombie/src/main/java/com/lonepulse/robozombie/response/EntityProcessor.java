@@ -35,7 +35,7 @@ import com.lonepulse.robozombie.annotation.Header;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This is a concrete implementation of {@link ResponseProcessor} which retrieves the {@link HttpEntity} 
+ * <p>This is a concrete implementation of {@link AbstractResponseProcessor} which retrieves the {@link HttpEntity} 
  * of an {@link HttpResponse} and parses it using the defined {@link ContentType}. {@link ContentType}s are defined 
  * using @{@link Deserializer} either at the endpoint level or at the request level. All endpoint request declarations 
  * which defined a return type should be associated with a deserializer. Custom deserializers may be used by extending 

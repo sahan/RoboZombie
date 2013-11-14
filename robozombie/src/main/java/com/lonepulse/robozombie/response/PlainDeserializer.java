@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.response;
  * #L%
  */
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
@@ -51,12 +52,12 @@ public class PlainDeserializer extends AbstractDeserializer<CharSequence> {
 	 * <p> Parses the content in the {@link HttpResponse} to any type which is 
 	 * assignable to a {@link CharSequence}.
 	 * 
-	 * @see AbstractDeserializer#run(HttpResponse, com.lonepulse.robozombie.inject.InvocationContext.processor.ProxyInvocationConfiguration)
+	 * @see AbstractDeserializer#run(HttpResponse, com.lonepulse.robozombie.inject.InvocationContext)
 	 */
 	@Override
 	public CharSequence deserialize(HttpResponse httpResponse, InvocationContext config) throws Exception {
 
-		String responseString = EntityUtils.toString(httpResponse.getEntity());
-		return responseString.subSequence(0, responseString.length());
+		HttpEntity entity = httpResponse.getEntity();
+		return entity == null? "" :EntityUtils.toString(entity);
 	}
 }

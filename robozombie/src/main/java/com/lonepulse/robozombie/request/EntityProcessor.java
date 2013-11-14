@@ -34,10 +34,12 @@ import org.apache.http42.entity.ContentType;
 
 import com.lonepulse.robozombie.annotation.Entity;
 import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.util.Entities;
+import com.lonepulse.robozombie.util.EntityResolutionFailedException;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**
- * <p>This is a concrete implementation of {@link RequestProcessor} which resolves and inserts the enclosing 
+ * <p>This is a concrete implementation of {@link AbstractRequestProcessor} which resolves and inserts the enclosing 
  * entity for an {@link HttpEntityEnclosingRequest} into the body of the request.</p>
  * 
  * <p>It identifies an @{@link Entity} annotation on a parameter of an endpoint interface method and inserts 
@@ -69,7 +71,7 @@ class EntityProcessor extends AbstractRequestProcessor {
 	 * <p>Parameter types are resolved to their {@link HttpEntity} as specified in 
 	 * {@link RequestUtils#resolveEntity(Object)}.</p>
 	 * 
-	 * <p>See {@link RequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
+	 * <p>See {@link AbstractRequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
 	 *
 	 * @param httpRequestBase
 	 * 			an instance of {@link HttpEntityEnclosingRequestBase} which allows the inclusion of an 
@@ -106,7 +108,7 @@ class EntityProcessor extends AbstractRequestProcessor {
 					throw new MultipleEntityException(context);
 				}
 				
-				HttpEntity httpEntity = RequestUtils.resolveEntity(entities.get(0).getValue());
+				HttpEntity httpEntity = Entities.resolve(entities.get(0).getValue());
 				
 				((HttpEntityEnclosingRequestBase)httpRequestBase).setHeader(
 					HttpHeaders.CONTENT_TYPE, ContentType.getOrDefault(httpEntity).getMimeType());

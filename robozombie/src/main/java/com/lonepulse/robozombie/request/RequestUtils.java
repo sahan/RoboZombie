@@ -22,9 +22,6 @@ package com.lonepulse.robozombie.request;
 
 import static com.lonepulse.robozombie.util.Assert.assertNotNull;
 
-import java.io.File;
-import java.io.InputStream;
-import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +29,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpHead;
@@ -41,12 +37,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.methods.HttpTrace;
-import org.apache.http.entity.BasicHttpEntity;
-import org.apache.http.entity.BufferedHttpEntity;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.entity.FileEntity;
-import org.apache.http.entity.SerializableEntity;
-import org.apache.http.entity.StringEntity;
 
 import com.lonepulse.robozombie.annotation.FormParams;
 import com.lonepulse.robozombie.annotation.Headers;
@@ -73,92 +63,6 @@ final class RequestUtils {
 	
 	private RequestUtils() {}
 	
-	/**
-	 * <p>Discovers which concrete implementation of {@link HttpEntity} is suitable for wrapping the given object. 
-	 * This discovery proceeds in the following order by checking the runtime-type of the generic object:</p> 
-	 *
-	 * <ol>
-	 * 	<li>org.apache.http.{@link HttpEntity} --&gt; returned as-is.</li> 
-	 * 	<li>{@code byte[]}, {@link Byte}[] --&gt; {@link ByteArrayEntity}</li> 
-	 *  <li>java.io.{@link File} --&gt; {@link FileEntity}</li>
-	 * 	<li>java.io.{@link InputStream} --&gt; {@link BufferedHttpEntity}</li>
-	 * 	<li>{@link CharSequence} --&gt; {@link StringEntity}</li>
-	 * 	<li>java.io.{@link Serializable} --&gt; {@link SerializableEntity} (with an internal buffer)</li>
-	 * </ol>
-	 *
-	 * @param genericEntity
-	 * 			a generic reference to an object whose concrete {@link HttpEntity} is to be resolved 
-	 * 
-	 * @return the resolved concrete {@link HttpEntity} implementation
-	 * 
-	 * @throws IllegalArgumentException
-	 * 			if the supplied generic entity was null
-	 * 
-	 * @throws EntityResolutionFailedException
-	 * 			if a specific {@link HttpEntity} implementation failed to be resolved
-	 * 
-	 * @since 1.2.4
-	 */
-	static HttpEntity resolveEntity(Object genericEntity) {
-		
-		if(genericEntity == null) {
-			
-			new IllegalArgumentException("The supplied generic entity cannot be <null>.");
-		}
-		
-		try {
-		
-			if(genericEntity instanceof HttpEntity) {
-				
-				return (HttpEntity)genericEntity;
-			}
-			else if(byte[].class.isAssignableFrom(genericEntity.getClass())) {
-				
-				return new ByteArrayEntity(((byte[])genericEntity));
-			}
-			else if(Byte[].class.isAssignableFrom(genericEntity.getClass())) {
-				
-				Byte[] wrapperBytes = (Byte[])genericEntity;
-				byte[] primitiveBytes = new byte[wrapperBytes.length];
-				
-				for (int i = 0; i < wrapperBytes.length; i++) {
-					
-					primitiveBytes[i] = wrapperBytes[i].byteValue();
-				}
-				
-				return new ByteArrayEntity(primitiveBytes);
-			}
-			else if(genericEntity instanceof File) {
-				
-				return new FileEntity((File)genericEntity, null);
-			}
-			else if(genericEntity instanceof InputStream) {
-				
-				BasicHttpEntity basicHttpEntity = new BasicHttpEntity();
-				basicHttpEntity.setContent((InputStream)genericEntity);
-				
-				return new BufferedHttpEntity(basicHttpEntity);
-			}
-			else if(genericEntity instanceof CharSequence) {
-				
-				return new StringEntity(((CharSequence)genericEntity).toString());
-			}
-			else if(genericEntity instanceof Serializable) {
-				
-				return new SerializableEntity((Serializable)genericEntity, true);
-			}
-			else {
-				
-				throw new EntityResolutionFailedException(genericEntity);
-			}
-		}
-		catch(Exception e) {
-
-			throw (e instanceof EntityResolutionFailedException)?
-					(EntityResolutionFailedException)e :new EntityResolutionFailedException(genericEntity, e);
-		}
-	}
-
 	/**
 	 * <p>Finds all <b><i>constant</i> request parameters</b> in the given {@link InvocationContext}.</p> 
 	 * <p>Constant request parameters are introduced with @{@link Param} at <b>request level</b> using 

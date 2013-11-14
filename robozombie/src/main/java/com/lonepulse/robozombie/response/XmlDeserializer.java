@@ -22,6 +22,7 @@ package com.lonepulse.robozombie.response;
 
 import java.lang.reflect.Method;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
@@ -121,7 +122,8 @@ final class XmlDeserializer extends AbstractDeserializer<Object> {
 	 * 				the {@link InvocationContext} which is used to discover further information regarding 
 	 * 				the proxy invocation
      * <br><br>
-	 * @return the model which was deserialized from the XML response content
+	 * @return the model which was deserialized from the XML response content, else {@code null} if the 
+	 * 		   given {@link HttpResponse} did not contain an {@link HttpEntity}
 	 * <br><br>
 	 * @throws IllegalStateException 
 	 * 				if the <b>Simple-XML library</b> was not found on the classpath or if an incompatible version 
@@ -141,7 +143,9 @@ final class XmlDeserializer extends AbstractDeserializer<Object> {
 			throw new IllegalStateException(unavailable? ERROR_CONTEXT_UNAVAILABLE :ERROR_CONTEXT_INCOMPATIBLE);
 		}
 		
-		return Persister_read.invoke(persister, 
-				context.getRequest().getReturnType(), EntityUtils.toString(httpResponse.getEntity()));
+		HttpEntity entity = httpResponse.getEntity();
+		
+		return entity == null? null :Persister_read.invoke(persister, 
+				context.getRequest().getReturnType(), EntityUtils.toString(entity));
 	}
 }
