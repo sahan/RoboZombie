@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
+import static com.lonepulse.robozombie.annotation.Entity.ContentType.UNDEFINED;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -33,6 +34,7 @@ import org.apache.http42.HttpHeaders;
 import org.apache.http42.entity.ContentType;
 
 import com.lonepulse.robozombie.annotation.Entity;
+import com.lonepulse.robozombie.annotation.Serializer;
 import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.util.Entities;
 import com.lonepulse.robozombie.util.EntityResolutionFailedException;
@@ -69,7 +71,8 @@ class EntityProcessor extends AbstractRequestProcessor {
 	 * </ul>
 	 * 
 	 * <p>Parameter types are resolved to their {@link HttpEntity} as specified in 
-	 * {@link RequestUtils#resolveEntity(Object)}.</p>
+	 * {@link Entities#resolve(Object)}. If an attached @{@link Serializer} is discovered, the entity 
+	 * will first be serialized using the specified serializer before translation to an {@link HttpEntity}.</p>
 	 * 
 	 * <p>See {@link AbstractRequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
 	 *
@@ -88,7 +91,7 @@ class EntityProcessor extends AbstractRequestProcessor {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	@Override
+	@Override @SuppressWarnings("unchecked") //welcomes a ClassCastException on misuse of @Serializer(Custom.class)
 	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) 
 	throws RequestProcessorException {
 
@@ -108,7 +111,22 @@ class EntityProcessor extends AbstractRequestProcessor {
 					throw new MultipleEntityException(context);
 				}
 				
-				HttpEntity httpEntity = Entities.resolve(entities.get(0).getValue());
+				Object entity = entities.get(0).getValue();
+				
+				Serializer metadata = (metadata = 
+					context.getRequest().getAnnotation(Serializer.class)) == null? 
+						context.getEndpoint().getAnnotation(Serializer.class) :metadata;
+				
+				if(metadata != null) {
+					
+					@SuppressWarnings("rawtypes") //no restrictions on custom serializer types with @Serializer
+					AbstractSerializer serializer = (metadata.value() == UNDEFINED)? 
+						Serializers.resolve(metadata.type()) :Serializers.resolve(metadata.value());
+						
+					entity = serializer.run(entity, context);
+				}
+				
+				HttpEntity httpEntity = Entities.resolve(entity);
 				
 				((HttpEntityEnclosingRequestBase)httpRequestBase).setHeader(
 					HttpHeaders.CONTENT_TYPE, ContentType.getOrDefault(httpEntity).getMimeType());

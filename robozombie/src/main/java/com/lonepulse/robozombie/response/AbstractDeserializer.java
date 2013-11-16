@@ -31,6 +31,8 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * all {@link Deserializer}s. To create a custom {@link Deserializer} extend this class and override 
  * {@link #deserialize(HttpResponse, InvocationContext)}.</p> 
  * 
+ * <p><b>Note</b> that all implementations are expected to be <b>stateless</b>.</p>
+ * 
  * @version 1.1.0
  * <br><br>
  * @since 1.2.4

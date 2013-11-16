@@ -33,7 +33,9 @@ import com.lonepulse.robozombie.util.EntityResolutionFailedException;
  * {@link #serialize(Object, InvocationContext)}.</p> 
  * 
  * <p><b>Note</b> that all implementations should produce an output type which can be translated 
- * to an {@link HttpEntity} type specified on {@link Entities#resolve(Class)}.</p> 
+ * to an {@link HttpEntity} type specified on {@link Entities#resolve(Class)}.</p>
+ * 
+ * <p><b>Note</b> that all implementations are expected to be <b>stateless</b>.</p>
  * 
  * @version 1.1.0
  * <br><br>
