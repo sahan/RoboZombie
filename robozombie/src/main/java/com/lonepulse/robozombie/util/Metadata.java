@@ -10,6 +10,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lonepulse.robozombie.annotation.DELETE;
+import com.lonepulse.robozombie.annotation.GET;
+import com.lonepulse.robozombie.annotation.HEAD;
+import com.lonepulse.robozombie.annotation.OPTIONS;
+import com.lonepulse.robozombie.annotation.POST;
+import com.lonepulse.robozombie.annotation.PUT;
+import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.annotation.Request.RequestMethod;
+import com.lonepulse.robozombie.annotation.TRACE;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /*
@@ -114,4 +123,88 @@ public final class Metadata {
 		
 		 return Collections.unmodifiableList(metadata);
 	 }
+	
+	/**
+	 * <p>Takes the {@link Method} definition of a request and discovers the {@link RequestMethod} 
+	 * which has been specified using annotated metadata.</p>
+	 *
+	 * @param definition
+	 * 			the {@link Method} definition for the request whose HTTP method is to be discovered  
+	 * <br><br>
+	 * @return the {@link RequestMethod} for the given request definition; else {@code null} if no 
+	 * 		   {@link RequestMethod} metadata can be found
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	public static final RequestMethod findMethod(Method definition) {
+		
+		Request request = definition.getAnnotation(Request.class);
+		
+		if(request != null) {
+			
+			return request.method();
+		}
+		
+		Annotation[] annotations = definition.getAnnotations();
+			
+		for (Annotation annotation : annotations) {
+				
+			if(annotation.annotationType().isAnnotationPresent(Request.class)) {
+					
+				return annotation.annotationType().getAnnotation(Request.class).method();
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * <p>Takes the {@link Method} definition of a request and discovers the sub-path (if any) 
+	 * which is specified using annotated metadata.</p>
+	 *
+	 * @param definition
+	 * 			the {@link Method} definition for the request whose sub-path is to be discovered  
+	 * <br><br>
+	 * @return the sub-path for the given request definition; else <b>an empty String</p> if no 
+	 * 		   sub-path metadata can be found
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	public static final String findPath(Method definition) {
+		
+		Request request = definition.getAnnotation(Request.class);
+		
+		if(request != null) {
+			
+			return request.path();
+		}
+		
+		String path = "";
+		Annotation[] annotations = definition.getAnnotations();
+		
+		for (Annotation annotation : annotations) {
+			
+			if(annotation.annotationType().isAnnotationPresent(Request.class)) {
+				
+				Class<? extends Annotation> type = annotation.annotationType();
+				
+				path = type.getAnnotation(Request.class).path();
+				
+				if("".equals(path)) {
+					
+					path = type.equals(GET.class)? ((GET)annotation).value() :
+						   type.equals(POST.class)? ((POST)annotation).value() :
+						   type.equals(PUT.class)? ((PUT)annotation).value() : 
+					       type.equals(DELETE.class)? ((DELETE)annotation).value() :
+					       type.equals(HEAD.class)? ((HEAD)annotation).value() :
+					       type.equals(TRACE.class)? ((TRACE)annotation).value() :
+					       type.equals(OPTIONS.class)? ((OPTIONS)annotation).value() : "";
+				}
+				
+				break;
+			}
+		}
+		
+		return path;
+	}
 }

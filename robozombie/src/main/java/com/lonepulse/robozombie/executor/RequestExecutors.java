@@ -24,7 +24,7 @@ package com.lonepulse.robozombie.executor;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.annotation.Asynchronous;
+import com.lonepulse.robozombie.annotation.Async;
 import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.inject.Zombie;
 
@@ -87,14 +87,14 @@ public enum RequestExecutors implements RequestExecutor {
 	 * 			the {@link InvocationContext} for resolving a {@link RequestExecutor}
 	 * 
 	 * @return {@link RequestExecutors#ASYNC} if the request method or endpoint is annotated with 
-	 * 		   {@link Asynchronous}, else {@link RequestExecutors#BASIC}
+	 * 		   {@link Async}, else {@link RequestExecutors#BASIC}
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	public static final RequestExecutor resolve(InvocationContext config) {
 
-		if(config.getEndpoint().isAnnotationPresent(Asynchronous.class)
-			|| config.getRequest().isAnnotationPresent(Asynchronous.class)) {
+		if(config.getEndpoint().isAnnotationPresent(Async.class)
+			|| config.getRequest().isAnnotationPresent(Async.class)) {
 
 			return RequestExecutors.ASYNC.requestExecutor;
 		}

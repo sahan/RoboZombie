@@ -23,14 +23,20 @@ package com.lonepulse.robozombie.processor;
 
 import org.apache.http.HttpResponse;
 
+import com.lonepulse.robozombie.annotation.DELETE;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Entity;
 import com.lonepulse.robozombie.annotation.FormParam;
+import com.lonepulse.robozombie.annotation.GET;
+import com.lonepulse.robozombie.annotation.HEAD;
 import com.lonepulse.robozombie.annotation.Header;
 import com.lonepulse.robozombie.annotation.Headers;
+import com.lonepulse.robozombie.annotation.OPTIONS;
+import com.lonepulse.robozombie.annotation.POST;
+import com.lonepulse.robozombie.annotation.PUT;
 import com.lonepulse.robozombie.annotation.PathParam;
-import com.lonepulse.robozombie.annotation.Request;
-import com.lonepulse.robozombie.annotation.Request.RequestMethod;
+import com.lonepulse.robozombie.annotation.QueryParam;
+import com.lonepulse.robozombie.annotation.TRACE;
 
 /**
  * <p>An interface which represents a dummy endpoint with request method definitions which 
@@ -48,6 +54,27 @@ import com.lonepulse.robozombie.annotation.Request.RequestMethod;
 public interface HttpMethodEndpoint {
 	
 	/**
+	 * <p>A mock request which uses the HTTP method GET.
+	 * 
+	 * @param name
+	 * 			the first request parameter
+	 * 
+	 * @param age
+	 * 			the second request parameter
+	 * 
+	 * @param location
+	 * 			the third request parameter
+	 * 
+	 * @return the textual content of the {@link HttpResponse} body
+	 * 
+	 * @since 1.2.4
+	 */
+	@GET("/getrequest")
+	public String getRequest(@QueryParam("name") String name, 
+							 @QueryParam("age") String age,
+							 @QueryParam("location") String location);
+	
+	/**
 	 * <p>A mock request which uses the HTTP method POST.
 	 * 
 	 * @param name
@@ -63,7 +90,7 @@ public interface HttpMethodEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/postrequest", method = RequestMethod.POST)
+	@POST("/postrequest")
 	public String postRequest(@FormParam("name") String name, 
 							  @FormParam("age") String age,
 							  @FormParam("location") String location);
@@ -78,7 +105,7 @@ public interface HttpMethodEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/putrequest", method = RequestMethod.PUT)
+	@PUT("/putrequest")
 	public String putRequest(@Entity String user);
 	
 	/**
@@ -91,7 +118,7 @@ public interface HttpMethodEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/deleterequest/{id}", method = RequestMethod.DELETE)
+	@DELETE("/deleterequest/{id}")
 	public String deleteRequest(@PathParam("id") String id);
 	
 	/**
@@ -102,7 +129,7 @@ public interface HttpMethodEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/headrequest", method = RequestMethod.HEAD)
+	@HEAD("/headrequest")
 	public void headRequest(@Header("Proxy-Authenticate") StringBuilder proxyAuthenticate);
 	
 	/**
@@ -110,7 +137,7 @@ public interface HttpMethodEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/tracerequest", method = RequestMethod.TRACE)
+	@TRACE("/tracerequest")
 	@Headers({@Headers.Header(name = "Via", value = "1.0 example1.com, 1.1 example2.com"),
 				@Headers.Header(name = "Max-Forwards", value = "6")})
 	public void traceRequest();
@@ -123,6 +150,6 @@ public interface HttpMethodEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/optionsrequest", method = RequestMethod.OPTIONS)
+	@OPTIONS("/optionsrequest")
 	public void optionsRequest(@Header("Content-Type") StringBuilder contentType);
 }

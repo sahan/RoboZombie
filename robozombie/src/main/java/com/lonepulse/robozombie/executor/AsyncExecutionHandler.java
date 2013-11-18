@@ -27,7 +27,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpResponse;
 
-import com.lonepulse.robozombie.annotation.Asynchronous;
+import com.lonepulse.robozombie.annotation.Async;
 import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.processor.Processors;
 import com.lonepulse.robozombie.response.AsyncHandler;
@@ -35,7 +35,7 @@ import com.lonepulse.robozombie.response.AsyncHandler;
 /**
  * <p>This is an implementation of {@link ExecutionHandler} which manages {@link AsyncHandler}s that may be 
  * used in <b>asynchronous request execution</b>. It is to be used with {@link RequestExecutor}s that support 
- * asynchronous request execution (for endpoint requestst annotated with @{@link Asynchronous}).</p> 
+ * asynchronous request execution (for endpoint requestst annotated with @{@link Async}).</p> 
  * 
  * @version 1.1.0
  * <br><br>

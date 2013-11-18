@@ -32,12 +32,12 @@ import org.apache.http.client.methods.HttpRequestBase;
 
 import android.util.Log;
 
-import com.lonepulse.robozombie.annotation.Asynchronous;
+import com.lonepulse.robozombie.annotation.Async;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
  * <p>This is an extension of {@link BasicRequestExecutor} which is responsible for executing <b>asynchronous 
- * requests</b> identified by the @{@link Asynchronous} annotation placed on the endpoint or request method.</p>
+ * requests</b> identified by the @{@link Async} annotation placed on the endpoint or request method.</p>
  * 
  * @version 1.1.0
  * <br><br>

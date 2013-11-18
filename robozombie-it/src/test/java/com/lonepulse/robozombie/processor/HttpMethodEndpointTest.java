@@ -24,6 +24,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.delete;
 import static com.github.tomakehurst.wiremock.client.WireMock.deleteRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.findAll;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.head;
 import static com.github.tomakehurst.wiremock.client.WireMock.headRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.matching;
@@ -89,6 +91,33 @@ public class HttpMethodEndpointTest {
 	public void setUp() throws Exception {
 		
 		Zombie.infect(this);
+	}
+	
+	/**
+	 * <p>Test for the request method GET.
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test
+	public final void testGetMethod() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String name = "James-Howlett", age = "116", location = "X-Mansion";
+		String path = "/getrequest?name=" + name + "&age=" + age + "&location=" + location;
+		
+		stubFor(get(urlEqualTo(path))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		httpMethodEndpoint.getRequest(name, age, location);
+		
+		List<LoggedRequest> requests = findAll(getRequestedFor(urlEqualTo(path)));
+		assertFalse(requests == null);
+		assertFalse(requests.isEmpty());
+		
+		LoggedRequest request = requests.get(0);
+		assertTrue(request.getMethod().equals(RequestMethod.GET));
 	}
 	
 	/**

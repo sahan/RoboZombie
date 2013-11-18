@@ -28,9 +28,10 @@ import org.apache.http42.client.utils.URIBuilder;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.util.Metadata;
 
 /**
- * <p>This is a concrete implementation of {@link RequestProcessor} which extracts the root path of an 
+ * <p>This is a concrete implementation of {@link AbstractRequestProcessor} which extracts the root path of an 
  * endpoint, appends the subpath of the request and creates the complete URI for the proxy invocation. 
  * Requests and their subpaths are identified using the annotation @{@link Request}.</p>
  * 
@@ -55,13 +56,13 @@ class UriProcessor extends AbstractRequestProcessor {
 	 * <p>Any processors which extract information from the <i>complete</i> request URI or those which seek 
 	 * to manipulate the URI should use this processor as a prerequisite.</p>
 	 * 
-	 * <p>See {@link RequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
+	 * <p>See {@link AbstractRequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
 	 * 
 	 * @param httpRequestBase
 	 * 			the {@link HttpRequestBase} whose URI will be initialized to the complete URI formualted using 
 	 * 			the endpoint's root path and the request's subpath
 	 * <br><br>
-	 * @param config
+	 * @param context
 	 * 			an immutable instance of {@link InvocationContext} which has its Sendpoint and request 
 	 * 			properties correctly populated  
 	 * <br><br>
@@ -74,12 +75,12 @@ class UriProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext config) 
+	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) 
 	throws RequestProcessorException {
 
 		try {
 			
-			Endpoint endpoint = config.getEndpoint().getAnnotation(Endpoint.class);
+			Endpoint endpoint = context.getEndpoint().getAnnotation(Endpoint.class);
 			String value = endpoint.value();
 			String host = (value == null || value.isEmpty())? endpoint.host() :value;
 			
@@ -87,11 +88,9 @@ class UriProcessor extends AbstractRequestProcessor {
 			String port = endpoint.port();
 			String path = endpoint.path();
 			
-			Request request = config.getRequest().getAnnotation(Request.class);
-			
 			URIBuilder uriBuilder = new URIBuilder();
-			uriBuilder.setScheme(scheme).setHost(host).setPath(path + request.path());
-			
+			uriBuilder.setScheme(scheme).setHost(host).setPath(path + Metadata.findPath(context.getRequest()));
+	
 			if(!port.equals("")) {
 				
 				uriBuilder.setPort(Integer.parseInt(port));
@@ -103,7 +102,7 @@ class UriProcessor extends AbstractRequestProcessor {
 		}
 		catch(Exception e) {
 			
-			throw new RequestProcessorException(getClass(), config, e);
+			throw new RequestProcessorException(getClass(), context, e);
 		}
 	}
 }

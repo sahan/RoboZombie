@@ -43,7 +43,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import com.lonepulse.robozombie.annotation.Asynchronous;
+import com.lonepulse.robozombie.annotation.Async;
 import com.lonepulse.robozombie.annotation.Bite;
 import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.model.User;
@@ -84,7 +84,7 @@ public class AsyncEndpointTest {
 	}
 	
 	/**
-	 * <p>Tests asynchronous request execution with @{@link Asynchronous} and 
+	 * <p>Tests asynchronous request execution with @{@link Async} and 
 	 * {@link AsyncHandler#onSuccess(HttpResponse, Object)}.
 	 *  
 	 * @since 1.2.4
@@ -143,7 +143,7 @@ public class AsyncEndpointTest {
 	}
 	
 	/**
-	 * <p>Tests asynchronous request execution with @{@link Asynchronous} and 
+	 * <p>Tests asynchronous request execution with @{@link Async} and 
 	 * {@link AsyncHandler#onFailure(HttpResponse)}.
 	 *  
 	 * @since 1.2.4
@@ -192,7 +192,7 @@ public class AsyncEndpointTest {
 	}
 	
 	/**
-	 * <p>Tests asynchronous request execution with @{@link Asynchronous} and 
+	 * <p>Tests asynchronous request execution with @{@link Async} and 
 	 * {@link AsyncHandler#onError(Exception)}.
 	 *  
 	 * @since 1.2.4
@@ -242,7 +242,7 @@ public class AsyncEndpointTest {
 	}
 	
 	/**
-	 * <p>Tests an asynchronous request execution with @{@link Asynchronous} which does 
+	 * <p>Tests an asynchronous request execution with @{@link Async} which does 
 	 * not expect the response to be handled. 
 	 *  
 	 * @since 1.2.4

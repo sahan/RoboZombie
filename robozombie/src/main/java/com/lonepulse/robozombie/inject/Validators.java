@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.inject;
  * #L%
  */
 
-
 import static com.lonepulse.robozombie.util.Assert.assertNotNull;
 
 import java.lang.reflect.Method;
@@ -30,7 +29,7 @@ import java.util.List;
 import com.lonepulse.robozombie.ValidationFailedException;
 import com.lonepulse.robozombie.Validator;
 import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.util.Metadata;
 
 /**
  * <p>Mediates communication between all concrete implementation of {@link Validator}s and their sources.</p> 
@@ -108,8 +107,8 @@ final class Validators {
 				
 				for (Method requestDefinition : requestDefinitions) {
 					
-					if(!requestDefinition.isAnnotationPresent(Request.class)) {
-						
+					if(Metadata.findMethod(requestDefinition) == null) {
+							
 						strayRequests.add(requestDefinition);
 					}
 				}

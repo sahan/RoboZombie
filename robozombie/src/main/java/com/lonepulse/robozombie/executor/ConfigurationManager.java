@@ -42,7 +42,7 @@ public interface ConfigurationManager {
 	
 	/**
 	 * <p>Creates a new instance of the <i>out-of-the-box</i> configuration which will be used by default for 
-	 * executing all endoint requests.</p>
+	 * executing all endpoint requests.</p>
 	 *
 	 * @return the default {@link Configuration} used for all endpoints
 	 * <br><br> 

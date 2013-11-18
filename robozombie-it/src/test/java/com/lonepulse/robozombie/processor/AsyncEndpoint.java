@@ -2,7 +2,7 @@ package com.lonepulse.robozombie.processor;
 
 /*
  * #%L
- * RoboZombie`
+ * RoboZombie
  * %%
  * Copyright (C) 2013 Lonepulse
  * %%
@@ -20,11 +20,11 @@ package com.lonepulse.robozombie.processor;
  * #L%
  */
 
+import static com.lonepulse.robozombie.annotation.Entity.ContentType.JSON;
 
-import com.lonepulse.robozombie.annotation.Asynchronous;
+import com.lonepulse.robozombie.annotation.Async;
 import com.lonepulse.robozombie.annotation.Deserializer;
 import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.annotation.Entity.ContentType;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.model.User;
 import com.lonepulse.robozombie.response.AsyncHandler;
@@ -40,12 +40,11 @@ import com.lonepulse.robozombie.response.AsyncHandler;
  * <br><br> 
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Asynchronous
-@Endpoint(host = "0.0.0.0", port = "8080")
+@Async @Endpoint(host = "0.0.0.0", port = "8080")
 public interface AsyncEndpoint {
 	
 	/**
-	 * <p>Sends a request asynchronously using @{@link Asynchronous} and {@link AsyncHandler}. 
+	 * <p>Sends a request asynchronously using @{@link Async} and {@link AsyncHandler}. 
 	 * 
 	 * @param asyncHandler
 	 * 			the {@link AsyncHandler} which handles the results of the asynchronous request
@@ -58,7 +57,7 @@ public interface AsyncEndpoint {
 	public String asyncSuccess(AsyncHandler<String> asyncHandler);
 	
 	/**
-	 * <p>Sends a request asynchronously using @{@link Asynchronous} and {@link AsyncHandler} 
+	 * <p>Sends a request asynchronously using @{@link Async} and {@link AsyncHandler} 
 	 * which returns response code that signifies a failure. This should invoke 
 	 * {@link AsyncHandler#onFailure(org.apache.http.HttpResponse)} on the provided callback. 
 	 * 
@@ -71,7 +70,7 @@ public interface AsyncEndpoint {
 	public void asyncFailure(AsyncHandler<String> asyncHandler);
 	
 	/**
-	 * <p>Sends a request asynchronously using @{@link Asynchronous} and {@link AsyncHandler} 
+	 * <p>Sends a request asynchronously using @{@link Async} and {@link AsyncHandler} 
 	 * whose execution is expected to fail with an exception and hence handled by the callback 
 	 * {@link AsyncHandler#onError(Exception)}.</p>
 	 * 
@@ -83,12 +82,12 @@ public interface AsyncEndpoint {
 	 * 
 	 * @since 1.3.4
 	 */
-	@Deserializer(ContentType.JSON)
+	@Deserializer(JSON)
 	@Request(path = "/asyncerror")
 	public void asyncError(AsyncHandler<User> asyncHandler);
 	
 	/**
-	 * <p>Sends a request asynchronously using @{@link Asynchronous} but does not expect the 
+	 * <p>Sends a request asynchronously using @{@link Async} but does not expect the 
 	 * response to be handled using an {@link AsyncHandler}.
 	 * 
 	 * @since 1.2.4
@@ -129,7 +128,7 @@ public interface AsyncEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Deserializer(ContentType.JSON)
+	@Deserializer(JSON)
 	@Request(path = "/errorcallbackerror")
 	public void asyncErrorCallbackError(AsyncHandler<User> asyncHandler);
 }

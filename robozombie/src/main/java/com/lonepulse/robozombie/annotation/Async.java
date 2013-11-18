@@ -35,14 +35,14 @@ import java.lang.annotation.Target;
  * <li>
  * <p>At <b>type-level</b> on an endpoint <i>interface</i>; marks all requests as asynchronous.<br>
  * <code>
- * <pre>@Endpoint<br><b>@Asynchronous</b><br>public interface TwitterEndpoint {<br>}</pre>
+ * <pre>@Endpoint<br><b>@Async</b><br>public interface TwitterEndpoint {<br>}</pre>
  * </code>
  * </li>
  *  
  * <li>
  * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
  * <code>
- * <pre>@Asynchronous<br><b>@Request</b><br>public Set&lt;Mention&gt; getMentions();</pre>
+ * <pre>@Async<br><b>@Request</b><br>public Set&lt;Mention&gt; getMentions();</pre>
  * </code>
  * </li>
  * </ol>
@@ -54,4 +54,4 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Asynchronous {}
+public @interface Async {}

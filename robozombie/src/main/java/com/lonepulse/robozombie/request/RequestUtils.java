@@ -42,9 +42,9 @@ import com.lonepulse.robozombie.annotation.FormParams;
 import com.lonepulse.robozombie.annotation.Headers;
 import com.lonepulse.robozombie.annotation.Param;
 import com.lonepulse.robozombie.annotation.QueryParams;
-import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.annotation.Request.RequestMethod;
 import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.util.Metadata;
 
 /**
  * <p>This utility class offers some common operations which are used in building requests - most commonly 
@@ -189,7 +189,7 @@ final class RequestUtils {
 	 */
 	static final HttpRequestBase translateRequestMethod(InvocationContext context) {
 		
-		RequestMethod requestMethod = context.getRequest().getAnnotation(Request.class).method();
+		RequestMethod requestMethod = Metadata.findMethod(context.getRequest());
 		
 		switch (requestMethod) {
 		
