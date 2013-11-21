@@ -125,18 +125,15 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
+		
 		StringBuilder builder = new StringBuilder();
-		builder.append("{ \"id\":");
-		builder.append(id);
-		builder.append(", \"firstName\":\"");
-		builder.append(firstName);
-		builder.append("\", \"lastName\":\"");
-		builder.append(lastName);
-		builder.append("\", \"age\":");
-		builder.append(age);
-		builder.append(", \"immortal\":");
-		builder.append(immortal);
-		builder.append(" }");
+		
+		builder.append("User [id=").append(id)
+			   .append(", firstName=").append(firstName)
+			   .append(", lastName=").append(lastName)
+			   .append(", age=").append(age)
+			   .append(", immortal=").append(immortal).append("]");
+		
 		return builder.toString();
 	}
 }

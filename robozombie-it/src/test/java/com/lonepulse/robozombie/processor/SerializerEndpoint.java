@@ -27,6 +27,7 @@ import static com.lonepulse.robozombie.annotation.Entity.ContentType.XML;
 import static com.lonepulse.robozombie.annotation.Request.RequestMethod.PUT;
 
 import com.google.gson.Gson;
+import com.lonepulse.robozombie.annotation.Detach;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Entity;
 import com.lonepulse.robozombie.annotation.Request;
@@ -47,19 +48,19 @@ import com.lonepulse.robozombie.request.AbstractSerializer;
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Serializer(JSON)
 @Endpoint(host = "0.0.0.0", port = "8080")
 public interface SerializerEndpoint {
 	
 	
 	/**
-	 * <p>A mock request which sends a JSON serialized model.</p>
+	 * <p>A mock request which sends a JSON serialized model using the inherited serializer.</p>
 	 * 
 	 * @param user
 	 * 			the {@link User} model to be serialized to a JSON string
 	 * 
 	 * @since 1.2.4
 	 */
-	@Serializer(JSON)
 	@Request(path = "/json", method = PUT)
 	void serializeJson(@Entity User user);
 	
@@ -119,4 +120,16 @@ public interface SerializerEndpoint {
 	@Request(path = "/custom", method = PUT)
 	@Serializer(type = Redactor.class) 
 	void serializeCustom(@Entity User user);
+	
+	/**
+	 * <p>Sends a request which detaches the inherited serializer defined on the endpoint.</p>
+	 *
+	 * @param user
+	 * 			the model which should not be processed by a serializer
+	 *
+	 * @since 1.2.4
+	 */
+	@Detach(Serializer.class)
+	@Request(path = "/detach", method = PUT)
+	void detachSerializer(@Entity User user);
 }

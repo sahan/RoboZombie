@@ -413,4 +413,27 @@ public class AsyncEndpointTest {
 		
 		successScenario(); //verify that the asynchronous request executor has survived the exception
 	}
+	
+	/**
+	 * <p>Tests a synchronous request which has detached the inherited {@link Async} annotation.</p>
+	 *  
+	 * @since 1.2.4
+	 */
+	@Test
+	public final void testAsyncDetached() {
+	
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/asyncdetached", body = "hello";
+		
+		stubFor(get(urlEqualTo(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)
+				.withBody(body)));
+		
+		String response = asyncEndpoint.asyncDetached();
+
+		verify(getRequestedFor(urlEqualTo(subpath)));
+		assertTrue(response.equals(body));
+	}
 }

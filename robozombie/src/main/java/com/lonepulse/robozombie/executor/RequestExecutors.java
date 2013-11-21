@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.executor;
  * #L%
  */
 
+import static com.lonepulse.robozombie.util.Is.async;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -83,7 +84,7 @@ public enum RequestExecutors implements RequestExecutor {
 	/**
 	 * <p>Discovers a suitable {@link RequestExecutor} for a {@link InvocationContext}.</p>
 	 * 
-	 * @param config
+	 * @param context
 	 * 			the {@link InvocationContext} for resolving a {@link RequestExecutor}
 	 * 
 	 * @return {@link RequestExecutors#ASYNC} if the request method or endpoint is annotated with 
@@ -91,10 +92,9 @@ public enum RequestExecutors implements RequestExecutor {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final RequestExecutor resolve(InvocationContext config) {
+	public static final RequestExecutor resolve(InvocationContext context) {
 
-		if(config.getEndpoint().isAnnotationPresent(Async.class)
-			|| config.getRequest().isAnnotationPresent(Async.class)) {
+		if(async(context)) {
 
 			return RequestExecutors.ASYNC.requestExecutor;
 		}
@@ -110,7 +110,7 @@ public enum RequestExecutors implements RequestExecutor {
 	 *  
 	 * <p>See {@link ConfigurationManager}</p>
 	 * 
-	 * @since 1.2.0
+	 * @since 1.2.4
 	 */
 	public static final ConfigurationManager CONFIGURATION = new ConfigurationService();
 }

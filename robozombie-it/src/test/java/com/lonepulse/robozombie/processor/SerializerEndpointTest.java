@@ -32,6 +32,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import org.apache.http.ParseException;
+import org.apache.http.entity.SerializableEntity;
+import org.apache.http42.util.EntityUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -135,7 +137,7 @@ public class SerializerEndpointTest {
 	 * @since 1.2.4
 	 */
 	@Test  
-	public final void testRaw() throws ClassNotFoundException {
+	public final void testPlain() throws ClassNotFoundException {
 
 		String subpath = "/plain";
 		
@@ -172,5 +174,27 @@ public class SerializerEndpointTest {
 		
 		verify(putRequestedFor(urlEqualTo(subpath))
 			   .withRequestBody(equalTo(new Gson().toJson(redactedUser))));
+	}
+	
+	/**
+	 * <p>Test for detachment of the inherited serializer.</p>
+	 *
+	 * @since 1.2.4
+	 */
+	@Test  
+	public final void testDetachSerializer() throws ClassNotFoundException, ParseException, IOException {
+
+		String subpath = "/detach";
+		
+		User user = new User(1, "Roy", "Mustang", 30, false);
+		
+		stubFor(put(urlEqualTo(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		serializerEndpoint.detachSerializer(user);
+		
+		verify(putRequestedFor(urlEqualTo(subpath))
+			  .withRequestBody(equalTo(EntityUtils.toString(new SerializableEntity(user, true)))));
 	}
 }

@@ -24,6 +24,7 @@ import static com.lonepulse.robozombie.annotation.Entity.ContentType.JSON;
 
 import com.lonepulse.robozombie.annotation.Async;
 import com.lonepulse.robozombie.annotation.Deserializer;
+import com.lonepulse.robozombie.annotation.Detach;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.model.User;
@@ -131,4 +132,15 @@ public interface AsyncEndpoint {
 	@Deserializer(JSON)
 	@Request(path = "/errorcallbackerror")
 	public void asyncErrorCallbackError(AsyncHandler<User> asyncHandler);
+	
+	/**
+	 * <p>Sends a request <b>synchronously</b> by detaching the inherited @{@link Async} annotation.</p> 
+	 * 
+	 * @return the response string which indicated a synchronous request
+	 * 
+	 * @since 1.2.4
+	 */
+	@Detach(Async.class) 
+	@Request(path = "/asyncdetached")
+	public String asyncDetached();
 }

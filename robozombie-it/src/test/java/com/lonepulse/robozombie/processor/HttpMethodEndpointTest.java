@@ -132,7 +132,9 @@ public class HttpMethodEndpointTest {
 		
 		String path = "/postrequest";
 		
-		stubFor(post(urlEqualTo(path)).willReturn(aResponse().withStatus(200)));
+		stubFor(post(urlEqualTo(path))
+				.willReturn(aResponse()
+				.withStatus(200)));
 		
 		String name = "DoctorWho", age = "953", location = "Tardis";
 		

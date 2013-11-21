@@ -59,11 +59,11 @@ class HeaderProcessor extends AbstractResponseProcessor {
 	 * 
 	 * <p>See {@link ResponseUtils#findHeaders(InvocationContext)}.</p>
 	 * 
-	 * @param httpResponse
+	 * @param response
 	 * 			the instance of {@link HttpResponse} whose headers are to be retrieves and injected in the in-out 
 	 * 			{@link StringBuilder} parameters found on the request definition
 	 * <br><br>
-	 * @param config
+	 * @param context
 	 * 			an immutable instance of {@link InvocationContext} which is used to discover any 
 	 * 			@{@link Header} metadata in its <i>request</i> and <i>args</i>
 	 * <br><br>
@@ -75,49 +75,51 @@ class HeaderProcessor extends AbstractResponseProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected Object process(HttpResponse httpResponse, InvocationContext config, Object deserializedResponse)
+	protected Object process(HttpResponse response, InvocationContext context, Object content)
 	throws ResponseProcessorException {
 
+		if(response == null) {
+			
+			return content;
+		}
+		
 		try {
 			
-			if(httpResponse != null) {
+			List<Map.Entry<Header, Object>> headers = Metadata.onParams(Header.class, context);
 			
-				List<Map.Entry<Header, Object>> headers = Metadata.onParams(Header.class, config);
+			String name;
+			StringBuilder value;
+			
+			for (Map.Entry<Header, Object> header : headers) {
 				
-				String name;
-				StringBuilder value;
-				
-				for (Map.Entry<Header, Object> header : headers) {
+				if(header.getValue() instanceof StringBuilder) {
 					
-					if(header.getValue() instanceof StringBuilder) {
+					name = header.getKey().value();
+					value = (StringBuilder)header.getValue();
+									
+					if(value == null || value.equals("")) {
 						
-						name = header.getKey().value();
-						value = (StringBuilder)header.getValue();
-										
-						if(value == null || value.equals("")) {
-							
-							continue; //skip headers which are omitted for the current invocation
-						}
+						continue; //skip headers which are omitted for the current invocation
+					}
+					
+					org.apache.http.Header[] responseHeaders = response.getHeaders(name);
+					
+					if(responseHeaders != null && responseHeaders.length > 0) {
+					
+						String responseHeaderValue = responseHeaders[0].getValue();
+						value.replace(0, value.length(), responseHeaderValue == null? "" :responseHeaderValue);
 						
-						org.apache.http.Header[] responseHeaders = httpResponse.getHeaders(name);
-						
-						if(responseHeaders != null && responseHeaders.length > 0) {
-						
-							String responseHeaderValue = responseHeaders[0].getValue();
-							value.replace(0, value.length(), responseHeaderValue == null? "" :responseHeaderValue);
-							
-							httpResponse.removeHeader(responseHeaders[0]); //remaining headers (equally named) processed if in-out params available
-						}
+						response.removeHeader(responseHeaders[0]); //remaining headers (equally named) processed if in-out params available
 					}
 				}
 			}
 			
-			return deserializedResponse;
+			return content;
 		}
 		catch(Exception e) {
 			
 			throw (e instanceof ResponseProcessorException)? 
-					(ResponseProcessorException)e :new ResponseProcessorException(getClass(), config, e);
+					(ResponseProcessorException)e :new ResponseProcessorException(getClass(), context, e);
 		}
 	}
 }

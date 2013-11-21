@@ -20,6 +20,9 @@ package com.lonepulse.robozombie.response;
  * #L%
  */
 
+import static com.lonepulse.robozombie.util.Is.async;
+import static com.lonepulse.robozombie.util.Is.detached;
+import static com.lonepulse.robozombie.util.Is.status;
 import static com.lonepulse.robozombie.util.Is.successful;
 
 import java.lang.reflect.Method;
@@ -28,7 +31,6 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http42.util.EntityUtils;
 
-import com.lonepulse.robozombie.annotation.Async;
 import com.lonepulse.robozombie.annotation.Deserializer;
 import com.lonepulse.robozombie.annotation.Entity.ContentType;
 import com.lonepulse.robozombie.annotation.Header;
@@ -58,11 +60,11 @@ class EntityProcessor extends AbstractResponseProcessor {
 	 * in-out parameters are matched using the header name and all parameters with a runtime value of {@code null} 
 	 * will be ignored.</p> 
 	 * 
-	 * @param httpResponse
+	 * @param response
 	 * 			the instance of {@link HttpResponse} whose headers are to be retrieves and injected in the in-out 
 	 * 			{@link StringBuilder} parameters found on the request definition
 	 * <br><br>
-	 * @param config
+	 * @param context
 	 * 			an immutable instance of {@link InvocationContext} which is used to discover any 
 	 * 			@{@link Header} metadata in its <i>request</i> and <i>args</i>
 	 * <br><br> 
@@ -74,77 +76,77 @@ class EntityProcessor extends AbstractResponseProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected Object process(HttpResponse httpResponse, InvocationContext config, Object deserializedResponse)
+	protected Object process(HttpResponse response, InvocationContext context, Object content)
 	throws ResponseProcessorException {
 
-		HttpEntity entity = httpResponse != null? httpResponse.getEntity() :null;
+		if(response == null || response.getEntity() == null) {
+			
+			return content;
+		}
 		
-		if(entity != null) {
+		HttpEntity entity = response.getEntity();
 			
-			Method request = config.getRequest();
-			Class<?> responseType = request.getReturnType();
+		Method request = context.getRequest();
+		Class<?> responseType = request.getReturnType();
+		
+		try {
 			
-			try {
+			if(successful(response) && !status(response, 204, 205)) { //omit successful status codes without response content 
 				
-				if(successful(httpResponse)) {
+				if(HttpResponse.class.isAssignableFrom(responseType)) {
 					
-					if(HttpResponse.class.isAssignableFrom(responseType)) {
-						
-						return httpResponse;
-					}
-					
-					if(HttpEntity.class.isAssignableFrom(responseType)) {
-						
-						return httpResponse.getEntity();
-					}
-				
-					boolean responseExpected = !(responseType.equals(void.class) || responseType.equals(Void.class)); 
-					
-					boolean handleAsync = (config.getEndpoint().isAnnotationPresent(Async.class) 
-								   || request.isAnnotationPresent(Async.class));
-					
-					if(handleAsync || responseExpected) {
-						
-						Class<?> endpoint = config.getEndpoint();
-						AbstractDeserializer<?> deserializer = null;
-				
-						Deserializer metadata = (metadata = 
-							request.getAnnotation(Deserializer.class)) == null? 
-								endpoint.getAnnotation(Deserializer.class) :metadata;
-						
-						if(metadata != null) {
-							
-							deserializer = (metadata.value() == ContentType.UNDEFINED)? 
-								Deserializers.resolve(metadata.type()) :Deserializers.resolve(metadata.value()); 
-						}
-						else if(handleAsync || CharSequence.class.isAssignableFrom(responseType)) {
-							
-							deserializer = Deserializers.resolve(ContentType.PLAIN);     
-						}
-						else {
-							
-							throw new DeserializerUndefinedException(endpoint, request);
-						}
-						
-						return deserializer.run(httpResponse, config);
-					}
+					return response;
 				}
-			}
-			catch(Exception e) {
 				
-				throw (e instanceof ResponseProcessorException)? 
-						(ResponseProcessorException)e :new ResponseProcessorException(getClass(), config, e);
-			}
-			finally {
+				if(HttpEntity.class.isAssignableFrom(responseType)) {
+					
+					return response.getEntity();
+				}
+			
+				boolean responseExpected = !(responseType.equals(void.class) || responseType.equals(Void.class)); 
+				boolean handleAsync = async(context);
 				
-				if(!(HttpResponse.class.isAssignableFrom(responseType) ||
-					 HttpEntity.class.isAssignableFrom(responseType))) {
-				
-					EntityUtils.consumeQuietly(entity);
+				if(handleAsync || responseExpected) {
+					
+					Class<?> endpoint = context.getEndpoint();
+					AbstractDeserializer<?> deserializer = null;
+			
+					Deserializer metadata = (metadata = 
+						request.getAnnotation(Deserializer.class)) == null? 
+							endpoint.getAnnotation(Deserializer.class) :metadata;
+					
+					if(metadata != null & !detached(context, Deserializer.class)) {
+									
+						deserializer = (metadata.value() == ContentType.UNDEFINED)? 
+							Deserializers.resolve(metadata.type()) :Deserializers.resolve(metadata.value()); 
+					}
+					else if(handleAsync || CharSequence.class.isAssignableFrom(responseType)) {
+						
+						deserializer = Deserializers.resolve(ContentType.PLAIN);     
+					}
+					else {
+						
+						throw new DeserializerUndefinedException(endpoint, request);
+					}
+					
+					return deserializer.run(response, context);
 				}
 			}
 		}
+		catch(Exception e) {
+			
+			throw (e instanceof ResponseProcessorException)? 
+					(ResponseProcessorException)e :new ResponseProcessorException(getClass(), context, e);
+		}
+		finally {
+			
+			if(!(HttpResponse.class.isAssignableFrom(responseType) ||
+				 HttpEntity.class.isAssignableFrom(responseType))) {
+			
+				EntityUtils.consumeQuietly(entity);
+			}
+		}
 		
-		return deserializedResponse;
+		return content;
 	}
 }
