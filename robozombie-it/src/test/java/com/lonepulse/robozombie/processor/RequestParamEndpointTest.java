@@ -38,7 +38,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.http.ParseException;
@@ -155,6 +157,38 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
+	 * <p>Test for a request which send a multivalued query parameter.</p>
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test
+	public final void testQueryParamsMultivalued() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/queryparamsmultivalued\\?\\S+", key = "mutant-powers";
+		
+		List<String> multivalue = new ArrayList<String>();
+		multivalue.add("invulnerability");
+		multivalue.add("teleportation");
+		multivalue.add("precognition");
+		
+		String url = "/queryparamsmultivalued?" + key + "=invulnerability&" + 
+					 key + "=teleportation&" + key + "=precognition";
+		
+		Map<String, List<String>> params = new LinkedHashMap<String, List<String>>();
+		params.put(key, multivalue);
+		
+		stubFor(get(urlMatching(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		requestEndpoint.queryParamsMultivalued(params);
+		
+		verify(getRequestedFor(urlEqualTo(url)));
+	}
+	
+	/**
 	 * <p>Test for a {@link Request} with a subpath having batch {@link QueryParams}.</p>
 	 * 
 	 * @since 1.2.4
@@ -184,6 +218,38 @@ public class RequestParamEndpointTest {
 			  .withRequestBody(equalTo(body)));
 	}
 
+	/**
+	 * <p>Test for a request which send a multivalued query parameter.</p>
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test
+	public final void testFormParamsMultivalued() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/formparamsmultivalued", key = "mutant-powers";
+		
+		List<String> multivalue = new ArrayList<String>();
+		multivalue.add("shapeshifting");
+		multivalue.add("rapid-healing");
+		multivalue.add("longevity");
+		
+		String body = key + "=shapeshifting&" + key + "=rapid-healing&" + key + "=longevity";
+		
+		Map<String, List<String>> params = new LinkedHashMap<String, List<String>>();
+		params.put(key, multivalue);
+		
+		stubFor(post(urlEqualTo(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		requestEndpoint.formParamsMultivalued(params);
+		
+		verify(postRequestedFor(urlEqualTo(subpath))
+			   .withRequestBody(equalTo(body)));
+	}
+	
 	/**
 	 * <p>Test for a {@link Request} with a subpath having constant query parameters.</p>
 	 * 

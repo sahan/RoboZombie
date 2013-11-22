@@ -80,14 +80,14 @@ public final class Metadata {
 		assertNotNull(type);
 		assertNotNull(context);
 		
-		 List<Entry<T, Object>> metadata = new ArrayList<Entry<T, Object>>();
+		List<Entry<T, Object>> metadata = new ArrayList<Entry<T, Object>>();
 			
-		 Method request = context.getRequest();
-		 List<Object> paramValues = context.getArguments();
+		Method request = context.getRequest();
+		List<Object> paramValues = context.getArguments();
 		
-		 Annotation[][] annotationsForAllParams = request.getParameterAnnotations();
+		Annotation[][] annotationsForAllParams = request.getParameterAnnotations();
 		
-		 for (int i = 0; i < annotationsForAllParams.length; i++) {
+		for (int i = 0; i < annotationsForAllParams.length; i++) {
 			
 			final Object value = paramValues.get(i);
 			 
@@ -119,9 +119,9 @@ public final class Metadata {
 					break;
 				}
 			}
-		 }
+		}
 		
-		 return Collections.unmodifiableList(metadata);
+		return Collections.unmodifiableList(metadata);
 	 }
 	
 	/**

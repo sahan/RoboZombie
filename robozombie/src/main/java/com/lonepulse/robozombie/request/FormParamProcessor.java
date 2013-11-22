@@ -21,6 +21,7 @@ package com.lonepulse.robozombie.request;
  */
 
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -164,17 +165,41 @@ class FormParamProcessor extends AbstractRequestProcessor {
 						Object name = nameAndValue.getKey();
 						Object value = nameAndValue.getValue();
 						
-						if(!(name instanceof CharSequence && value instanceof CharSequence)) {
-							
+						if(!(name instanceof CharSequence && 
+							(value instanceof CharSequence || value instanceof Collection))) {
+													
 							StringBuilder errorContext = new StringBuilder()
 							.append("The <java.util.Map> identified by @FormParams can only contain mappings of type ")
-							.append("<java.lang.CharSequence, java.lang.CharSequence>");
+							.append("<java.lang.CharSequence, java.lang.CharSequence> or ")
+							.append("<java.lang.CharSequence, java.util.Collection<? extends CharSequence>>");
 							
 							throw new RequestProcessorException(new IllegalArgumentException(errorContext.toString()));
 						}
 						
-						nameValuePairs.add(new BasicNameValuePair(
-							((CharSequence)name).toString(), ((CharSequence)value).toString()));
+						if(value instanceof CharSequence) {
+							
+							nameValuePairs.add(new BasicNameValuePair(
+								((CharSequence)name).toString(), ((CharSequence)value).toString()));
+						}
+						else { //add multi-valued form params 
+							
+							Collection<?> multivalues = (Collection<?>) value;
+							
+							for (Object multivalue : multivalues) {
+								
+								if(!(multivalue instanceof CharSequence)) {
+									
+									StringBuilder errorContext = new StringBuilder()
+									.append("Values for the <java.util.Map> identified by @FormParams can only contain collections ")
+									.append("of type java.util.Collection<? extends CharSequence>");
+									
+									throw new RequestProcessorException(new IllegalArgumentException(errorContext.toString()));
+								}
+								
+								nameValuePairs.add(new BasicNameValuePair(
+										((CharSequence)name).toString(), ((CharSequence)multivalue).toString()));
+							}
+						}
 					}
 				}
 				

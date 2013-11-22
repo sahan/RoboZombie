@@ -24,6 +24,7 @@ package com.lonepulse.robozombie.processor;
 import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.http.entity.BufferedHttpEntity;
@@ -84,6 +85,17 @@ public interface RequestParamEndpoint {
 	public String queryParamsBatch(@QueryParams Map<String, String> params);
 	
 	/**
+	 * <p>Sends a request with a multivalued query parameter.</p>
+	 * 
+	 * @param params
+	 * 			the map of with an entry for a multivalued query parameter
+	 * 
+	 * @since 1.2.4
+	 */
+	@Request(path = "/queryparamsmultivalued")
+	public String queryParamsMultivalued(@QueryParams Map<String, List<String>> params);
+	
+	/**
 	 * <p>Sends a request with a set of form parameters provided as a batch.</p>
 	 * 
 	 * @param params
@@ -93,6 +105,17 @@ public interface RequestParamEndpoint {
 	 */
 	@Request(path = "/formparamsbatch", method = RequestMethod.POST)
 	public String formParamsBatch(@FormParams Map<String, String> params);
+	
+	/**
+	 * <p>Sends a request with a multivalued form parameter.</p>
+	 * 
+	 * @param params
+	 * 			the map of with an entry for a multivalued form parameter
+	 * 
+	 * @since 1.2.4
+	 */
+	@Request(path = "/formparamsmultivalued", method = RequestMethod.POST)
+	public String formParamsMultivalued(@FormParams Map<String, List<String>> params);
 	
 	/**
 	 * <p>Sends a request with a set of constant query parameters.
