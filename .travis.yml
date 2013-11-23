@@ -8,10 +8,11 @@ before_install:
     - export ANDROID_HOME=$PWD/android-sdk-linux
     - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
     - android update sdk --filter platform-tools,android-15,extra-android-support --no-ui --force
+
+install: mvn clean install --quiet -DskipTests=true
+
+script: 
     - wget http://mirror.sdunix.com/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz
     - tar xzf apache-maven-3.0.5-bin.tar.gz
     - alias m3="$PWD/apache-maven-3.0.5/bin/mvn"
-
-install: m3 clean install --quiet -DskipTests=true
-
-script: m3 clean test -P integration-tests
+    - m3 clean test -P integration-tests
