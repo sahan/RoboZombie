@@ -11,8 +11,7 @@ before_install:
 
 install: mvn clean install --quiet -DskipTests=true
 
-script: 
-    - wget http://mirror.sdunix.com/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz
-    - tar xzf apache-maven-3.0.5-bin.tar.gz
-    - alias m3="$PWD/apache-maven-3.0.5/bin/mvn"
-    - m3 clean test -P integration-tests
+script: wget http://mirror.sdunix.com/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz && 
+        tar xzf apache-maven-3.0.5-bin.tar.gz && 
+        alias m3="$PWD/apache-maven-3.0.5/bin/mvn && 
+        m3 clean test -P integration-tests
