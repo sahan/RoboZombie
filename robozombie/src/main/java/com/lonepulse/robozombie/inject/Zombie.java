@@ -185,48 +185,56 @@ public final class Zombie {
 		
 		for (Object injectee : injectees) {
 		
-			for (Field field : Fields.in(injectee).annotatedWith(Bite.class)) {
+			Class<?> type = injectee.getClass();
+			
+			do {
 				
-				try {
+				for (Field field : Fields.in(type).annotatedWith(Bite.class)) {
 					
-					endpointInterface = field.getType();
-					Object proxyInstance = EndpointProxyFactory.INSTANCE.create(endpointInterface); 
-					
-					try { //1.Simple Field Injection 
+					try {
 						
-						field.set(injectee, proxyInstance);
-					}
-					catch (IllegalAccessException iae) { //2.Setter Injection 
+						endpointInterface = field.getType();
+						Object proxyInstance = EndpointProxyFactory.INSTANCE.create(endpointInterface); 
 						
-						String fieldName = field.getName();
-						String mutatorName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
-						
-						try {
-						
-							Method mutator = injectee.getClass().getDeclaredMethod(mutatorName, endpointInterface);
-							mutator.invoke(injectee, proxyInstance);
-						}
-						catch (NoSuchMethodException nsme) { //3.Forced Field Injection
+						try { //1.Simple Field Injection 
 							
-							field.setAccessible(true);
 							field.set(injectee, proxyInstance);
 						}
+						catch (IllegalAccessException iae) { //2.Setter Injection 
+							
+							String fieldName = field.getName();
+							String mutatorName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
+							
+							try {
+							
+								Method mutator = injectee.getClass().getDeclaredMethod(mutatorName, endpointInterface);
+								mutator.invoke(injectee, proxyInstance);
+							}
+							catch (NoSuchMethodException nsme) { //3.Forced Field Injection
+								
+								field.setAccessible(true);
+								field.set(injectee, proxyInstance);
+							}
+						}
+					} 
+					catch (Exception e) {
+						
+						StringBuilder stringBuilder = new StringBuilder()
+						.append("Failed to inject the endpoint proxy instance of type ")
+						.append(endpointInterface.getName())
+						.append(" on property ")
+						.append(field.getName())
+						.append(" at ")
+						.append(injectee.getClass().getName())
+						.append(". ");
+						
+						Log.e(Zombie.class.getName(), stringBuilder.toString(), e);
 					}
-				} 
-				catch (Exception e) {
-					
-					StringBuilder stringBuilder = new StringBuilder()
-					.append("Failed to inject the endpoint proxy instance of type ")
-					.append(endpointInterface.getName())
-					.append(" on property ")
-					.append(field.getName())
-					.append(" at ")
-					.append(injectee.getClass().getName())
-					.append(". ");
-					
-					Log.e(Zombie.class.getName(), stringBuilder.toString(), e);
 				}
+				
+				type = type.getSuperclass();
 			}
+			while(!type.equals(Object.class));
 		}
 	}
 }
