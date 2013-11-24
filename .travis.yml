@@ -10,12 +10,12 @@ before_install:
     - export ANDROID_HOME=$PWD/android-sdk-linux
     - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
     - expect -c '
-    	set timeout -1; 
-    	spawn android update sdk --filter platform-tools,android-15,extra-android-support --no-ui --force; 
-    	expect { 
-    	"Do you accept the license" { exp_send "y\r"; exp_continue } 
-    	eof 
-    	}'
+    set timeout -1; 
+    spawn android update sdk --filter platform-tools,android-15,extra-android-support --no-ui --force; 
+    expect { 
+    "Do you accept the license" { exp_send "y\r"; exp_continue } 
+    eof 
+    }'
 
 install: mvn clean install --quiet -DskipTests=true
 
