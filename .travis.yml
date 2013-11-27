@@ -1,6 +1,6 @@
 language: java
 
-env: m3="$PWD/sahan/RoboZombie/apache-maven-3.0.5/bin/mvn"
+env: M2_HOME="$PWD/sahan/RoboZombie/apache-maven-3.0.5"
 
 before_install:
     - sudo apt-get update -qq
@@ -16,4 +16,4 @@ install: mvn clean install --quiet -DskipTests=true
 script: 
         - wget http://mirror.sdunix.com/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz
         - tar xzf apache-maven-3.0.5-bin.tar.gz
-        - $m3 clean test -P integration-tests
+        - mvn clean test -P integration-tests
