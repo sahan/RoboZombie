@@ -32,15 +32,6 @@
 		<dependency>
 			<groupId>com.lonepulse</groupId>
 			<artifactId>robozombie</artifactId>
-			<type>apk</type>
-			<version>1.2.4-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.lonepulse</groupId>
-			<artifactId>robozombie</artifactId>
-			<type>jar</type>
 			<version>1.2.4-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
