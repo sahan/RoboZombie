@@ -39,6 +39,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +63,8 @@ import org.robolectric.RobolectricTestRunner;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.lonepulse.robozombie.annotation.Bite;
+import com.lonepulse.robozombie.annotation.FormParam;
+import com.lonepulse.robozombie.annotation.FormParams;
 import com.lonepulse.robozombie.annotation.QueryParam;
 import com.lonepulse.robozombie.annotation.QueryParams;
 import com.lonepulse.robozombie.annotation.Request;
@@ -106,11 +109,11 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} with a subpath having {@link QueryParam}s.
+	 * <p>Test for a {@link Request} having {@link QueryParam}s.
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test
+	@Test 
 	public final void testQueryParams() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
@@ -127,9 +130,77 @@ public class RequestParamEndpointTest {
 		
 		verify(getRequestedFor(urlEqualTo(url)));
 	}
-
+	
 	/**
-	 * <p>Test for a {@link Request} with a subpath having batch {@link QueryParams}.</p>
+	 * <p>Test for a {@link Request} having {@link FormParam}s.
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test 
+	public final void testFormParams() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/formparams",
+				firstName = "Doctor", lastName = "Who",
+				body = "firstName=" + firstName + "&lastName=" + lastName;
+		
+		stubFor(post(urlEqualTo(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		requestEndpoint.formParams(firstName, lastName);
+		
+		verify(postRequestedFor(urlEqualTo(subpath))
+			   .withRequestBody(equalTo(body)));
+	}
+	
+	/**
+	 * <p>Test for a {@link Request} having illegal {@link QueryParam}s.
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
+	public final void testQueryParamsFail() throws ClassNotFoundException {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/queryparamsfail";
+		
+		stubFor(get(urlMatching(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		expectedException.expectCause(Is.isA((Class<Throwable>)
+				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		
+		requestEndpoint.queryParamsFail(new User(1, "Ra's", "al Ghul", 47, false));
+	}
+	
+	/**
+	 * <p>Test for a {@link Request} having illegal {@link FormParam}s.
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
+	public final void testFormParamsFail() throws ClassNotFoundException {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/formparamsfail";
+		
+		stubFor(post(urlMatching(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		expectedException.expectCause(Is.isA((Class<Throwable>)
+				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		
+		requestEndpoint.formParamsFail(new User(1, "Ra's", "al Ghul", 47, false));
+	}
+	
+	/**
+	 * <p>Test for a {@link Request} having batch {@link QueryParams}.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -155,9 +226,133 @@ public class RequestParamEndpointTest {
 		
 		verify(getRequestedFor(urlEqualTo(url)));
 	}
+
+	/**
+	 * <p>Test for a {@link Request} having batch {@link QueryParams}.</p>
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test
+	public final void testFormParamsBatch() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/formparamsbatch",
+			   fnKey = "firstName", lnKey = "lastName",
+			   firstName = "Franklin", lastName = "Richards",
+			   body = fnKey + "=" + firstName + "&" + lnKey + "=" + lastName;
+		
+		Map<String, String> params = new LinkedHashMap<String, String>();
+		params.put(fnKey, firstName); 
+		params.put(lnKey, lastName); 
+		
+		stubFor(post(urlMatching(subpath))
+				.willReturn(aResponse()
+				.withBody(body)
+				.withStatus(200)));
+		
+		requestEndpoint.formParamsBatch(params);
+		
+		verify(postRequestedFor(urlEqualTo(subpath))
+			  .withRequestBody(equalTo(body)));
+	}
 	
 	/**
-	 * <p>Test for a request which send a multivalued query parameter.</p>
+	 * <p>Test for a {@link Request} having illegal batch {@link QueryParams}.
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
+	public final void testQueryParamsBatchTypeFail() throws ClassNotFoundException {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/queryparamsbatchtypefail";
+		
+		stubFor(get(urlMatching(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		expectedException.expectCause(Is.isA((Class<Throwable>)
+				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		
+		requestEndpoint.queryParamsBatchTypeFail(new ArrayList<String>());
+	}
+	
+	/**
+	 * <p>Test for a {@link Request} having illegal batch {@link FormParams}.
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
+	public final void testFormParamsBatchTypeFail() throws ClassNotFoundException {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/formparamsbatchtypefail";
+		
+		stubFor(post(urlMatching(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		expectedException.expectCause(Is.isA((Class<Throwable>)
+				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		
+		requestEndpoint.formParamsBatchTypeFail(new ArrayList<String>());
+	}
+	
+	/**
+	 * <p>Test for a {@link Request} having illegal batch {@link QueryParams} elements.
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
+	public final void testQueryParamsBatchElementFail() throws ClassNotFoundException {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/queryparamsbatchelementfail";
+		
+		Map<String, User> params = new HashMap<String, User>();
+		params.put("subject", new User(1, "Kurt", "Wagner" , 32, false));
+		
+		stubFor(get(urlMatching(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		expectedException.expectCause(Is.isA((Class<Throwable>)
+				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		
+		requestEndpoint.queryParamsBatchElementFail(params);
+	}
+	
+	/**
+	 * <p>Test for a {@link Request} having illegal batch {@link FormParams} elements.
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
+	public final void testFormParamsBatchElementFail() throws ClassNotFoundException {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/formparamsbatchelementfail";
+		
+		Map<String, User> params = new HashMap<String, User>();
+		params.put("subject", new User(1, "Kurt", "Wagner" , 32, false));
+		
+		stubFor(post(urlMatching(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		expectedException.expectCause(Is.isA((Class<Throwable>)
+				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		
+		requestEndpoint.formParamsBatchElementFail(params);
+	}
+	
+	/**
+	 * <p>Test for a request which sends a multivalued query parameter.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -188,36 +383,6 @@ public class RequestParamEndpointTest {
 		verify(getRequestedFor(urlEqualTo(url)));
 	}
 	
-	/**
-	 * <p>Test for a {@link Request} with a subpath having batch {@link QueryParams}.</p>
-	 * 
-	 * @since 1.2.4
-	 */
-	@Test
-	public final void testFormParamsBatch() {
-		
-		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
-		
-		String subpath = "/formparamsbatch",
-			   fnKey = "firstName", lnKey = "lastName",
-			   firstName = "Franklin", lastName = "Richards",
-			   body = fnKey + "=" + firstName + "&" + lnKey + "=" + lastName;
-		
-		Map<String, String> params = new LinkedHashMap<String, String>();
-		params.put(fnKey, firstName); 
-		params.put(lnKey, lastName); 
-		
-		stubFor(post(urlMatching(subpath))
-				.willReturn(aResponse()
-				.withBody(body)
-				.withStatus(200)));
-		
-		requestEndpoint.formParamsBatch(params);
-		
-		verify(postRequestedFor(urlEqualTo(subpath))
-			  .withRequestBody(equalTo(body)));
-	}
-
 	/**
 	 * <p>Test for a request which send a multivalued query parameter.</p>
 	 * 
@@ -251,7 +416,67 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} with a subpath having constant query parameters.</p>
+	 * <p>Test for a {@link Request} having illegal multivalued query parameters.
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
+	public final void testQueryParamsMultivaluedFail() throws ClassNotFoundException {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/queryparamsmultivaluedfail";
+		
+		Map<String, List<User>> params = new HashMap<String, List<User>>();
+		
+		List<User> subjects = new ArrayList<User>();
+		subjects.add(new User(1, "(En) Sabah", "Nur", 5236, true));
+		subjects.add(new User(2, "Stephen", "Strange", 41, false)); 
+		
+		params.put("subjects", subjects);
+		
+		stubFor(get(urlMatching(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		expectedException.expectCause(Is.isA((Class<Throwable>)
+				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		
+		requestEndpoint.queryParamsMultivaluedFail(params);
+	}
+	
+	/**
+	 * <p>Test for a {@link Request} having illegal multivalued query parameters.
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
+	public final void testFormParamsMultivaluedFail() throws ClassNotFoundException {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/formparamsmultivaluedfail";
+		
+		Map<String, List<User>> params = new HashMap<String, List<User>>();
+		
+		List<User> subjects = new ArrayList<User>();
+		subjects.add(new User(1, "(En) Sabah", "Nur", 5236, true));
+		subjects.add(new User(2, "Stephen", "Strange", 41, false)); 
+		
+		params.put("subjects", subjects);
+		
+		stubFor(post(urlMatching(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		expectedException.expectCause(Is.isA((Class<Throwable>)
+				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		
+		requestEndpoint.formParamsMultivaluedFail(params);
+	}
+	
+	/**
+	 * <p>Test for a {@link Request} having constant query parameters.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -274,7 +499,34 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} with a subpath having constant form parameters.</p>
+	 * <p>Test for a {@link Request} having constant inline {@link QueryParams}.</p>
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test
+	public final void testInlineConstantQueryParams() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/inlineconstantqueryparams\\?\\S+",
+			   key1 = "class", value1 = "omega",
+			   key2 = "name", value2 = "Legion",
+			   url = "/inlineconstantqueryparams?" + key1 + "=" + value1 + "&" + key2 + "=" + value2;
+		
+		Map<String, String> params = new LinkedHashMap<String, String>();
+		params.put(key2, value2); 
+		
+		stubFor(get(urlMatching(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		requestEndpoint.inlineConstantQueryParams(params);
+		
+		verify(getRequestedFor(urlEqualTo(url)));
+	}
+	
+	/**
+	 * <p>Test for a {@link Request} having constant form parameters.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -296,6 +548,34 @@ public class RequestParamEndpointTest {
 		
 		verify(postRequestedFor(urlEqualTo(subpath))
 			  .withRequestBody(equalTo(body)));
+	}
+	
+	/**
+	 * <p>Test for a {@link Request} having constant inline {@link FormParams}.</p>
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test
+	public final void testInlineConstantFormParams() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/inlineconstantformparams",
+			   key1 = "class", value1 = "omega",
+			   key2 = "name", value2 = "Chamber",
+			   body = key1 + "=" + value1 + "&" + key2 + "=" + value2;
+		
+		Map<String, String> params = new LinkedHashMap<String, String>();
+		params.put(key2, value2); 
+		
+		stubFor(post(urlMatching(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		requestEndpoint.inlineConstantFormParams(params);
+		
+		verify(postRequestedFor(urlEqualTo(subpath))
+			   .withRequestBody(equalTo(body)));
 	}
 	
 	/**

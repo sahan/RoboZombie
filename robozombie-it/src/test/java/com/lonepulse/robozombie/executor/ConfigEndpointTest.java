@@ -28,8 +28,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 
-import java.net.SocketTimeoutException;
-
 import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Rule;
@@ -91,8 +89,10 @@ public class ConfigEndpointTest {
 				.withStatus(200)
 				.withFixedDelay(3000)));
 		
-		expectedException.expectCause(Is.isA(SocketTimeoutException.class));
+		expectedException.expect(Is.isA(RequestFailedException.class));
+		
 		configEndpoint.timeout();
+		
 		verify(getRequestedFor(urlEqualTo(subpath)));
 	}
 }

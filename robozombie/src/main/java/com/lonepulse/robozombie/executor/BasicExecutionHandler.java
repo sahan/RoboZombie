@@ -21,8 +21,6 @@ package com.lonepulse.robozombie.executor;
  */
 
 
-import java.io.IOException;
-
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.inject.InvocationContext;
@@ -40,7 +38,7 @@ public final class BasicExecutionHandler implements ExecutionHandler {
 
 
 	/**
-	 * <p>A {@link RequestExecutionException} is thrown with information on the failed {@link HttpResponse}.</p> 
+	 * <p>Throws a {@link RequestFailedException} with the {@link HttpResponse} and {@link InvocationContext}.</p> 
 	 * 
 	 * <p>See {@link ExecutionHandler#onFailure(HttpResponse, InvocationContext)}</p>
 	 * 
@@ -54,16 +52,8 @@ public final class BasicExecutionHandler implements ExecutionHandler {
 	 */
 	@Override
 	public void onFailure(HttpResponse response, InvocationContext context) {
-		
-		StringBuilder errorContext = new StringBuilder()
-		.append("HTTP request for ")
-		.append(context.getRequest().getName())
-		.append(" failed with status code ")
-		.append(response.getStatusLine().getStatusCode())
-		.append(", ")
-		.append(response.getStatusLine().getReasonPhrase());
-		
-		throw new RequestExecutionException(errorContext.toString(), new IOException(errorContext.toString()));
+
+		throw RequestFailedException.newInstance(response, context);
 	}
 
 	/**
@@ -75,10 +65,21 @@ public final class BasicExecutionHandler implements ExecutionHandler {
 	public void onSuccess(HttpResponse response, InvocationContext context) {}
 
 	/**
-	 * <p><b>No special action is taken upon erroneous executions. This callback is mute.</b></p>
+	 * <p>Throws a {@link RequestFailedException} with the {@link InvocationContext}.</p>
+	 * 
+	 * <p>See {@link ExecutionHandler#onError(InvocationContext, Exception)}</p>
+	 * 
+	 * @param context
+	 * 			the {@link InvocationContext} with information on the proxy invocation 
+	 * <br><br>
+	 * @param error
+	 * 			the root {@link Throwable} cause for the errored request execution  
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	public void onError(InvocationContext context, Exception error) {}
+	public void onError(InvocationContext context, Exception error) {
+		
+		throw RequestFailedException.newInstance(context, error);
+	}
 }

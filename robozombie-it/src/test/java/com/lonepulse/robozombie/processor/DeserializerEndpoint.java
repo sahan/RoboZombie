@@ -72,7 +72,7 @@ public interface DeserializerEndpoint {
 	 * @since 1.2.4
 	 */
 	@Request(path = "/json")
-	User parseJson();
+	User deserializeJson();
 	
 	/**
 	 * <p>A mock request which receives an XML response that is deserialized to it model.
@@ -83,7 +83,7 @@ public interface DeserializerEndpoint {
 	 */
 	@Deserializer(XML) 
 	@Request(path = "/xml")
-	User parseXml();
+	User deserializeXml();
 	
 	/**
 	 * <p>A mock request which does not use an @{@link Deserializer} definition and defers to 
@@ -129,7 +129,7 @@ public interface DeserializerEndpoint {
 	 */
 	@Request(path = "/custom")
 	@Deserializer(type = Redactor.class) 
-	User parseCustom();
+	User deserializeCustom();
 	
 	/**
 	 * <p>Sends a request which detaches the inherited deserializer defined on the endpoint.</p>

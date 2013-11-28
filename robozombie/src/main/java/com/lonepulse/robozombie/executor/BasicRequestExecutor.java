@@ -20,7 +20,7 @@ package com.lonepulse.robozombie.executor;
  * #L%
  */
 
-import static com.lonepulse.robozombie.util.Is.successful; 
+import static com.lonepulse.robozombie.util.Is.successful;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -135,13 +135,16 @@ class BasicRequestExecutor implements RequestExecutor {
 		}
 		catch (Exception error) {
 			
-			try {
-			
-				executionHandler.onError(context, error);
-			}
-			catch(Exception e) {
+			if(!(error instanceof RequestFailedException)) {
 				
-				throw RequestExecutionException.wrap(context.getRequest(), context.getEndpoint(), e);
+				try {
+					
+					executionHandler.onError(context, error);
+				}
+				catch(Exception e) {
+					
+					throw RequestExecutionException.wrap(context.getRequest(), context.getEndpoint(), e);
+				}
 			}
 			
 			throw RequestExecutionException.wrap(context.getRequest(), context.getEndpoint(), error);
