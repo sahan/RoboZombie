@@ -1,7 +1,5 @@
 language: java
 
-env: M2_HOME="$PWD/sahan/RoboZombie/apache-maven-3.0.5"
-
 before_install:
     - sudo apt-get update -qq
     - if [ `uname -m` = x86_64 ]; then sudo apt-get install -o Dpkg::Options::="--force-confold" -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
@@ -16,4 +14,5 @@ install: mvn clean install --quiet -DskipTests=true
 script: 
         - wget http://mirror.sdunix.com/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz
         - tar xzf apache-maven-3.0.5-bin.tar.gz
+        - export M2_HOME="$PWD/apache-maven-3.0.5"
         - mvn clean test -P integration-tests
