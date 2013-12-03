@@ -59,5 +59,5 @@ public @interface Detach {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public Class<? extends Annotation>[] value();
+	Class<? extends Annotation>[] value();
 }

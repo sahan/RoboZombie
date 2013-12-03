@@ -38,7 +38,7 @@ public @interface Param {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public String name();
+	String name();
 	
 	/**
 	 * <p>The <b>value</b> of the name and value pair.</p>  
@@ -47,5 +47,5 @@ public @interface Param {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public String value();
+	String value();
 }

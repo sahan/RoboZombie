@@ -73,7 +73,7 @@ public @interface Deserializer {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public ContentType value() default ContentType.UNDEFINED;
+	ContentType value() default ContentType.UNDEFINED;
 	
 	/**
 	 * <p>The {@link Class} of the custom {@link AbstractDeserializer} extension to be used.</p> 
@@ -87,5 +87,5 @@ public @interface Deserializer {
 	 * <br><br>
 	 * @since 1.1.1
 	 */
-	public Class<? extends AbstractDeserializer<?>> type() default PlainDeserializer.class;
+	Class<? extends AbstractDeserializer<?>> type() default PlainDeserializer.class;
 }

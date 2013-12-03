@@ -58,7 +58,7 @@ public @interface Headers {
 	 * <br><br>
 	 * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
-	public @interface Header {
+	public static @interface Header {
 		
 		/**
 		 * <p>The name of the header parameter.</p>
@@ -67,7 +67,7 @@ public @interface Headers {
 		 * <br><br>
 		 * @since 1.1.1
 		 */
-		public String name();
+		String name();
 		
 		/**
 		 * <p>The value of the header parameter.</p>
@@ -76,7 +76,7 @@ public @interface Headers {
 		 * <br><br>
 		 * @since 1.1.1
 		 */
-		public String value();
+		String value();
 	}
 
 	
@@ -87,5 +87,5 @@ public @interface Headers {
 	 * <br><br>
 	 * @since 1.1.1
 	 */
-	public Headers.Header[] value();
+	Headers.Header[] value();
 }

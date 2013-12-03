@@ -63,7 +63,7 @@ final class HeaderProcessor extends AbstractRequestProcessor {
 	 * 
 	 * <p>See {@link RequestUtils#findStaticHeaders(InvocationContext)}.</p>
 	 * 
-	 * @param httpRequestBase
+	 * @param request
 	 * 			the instance of {@link HttpRequestBase} whose headers are to be populated by reading the metadata 
 	 * 			available in @{@link Headers} and @{@link Header} annotations 
 	 * <br><br>
@@ -79,26 +79,25 @@ final class HeaderProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) throws RequestProcessorException {
+	protected HttpRequestBase process(HttpRequestBase request, InvocationContext context) throws RequestProcessorException {
 
 		try {
 			
 			for (Map.Entry<String, Object> header : RequestUtils.findStaticHeaders(context)) {
 				
-				addHeader(httpRequestBase, header.getKey(), header.getValue());
+				addHeader(request, header.getKey(), header.getValue());
 			}
 			
 			for (Map.Entry<Header, Object> header : Metadata.onParams(Header.class, context)) {
 				
-				addHeader(httpRequestBase, header.getKey().value(), header.getValue());
+				addHeader(request, header.getKey().value(), header.getValue());
 			}
 			
-			return httpRequestBase;
+			return request;
 		}
 		catch(Exception e) {
 			
-			throw (e instanceof RequestProcessorException)? 
-					(RequestProcessorException)e :new RequestProcessorException(getClass(), context, e);
+			throw new RequestProcessorException(getClass(), context, e);
 		}
 	}
 	

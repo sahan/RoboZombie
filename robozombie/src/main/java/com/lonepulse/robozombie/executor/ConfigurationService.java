@@ -121,10 +121,10 @@ final class ConfigurationService implements ConfigurationManager {
 		
 		try {
 			
-			if(endpointClass.isAnnotationPresent(com.lonepulse.robozombie.annotation.Configuration.class)) {
+			if(endpointClass.isAnnotationPresent(com.lonepulse.robozombie.annotation.Config.class)) {
 				
 				Configuration configuration = endpointClass.getAnnotation(
-					com.lonepulse.robozombie.annotation.Configuration.class).value().newInstance();
+					com.lonepulse.robozombie.annotation.Config.class).value().newInstance();
 				
 				HttpClient httpClient = configuration.httpClient();
 				HttpClientDirectory.INSTANCE.bind(endpointClass, httpClient); //currently the only configurable property

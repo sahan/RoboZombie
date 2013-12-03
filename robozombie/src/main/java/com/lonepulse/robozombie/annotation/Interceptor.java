@@ -71,5 +71,5 @@ public @interface Interceptor {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public Class<? extends com.lonepulse.robozombie.request.Interceptor>[] value();
+	Class<? extends com.lonepulse.robozombie.request.Interceptor>[] value();
 }

@@ -37,6 +37,7 @@ import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import android.util.Log;
 
 import com.lonepulse.robozombie.annotation.Bite;
+import com.lonepulse.robozombie.annotation.Config;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.executor.ConfigurationFailedException;
 import com.lonepulse.robozombie.executor.RequestExecutors;
@@ -60,9 +61,9 @@ public final class Zombie {
 	 * pertain to the <a href="http://hc.apache.org">Apache HTTP Components</a> library which provides the foundation 
 	 * for network communication.</p>
 	 * 
-	 * <p>Configurations can be revised for each {@link Endpoint} using <b>@Configuration</b> by specifying the 
-	 * {@link Class} of a {@link Configuration} extension. Simply override the required template methods and provide 
-	 * a <b>new instance</b> of the desired property. For example, override {@link Configuration#httpClient()} to 
+	 * <p>Configurations can be revised for each {@link Endpoint} using <b>@Config</b> by specifying the 
+	 * {@link Class} of a {@link Config} extension. Simply override the required template methods and provide 
+	 * a <b>new instance</b> of the desired property. For example, override {@link Config#httpClient()} to 
 	 * return a custom {@link HttpClient} which might be configured with alternative {@link Scheme}s, timeouts ..etc.</p>
 	 * 
 	 * <p>For more information on configuring your own instance of {@link HttpClient} refer the 
@@ -76,7 +77,7 @@ public final class Zombie {
 	 * <br><br>
 	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
-	public static abstract class Configuration {
+	public abstract static class Configuration {
 		
 		
 		private static final Configuration DEFAULT = RequestExecutors.CONFIGURATION.getDefault();
@@ -219,16 +220,14 @@ public final class Zombie {
 					} 
 					catch (Exception e) {
 						
-						StringBuilder stringBuilder = new StringBuilder()
+						Log.e(Zombie.class.getName(), new StringBuilder()
 						.append("Failed to inject the endpoint proxy instance of type ")
 						.append(endpointInterface.getName())
 						.append(" on property ")
 						.append(field.getName())
 						.append(" at ")
 						.append(injectee.getClass().getName())
-						.append(". ");
-						
-						Log.e(Zombie.class.getName(), stringBuilder.toString(), e);
+						.append(". ").toString(), e);
 					}
 				}
 				

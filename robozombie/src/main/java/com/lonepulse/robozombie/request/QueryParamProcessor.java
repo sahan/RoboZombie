@@ -36,7 +36,7 @@ import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**
- * <p>This is a concrete implementation of {@link RequestProcessor} which discovers <i>query parameters</i> 
+ * <p>This is a concrete implementation of {@link AbstractRequestProcessor} which discovers <i>query parameters</i> 
  * in a request which are annotated with @{@link QueryParam} or @{@link QueryParams} and constructs a 
  * <a href="http://en.wikipedia.org/wiki/Query_string">query string</a> to be appended to the request URL.</p> 
  * 
@@ -66,7 +66,7 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 	 * a <a href="http://en.wikipedia.org/wiki/Query_string">query string</a> using any arguments which were 
 	 * annotated with @{@link QueryParam} and @{@link QueryParams} which is subsequently appended to the URI.</p>
 	 * 
-	 * <p>See {@link RequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
+	 * <p>See {@link AbstractRequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
 	 * 
 	 * @param httpRequestBase
 	 * 			prefers an instance of {@link HttpGet} so as to conform with HTTP 1.1; however, other request 
@@ -84,7 +84,7 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) throws RequestProcessorException {
+	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) {
 
 		try {
 			

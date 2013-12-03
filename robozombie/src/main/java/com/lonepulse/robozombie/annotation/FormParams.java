@@ -63,5 +63,5 @@ public @interface FormParams {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public Param[] value() default {};
+	Param[] value() default {};
 }

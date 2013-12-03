@@ -20,6 +20,9 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
+import static com.lonepulse.robozombie.util.Assert.assertAssignable;
+import static com.lonepulse.robozombie.util.Assert.assertLength;
+import static com.lonepulse.robozombie.util.Assert.assertNotNull;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.client.methods.HttpGet;
@@ -83,48 +86,12 @@ abstract class AbstractRequestProcessor implements Processor<HttpRequestBase, Re
 	 * @since 1.2.4
 	 */
 	@Override
-	public HttpRequestBase run(Object... args) throws RequestProcessorException {
+	public HttpRequestBase run(Object... args) {
 
-		if(args == null || args.length != 2) {
-			
-			StringBuilder errorContext = new StringBuilder("An ")
-			.append(AbstractRequestProcessor.class.getName())
-			.append(" requires exactly two arguments: the ")
-			.append(HttpRequestBase.class.getName())
-			.append(" which it should process and the ")
-			.append(InvocationContext.class.getName())
-			.append(" which provides the data and metadata for processing. ");
-			
-			throw new IllegalArgumentException(errorContext.toString());
-		}
+		assertLength(args, 2);
 		
-		StringBuilder accumulatedContext = new StringBuilder();
-		boolean hasIllegalArguments = false;
-		
-		if(args[0] == null || !(args[0] instanceof HttpRequestBase)) {
-			
-			accumulatedContext.append("The first argument should be an instance of ")
-			.append(HttpRequestBase.class.getName())
-			.append(" which cannot be <null>. ");
-			
-			hasIllegalArguments = true;
-		}
-		
-		if(args[1] == null || !(args[1] instanceof InvocationContext)) {
-			
-			accumulatedContext.append("The second argument to should be an instance of ")
-			.append(InvocationContext.class.getName())
-			.append(" which cannot be <null>. ");
-			
-			hasIllegalArguments = true;
-		}
-		
-		if(hasIllegalArguments) {
-			
-			throw new IllegalArgumentException(accumulatedContext.toString());
-		}
-		
-		return process((HttpRequestBase)args[0], (InvocationContext)args[1]);
+		return process(assertAssignable(assertNotNull(args[0]), HttpRequestBase.class),
+					   assertAssignable(assertNotNull(args[1]), InvocationContext.class));
 	}
 	
 	/**
@@ -140,11 +107,11 @@ abstract class AbstractRequestProcessor implements Processor<HttpRequestBase, Re
 	 * <p><b>Note</b> that all implementations should process the original instance of {@link HttpRequestBase} 
 	 * without recreating or reusing a separate instance with similar properties.</p>
 	 * 
-	 * @param httpRequestBase
+	 * @param request
 	 * 			a concrete implementation of {@link HttpRequestBase}, such as {@link HttpGet} which should 
 	 * 			be used to grow on based on the targeting criteria for this request processor
 	 * <br><br>
-	 * @param config
+	 * @param context
 	 * 			the {@link InvocationContext} which is used to discover the request's 
 	 * 			{@link RequestMethod} and any annotated metadata along with the invocation arguments  
  	 * <br><br>
@@ -156,6 +123,5 @@ abstract class AbstractRequestProcessor implements Processor<HttpRequestBase, Re
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	protected abstract HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext config)
-	throws RequestProcessorException;
+	protected abstract HttpRequestBase process(HttpRequestBase request, InvocationContext context);
 }

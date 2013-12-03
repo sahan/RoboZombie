@@ -142,7 +142,7 @@ public enum Deserializers implements Deserializer<Object> {
 		}
 		catch(Exception e) {
 			
-			throw new DeserializerInstantiationException(deserializerType);
+			throw new DeserializerInstantiationException(deserializerType, e);
 		}
 	}
 }

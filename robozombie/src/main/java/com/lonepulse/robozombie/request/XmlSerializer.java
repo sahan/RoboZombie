@@ -128,13 +128,13 @@ final class XmlSerializer extends AbstractSerializer<Object, String> {
 	 * 			if the <b>Simple-XML library</b> was not found on the classpath or if an incompatible version 
 	 * 			of the library is being used
 	 * <br><br>
-	 * @throws Exception 
-	 * 			if the model failed to be serialized to its XML representation
+	 * @throws SerializerException
+	 * 			if JSON serialization failed for the given entity using the Simple-XML library 
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	protected String serialize(Object input, InvocationContext context) throws Exception {
+	protected String serialize(Object input, InvocationContext context) {
 		
 		if(unavailable || incompatible) {
 			
@@ -146,9 +146,20 @@ final class XmlSerializer extends AbstractSerializer<Object, String> {
 			return null;
 		}
 		
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		Persister_write.invoke(persister, input, baos);
-		
-		return baos.toString();
+		try {
+			
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			Persister_write.invoke(persister, input, baos);
+			
+			return baos.toString();
+		} 
+		catch (Exception e) {
+			
+			throw new SerializerException(new StringBuilder("XML serialization failed for request <")
+			.append(context.getRequest().getName())
+			.append("> on endpoint <")
+			.append(context.getEndpoint().getName())
+			.append(">").toString(), e);
+		}
 	}
 }

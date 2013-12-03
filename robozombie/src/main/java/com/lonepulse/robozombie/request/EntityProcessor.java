@@ -93,8 +93,7 @@ class EntityProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override @SuppressWarnings("unchecked") //welcomes a ClassCastException on misuse of @Serializer(Custom.class)
-	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) 
-	throws RequestProcessorException {
+	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) {
 
 		try {
 

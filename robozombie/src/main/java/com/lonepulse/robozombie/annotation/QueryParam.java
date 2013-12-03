@@ -57,5 +57,5 @@ public @interface QueryParam {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public String value();
+	String value();
 }

@@ -20,6 +20,9 @@ package com.lonepulse.robozombie.response;
  * #L%
  */
 
+import static com.lonepulse.robozombie.util.Assert.assertAssignable;
+import static com.lonepulse.robozombie.util.Assert.assertLength;
+import static com.lonepulse.robozombie.util.Assert.assertNotNull;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -85,46 +88,11 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	@Override
 	public Object run(Object... args) throws ResponseProcessorException {
 
-		if(args == null || args.length < 2) {
-			
-			StringBuilder errorContext = new StringBuilder("An ")
-			.append(AbstractResponseProcessor.class.getName())
-			.append(" requires at least two arguments: the ")
-			.append(HttpResponse.class.getName())
-			.append(" which it should process and the ")
-			.append(InvocationContext.class.getName())
-			.append(" which provides the data and metadata for processing.");
-			
-			throw new IllegalArgumentException(errorContext.toString());
-		}
+		assertLength(args, 2, 3);
 		
-		StringBuilder accumulatedContext = new StringBuilder();
-		boolean hasIllegalArguments = false;
-		
-		if(args[0] == null || !(args[0] instanceof HttpResponse)) {
-			
-			accumulatedContext.append("The first argument should be an instance of ")
-			.append(HttpResponse.class.getName())
-			.append(" which cannot be <null>. ");
-			
-			hasIllegalArguments = true;
-		}
-		
-		if(args[1] == null || !(args[1] instanceof InvocationContext)) {
-			
-			accumulatedContext.append("The second argument to should be an instance of ")
-			.append(InvocationContext.class.getName())
-			.append(" which cannot be <null>. ");
-			
-			hasIllegalArguments = true;
-		}
-		
-		if(hasIllegalArguments) {
-			
-			throw new IllegalArgumentException(accumulatedContext.toString());
-		}
-		
-		return process((HttpResponse)args[0], (InvocationContext)args[1], (args.length > 2)? args[2] :null);
+		return process(assertAssignable(assertNotNull(args[0]), HttpResponse.class), 
+					   assertAssignable(assertNotNull(args[1]), InvocationContext.class), 
+					   (args.length > 2)? args[2] :null);
 	}
 	
 	/**
@@ -138,11 +106,11 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 * <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">Section 9</a> of the <b>HTTP 1.1</b> 
 	 * for more information.</p>
 	 * 
-	 * @param HttpResponse
+	 * @param response
 	 * 			the {@link HttpResponse} received as result of a request execution; the response body should 
 	 * 			be deserialized to the correct type and the response headers should be processed if required 
 	 * <br><br>
-	 * @param config
+	 * @param context
 	 * 			the {@link InvocationContext} which is used to discover any annotated metadata 
 	 * 			for the request declarion which may help in processing the response and making the necessary 
 	 * 			information available for the result-map
@@ -160,6 +128,5 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 * @since 1.2.4
 	 */
 	protected abstract Object process(
-		HttpResponse HttpResponse, InvocationContext config, Object deserializedResponse) 
-		throws ResponseProcessorException;
+		HttpResponse response, InvocationContext context, Object deserializedResponse);
 }

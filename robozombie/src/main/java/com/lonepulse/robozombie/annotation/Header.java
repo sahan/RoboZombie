@@ -52,5 +52,5 @@ public @interface Header {
 	 * <br><br>
 	 * @since 1.1.1
 	 */
-	public String value();
+	String value();
 }

@@ -50,5 +50,5 @@ interface ProxyFactory {
 	 * <br><br>
 	 * @since 1.1.1			
 	 */
-	public abstract <T> T create(final Class<T> typeClass);
+	<T> T create(final Class<T> typeClass);
 }

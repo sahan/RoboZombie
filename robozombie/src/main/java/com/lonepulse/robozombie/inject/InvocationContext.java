@@ -168,7 +168,7 @@ public final class InvocationContext {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	static final Builder newBuilder() {
+	static Builder newBuilder() {
 		
 		return new InvocationContextBuilder();
 	}

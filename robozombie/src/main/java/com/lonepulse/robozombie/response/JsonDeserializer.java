@@ -139,13 +139,13 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
 	 * 				if the <b>GSON library</b> was not found on the classpath or if an incompatible version 
 	 * 				of the library is being used
 	 * <br><br>
-	 * @throws Exception 
-	 * 				if the JSON content failed to be deserialized to the specified model
+	 * @throws DeserializerException
+	 * 			if JSON deserialization failed for the given entity using the Gson library 
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	protected Object deserialize(HttpResponse httpResponse, InvocationContext context) throws Exception {
+	protected Object deserialize(HttpResponse httpResponse, InvocationContext context) {
 		
 		if(unavailable || incompatible) {
 			
@@ -154,7 +154,18 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
 		
 		HttpEntity entity = httpResponse.getEntity();
 		
-		return entity == null? null :Gson_fromJson.invoke(gson, EntityUtils.toString(entity), 
-				TypeToken_getType.invoke(TypeToken_GET.invoke(null, context.getRequest().getReturnType())));
+		try {
+			
+			return entity == null? null :Gson_fromJson.invoke(gson, EntityUtils.toString(entity), 
+					TypeToken_getType.invoke(TypeToken_GET.invoke(null, context.getRequest().getReturnType())));
+		} 
+		catch(Exception e) {
+			
+			throw new DeserializerException(new StringBuilder("JSON deserialization failed for request <")
+			.append(context.getRequest().getName())
+			.append("> on endpoint <")
+			.append(context.getEndpoint().getName())
+			.append(">").toString(), e);
+		}
 	}
 }

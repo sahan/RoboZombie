@@ -26,7 +26,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lonepulse.robozombie.ValidationFailedException;
 import com.lonepulse.robozombie.Validator;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.util.Metadata;
@@ -75,7 +74,7 @@ final class Validators {
 		
 		
 		@Override
-		public void validate(Class<?> endpointDefinition) throws ValidationFailedException {
+		public void validate(Class<?> endpointDefinition) {
 
 			assertNotNull(endpointDefinition);
 			

@@ -75,10 +75,9 @@ public enum RequestExecutors implements RequestExecutor {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public HttpResponse execute(HttpRequestBase httpRequestBase, InvocationContext config)
-	throws RequestExecutionException {
+	public HttpResponse execute(HttpRequestBase httpRequestBase, InvocationContext context) {
 	
-		return this.requestExecutor.execute(httpRequestBase, config);
+		return this.requestExecutor.execute(httpRequestBase, context);
 	}
 	
 	/**

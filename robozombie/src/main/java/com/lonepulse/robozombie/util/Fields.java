@@ -102,7 +102,7 @@ public final class Fields implements Iterable<Field> {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final Fields in(Object target) {
+	public static Fields in(Object target) {
 		
 		return new Fields(target.getClass().getDeclaredFields());
 	}
@@ -120,7 +120,7 @@ public final class Fields implements Iterable<Field> {
 	 * 
 	 * @since 1.2.4
 	 */
-	public static final Fields in(Class<? extends Object> target) {
+	public static Fields in(Class<? extends Object> target) {
 		
 		return new Fields(target.getDeclaredFields());
 	}

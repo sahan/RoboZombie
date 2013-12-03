@@ -136,7 +136,7 @@ public final class Metadata {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final RequestMethod findMethod(Method definition) {
+	public static RequestMethod findMethod(Method definition) {
 		
 		Request request = definition.getAnnotation(Request.class);
 		
@@ -170,7 +170,7 @@ public final class Metadata {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final String findPath(Method definition) {
+	public static String findPath(Method definition) {
 		
 		Request request = definition.getAnnotation(Request.class);
 		

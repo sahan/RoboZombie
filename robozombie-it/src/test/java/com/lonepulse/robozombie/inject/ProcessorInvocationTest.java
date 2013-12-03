@@ -92,7 +92,7 @@ public class ProcessorInvocationTest {
 	@Test
 	public final void testResponseArgumentContextType() {
 		
-		expectedException.expectCause(Is.isA(IllegalArgumentException.class));
+		expectedException.expectCause(Is.isA(ClassCastException.class));
 		Processors.RESPONSE.run(new HttpGet(), new Object());
 	}
 	

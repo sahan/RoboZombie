@@ -20,8 +20,6 @@ package com.lonepulse.robozombie.processor;
  * #L%
  */
 
-
-
 /**
  * <p>This contract defines a strategy which accepts data, acts on them based on a given set of instructions 
  * and returns a result. Its designed to be as generic as possible and any concrete or abstract implementation 
@@ -59,5 +57,5 @@ public interface Processor<RESULT, FAILURE extends Throwable> {
 	 * 
 	 * @since 1.2.4
 	 */
-	public RESULT run(Object... args) throws FAILURE;
+	RESULT run(Object... args) throws FAILURE;
 }

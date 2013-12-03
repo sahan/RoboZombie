@@ -67,7 +67,7 @@ public final class Assert {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final <T extends Object> T assertAssignable(Object arg, Class<T> type) {
+	public static <T extends Object> T assertAssignable(Object arg, Class<T> type) {
 		
 		assertNotNull(arg);
 		assertNotNull(type);
@@ -97,7 +97,7 @@ public final class Assert {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final <T extends Object> T assertNotNull(T arg) {
+	public static <T extends Object> T assertNotNull(T arg) {
 		
 		if(arg == null) {
 		
@@ -124,7 +124,7 @@ public final class Assert {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final <T extends Object> T assertNotNull(T arg, String message) {
+	public static <T extends Object> T assertNotNull(T arg, String message) {
 		
 		if(arg == null) {
 			
@@ -152,7 +152,7 @@ public final class Assert {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final <T extends Object> T assertNotNull(T arg, Class<T> type) {
+	public static <T extends Object> T assertNotNull(T arg, Class<T> type) {
 		
 		if(arg == null) {
 			
@@ -187,7 +187,7 @@ public final class Assert {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final <T extends Object> T assertNotEmpty(T arg) {
+	public static <T extends Object> T assertNotEmpty(T arg) {
 		
 		assertNotNull(arg);
 		
@@ -213,6 +213,73 @@ public final class Assert {
 	}
 	
 	/**
+	 * <p>Asserts that the given argument is not <b>{@code null} and has the specified number of elements. 
+	 * The null check is performed using {@link #assertNotNull(Object)}. If the argument does not contain 
+	 * the specified number of elements {@link IllegalArgumentException} will be thrown with the message, 
+	 * <i>"The supplied argument did not contain the required number of elements"</i>.</p>
+	 * 
+	 * <p><b>Note</b> that only the following types are accepted: {@link CharSequence}, {@link Collection}, 
+	 * {@link Map}, {@code Object[]}, {@code boolean[]}, {@code char[]}, {@code byte[]}, {@code short[]}, 
+	 * {@code int[]}, {@code long[]}, {@code float[]}, {@code double[]}. <b>All other types will manage to 
+	 * pass this assertion</b> (granted the argument is {@code not null}).</p>
+	 *
+	 * @param arg
+	 * 			the argument to be asserted as being {@code not empty}
+	 * <br><br>
+	 * @param length
+	 * 			the acceptable number of required elements
+	 * @param optional
+	 * 			any optional lengths which might be acceptable 
+	 * <br><br>
+	 * @return the argument which was asserted to be of the required length
+	 * <br><br>
+	 * @throws NullPointerException
+	 * 			if the supplied argument was found to be {@code null}
+	 * <br><br>
+	 * @throws IllegalArgumentException
+	 * 			if the supplied argument did not contain the required number of arguments
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	public static <T extends Object> T assertLength(T arg, long length, long... optional) {
+		
+		assertNotNull(arg);
+		
+		long actualLength = arg instanceof CharSequence? ((CharSequence)arg).length() : 
+							arg instanceof Collection<?>? ((Collection<?>)arg).size() : 
+						    arg instanceof Map<?, ?>? ((Map<?, ?>)arg).size() : 
+						    arg instanceof Object[]? ((Object[])arg).length : 
+						    arg instanceof boolean[]? ((boolean[])arg).length : 
+						    arg instanceof char[]? ((char[])arg).length : 
+						    arg instanceof byte[]? ((byte[])arg).length : 
+						    arg instanceof short[]? ((short[])arg).length : 
+						    arg instanceof int[]? ((int[])arg).length : 
+						    arg instanceof long[]? ((long[])arg).length : 
+						    arg instanceof float[]? ((float[])arg).length : 
+						    arg instanceof double[]? ((double[])arg).length :0;
+						    
+		boolean illegal = actualLength != length;
+		
+		if(illegal == true && optional != null && optional.length > 0) {
+			
+			for (long optionalLength : optional) {
+				
+				if(optionalLength == actualLength) {
+					
+					return arg;
+				}
+			}
+		}
+		
+		if(illegal) {
+			
+			throw new IllegalArgumentException("The supplied argument did not contain the required number of elements."); 
+		}
+		
+		return arg;
+	}
+	
+	/**
 	 * <p>Asserts that the given context is valid using the supplied {@link Validator} along with 
 	 * a few other trivial validations such as a {@code null} check.</p>
 	 *
@@ -226,7 +293,7 @@ public final class Assert {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final <T> T assertValid(T context, Validator<T> validator) {
+	public static <T> T assertValid(T context, Validator<T> validator) {
 	
 		assertNotNull(context);
 		

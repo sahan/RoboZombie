@@ -76,10 +76,9 @@ class EntityProcessor extends AbstractResponseProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected Object process(HttpResponse response, InvocationContext context, Object content)
-	throws ResponseProcessorException {
+	protected Object process(HttpResponse response, InvocationContext context, Object content) {
 
-		if(response == null || response.getEntity() == null) {
+		if(response.getEntity() == null) {
 			
 			return content;
 		}

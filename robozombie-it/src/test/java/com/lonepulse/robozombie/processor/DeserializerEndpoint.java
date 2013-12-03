@@ -49,7 +49,7 @@ import com.lonepulse.robozombie.response.AbstractDeserializer;
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Deserializer(JSON)
-@Endpoint(host = "0.0.0.0", port = "8080")
+@Endpoint(host = "0.0.0.0", port = 8080)
 public interface DeserializerEndpoint {
 	
 	/**
@@ -107,16 +107,22 @@ public interface DeserializerEndpoint {
 		}
 
 		@Override
-		protected User deserialize(HttpResponse httpResponse, InvocationContext context) 
-		throws Exception {
-
-			String json = EntityUtils.toString(httpResponse.getEntity());
-			
-			User user = new Gson().fromJson(json, User.class);
-			user.setFirstName("<redacted>");
-			user.setLastName("<redacted>");
-			
-			return user;
+		protected User deserialize(HttpResponse httpResponse, InvocationContext context) {
+		
+			try {
+				
+				String json = EntityUtils.toString(httpResponse.getEntity());
+				
+				User user = new Gson().fromJson(json, User.class);
+				user.setFirstName("<redacted>");
+				user.setLastName("<redacted>");
+				
+				return user;
+			}
+			catch (Exception e) {
+				
+				throw new RuntimeException(e);
+			}
 		}
 	}
 	
@@ -141,4 +147,57 @@ public interface DeserializerEndpoint {
 	@Detach(Deserializer.class)
 	@Request(path = "/detach")
 	String detachDeserializer();
+	
+	
+	static final class UninstantiableDeserializer extends AbstractDeserializer<String> {
+		
+		public UninstantiableDeserializer(String illegalParam) { //illegal parameterized constructor
+			
+			super(String.class);
+		}
+		
+		@Override
+		protected String deserialize(HttpResponse response, InvocationContext context) {
+			
+			return "deserialized";
+		}
+	}
+	
+	/**
+	 * <p>A mock request which uses a custom deserializer that cannot be instantiated.</p>
+	 * 
+	 * @return mock content which will never be available due to a deserialization failure
+	 * 
+	 * @since 1.2.4
+	 */
+	@Request(path = "/uninstantiabledeserializer")
+	@Deserializer(type = UninstantiableDeserializer.class)
+	String uninstantiableDeserializer();
+	
+	
+	static final class IllegalDeserializer extends AbstractDeserializer<Object> {
+		
+		public IllegalDeserializer(String param) {
+			
+			super(Object.class); //illegal type
+		}
+		
+		@Override
+		protected String deserialize(HttpResponse response, InvocationContext context) {
+			
+			return "deserialized";
+		}
+	}
+	
+	/**
+	 * <p>A mock request which uses a custom deserializer that cannot be instantiated.</p>
+	 * 
+	 * @param user
+	 * 			the model which should be serialized using a custom serializer
+	 * 
+	 * @since 1.2.4
+	 */
+	@Request(path = "/illegaldeserializer")
+	@Deserializer(type = IllegalDeserializer.class)
+	User illegalDeserializer();
 }

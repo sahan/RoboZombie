@@ -20,9 +20,12 @@ package com.lonepulse.robozombie.processor;
  * #L%
  */
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.model.User;
 
 /**
  * <p>A dummy endpoint with request method definitions to test generic response handling.</p>
@@ -35,7 +38,7 @@ import com.lonepulse.robozombie.annotation.Request;
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Endpoint(host = "0.0.0.0", port = "8080")
+@Endpoint(host = "0.0.0.0", port = 8080)
 public interface ResponseEndpoint {
 	
 	/**
@@ -61,4 +64,28 @@ public interface ResponseEndpoint {
 	 */
 	@Request(path = "/resetcontent")
 	public String resetContent();
+	
+	/**
+	 * <p>A mock request expects the raw {@link HttpResponse}.</p>
+	 *
+	 * @since 1.2.4
+	 */
+	@Request(path = "/rawresponse")
+	public HttpResponse rawResponse();
+	
+	/**
+	 * <p>A mock request expects the raw {@link HttpEntity}.</p>
+	 *
+	 * @since 1.2.4
+	 */
+	@Request(path = "/rawentity")
+	public HttpEntity rawEntity();
+	
+	/**
+	 * <p>A mock request without an attached serializer.</p>
+	 *
+	 * @since 1.2.4
+	 */
+	@Request(path = "/nodeserializer")
+	public User noDeserializer();
 }

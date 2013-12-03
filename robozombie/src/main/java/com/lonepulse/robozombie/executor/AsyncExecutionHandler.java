@@ -50,7 +50,7 @@ public final class AsyncExecutionHandler implements ExecutionHandler {
 	
 	
 	@SuppressWarnings("unchecked") //safe cast from Object to AsyncHandler
-	private static final AsyncHandler<Object> getAsyncHandler(InvocationContext context) {
+	private static AsyncHandler<Object> getAsyncHandler(InvocationContext context) {
 		
 		AsyncHandler<Object> asyncHandler = null;
 		

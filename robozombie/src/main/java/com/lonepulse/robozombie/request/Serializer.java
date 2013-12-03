@@ -57,5 +57,5 @@ public interface Serializer<INPUT, OUTPUT> {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public OUTPUT run(INPUT input, InvocationContext context);
+	OUTPUT run(INPUT input, InvocationContext context);
 }

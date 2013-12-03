@@ -49,15 +49,26 @@ public class PlainDeserializer extends AbstractDeserializer<CharSequence> {
 	}
 	
 	/**
-	 * <p> Parses the content in the {@link HttpResponse} to any type which is 
-	 * assignable to a {@link CharSequence}.
+	 * <p>Parses the content in the {@link HttpResponse} to any type which is assignable 
+	 * to a {@link CharSequence}.</p>
 	 * 
 	 * @see AbstractDeserializer#run(HttpResponse, com.lonepulse.robozombie.inject.InvocationContext)
 	 */
 	@Override
-	public CharSequence deserialize(HttpResponse httpResponse, InvocationContext config) throws Exception {
+	public CharSequence deserialize(HttpResponse response, InvocationContext context) {
 
-		HttpEntity entity = httpResponse.getEntity();
-		return entity == null? "" :EntityUtils.toString(entity);
+		try {
+			
+			HttpEntity entity = response.getEntity();
+			return entity == null? "" :EntityUtils.toString(entity);
+		} 
+		catch(Exception e) {
+			
+			throw new DeserializerException(new StringBuilder("Plain deserialization failed for request <")
+			.append(context.getRequest().getName())
+			.append("> on endpoint <")
+			.append(context.getEndpoint().getName())
+			.append(">").toString(), e);
+		}
 	}
 }

@@ -139,7 +139,7 @@ public enum Serializers implements Serializer<Object, Object> {
 		}
 		catch(Exception e) {
 			
-			throw new SerializerInstantiationException(serializerType);
+			throw new SerializerInstantiationException(serializerType, e);
 		}
 	}
 }

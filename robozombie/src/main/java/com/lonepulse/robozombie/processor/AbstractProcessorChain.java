@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.processor;
  * #L%
  */
 
+import static com.lonepulse.robozombie.util.Assert.assertNotNull;
 
 /**
  * <p>This contract defines the services offered by a <i>chain</i> of sequentially executed {@link ProcessorChainLink}s. 
@@ -69,17 +70,10 @@ implements Processor<LINK_RESULT, LINK_FAILURE> {
 	 */
 	public AbstractProcessorChain(ProcessorChainLink<LINK_RESULT, LINK_FAILURE> root) {
 	
-		if(root == null) {
-			
-			StringBuilder errorContext = new StringBuilder("A ")
-			.append(AbstractProcessorChain.class.getName())
-			.append(" cannot be constructed with a <null> root ")
-			.append(ProcessorChainLink.class.getName());
-			
-			throw new IllegalStateException(errorContext.toString());
-		}
-		
-		this.root = root;
+		this.root = assertNotNull(root, new StringBuilder("A ")
+		.append(AbstractProcessorChain.class.getName())
+		.append(" cannot be constructed with a <null> root ")
+		.append(ProcessorChainLink.class.getName()).toString());
 	}
 	
 	/**
@@ -104,7 +98,7 @@ implements Processor<LINK_RESULT, LINK_FAILURE> {
 	 * @since 1.2.4
 	 */
 	@Override
-	public LINK_RESULT run(Object... args) throws ChainExecutionException {
+	public LINK_RESULT run(Object... args) {
 		
 		try {
 			
@@ -122,9 +116,9 @@ implements Processor<LINK_RESULT, LINK_FAILURE> {
 			
 			return result;
 		}
-		catch(Throwable t) { 
+		catch(Exception e) { 
 			
-			throw new ChainExecutionException(t);
+			throw new ChainExecutionException(e);
 		}
 	}
 	

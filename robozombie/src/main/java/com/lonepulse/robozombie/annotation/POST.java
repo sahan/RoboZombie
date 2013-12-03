@@ -63,5 +63,5 @@ public @interface POST {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public String value() default "";
+	String value() default "";
 }

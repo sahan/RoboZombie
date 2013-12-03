@@ -32,6 +32,7 @@ import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 
+import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -260,5 +261,54 @@ public class DeserializerEndpointTest {
 		
 		verify(getRequestedFor(urlEqualTo(subpath)));
 		assertEquals(body, responseContent);
+	}
+	
+	
+	/**
+	 * <p>Test for a custom deserializer that cannot be instantiated.</p>
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable> 
+	public final void testUninstantiableDeserializer() throws ClassNotFoundException {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/uninstantiabledeserializer";
+		
+		stubFor(get(urlEqualTo(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		expectedException.expectCause(Is.isA((Class<Throwable>)
+			Class.forName("com.lonepulse.robozombie.response.ResponseProcessorException")));
+		
+		deserializerEndpoint.uninstantiableDeserializer();
+		
+		verify(getRequestedFor(urlEqualTo(subpath)));
+	}
+	
+	/**
+	 * <p>Test for a custom serializer that cannot be instantiated.</p>
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable> 
+	public final void testIllegalDeserializer() throws ClassNotFoundException {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/illegaldeserializer";
+		
+		stubFor(get(urlEqualTo(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+
+		expectedException.expectCause(Is.isA((Class<Throwable>)
+			Class.forName("com.lonepulse.robozombie.response.ResponseProcessorException")));
+		
+		deserializerEndpoint.illegalDeserializer();
+		
+		verify(getRequestedFor(urlEqualTo(subpath)));
 	}
 }

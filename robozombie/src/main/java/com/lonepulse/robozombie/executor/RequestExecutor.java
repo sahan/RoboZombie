@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.executor;
  * #L%
  */
 
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
@@ -48,6 +47,5 @@ public interface RequestExecutor {
 	 * @throws RequestExecutionException
 	 * 			if the HTTP request execution failed
 	 */
-	HttpResponse execute(HttpRequestBase httpRequestBase, InvocationContext config) 
-	throws RequestExecutionException;
+	HttpResponse execute(HttpRequestBase httpRequestBase, InvocationContext context);
 }

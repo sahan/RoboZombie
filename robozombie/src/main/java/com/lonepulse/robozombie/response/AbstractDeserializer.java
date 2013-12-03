@@ -63,14 +63,14 @@ public abstract class AbstractDeserializer<OUTPUT> implements Deserializer<OUTPU
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final OUTPUT run(HttpResponse httpResponse, InvocationContext config) {
+	public final OUTPUT run(HttpResponse response, InvocationContext context) {
 		
-		Class<?> requestReturnType = config.getRequest().getReturnType();
+		Class<?> requestReturnType = context.getRequest().getReturnType();
 		
 		try {
 			
 			throwIfNotAssignable(requestReturnType);
-			return deserialize(httpResponse, config);
+			return deserialize(response, context);
 		}
 		catch(Exception e) {
 		
@@ -102,14 +102,18 @@ public abstract class AbstractDeserializer<OUTPUT> implements Deserializer<OUTPU
 	 * <p>The response {@link HttpEntity} can be obtained using {@link HttpResponse#getEntity()} and it's 
 	 * content can be <i>stringified</i> with {@link EntityUtils#toString(HttpEntity)}.</p>
 	 * 
-	 * <p><b>Note</b> that certain {@link HttpResponse}s may not contain an {@link HttpEntity} which areturn {@code null} up#getEntity()}
+	 * <p><b>Note</b> that certain {@link HttpResponse}s may not contain an {@link HttpEntity} which can 
+	 * be confirmed by performing a null check on {@link HttpResponse#getEntity()}.</p>
 	 * 
-	 * @param httpResponse
+	 * <p><b>Note</b> that any runtime errors which might occur during serialization are caught, wrapped 
+	 * in an instance of {@link DeserializerException} (stack-trace preserved) and allowed to bubble up.</p>
+	 * 
+	 * @param response
 	 * 				the {@link HttpResponse} of a successful request execution
 	 * <br><br>
 	 * @param context
-	 * 				the {@link InvocationContext} which supplies all information 
-	 * 				regarding the request and it's invocation
+	 * 				the {@link InvocationContext} which supplies all information regarding the request and 
+	 * 				it's invocation
      * <br><br>
 	 * @return the entity which is created after deserializing the output
 	 * <br><br>
@@ -118,6 +122,5 @@ public abstract class AbstractDeserializer<OUTPUT> implements Deserializer<OUTPU
 	 * <br><br>
 	 * @since 1.1.4
 	 */
-	protected abstract OUTPUT deserialize(HttpResponse httpResponse, InvocationContext context) 
-	throws Exception;
+	protected abstract OUTPUT deserialize(HttpResponse response, InvocationContext context);
 }

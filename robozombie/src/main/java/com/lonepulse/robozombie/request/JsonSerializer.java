@@ -135,20 +135,31 @@ final class JsonSerializer extends AbstractSerializer<Object, String> {
 	 * 			if the <b>GSON library</b> was not found on the classpath or if an incompatible version 
 	 * 			of the library is being used
 	 * <br><br>
-	 * @throws Exception 
-	 * 			if the model failed to be serialized to its JSON representation
+	 * @throws SerializerException
+	 * 			if JSON serialization failed for the given entity using the Gson library 
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	protected String serialize(Object input, InvocationContext context) throws Exception {
+	protected String serialize(Object input, InvocationContext context) {
 		
 		if(unavailable || incompatible) {
 			
 			throw new IllegalStateException(unavailable? ERROR_CONTEXT_UNAVAILABLE :ERROR_CONTEXT_INCOMPATIBLE);
 		}
 		
-		return input == null? null :(String) Gson_toJson.invoke(
-				gson, input, TypeToken_getType.invoke(TypeToken_GET.invoke(null, input.getClass())));
+		try {
+			
+			return input == null? null :(String) Gson_toJson.invoke(
+					gson, input, TypeToken_getType.invoke(TypeToken_GET.invoke(null, input.getClass())));
+		} 
+		catch(Exception e) {
+			
+			throw new SerializerException(new StringBuilder("JSON serialization failed for request <")
+			.append(context.getRequest().getName())
+			.append("> on endpoint <")
+			.append(context.getEndpoint().getName())
+			.append(">").toString(), e);
+		}
 	}
 }

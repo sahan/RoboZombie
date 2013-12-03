@@ -35,7 +35,7 @@ import com.lonepulse.robozombie.inject.Zombie;
  * 
  * <b>Usage:</b>
  * <code>
- * <pre><br>@Endpoint("api.twitter.com")<br><b>@Configuration(TwitterZombieConfig.class)</b>
+ * <pre><br>@Endpoint("api.twitter.com")<br><b>@Config(TwitterZombieConfig.class)</b>
  *public interface TwitterEndpoint {<br>}</pre>
  * </code>
  * 
@@ -47,7 +47,7 @@ import com.lonepulse.robozombie.inject.Zombie;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Configuration {
+public @interface Config {
 
 
 	/**

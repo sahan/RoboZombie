@@ -93,21 +93,20 @@ public abstract class AbstractSerializer<INPUT, OUTPUT> implements Serializer<IN
 	 * 
 	 * <p><b>Note</b> that all <i>output</i>s are translated to a corresponding {@link HttpEntity} for 
 	 * enclosure within an {@link HttpRequest}. Therefore, all output instances should comply to a type 
-	 * specified at {@link Entities#resolve(Object)}.</p> 
+	 * specified at {@link Entities#resolve(Object)}.</p>
+	 * 
+	 * <p><b>Note</b> that any runtime errors which might occur during serialization are caught, wrapped 
+	 * in an instance of {@link SerializerException} (stack-trace preserved) and allowed to bubble up.</p>
 	 * 
 	 * @param input
 	 * 			the <i>input</i> model to be serialized to a transmittable format
-	 * 
+	 * <br><br>
 	 * @param context
 	 * 			the {@link InvocationContext} which supplies information on the proxy invocation
      * <br><br>
 	 * @return the serialized <i>output</i> which will be translated to an {@link HttpEntity}   
 	 * <br><br>
-	 * @throws Exception 
-	 * 			any errors which might occur during serialization are caught, wrapped in an instance 
-	 * 			of {@link SerializerException} (cause preserved) and allowed to bubble up
-	 * <br><br>
 	 * @since 1.2.4
 	 */
-	protected abstract OUTPUT serialize(INPUT input, InvocationContext context) throws Exception;
+	protected abstract OUTPUT serialize(INPUT input, InvocationContext context);
 }

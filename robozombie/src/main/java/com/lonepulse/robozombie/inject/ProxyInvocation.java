@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.inject;
  * #L%
  */
 
-
 import static com.lonepulse.robozombie.util.Assert.assertValid;
 
 import java.lang.reflect.Method;
@@ -45,7 +44,7 @@ import com.lonepulse.robozombie.processor.Processors;
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-class ProxyInvocation implements Invocation {
+final class ProxyInvocation implements Invocation {
 
 	
 	/**
@@ -65,7 +64,7 @@ class ProxyInvocation implements Invocation {
 	 * <br><br>
 	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
-	static abstract class Template {
+	abstract static class Template {
 		
 		
 		private final Class<?> endpoint;
@@ -177,7 +176,7 @@ class ProxyInvocation implements Invocation {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final ProxyInvocation newInstance(
+	public static ProxyInvocation newInstance(
 		ProxyInvocation.Template template, Object proxy, Method method, Object[] args) {
 		
 		InvocationContext context = InvocationContext.newBuilder()

@@ -57,5 +57,5 @@ public @interface FormParam {
 	 * <br><br>
 	 * @since 1.1.0
 	 */
-	public String value();
+	String value();
 }

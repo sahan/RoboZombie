@@ -40,7 +40,7 @@ import com.lonepulse.robozombie.annotation.Request;
  * <br><br> 
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Endpoint(host = "0.0.0.0", port = "8080")
+@Endpoint(host = "0.0.0.0", port = 8080)
 public interface HeaderEndpoint {
 	
 	/**

@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.response;
  * #L%
  */
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -75,14 +74,8 @@ class HeaderProcessor extends AbstractResponseProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected Object process(HttpResponse response, InvocationContext context, Object content)
-	throws ResponseProcessorException {
+	protected Object process(HttpResponse response, InvocationContext context, Object content) {
 
-		if(response == null) {
-			
-			return content;
-		}
-		
 		try {
 			
 			List<Map.Entry<Header, Object>> headers = Metadata.onParams(Header.class, context);
@@ -96,11 +89,6 @@ class HeaderProcessor extends AbstractResponseProcessor {
 					
 					name = header.getKey().value();
 					value = (StringBuilder)header.getValue();
-									
-					if(value == null || value.equals("")) {
-						
-						continue; //skip headers which are omitted for the current invocation
-					}
 					
 					org.apache.http.Header[] responseHeaders = response.getHeaders(name);
 					
@@ -118,8 +106,7 @@ class HeaderProcessor extends AbstractResponseProcessor {
 		}
 		catch(Exception e) {
 			
-			throw (e instanceof ResponseProcessorException)? 
-					(ResponseProcessorException)e :new ResponseProcessorException(getClass(), context, e);
+			throw new ResponseProcessorException(getClass(), context, e);
 		}
 	}
 }

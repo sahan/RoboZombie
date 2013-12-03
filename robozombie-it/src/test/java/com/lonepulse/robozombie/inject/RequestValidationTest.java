@@ -46,7 +46,7 @@ public class RequestValidationTest {
 	 * <p>Represents an endpoint definition with a missing @{@link Request} annotation on 
 	 * one of its request definitions.
 	 */
-	@Endpoint(host = "0.0.0.0", port = "8080")
+	@Endpoint(host = "0.0.0.0", port = 8080)
 	private interface MissingRequestAnnotationEndpoint {
 		
 		String invalidRequest();

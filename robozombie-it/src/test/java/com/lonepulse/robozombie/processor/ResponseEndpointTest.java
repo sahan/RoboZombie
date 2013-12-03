@@ -34,8 +34,12 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
+import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -43,11 +47,14 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.tester.org.apache.http.TestHttpResponse;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.google.gson.Gson;
 import com.lonepulse.robozombie.annotation.Bite;
 import com.lonepulse.robozombie.executor.RequestFailedException;
 import com.lonepulse.robozombie.inject.Zombie;
+import com.lonepulse.robozombie.model.User;
 
 /**
  * <p>Performs <b>Unit Testing</b> on the proxy of {@link ResponseEndpoint}.
@@ -157,5 +164,67 @@ public class ResponseEndpointTest {
 		assertNull(response);
 		
 		verify(getRequestedFor(urlEqualTo(subpath)));
+	}
+	
+	/**
+	 * <p>Test for a request which expects the raw {@link HttpResponse}.</p>
+	 *
+	 * @since 1.2.4
+	 */
+	@Test
+	public final void testRawResponse() throws ParseException, IOException {
+
+		String subpath = "/rawresponse"; 
+		String url = "http://0.0.0.0:8080" + subpath; 
+		String body = "Welcome to the Republic of Genosha";
+		
+		Robolectric.addHttpResponseRule(HttpGet.METHOD_NAME, url, new TestHttpResponse(200, body));
+		
+		Object response = responseEndpoint.rawResponse();
+		
+		assertNotNull(response);
+		assertTrue(response instanceof HttpResponse);
+		assertEquals(EntityUtils.toString(((HttpResponse)response).getEntity()), body);
+	}
+	
+	/**
+	 * <p>Test for a request which expects the raw {@link HttpEntity}.</p>
+	 *
+	 * @since 1.2.4
+	 */
+	@Test
+	public final void testRawEntity() throws ParseException, IOException {
+		
+		String subpath = "/rawentity"; 
+		String url = "http://0.0.0.0:8080" + subpath; 
+		String body = "Hulk, make me a sandwich";
+		
+		Robolectric.addHttpResponseRule(HttpGet.METHOD_NAME, url, new TestHttpResponse(200, body));
+		
+		Object response = responseEndpoint.rawEntity();
+		
+		assertNotNull(response);
+		assertTrue(response instanceof HttpEntity);
+		assertEquals(EntityUtils.toString(((HttpEntity)response)), body);
+	}
+	
+	/**
+	 * <p>Test for a request which expects the raw {@link HttpEntity}.</p>
+	 *
+	 * @since 1.2.4
+	 */
+	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
+	public final void testNoDeserializer() throws ClassNotFoundException {
+		
+		String subpath = "/nodeserializer";
+		String url = "http://0.0.0.0:8080" + subpath;
+		String body = new Gson().toJson(new User(1, "Cain", "Marko", 37, false));
+		
+		Robolectric.addHttpResponseRule(HttpGet.METHOD_NAME, url, new TestHttpResponse(200, body));
+		
+		expectedException.expectCause(Is.isA((Class<Throwable>)
+			Class.forName("com.lonepulse.robozombie.response.DeserializerUndefinedException")));
+		
+		responseEndpoint.noDeserializer();
 	}
 }

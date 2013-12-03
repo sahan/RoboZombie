@@ -25,8 +25,10 @@ import java.util.Map;
 
 import org.apache.http.client.HttpClient;
 
+import android.util.Log;
+
 import com.lonepulse.robozombie.Directory;
-import com.lonepulse.robozombie.annotation.Configuration;
+import com.lonepulse.robozombie.annotation.Config;
 import com.lonepulse.robozombie.inject.Zombie;
 
 /**
@@ -81,7 +83,11 @@ enum HttpClientDirectory implements Directory<Class<?>, HttpClient> {
 							
 							httpClient.getConnectionManager().shutdown();
 						}
-						catch(Exception e) {}
+						catch(Exception e) {
+							
+							Log.w(getClass().getSimpleName(), 
+								"Failed to shutdown the connection manager for an HTTP client.", e);
+						}
 					}
 				}
 			}
@@ -107,8 +113,8 @@ enum HttpClientDirectory implements Directory<Class<?>, HttpClient> {
 	@Override
 	public synchronized HttpClient bind(Class<?> endpoint, HttpClient httpClient) {
 		
-		String configClassName = endpoint.isAnnotationPresent(Configuration.class)?
-			endpoint.getAnnotation(Configuration.class).value().getName() :Zombie.Configuration.class.getName();
+		String configClassName = endpoint.isAnnotationPresent(Config.class)?
+			endpoint.getAnnotation(Config.class).value().getName() :Zombie.Configuration.class.getName();
 			
 		String endpointClassName = endpoint.getName();
 			

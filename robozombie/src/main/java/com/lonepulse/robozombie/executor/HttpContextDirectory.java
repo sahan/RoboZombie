@@ -58,7 +58,7 @@ enum HttpContextDirectory implements Directory<Class<?>, HttpContext> {
 	CONTEXT_FACTORY = new AbstractGenericFactory<Void, HttpContext, RoboZombieRuntimeException>() {
 		
 		@Override
-		public HttpContext newInstance() throws RoboZombieRuntimeException {
+		public HttpContext newInstance() {
 			
 			try {
 				

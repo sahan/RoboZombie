@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
-
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,7 +43,7 @@ import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**
- * <p>This is a concrete implementation of {@link RequestProcessor} which discovers <i>form parameters</i> 
+ * <p>This is a concrete implementation of {@link AbstractRequestProcessor} which discovers <i>form parameters</i> 
  * in a request which are annotated with @{@link FormParam} or @{@link FormParams} and constructs a 
  * a list of <a href="http://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms"> form-urlencoded
  * </a> <b>name-value</b> pairs which will be sent in the request body.</p> 
@@ -74,7 +73,7 @@ class FormParamProcessor extends AbstractRequestProcessor {
 	 * <p><b>Note</b> that any {@link HttpRequestBase}s which do not extend {@link HttpEntityEnclosingRequestBase} 
 	 * will be ignored.</p>
 	 * 
-	 * <p>See {@link RequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
+	 * <p>See {@link AbstractRequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
 	 * 
 	 * @param httpRequestBase
 	 * 			prefers an instance of {@link HttpPost} so as to conform with HTTP 1.1; however, other  
@@ -93,7 +92,7 @@ class FormParamProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) throws RequestProcessorException {
+	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) {
 
 		try {
 			

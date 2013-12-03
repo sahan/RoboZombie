@@ -58,7 +58,7 @@ class UriProcessor extends AbstractRequestProcessor {
 	 * 
 	 * <p>See {@link AbstractRequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
 	 * 
-	 * @param httpRequestBase
+	 * @param request
 	 * 			the {@link HttpRequestBase} whose URI will be initialized to the complete URI formualted using 
 	 * 			the endpoint's root path and the request's subpath
 	 * <br><br>
@@ -75,30 +75,29 @@ class UriProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) 
-	throws RequestProcessorException {
+	protected HttpRequestBase process(HttpRequestBase request, InvocationContext context) {
 
 		try {
 			
 			Endpoint endpoint = context.getEndpoint().getAnnotation(Endpoint.class);
-			String value = endpoint.value();
-			String host = (value == null || value.isEmpty())? endpoint.host() :value;
 			
 			String scheme = endpoint.scheme();
-			String port = endpoint.port();
+			String value = endpoint.value();
+			String host = (value == null || value.isEmpty())? endpoint.host() :value;
+			int port = endpoint.port();
 			String path = endpoint.path();
 			
-			URIBuilder uriBuilder = new URIBuilder();
-			uriBuilder.setScheme(scheme).setHost(host).setPath(path + Metadata.findPath(context.getRequest()));
-	
-			if(!port.equals("")) {
+			URIBuilder uriBuilder = new URIBuilder()
+			.setScheme(scheme).setHost(host).setPath(path + Metadata.findPath(context.getRequest()));
+
+			if(port >= 0) {
 				
-				uriBuilder.setPort(Integer.parseInt(port));
+				uriBuilder.setPort(port);
 			}
 			
-			httpRequestBase.setURI(uriBuilder.build());
+			request.setURI(uriBuilder.build());
 			
-			return httpRequestBase;
+			return request;
 		}
 		catch(Exception e) {
 			

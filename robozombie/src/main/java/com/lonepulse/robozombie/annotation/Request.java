@@ -133,7 +133,7 @@ public @interface Request {
 	 * <br><br>
 	 * @since 1.1.0
 	 */
-	public RequestMethod method() default RequestMethod.GET;
+	RequestMethod method() default RequestMethod.GET;
 	
 	/**
 	 * <p>A sub-path which which continues from the root hierarchy of the uri 
@@ -144,5 +144,5 @@ public @interface Request {
 	 * <br><br>
 	 * @since 1.1.0
 	 */
-	public String path() default "";
+	String path() default "";
 }

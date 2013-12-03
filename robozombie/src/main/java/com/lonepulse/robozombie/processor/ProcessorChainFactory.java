@@ -71,7 +71,7 @@ extends AbstractGenericFactory <Processor<RESULT, FAILURE>, ProcessorChainLink<R
 	 */
 	@Override
 	public ProcessorChainLink<RESULT, FAILURE> newInstance(
-		Processor<RESULT, FAILURE> root, Processor<RESULT, FAILURE>... successors) throws ChainCreationException {
+		Processor<RESULT, FAILURE> root, Processor<RESULT, FAILURE>... successors) {
 		
 		assertNotNull(root, new StringBuilder("The root ")
 		.append(Processor.class.getName())

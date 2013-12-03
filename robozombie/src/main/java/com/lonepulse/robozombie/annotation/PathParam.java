@@ -60,5 +60,5 @@ public @interface PathParam {
 	 * <br><br>
 	 * @since 1.1.1
 	 */
-	public String value();
+	String value();
 }

@@ -54,5 +54,5 @@ public interface Deserializer<T extends Object> {
 	 * <br><br>
 	 * @since 1.1.1
 	 */
-	public T run(HttpResponse httpResponse, InvocationContext config);
+	T run(HttpResponse httpResponse, InvocationContext config);
 }

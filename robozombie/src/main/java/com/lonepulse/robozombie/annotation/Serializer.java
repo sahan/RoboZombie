@@ -73,7 +73,7 @@ public @interface Serializer {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public ContentType value() default ContentType.UNDEFINED;
+	ContentType value() default ContentType.UNDEFINED;
 	
 	/**
 	 * <p>The {@link Class} of the custom {@link AbstractSerializer} extension to be used.</p> 
@@ -87,5 +87,5 @@ public @interface Serializer {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public Class<? extends AbstractSerializer<?,?>> type() default PlainSerializer.class;
+	Class<? extends AbstractSerializer<?,?>> type() default PlainSerializer.class;
 }

@@ -34,6 +34,7 @@ import java.io.IOException;
 import org.apache.http.ParseException;
 import org.apache.http.entity.SerializableEntity;
 import org.apache.http42.util.EntityUtils;
+import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -159,7 +160,7 @@ public class SerializerEndpointTest {
 	 * @since 1.2.4
 	 */
 	@Test
-	public final void testParseCustom() {
+	public final void testSerializeCustom() {
 		
 		String subpath = "/custom", redacted = "<redacted>";
 		
@@ -196,5 +197,45 @@ public class SerializerEndpointTest {
 		
 		verify(putRequestedFor(urlEqualTo(subpath))
 			  .withRequestBody(equalTo(EntityUtils.toString(new SerializableEntity(user, true)))));
+	}
+	
+	/**
+	 * <p>Test for a custom serializer that cannot be instantiated.</p>
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
+	public final void testUninstantiableSerializer() throws ClassNotFoundException {
+		
+		String subpath = "/uninstantiableserializer";
+		
+		stubFor(put(urlEqualTo(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		expectedException.expectCause(Is.isA((Class<Throwable>)
+			Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		
+		serializerEndpoint.uninstantiableSerializer("serialized");
+	}
+	
+	/**
+	 * <p>Test for a custom serializer that cannot be instantiated.</p>
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable> 
+	public final void testIllegalSerializer() throws ClassNotFoundException {
+		
+		String subpath = "/illegalserializer";
+		
+		stubFor(put(urlEqualTo(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+
+		expectedException.expectCause(Is.isA((Class<Throwable>)
+			Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		
+		serializerEndpoint.illegalSerializer("serialized");
 	}
 }

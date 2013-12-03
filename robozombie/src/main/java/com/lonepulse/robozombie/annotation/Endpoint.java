@@ -59,7 +59,7 @@ public @interface Endpoint {
 	 * <br><br>
 	 * @since 1.1.2
 	 */
-	public String scheme() default "http";
+	String scheme() default "http";
 	
 	/**
 	 * <p>The hostname of the endpoint.</p> 
@@ -68,7 +68,7 @@ public @interface Endpoint {
 	 * <br><br>
 	 * @since 1.1.2
 	 */
-	public String value() default "";
+	String value() default "";
 	
 	/**
 	 * <p>The hostname of the endpoint.</p> 
@@ -77,7 +77,7 @@ public @interface Endpoint {
 	 * <br><br>
 	 * @since 1.1.2
 	 */
-	public String host() default "";
+	String host() default "";
 	
 	/**
 	 * <p>The <b>port</b> through which a channel is opened for communication 
@@ -91,7 +91,7 @@ public @interface Endpoint {
 	 * <br><br>
 	 * @since 1.1.2
 	 */
-	public String port() default "";
+	int port() default -1;
 
 	/**
 	 * <p>The path hierarchy of the <b>URI</b> on which the resource is located. 
@@ -102,5 +102,5 @@ public @interface Endpoint {
 	 * <br><br>
 	 * @since 1.1.2
 	 */
-	public String path() default "";
+	String path() default "";
 }

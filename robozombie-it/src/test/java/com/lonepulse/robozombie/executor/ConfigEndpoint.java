@@ -20,8 +20,7 @@ package com.lonepulse.robozombie.executor;
  * #L%
  */
 
-
-import com.lonepulse.robozombie.annotation.Configuration;
+import com.lonepulse.robozombie.annotation.Config;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.inject.Zombie;
@@ -37,8 +36,8 @@ import com.lonepulse.robozombie.inject.Zombie;
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Configuration(ZombieConfig.class)
-@Endpoint(host = "0.0.0.0", port = "8080")
+@Config(ZombieConfig.class)
+@Endpoint(host = "0.0.0.0", port = 8080)
 public interface ConfigEndpoint {
 	
 	

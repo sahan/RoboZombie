@@ -64,7 +64,7 @@ public class PlainSerializer extends AbstractSerializer<Object, String> {
 	 * @since 1.2.4
 	 */
 	@Override
-	public String serialize(Object input, InvocationContext context) throws Exception {
+	public String serialize(Object input, InvocationContext context) {
 
 		return input == null? "" :String.valueOf(input);
 	}

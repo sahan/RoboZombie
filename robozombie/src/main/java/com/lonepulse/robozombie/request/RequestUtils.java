@@ -187,7 +187,7 @@ final class RequestUtils {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	static final HttpRequestBase translateRequestMethod(InvocationContext context) {
+	static HttpRequestBase translateRequestMethod(InvocationContext context) {
 		
 		RequestMethod requestMethod = Metadata.findMethod(context.getRequest());
 		

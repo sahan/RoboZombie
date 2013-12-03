@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.processor;
  * #L%
  */
 
+import static com.lonepulse.robozombie.util.Assert.assertNotNull;
 
 /**
  * <p>This entity represents a <b>single link</b> in a <i>processor chain</i>. It wraps the {@link Processor} 
@@ -72,18 +73,13 @@ public final class ProcessorChainLink<RESULT, FAILURE extends Throwable> {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final <RESULT, FAILURE extends Throwable> 
+	public static <RESULT, FAILURE extends Throwable> 
 	ProcessorChainLink<RESULT, FAILURE> from(Processor<RESULT, FAILURE> processor) {
 		
-		if(processor == null) {
-			
-			StringBuilder errorContext = new StringBuilder("A ")
-			.append(ProcessorChainLink.class.getName())
-			.append(" cannot be instantiated with a <null> ")
-			.append(Processor.class.getName());
-			
-			throw new IllegalStateException(errorContext.toString());
-		}
+		assertNotNull(processor, new StringBuilder("A ")
+		.append(ProcessorChainLink.class.getName())
+		.append(" cannot be instantiated with a <null> ")
+		.append(Processor.class.getName()).toString());
 		
 		return new ProcessorChainLink<RESULT, FAILURE>(processor);
 	}
@@ -104,16 +100,11 @@ public final class ProcessorChainLink<RESULT, FAILURE extends Throwable> {
 	 */
 	public ProcessorChainLink<RESULT, FAILURE> setSuccessor(ProcessorChainLink<RESULT, FAILURE> successor) {
 		
-		if(successor == null) {
-			
-			StringBuilder errorContext = new StringBuilder("The ")
-			.append(ProcessorChainLink.class.getName())
-			.append(" which is designated to be the successor cannot be <null>");
-			
-			throw new IllegalStateException(errorContext.toString());
-		}
+		this.successor = assertNotNull(successor, new StringBuilder("The ")
+		.append(ProcessorChainLink.class.getName())
+		.append(" which is designated to be the successor cannot be <null>").toString());
 		
-		return (this.successor = successor);
+		return successor;
 	}
 	
 	/**

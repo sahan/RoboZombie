@@ -75,7 +75,7 @@ enum EndpointProxyFactory implements ProxyFactory {
 				endpoint.getClassLoader(), new Class<?>[] {endpoint} , new InvocationHandler() {
 				
 				@Override
-				public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
+				public Object invoke(final Object proxy, final Method method, final Object[] args) {
 
 					return ProxyInvocation.newInstance(template, proxy, method, args).invoke();
 				}

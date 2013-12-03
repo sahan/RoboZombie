@@ -46,5 +46,5 @@ public interface Validator<CONTEXT extends Object> {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	void validate(CONTEXT context) throws ValidationFailedException;
+	void validate(CONTEXT context);
 }

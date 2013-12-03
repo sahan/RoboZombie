@@ -20,7 +20,6 @@ package com.lonepulse.robozombie;
  * #L%
  */
 
-
 import java.util.Map;
 
 /**

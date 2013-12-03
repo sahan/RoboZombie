@@ -60,7 +60,7 @@ public final class Is {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final boolean successful(HttpResponse response) {
+	public static boolean successful(HttpResponse response) {
 		
 		int status = assertNotNull(response).getStatusLine().getStatusCode();
 		return status > 199 && status < 300;
@@ -82,7 +82,7 @@ public final class Is {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final boolean status(HttpResponse response, int code, int... codes) {
+	public static boolean status(HttpResponse response, int code, int... codes) {
 		
 		int status = assertNotNull(response).getStatusLine().getStatusCode();
 		
@@ -121,7 +121,7 @@ public final class Is {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final boolean detached(InvocationContext context, Class<? extends Annotation> type) {
+	public static boolean detached(InvocationContext context, Class<? extends Annotation> type) {
 		
 		Method request = context.getRequest();
 		
@@ -139,7 +139,7 @@ public final class Is {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public static final boolean async(InvocationContext context) {
+	public static boolean async(InvocationContext context) {
 		
 		return !detached(context, Async.class) && 
 			   (context.getRequest().isAnnotationPresent(Async.class) || 
