@@ -23,12 +23,14 @@ package com.lonepulse.robozombie.response;
 import org.apache.http.HttpResponse;
 
 /**
- * <p>This runtime exception is thrown dow whenever there is a failure in deserializing 
- * the content of an {@link HttpResponse} to the desired entity.
+ * <p>This runtime exception is thrown due to a failure in deserializing the content of an 
+ * {@link HttpResponse} to the desired entity.</p>
  * 
- * @version 1.1.1
+ * @version 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.2.4
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 class DeserializerException extends ResponseProcessorException {
 
@@ -38,11 +40,15 @@ class DeserializerException extends ResponseProcessorException {
 	
 	/**
 	 * See {@link ResponseProcessorException#ResponseProcessorException()}.
+	 * @since 1.2.4
+	 * <br><br>
 	 */
 	public DeserializerException() {}
 
 	/**
 	 * See {@link ResponseProcessorException#ResponseProcessorException(String)}.
+	 * @since 1.2.4
+	 * <br><br>
 	 */
 	public DeserializerException(String detailMessage) {
 		
@@ -51,6 +57,8 @@ class DeserializerException extends ResponseProcessorException {
 
 	/**
 	 * See {@link ResponseProcessorException#ResponseProcessorException(Throwable)}.
+	 * @since 1.2.4
+	 * <br><br>
 	 */
 	public DeserializerException(Throwable throwable) {
 		
@@ -59,6 +67,10 @@ class DeserializerException extends ResponseProcessorException {
 
 	/**
 	 * See {@link ResponseProcessorException#ResponseProcessorException(String, Throwable)}.
+	 * @since 1.2.4
+	 * <br><br>
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public DeserializerException(String detailMessage, Throwable throwable) {
 

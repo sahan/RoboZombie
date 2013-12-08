@@ -1,8 +1,5 @@
 package com.lonepulse.robozombie.response;
 
-import com.lonepulse.robozombie.annotation.Deserializer;
-import com.lonepulse.robozombie.annotation.Request;
-
 /*
  * #%L
  * RoboZombie
@@ -23,14 +20,17 @@ import com.lonepulse.robozombie.annotation.Request;
  * #L%
  */
 
+import com.lonepulse.robozombie.annotation.Deserializer;
 
 /**
- * <p>This runtime exception is thrown when the return type of a {@link Request} method 
- * cannot be assigned to the designated {@link Deserializer}'s return type. 
+ * <p>This runtime exception is thrown when the return type of a request method definition cannot be 
+ * assigned to the designated {@link Deserializer}'s return type. 
  * 
  * @version 1.1.1
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.2.4
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 class DeserializerNotAssignableException extends DeserializerException {
 
@@ -39,22 +39,34 @@ class DeserializerNotAssignableException extends DeserializerException {
 
 	
 	/**
-	 * <p>Displays a detailed description along with the stacktrace.
+	 * <p>Displays a detailed description with information on the deserializer's output type and request 
+	 * return type.</p>
+	 * 
+	 * @param deserializerOutputType
+	 * 			the output type of the {@link Deserializer} which was found to be incompatible
+	 * <br><br>
+	 * @param requestReturnType
+	 * 			the return type of the requuest definition which was found to be incompatible
+	 * <br><br>
+	 * @since 1.2.4
 	 */
-	public DeserializerNotAssignableException(Class<?> deserializerReturnType, Class<?> requestReturnType) {
+	public DeserializerNotAssignableException(Class<?> deserializerOutputType, Class<?> requestReturnType) {
 		
-		this(new StringBuilder("Cannot assign the deserializer's response of type ").append(deserializerReturnType.getName())
+		this(new StringBuilder("Cannot assign the deserializer's response of type ").append(deserializerOutputType.getName())
 			 .append(" to an instance of the request return type ").append(requestReturnType.getName()).toString());
 	}
 	
 	/**
-	 * See {@link RuntimeException#RuntimeException()}.
+	 * See {@link DeserializerException#DeserializerException()}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
-	public DeserializerNotAssignableException() {
-	}
+	public DeserializerNotAssignableException() {}
 
 	/**
-	 * See {@link RuntimeException#RuntimeException(String)}.
+	 * See {@link DeserializerException#DeserializerException(String)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public DeserializerNotAssignableException(String detailMessage) {
 		
@@ -62,7 +74,9 @@ class DeserializerNotAssignableException extends DeserializerException {
 	}
 
 	/**
-	 * See {@link RuntimeException#RuntimeException(Throwable)}.
+	 * See {@link DeserializerException#DeserializerException(Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public DeserializerNotAssignableException(Throwable throwable) {
 		
@@ -70,7 +84,7 @@ class DeserializerNotAssignableException extends DeserializerException {
 	}
 
 	/**
-	 * See {@link RuntimeException#RuntimeException(String, Throwable)}.
+	 * See {@link DeserializerException#DeserializerException(String, Throwable)}.
 	 */
 	public DeserializerNotAssignableException(String detailMessage, Throwable throwable) {
 

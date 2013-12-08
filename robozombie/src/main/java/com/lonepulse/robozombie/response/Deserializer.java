@@ -25,15 +25,16 @@ import org.apache.http.HttpResponse;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This interface policy of a <i>deserializer</i>. i.e. the unit which 
- * examines the content of a {@link HttpResponse} and parses that content 
- * into the desired entity.</p>
+ * <p>This contract defines the policy for a <i>deserializer</i> which reads the response content of a 
+ * successful request execution and converts it to a desired entity type which can be processed in memory.</p>
  * 
- * @version 1.1.4
+ * @version 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.2.4
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public interface Deserializer<T extends Object> {
+public interface Deserializer<OUTPUT> {
 
 	/**
 	 * <p>Executes the following steps for deserialization in order. 
@@ -43,16 +44,15 @@ public interface Deserializer<T extends Object> {
 	 *   <li>Process response entity</li>
 	 * </ol>
 	 * 
-	 * @param httpResponse
-	 * 				the {@link HttpResponse} from which the content is extracted
-	 * 
-	 * @param config
-	 * 				the {@link InvocationContext} which supplies all information 
-	 * 				regarding the request and it's invocation
+	 * @param context
+	 * 			the {@link InvocationContext} which supplies information on the proxy invocation
 	 * <br><br>
-	 * @return the entity which is created after deserializing the output
+	 * @param response
+	 * 			the {@link HttpResponse} which resulted from a successful request execution
 	 * <br><br>
-	 * @since 1.1.1
+	 * @return the response content after it has been deserialized to the desired output type
+	 * <br><br>
+	 * @since 1.2.4
 	 */
-	T run(HttpResponse httpResponse, InvocationContext config);
+	OUTPUT run(InvocationContext context, HttpResponse response);
 }

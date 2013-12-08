@@ -26,8 +26,8 @@ import com.lonepulse.robozombie.util.Entities;
 import com.lonepulse.robozombie.util.EntityResolutionFailedException;
 
 /**
- * <p>This runtime exception is thrown when a <b>custom</b> {@link Serializer} failed to be 
- * instantiated using the <b>default constructor</b> on its {@link Class}.</p>
+ * <p>This runtime exception is thrown when a <b>custom</b> {@link Serializer} failed to be instantiated 
+ * using the <b>default constructor</b> on its {@link Class}.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -42,7 +42,7 @@ class SerializerInstantiationException extends SerializerException {
 	
 
 	/**
-	 * <p>Displays a detailed error message with the {@link Class} of the serializer type 
+	 * <p>Displays a detailed error message with information on the {@link Class} of the serializer type 
 	 * which failed to be instantiated.</p>
 	 * 
 	 * @param serializerType
@@ -58,7 +58,7 @@ class SerializerInstantiationException extends SerializerException {
 	}
 	
 	/**
-	 * <p>Displays a detailed error message with the {@link Class} of the {@link Serializer} 
+	 * <p>Displays a detailed error message with information on the {@link Class} of the {@link Serializer} 
 	 * which failed to be instantiated due to an {@link EntityResolutionFailedException}.</p>
 	 * 
 	 * <p>See {@link AbstractSerializer#AbstractSerializer(Class)}.</p>
@@ -84,8 +84,8 @@ class SerializerInstantiationException extends SerializerException {
 	}
 	
 	/**
-	 * <p>Displays a detailed error message with the {@link Class} of the {@link Serializer} 
-	 * which failed to be instantiated.</p>
+	 * <p>Displays a detailed error message with information on the {@link Class} of the {@link Serializer} 
+	 * which failed to be instantiated, while preserving the stacktrace.</p>
 	 * 
 	 * @param serializerType
 	 * 			the {@link Class} of the {@link Serializer} which failed to be instantiated

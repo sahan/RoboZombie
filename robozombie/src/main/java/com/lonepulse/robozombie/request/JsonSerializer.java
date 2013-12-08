@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>An extension of {@link AbstractSerializer} which converts an object to a JSON {@link String}.</p>
+ * <p>An extension of {@link AbstractSerializer} which converts an object to a JSON string.</p>
  * 
  * <p><b>Note</b> that this serializer requires the <a href="http://code.google.com/p/google-gson">GSON</a> 
  * library to be available on the classpath to be active. If GSON is not detected, this serializer will 
@@ -117,17 +117,16 @@ final class JsonSerializer extends AbstractSerializer<Object, String> {
 	}
 
 	/**
-     * <p>Serializes the given model using <b>GSON</b> and returns the resulting JSON {@link String}.</p>
+     * <p>Serializes the given model using <b>GSON</b> and returns the resulting JSON string.</p>
      * 
-     * <p>See {@link AbstractSerializer#serialize(Object, InvocationContext)}.</p>
+     * <p>See {@link AbstractSerializer#serialize(InvocationContext, Object)}.</p>
      * 
-	 * @param input
-	 * 			the input model to be serialized into a JSON {@link String}
-	 * <br><br>
-	 * @param context
-	 * 			the {@link InvocationContext} which is used to discover further information regarding 
-	 * 			the proxy invocation
+     * @param context
+     * 			the {@link InvocationContext} to discover information on the proxy invocation
      * <br><br>
+	 * @param input
+	 * 			the input model to be serialized to a JSON string
+	 * <br><br>
 	 * @return the JSON {@link String} which represents the provided input model, else {@code null} if the 
 	 * 		   provided input was {@code null}
 	 * <br><br>
@@ -141,7 +140,7 @@ final class JsonSerializer extends AbstractSerializer<Object, String> {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected String serialize(Object input, InvocationContext context) {
+	protected String serialize(InvocationContext context, Object input) {
 		
 		if(unavailable || incompatible) {
 			

@@ -21,10 +21,10 @@ package com.lonepulse.robozombie;
  */
 
 /**
- * <p>This contract defines a naming service which can be used with any type for binding instances of 
- * the given type under an identifier and <i>looking them up</i> using the identifier at a later period.</p>
+ * <p>This contract defines a naming service which can be used for binding instances of a given 
+ * type under an identifier and <i>looking them up</i> using the identifier at a later period.</p>
  * 
- * @version 1.1.1
+ * @version 1.1.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
@@ -35,16 +35,16 @@ public interface Directory<NAME, OBJECT> {
 	/**
 	 * <p>Retains the given object under the specified name. If a binding already exists for the 
 	 * specified name the given object is ignored and the bound instance is returned. The object 
-	 * can be retrieved via {@link #lookup(Object)}.</p>
+	 * can  be retrieved via {@link #lookup(Object)}.</p>
 	 * 
 	 * @param name
-	 * 			the identifier to which the given object instance is bounds
+	 * 			the identifier to which the given object instance is bound
 	 * <br><br>
 	 * @param object
 	 * 			the object instance to be retained under the specified identifier
 	 * <br><br>
 	 * @return object
-	 * 			the object which was given; else the previous instance if a binding existed   
+	 * 			the object which was provided; else the previous instance if a binding existed   
 	 * <br><br>
 	 * @since 1.2.4
 	 */

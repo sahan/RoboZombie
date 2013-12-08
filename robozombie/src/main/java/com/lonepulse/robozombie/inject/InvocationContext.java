@@ -29,11 +29,16 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * <p>Represents a single <b>request invocation</b> on an endpoint proxy. The <i>context</i> comprises of both 
- * runtime information and request/endpoint metadata, as well as a reference to the proxy instance on which the 
- * request was invoked.</p>
+ * <p>Represents a single <b>request invocation</b> on an endpoint proxy. The context comprises 
+ * of both runtime information and request/endpoint metadata, as well as a reference to the proxy 
+ * instance on which the request was invoked.</p>
  * 
- * <p>Each context is immutable and new instances can be created using {@link InvocationContext#newBuilder()}</p>
+ * <p>{@link InvocationContext}s can be created using a new {@link InvocationContext.Builder} supplied 
+ * via {@link InvocationContext#newBuilder()}.</p>
+ * 
+ * <p>Each context is <b>pseudo-immutable</b> to the extent that its shallow-state cannot be altered 
+ * and neither can its deep-state with the exception of any <b>mutable arguments</b> accessed via 
+ * {@link #getArguments()}.</p> 
  * 
  * @version 1.1.0
  * <br><br>
@@ -44,8 +49,8 @@ import java.util.List;
 public final class InvocationContext {
 	
 	/**
-	 * <p>This contract defines the services for creating an {@link InvocationContext}. It identifies all the 
-	 * information which is governed by a single context and the accepted format therein.</p>
+	 * <p>This contract defines the services for creating an {@link InvocationContext}. It collects all 
+	 * the information which is governed by a single proxy invocation context.</p>
 	 * 
 	 * @version 1.1.0
 	 * <br><br>
@@ -53,13 +58,13 @@ public final class InvocationContext {
 	 * <br><br>
 	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
-	static interface Builder {
+	 static interface Builder {
 		
 		/**
-		 * <p>Sets the endpoint interface definition whose request was invoked via the associated proxy.</p>
+		 * <p>Sets the endpoint's definition interface whose request was invoked using a proxy.</p>
 		 * 
 		 * @param endpoint
-		 * 			the endpoint {@link Class} to which invoked request belongs 
+		 * 			the endpoint interface {@link Class} to which invoked request belongs 
 		 * <br><br>
 		 * @return the current instance of the {@link Builder} with the endpoint assigned
 		 * <br><br>
@@ -92,10 +97,10 @@ public final class InvocationContext {
 		Builder setRequest(Method request);
 
 		/**
-		 * <p>Sets the runtime arguments which were supplied to the endpoint proxy upon request invocation.</p>
+		 * <p>Sets the runtime arguments which were supplied to the proxy upon request invocation.</p>
 		 * 
 		 * @param arguments
-		 * 			the runtime request arguments supplied to the endpoint proxy
+		 * 			the runtime request arguments supplied to the endpoint proxy method
 		 * <br><br>
 		 * @return the current instance of the {@link Builder} with the request assigned
 		 * <br><br>
@@ -158,11 +163,8 @@ public final class InvocationContext {
 	}
 	
 	/**
-	 * <p>Returns an instance of {@link Builder} which can be used to construct a new {@link InvocationContext} 
-	 * by supplying the necessary information.</p>
-	 * 
-	 * <p><b>Note</b> that concrete implementations of {@link Builder} might be wrapped in additional layers 
-	 * which <b>validate</b> the given information before representing it in a new {@link InvocationContext}.</p>
+	 * <p>Returns an new {@link Builder} which can be used to construct an {@link InvocationContext} by 
+	 * supplying the necessary information.</p>
 	 * 
 	 * @return a new instance of {@link Builder} for constructing an {@link InvocationContext}
 	 * <br><br>
@@ -189,7 +191,7 @@ public final class InvocationContext {
 	}
 
 	/**
-	 * <p>Retrieves the endpoint interface definition on whose request was invoked.</p>
+	 * <p>Retrieves the endpoint interface definition on which the request was invoked.</p>
 	 * 
 	 * <p>See {@link Builder#setEndpoint(Class)}</p>
 	 * 
@@ -203,7 +205,7 @@ public final class InvocationContext {
 	}
 
 	/**
-	 * <p>Retrieves the dynamic proxy for the endpoint on the which the request was invoked.</p>
+	 * <p>Retrieves the dynamic proxy for the endpoint on which the request was invoked.</p>
 	 * 
 	 * <p>See {@link Builder#setProxy(Object)}</p>
 	 * 

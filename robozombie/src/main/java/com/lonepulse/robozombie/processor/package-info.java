@@ -1,10 +1,10 @@
 /**
- * <p>Contains the set of classes which process the annotated meta-data on 
- * an endpoint interface to create a proxy.</p>
+ * <p>Contains the contracts and abstract implementations which provide the infrastructure to process 
+ * requests and responses using the meta-data on an endpoint.</p>
  * 
- * @since 1.1.1
+ * @since 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 package com.lonepulse.robozombie.processor;
 

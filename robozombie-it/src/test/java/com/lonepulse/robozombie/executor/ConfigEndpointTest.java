@@ -36,6 +36,7 @@ import org.junit.rules.ExpectedException;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.lonepulse.robozombie.annotation.Bite;
+import com.lonepulse.robozombie.inject.InvocationException;
 import com.lonepulse.robozombie.inject.Zombie;
 
 /**
@@ -89,7 +90,7 @@ public class ConfigEndpointTest {
 				.withStatus(200)
 				.withFixedDelay(3000)));
 		
-		expectedException.expect(Is.isA(RequestFailedException.class));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		configEndpoint.timeout();
 		

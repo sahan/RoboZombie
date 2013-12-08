@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.processor;
  * #L%
  */
 
-
 /**
  * <p>This runtime exception is thrown when a {@link AbstractProcessorChain} failed to be created by 
  * instantiating the individual {@link ProcessorChainLink}s and linking them.</p>
@@ -39,11 +38,15 @@ class ChainCreationException extends ProcessorChainException {
 
 	/**
 	 * See {@link ProcessorChainException#ProcessorChainException()}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ChainCreationException() {}
 
 	/**
 	 * See {@link ProcessorChainException#ProcessorChainException(String)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ChainCreationException(String detailMessage) {
 		
@@ -52,6 +55,8 @@ class ChainCreationException extends ProcessorChainException {
 
 	/**
 	 * See {@link ProcessorChainException#ProcessorChainException(Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ChainCreationException(Throwable throwable) {
 		
@@ -60,6 +65,8 @@ class ChainCreationException extends ProcessorChainException {
 
 	/**
 	 * See {@link ProcessorChainException#ProcessorChainException(String, Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ChainCreationException(String detailMessage, Throwable throwable) {
 

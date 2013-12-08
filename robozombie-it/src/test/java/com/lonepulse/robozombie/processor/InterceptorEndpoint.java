@@ -60,7 +60,7 @@ public interface InterceptorEndpoint {
 
 	class EndpointInterceptor implements com.lonepulse.robozombie.request.Interceptor {
 
-		public void intercept(HttpRequestBase request, InvocationContext context) {
+		public void intercept(InvocationContext context, HttpRequestBase request) {
 			
 			XHeader xHeader = context.getRequest().getAnnotation(XHeader.class);
 			request.addHeader("X-Header", xHeader != null? xHeader.value() :"endpoint");
@@ -69,7 +69,7 @@ public interface InterceptorEndpoint {
 	
 	class RequestInterceptor implements com.lonepulse.robozombie.request.Interceptor {
 		
-		public void intercept(HttpRequestBase request, InvocationContext context) {
+		public void intercept(InvocationContext context, HttpRequestBase request) {
 			
 			request.addHeader("X-Header", "request");
 		}

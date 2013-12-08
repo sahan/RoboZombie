@@ -1,6 +1,5 @@
 package com.lonepulse.robozombie.inject;
 
-
 /*
  * #%L
  * RoboZombie
@@ -21,15 +20,14 @@ package com.lonepulse.robozombie.inject;
  * #L%
  */
 
-
 /**
- * <p>This runtime exception is thrown when the <b>hostname</b> is not specified for an endpoint definition.</p>
+ * <p>This runtime exception is thrown when the <b>hostname</b> is absent on an endpoint definition.</p>
  * 
  * @version 1.1.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 class MissingEndpointHostException extends EndpointValidationFailedException {
 
@@ -38,17 +36,17 @@ class MissingEndpointHostException extends EndpointValidationFailedException {
 	
 
 	/**
-	 * <p>Displays a detailed description using the endpoint interface {@link Class} along with the stacktrace.</p>
+	 * <p>Displays a detailed description using the endpoint interface {@link Class}.</p>
 	 * 
 	 * @param endpoint
 	 * 			the {@link Class} of the endpoint definition interface
-	 * 
+	 * <br><br>
 	 * @since 1.2.4
 	 */
 	public MissingEndpointHostException(Class<?> endpoint) {
 		
-		this(new StringBuilder("The endpoint ").append(endpoint == null? "<null>" :endpoint.getName())
-			 .append(" should specify a host name via the @Endpoint annotation.").toString());
+		this(new StringBuilder("The endpoint <").append(endpoint.getName())
+			 .append("> should specify a host name using the @Endpoint annotation.").toString());
 	}
 	
 	/**

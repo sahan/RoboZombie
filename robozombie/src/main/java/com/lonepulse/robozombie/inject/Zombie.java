@@ -44,22 +44,22 @@ import com.lonepulse.robozombie.executor.RequestExecutors;
 import com.lonepulse.robozombie.util.Fields;
 
 /**
- * <p>An animated corpse which spreads the {@link Endpoint} infection via a {@link Bite}. Used for <b>injecting</b> 
- * concrete implementations of endpoint interface definitions. Place an @{@link Bite} annotation on all instance 
- * properties which are endpoints and invoke {@link Zombie#infect(Object)} or {@link Zombie#infect(Class)}.</p> 
+ * <p>An animated corpse which spreads the {@link Endpoint} infection via a {@link Bite}. Used for 
+ * <b>injecting</b> concrete implementations of endpoint interface definitions. Place an @{@link Bite} 
+ * annotation on all instance properties which are endpoints and invoke {@link Zombie#infect(Object)}.</p> 
  *  
  * @version 1.3.0
  * <br><br>
- * @since 1.1.1
+ * @since 1.1.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public final class Zombie {
 	
 	/**
-	 * <p>The <b>default configuration</b> which is used for endpoint request execution. The configured properties 
-	 * pertain to the <a href="http://hc.apache.org">Apache HTTP Components</a> library which provides the foundation 
-	 * for network communication.</p>
+	 * <p>The <b>default configuration</b> which is used for endpoint request execution. The configured 
+	 * properties pertain to the <a href="http://hc.apache.org">Apache HTTP Components</a> library which 
+	 * provides the foundation for network communication.</p>
 	 * 
 	 * <p>Configurations can be revised for each {@link Endpoint} using <b>@Config</b> by specifying the 
 	 * {@link Class} of a {@link Config} extension. Simply override the required template methods and provide 
@@ -84,8 +84,8 @@ public final class Zombie {
 		
 		
 		/**
-		 * <p>The <i>out-of-the-box</i> configuration for an instance of {@link HttpClient} which will be used for 
-		 * executing all endpoint requests.</p> 
+		 * <p>The <i>out-of-the-box</i> configuration for an instance of {@link HttpClient} which will be 
+		 * used for executing all endpoint requests.</p> 
 		 * 
 		 * <p>It registers two {@link Scheme}s:</p>
 		 * 
@@ -122,9 +122,8 @@ public final class Zombie {
 	private Zombie() {}
 	
 	/**
-	 * <p>Takes an object and scans it for {@link Bite} annotations. If found, 
-	 * the <b>singleton</b> for the annotated endpoint interface implementation will be 
-	 * injected.</p>
+	 * <p>Accepts an object and scans it for {@link Bite} annotations. If found, a <b>thread-safe proxy</b> 
+	 * for the endpoint interface will be injected.</p>
 	 * <br>
 	 * <b>Usage:</b>
 	 * <br><br>
@@ -151,9 +150,6 @@ public final class Zombie {
 	 * 
 	 * &nbsp; &nbsp; this.twitterEndpoint = twitterEndpoint;
 	 * }
-	 * <br><br>
-	 * <i>Instantiation:</i><br><br>
-	 * TwitterService twitterService = Zombie.infect(new TwitterService());
 	 * </code>
 	 * </pre>
 	 * </li>

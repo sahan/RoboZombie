@@ -32,8 +32,8 @@ import com.lonepulse.robozombie.annotation.Stateful;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This is an implementation of {@link RequestExecutor} which isolates responsibilities that are common 
- * to all concrete {@link RequestExecutor}s.</p> 
+ * <p>An implementation of {@link RequestExecutor} which isolates responsibilities that are common to 
+ * all concrete {@link RequestExecutor}s.</p> 
  * 
  * @version 1.2.0
  * <br><br>
@@ -48,10 +48,10 @@ class BasicRequestExecutor implements RequestExecutor {
 	
 	
 	/**
-	 * <p>Creates a new instance of {@link BasicRequestExecutor} using the given {@link ExecutionHandler}.</p>
+	 * <p>Creates a new {@link BasicRequestExecutor} with the given {@link ExecutionHandler}.</p>
 	 *
 	 * @param executionHandler
-	 * 			the instance of {@link ExecutionHandler} which will be invoked during request execution
+	 * 			the {@link ExecutionHandler} which will be invoked during request execution
 	 * <br><br>
 	 * @since 1.2.4
 	 */
@@ -62,22 +62,22 @@ class BasicRequestExecutor implements RequestExecutor {
 	
 	/**
 	 * <p>Performs the actual request execution with the {@link HttpClient} to be used for the endpoint 
-	 * (fetched using the {@link HttpClientDirectory}). See {@link HttpClient#execute(HttpUriRequest)}</p>
+	 * (fetched using the {@link HttpClientDirectory}). See {@link HttpClient#execute(HttpUriRequest)}.</p>
 	 * 
 	 * <p>If the endpoint is annotated with @{@link Stateful}, the relevant {@link HttpContext} from the 
 	 * {@link HttpContextDirectory} is used. See {@link HttpClient#execute(HttpUriRequest, HttpContext)}</p>
 	 *
-	 * @param request
-	 * 			the {@link HttpRequestBase} to be executed using the endpoint's {@link HttpClient}
-	 * <br><br>
 	 * @param context
 	 * 			the {@link InvocationContext} used to discover information about the proxy invocation
+	 * <br><br>
+	 * @param request
+	 * 			the {@link HttpRequestBase} to be executed using the endpoint's {@link HttpClient}
 	 * <br><br>
 	 * @return the {@link HttpResponse} which resulted from the execution
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	protected HttpResponse fetchResponse(HttpRequestBase request, InvocationContext context) {
+	protected HttpResponse fetchResponse(InvocationContext context, HttpRequestBase request) {
 
 		try {
 		
@@ -99,54 +99,47 @@ class BasicRequestExecutor implements RequestExecutor {
 	 * <p>Executes an {@link HttpRequestBase} using the endpoint's {@link HttpClient} and handles the 
 	 * resulting {@link HttpResponse} using this executor's {@link ExecutionHandler}.</p>
 	 * 
-	 * <p>See {@link #fetchResponse(HttpRequestBase, InvocationContext)}</p>
+	 * <p>See {@link #fetchResponse(InvocationContext, HttpRequestBase)}</p>
 	 * 
-	 * <p>See {@link #isSuccessful(HttpResponse)}</p>
+	 * <p>See {@link Is#successful(HttpResponse)}</p>
 	 * 
-	 * @param request
-	 * 			the {@link HttpRequestBase} to be executed using the endpoint's {@link HttpClient}
-	 * <br><br>
 	 * @param context
 	 * 			the {@link InvocationContext} used to discover information about the proxy invocation
 	 * <br><br>
-	 * @throws RequestFailedException
+	 * @param request
+	 * 			the {@link HttpRequestBase} to be executed using the endpoint's {@link HttpClient}
+	 * <br><br>
+	 * @throws InvocationException
 	 * 			if the HTTP request responded with a failure status code or if request execution failed
 	 * <br><br>
 	 * @since 1.1.0
 	 */
 	@Override
-	public HttpResponse execute(HttpRequestBase request, InvocationContext context) {
+	public HttpResponse execute(InvocationContext context, HttpRequestBase request) {
+		
+		HttpResponse response = null;
 		
 		try {
 			
-			HttpResponse response = fetchResponse(request, context);
+			 response = fetchResponse(context, request);
+		}
+		catch(RequestExecutionException ree) {
+			
+			executionHandler.onError(context, ree);
+		}
+		
+		if(response != null) {
 			
 			if(successful(response)) {
 				
-				executionHandler.onSuccess(response, context);
+				executionHandler.onSuccess(context, response);	
 			}
 			else {
 				
-				executionHandler.onFailure(response, context);
+				executionHandler.onFailure(context, response);
 			}
-			
-			return response;
 		}
-		catch (Exception error) {
-			
-			if(!(error instanceof RequestFailedException)) {
-				
-				try {
-					
-					executionHandler.onError(context, error);
-				}
-				catch(Exception e) {
-					
-					throw RequestExecutionException.wrap(context.getRequest(), context.getEndpoint(), e);
-				}
-			}
-			
-			throw RequestExecutionException.wrap(context.getRequest(), context.getEndpoint(), error);
-		}
+		
+		return response;
 	}
 }

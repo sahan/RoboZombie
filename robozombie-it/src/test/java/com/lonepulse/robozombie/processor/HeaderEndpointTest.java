@@ -45,6 +45,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.lonepulse.robozombie.annotation.Bite;
 import com.lonepulse.robozombie.annotation.Header;
 import com.lonepulse.robozombie.annotation.Headers;
+import com.lonepulse.robozombie.inject.InvocationException;
 import com.lonepulse.robozombie.inject.Zombie;
 
 /**
@@ -132,8 +133,8 @@ public class HeaderEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testRequestHeaderTypeError() throws ClassNotFoundException {
+	@Test
+	public final void testRequestHeaderTypeError() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -144,8 +145,7 @@ public class HeaderEndpointTest {
 				.withStatus(200)
 				.withBody("hello")));
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-			Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		assertNull(headerEndpoint.requestHeaderTypeError(512));
 	}

@@ -20,8 +20,6 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
-
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http42.client.utils.URIBuilder;
 
@@ -31,8 +29,8 @@ import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**
- * <p>This is a concrete implementation of {@link AbstractRequestProcessor} which extracts the root path of an 
- * endpoint, appends the subpath of the request and creates the complete URI for the proxy invocation. 
+ * <p>This is a concrete implementation of {@link AbstractRequestProcessor} which extracts the root path 
+ * of an endpoint, appends the subpath of the request and creates the complete URI for the proxy invocation. 
  * Requests and their subpaths are identified using the annotation @{@link Request}.</p>
  * 
  * <p><b>Note</b> that this processor is a prerequisite for any other processors which extract information 
@@ -48,34 +46,32 @@ class UriProcessor extends AbstractRequestProcessor {
 
 	
 	/**
-	 * <p>Accepts the {@link InvocationContext} along with the {@link HttpRequestBase} and forms 
-	 * the complete request URI by appending the request subpath to the root path defined on the endpoint. 
-	 * If no subpath is found the root path is set without any alterations. Requests and their subpaths are 
-	 * identified using the annotation @{@link Request}.</p>
+	 * <p>Accepts the {@link InvocationContext} along with the {@link HttpRequestBase} and forms the 
+	 * complete request URI by appending the request subpath to the root path defined on the endpoint. 
+	 * If no subpath is found the root path is set without any alterations. Requests and their subpaths 
+	 * are identified using the annotation @{@link Request} or any other meta-annotation which uses it.</p>
 	 * 
-	 * <p>Any processors which extract information from the <i>complete</i> request URI or those which seek 
-	 * to manipulate the URI should use this processor as a prerequisite.</p>
+	 * <p>Any processors which extract information from the <i>complete</i> request URI or those which 
+	 * seek to manipulate the URI should use this processor as a prerequisite.</p>
 	 * 
-	 * <p>See {@link AbstractRequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
+	 * <p>See {@link AbstractRequestProcessor#process(InvocationContext, HttpRequestBase)}.</p>
 	 * 
-	 * @param request
-	 * 			the {@link HttpRequestBase} whose URI will be initialized to the complete URI formualted using 
-	 * 			the endpoint's root path and the request's subpath
-	 * <br><br>
 	 * @param context
-	 * 			an immutable instance of {@link InvocationContext} which has its Sendpoint and request 
-	 * 			properties correctly populated  
+	 * 			the {@link InvocationContext} used to discover root and subpath information  
 	 * <br><br>
-	 * @return the same instance of {@link HttpRequestBase} which was given for processing the URI
+	 * @param request
+	 * 			the {@link HttpRequestBase} whose URI will be initialized to the complete URI formulated 
+	 * 			using the endpoint's root path and the request's subpath
+	 * <br><br>
+ 	 * @return the same instance of {@link HttpRequestBase} which was given for processing the URI
 	 * <br><br>
 	 * @throws RequestProcessorException
-	 * 			if an {@link HttpEntityEnclosingRequestBase} was discovered and yet the entity failed to be resolved 
-	 * 			and inserted into the request body
+	 * 			if a URI failed to be created using the information found on the endpoint definition
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	protected HttpRequestBase process(HttpRequestBase request, InvocationContext context) {
+	protected HttpRequestBase process(InvocationContext context, HttpRequestBase request) {
 
 		try {
 			
@@ -101,7 +97,7 @@ class UriProcessor extends AbstractRequestProcessor {
 		}
 		catch(Exception e) {
 			
-			throw new RequestProcessorException(getClass(), context, e);
+			throw new RequestProcessorException(context, getClass(), e);
 		}
 	}
 }

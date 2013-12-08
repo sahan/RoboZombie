@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.response;
  * #L%
  */
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,8 +29,8 @@ import com.lonepulse.robozombie.annotation.Entity.ContentType;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>Exposes all available {@link AbstractDeserializer}s, resolves concrete instances of their deserializer types 
- * and mediates communication.</p> 
+ * <p>Exposes all available {@link AbstractDeserializer}s, resolves concrete instances of their deserializer 
+ * types and mediates communication.</p> 
  * 
  * @version 1.2.0
  * <br><br>
@@ -40,29 +39,30 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public enum Deserializers implements Deserializer<Object> {
-
+	
+	
 	/**
-	 * See {@link PlainDeserializer}.
+	 * <p>See {@link PlainDeserializer}.</p>
 	 * 
-	 * @since 1.1.0
+	 * @since 1.2.4
 	 */
 	RAW(new PlainDeserializer()),
 	
 	/**
-	 * See {@link JsonDeserializer}.
+	 * <p>See {@link JsonDeserializer}.</p>
 	 * 
-	 * @since 1.1.0
+	 * @since 1.2.4
 	 */
 	JSON(new JsonDeserializer()),
 	
 	/**
-	 * See {@link XmlDeserializer}.
+	 * <p>See {@link XmlDeserializer}.</p>
 	 * 
 	 * @since 1.2.4
 	 */
 	XML(new XmlDeserializer());
 	
-
+	
 	
 	private static final Map<String, AbstractDeserializer<?>> DESERIALIZERS = new HashMap<String, AbstractDeserializer<?>>();
 	
@@ -78,17 +78,17 @@ public enum Deserializers implements Deserializer<Object> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object run(HttpResponse httpResponse, InvocationContext context) {
+	public Object run(InvocationContext context, HttpResponse response) {
 		
-		return this.deserializer.run(httpResponse, context);
+		return this.deserializer.run(context, response);
 	}
 	
 	/**
 	 * <p>Retrieves the {@link AbstractDeserializer} which is identified by the given {@link ContentType}.</p>
 	 * 
-	 * @param config
-	 * 			the {@link ContentType} whose implementation of {@link AbstractDeserializer} is retrieved
-	 * 
+	 * @param context
+	 * 			the {@link ContentType} whose associated {@link AbstractDeserializer} should be retrieved
+	 * <br><br>
 	 * @return the implementation of {@link AbstractDeserializer} which serves the given {@link ContentType}
 	 * <br><br>
 	 * @since 1.2.4
@@ -113,7 +113,7 @@ public enum Deserializers implements Deserializer<Object> {
 	 * 
 	 * @param deserializerType
 	 * 			the {@link Class} whose implementation of {@link AbstractDeserializer} is retrieved
-	 * 
+	 * <br><br>
 	 * @return the implementation of {@link AbstractDeserializer} for the given {@link Class}
 	 * <br><br>
 	 * @throws DeserializerInstantiationException

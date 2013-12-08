@@ -29,9 +29,10 @@ import com.lonepulse.robozombie.inject.InvocationContext;
 /**
  * <p>An abstract implementation of {@link Deserializer} which directs <i>deserialization</i> for 
  * all {@link Deserializer}s. To create a custom {@link Deserializer} extend this class and override 
- * {@link #deserialize(HttpResponse, InvocationContext)}.</p> 
+ * {@link #deserialize(InvocationContext, HttpResponse)}.</p> 
  * 
- * <p><b>Note</b> that all implementations are expected to be <b>stateless</b>.</p>
+ * <p><b>Note</b> that all implementations are expected to be <b>stateless</b>. If a state is 
+ * incurred, proper {@link ThreadLocal} management should be performed.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -47,11 +48,11 @@ public abstract class AbstractDeserializer<OUTPUT> implements Deserializer<OUTPU
 	
 	/**
 	 * <p>Initializes a new {@link AbstractDeserializer} with the given {@link Class} which 
-	 * represents the output of this deserializer.
-	 *
+	 * identifies the output type of this deserializer.</p>
+	 * 
 	 * @param outputType
 	 * 			the {@link Class} type of the entity which is produced by this deserializer
-	 *
+	 * <br><br>
 	 * @since 1.2.4
 	 */
 	public AbstractDeserializer(Class<OUTPUT> outputType) {
@@ -63,14 +64,14 @@ public abstract class AbstractDeserializer<OUTPUT> implements Deserializer<OUTPU
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final OUTPUT run(HttpResponse response, InvocationContext context) {
+	public final OUTPUT run(InvocationContext context, HttpResponse response) {
 		
 		Class<?> requestReturnType = context.getRequest().getReturnType();
 		
 		try {
 			
 			throwIfNotAssignable(requestReturnType);
-			return deserialize(response, context);
+			return deserialize(context, response);
 		}
 		catch(Exception e) {
 		
@@ -78,13 +79,6 @@ public abstract class AbstractDeserializer<OUTPUT> implements Deserializer<OUTPU
 		}
 	}
 	
-	/**
-	 * <p>Checks if the desired request return type can be instantiated from an instance of the 
-	 * deserializer's output type.</p>
-	 * 
-	 * @param requestReturnType
-	 * 				the {@link Class} of the request return type
-	 */
 	private void throwIfNotAssignable(Class<? extends Object> requestReturnType) {
 		
 		if(!void.class.isAssignableFrom(requestReturnType)
@@ -99,7 +93,7 @@ public abstract class AbstractDeserializer<OUTPUT> implements Deserializer<OUTPU
 	 * <p>Takes an {@link HttpResponse} which resulted from a successful request execution and deserializes 
 	 * its content to an instance of the output type.</p>
 	 * 
-	 * <p>The response {@link HttpEntity} can be obtained using {@link HttpResponse#getEntity()} and it's 
+	 * <p>The response {@link HttpEntity} can be obtained using {@link HttpResponse#getEntity()} and its 
 	 * content can be <i>stringified</i> with {@link EntityUtils#toString(HttpEntity)}.</p>
 	 * 
 	 * <p><b>Note</b> that certain {@link HttpResponse}s may not contain an {@link HttpEntity} which can 
@@ -115,12 +109,9 @@ public abstract class AbstractDeserializer<OUTPUT> implements Deserializer<OUTPU
 	 * 				the {@link InvocationContext} which supplies all information regarding the request and 
 	 * 				it's invocation
      * <br><br>
-	 * @return the entity which is created after deserializing the output
-	 * <br><br>
-	 * @throws Exception 
-	 * 				deserialization failures may occur due to many reasons
+	 * @return the content which resulted from deserializing the response entity
 	 * <br><br>
 	 * @since 1.1.4
 	 */
-	protected abstract OUTPUT deserialize(HttpResponse response, InvocationContext context);
+	protected abstract OUTPUT deserialize(InvocationContext context, HttpResponse response);
 }

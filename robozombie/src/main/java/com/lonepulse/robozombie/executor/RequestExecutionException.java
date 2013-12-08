@@ -29,7 +29,7 @@ import com.lonepulse.robozombie.RoboZombieRuntimeException;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.1.0
+ * @since 1.2.4
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -40,8 +40,9 @@ class RequestExecutionException extends RoboZombieRuntimeException {
 	
 	
 	/**
-	 * <p>If the given exception is an instance of {@link RequestExecutionException} it is returned as is, 
-	 * else a new {@link RequestExecutionException} is created using the given exception as the root cause.</p>
+	 * <p>If the given exception is an instance of {@link RequestExecutionException} it is returned as 
+	 * it is, else a new {@link RequestExecutionException} is created using the given exception as the 
+	 * root cause.</p>
 	 *
 	 * @param request
 	 * 			the {@link Method} which represents the invoked request's definition

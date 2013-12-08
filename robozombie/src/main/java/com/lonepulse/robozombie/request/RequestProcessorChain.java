@@ -36,11 +36,11 @@ import com.lonepulse.robozombie.processor.ProcessorChainFactory;
 import com.lonepulse.robozombie.processor.ProcessorChainLink;
 
 /**
- * <p>This is a concrete implementation of {@link AbstractProcessorChain} which creates a sequentially executed 
- * series of {@link AbstractRequestProcessor}s responsible for building the {@link HttpRequestBase} for a request 
- * invocation.</p>
+ * <p>This is a concrete implementation of {@link AbstractProcessorChain} which creates a sequentially 
+ * executed series of {@link AbstractRequestProcessor}s responsible for building the {@link HttpRequestBase} 
+ * for a request invocation.</p>
  * 
- * <p>This chain consists of the {@link AbstractRequestProcessor}s listed below in the given order:  
+ * <p>This chain consists of the {@link AbstractRequestProcessor}s listed below in the given order:</p>  
  * 
  * <ol>
  * 	<li>{@link UriProcessor} - builds the complete URI from the root-path and the sub-path</li>
@@ -52,12 +52,12 @@ import com.lonepulse.robozombie.processor.ProcessorChainLink;
  *  <li>{@link InterceptionProcessor} - runs hooks for custom request processing just before execution</li>
  * </ol>
  * 
- * <p><b>Note</b> that this processor-chain requires a single {@link InvocationContext} to be {@link #run(Object...)}} 
+ * <p><b>Note</b> that this processor-chain requires a {@link InvocationContext} to be {@link #run(Object...)}} 
  * and returns the {@link HttpRequestBase} which was processed through the entire chain.</p>
  * 
- * <p><b>Note</b> that a chain-wide failure is <b>NOT recoverable</b>. All failures are of type {@link RequestProcessorException} 
- * which may be thrown from any arbitrary {@link ProcessorChainLink}. Any changes made on the arguments to the chain 
- * are <b>NOT rolled back</b>.</p> 
+ * <p><b>Note</b> that a chain-wide failure is <b>NOT recoverable</b>. All failures are of type 
+ * {@link RequestProcessorException} which may be thrown from any arbitrary {@link ProcessorChainLink}. 
+ * Any changes made on the arguments to the chain are <b>NOT rolled back</b>.</p> 
  * 
  * @version 1.2.0
  * <br><br>
@@ -99,9 +99,9 @@ public final class RequestProcessorChain extends AbstractProcessorChain<HttpRequ
 
 	/**
 	 * <p>Accepts the {@link InvocationContext} given to {@link #run(Object...)}} the {@link RequestProcessorChain} 
-	 * and translates the request metadata to a concrete instance of {@link HttpRequestBase}. The {@link HttpRequestBase}, 
-	 * together with the {@link InvocationContext} is then given to the root link which runs the {@link UriProcessor} 
-	 * and returns the resulting {@link HttpRequestBase}.</p> 
+	 * and translates the request metadata to a concrete instance of {@link HttpRequestBase}. The 
+	 * {@link HttpRequestBase}, together with the {@link InvocationContext} is then given to the root link 
+	 * which runs the {@link UriProcessor} and returns the resulting {@link HttpRequestBase}.</p> 
 	 * 
 	 * <p>See {@link AbstractRequestProcessor}.</p>
 	 * 
@@ -112,15 +112,15 @@ public final class RequestProcessorChain extends AbstractProcessorChain<HttpRequ
 		
 		InvocationContext context = assertAssignable(assertNotEmpty(args)[0], InvocationContext.class);
 		
-		HttpRequestBase httpRequestBase = RequestUtils.translateRequestMethod(context);
+		HttpRequestBase request = RequestUtils.translateRequestMethod(context);
 		
-		return root.getProcessor().run(httpRequestBase, context); //allow any exceptions to elevate to a chain-wide failure
+		return root.getProcessor().run(context, request); //allow any exceptions to elevate to a chain-wide failure
 	}
 
 	/**
-	 * <p>Executed for each "link-traversal" from the root {@link UriProcessor} onwards. Takes the <b>successor</b> 
-	 * and invokes it with the argument array which was provided in {@link #run(Object...)} and returns the resulting 
-	 * {@link HttpRequestBase}.</p>
+	 * <p>Executed for each <i>link-traversal<i> from the root {@link UriProcessor} onwards. Takes the 
+	 * <b>successor</b> and invokes it with the argument array which was provided in {@link #run(Object...)} 
+	 * and returns the resulting {@link HttpRequestBase}.</p>
 	 * 
 	 * <p>See {@link AbstractRequestProcessor}.</p>
 	 * 
@@ -129,7 +129,7 @@ public final class RequestProcessorChain extends AbstractProcessorChain<HttpRequ
 	@Override
 	protected HttpRequestBase onTraverse(HttpRequestBase result, ProcessorChainLink<HttpRequestBase, RequestProcessorException> successor, Object... args) {
 		
-		return successor.getProcessor().run(result, args[0]);  //allow any exceptions to elevate to a chain-wide failure
+		return successor.getProcessor().run(args[0], result);  //allow any exceptions to elevate to a chain-wide failure
 	}
 
 	/**

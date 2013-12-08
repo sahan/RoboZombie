@@ -27,19 +27,20 @@ import org.apache.http.util.EntityUtils;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This is an extension of {@link AbstractDeserializer} which extracts the response 
- * data as a <b>raw String</b>. 
+ * <p>This {@link AbstractDeserializer} extracts the response data as a <b>raw String</b>. 
  * 
- * @version 1.1.4
+ * @version 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.2.4
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public class PlainDeserializer extends AbstractDeserializer<CharSequence> {
 
 	
 	/**
-	 * <p>Creates a new instance of {@link PlainDeserializer} and register the type 
-	 * {@link CharSequence} as the entity which results from its <i>parse</i> operation.
+	 * <p>Creates a new {@link PlainDeserializer} and register the type {@link CharSequence} as the entity 
+	 * which results from its deserialization operation.</p>
 	 *
 	 * @since 1.2.4
 	 */
@@ -49,13 +50,12 @@ public class PlainDeserializer extends AbstractDeserializer<CharSequence> {
 	}
 	
 	/**
-	 * <p>Parses the content in the {@link HttpResponse} to any type which is assignable 
-	 * to a {@link CharSequence}.</p>
+	 * <p>Deserializes the response content to a type which is assignable to {@link CharSequence}.</p>
 	 * 
-	 * @see AbstractDeserializer#run(HttpResponse, com.lonepulse.robozombie.inject.InvocationContext)
+	 * @see AbstractDeserializer#run(InvocationContext, HttpResponse)
 	 */
 	@Override
-	public CharSequence deserialize(HttpResponse response, InvocationContext context) {
+	public CharSequence deserialize(InvocationContext context, HttpResponse response) {
 
 		try {
 			

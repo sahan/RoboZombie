@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
-
 import java.net.URI;
 import java.net.URLDecoder;
 import java.util.List;
@@ -34,17 +33,18 @@ import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**
- * <p>This is a concrete implementation of {@link RequestProcessor} which discovers <i>path parameters</i> 
- * in a request URI by searching for any arguments which are annotated with @{@link PathParam}. The 
- * placeholders that identify these are then replaced by the runtime values of the path parameters. This 
- * may be used in scenarios where the same contextual URI must be manipulated several times over the same 
- * session - for example in the case of RESTful service endpoints (e.g. <code>example.com/users/update/{username}, 
- * example.com/users/delete/{username}</code> ...etc). For request URIs which bear a resemblance but are 
- * <i>contextually different</i> it is advised to isolated them in their own request definitions and treat 
- * them separately.</p>
+ * <p>This is a concrete implementation of {@link AbstractRequestProcessor} which discovers <b>path 
+ * parameters</b> in a request URI by searching for arguments annotated with @{@link PathParam}. The 
+ * placeholders that identify these are then replaced by the runtime values of the path parameters. 
+ * This may be used in scenarios where the same contextual URI must be manipulated several times over 
+ * the same session - e.g for RESTful service endpoints (e.g. <code>example.com/users/update/{username}, 
+ * example.com/users/delete/{username}</code> ...etc). For request URIs which bear a resemblance but 
+ * are <i>contextually different</i> it is advised to isolated them in their own request definitions 
+ * and treat them separately.</p>
  * 
- * <p><b>Prefers</b> that only the subpath of a request contains path parameters. Although the root path 
- * defined on the endpoint is processed just the same, variant roots should use unique endpoint definitions.</p>
+ * <p><i>Prefers</i> that only the subpath of a request contains path parameters. Although the root 
+ * path defined on the endpoint is processed just the same, <i>variant roots</i> should use unique 
+ * endpoint definitions.</p>
  * 
  * @version 1.2.0
  * <br><br>
@@ -57,19 +57,17 @@ class PathParamProcessor extends AbstractRequestProcessor {
 	
 	/**
 	 * <p>Accepts the {@link InvocationContext} along with an {@link HttpRequestBase} and recreates 
-	 * the URI by replacing all path parameter placeholders with the runtime value of their associated arguments 
-	 * that are annotated with @{@link PathParam}.</p> 
+	 * the URI by replacing all path parameter placeholders with the runtime value of their associated 
+	 * arguments that are annotated with @{@link PathParam}.</p> 
 	 * 
-	 * <p>See {@link ParamPopulator#populate(InvocationContext)}.</p>
-	 * 
-	 * @param httpRequestBase
+	 * @param context
+	 * 			the {@link InvocationContext} which is used to discover any arguments which are annotated 
+	 * 			with @{@link PathParam}
+	 * <br><br>
+	 * @param request
 	 * 			the {@link HttpRequestBase} whose path parameters will be used to reconstruct the URI
 	 * <br><br>
-	 * @param context
-	 * 			an immutable instance of {@link InvocationContext} which is used to discover 
-	 * 			any arguments which are annotated with @{@link PathParam}
-	 * <br><br>
- 	 * @return the same instance of {@link HttpRequestBase} which was given for processing path params
+ 	 * @return the same instance of {@link HttpRequestBase} which was given for processing path parameters
 	 * <br><br>
 	 * @throws RequestProcessorException
 	 * 			if an unrecoverable error occurred when recreating the URI using path parameters
@@ -77,13 +75,13 @@ class PathParamProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) {
+	protected HttpRequestBase process(InvocationContext context, HttpRequestBase request) {
 
 		try {
 			
 			List<Entry<PathParam, Object>> queryParams = Metadata.onParams(PathParam.class, context);
 			
-			String path = URLDecoder.decode(httpRequestBase.getURI().toString(), "UTF-8");
+			String path = URLDecoder.decode(request.getURI().toString(), "UTF-8");
 			
 			for (Entry<PathParam, Object> entry : queryParams) {
 				
@@ -105,14 +103,14 @@ class PathParamProcessor extends AbstractRequestProcessor {
 				path = path.replaceAll(Pattern.quote("{" + name + "}"), ((CharSequence)value).toString());
 			}
 			
-			httpRequestBase.setURI(URI.create(path));
+			request.setURI(URI.create(path));
 			
-			return httpRequestBase;
+			return request;
 		}
 		catch(Exception e) {
 			
 			throw (e instanceof RequestProcessorException)? 
-					(RequestProcessorException)e :new RequestProcessorException(getClass(), context, e);
+					(RequestProcessorException)e :new RequestProcessorException(context, getClass(), e);
 		}
 	}
 }

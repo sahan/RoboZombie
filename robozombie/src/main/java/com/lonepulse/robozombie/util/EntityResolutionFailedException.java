@@ -25,8 +25,8 @@ import org.apache.http.HttpEntity;
 import com.lonepulse.robozombie.RoboZombieRuntimeException;
 
 /**
- * <p>This runtime exception is thrown when a specific {@link HttpEntity} implementation failed 
- * to be resolved for a generic object.</p>
+ * <p>This runtime exception is thrown when a specific {@link HttpEntity} implementation failed to be 
+ * resolved for a generic object or {@link Class}.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -41,11 +41,14 @@ public class EntityResolutionFailedException extends RoboZombieRuntimeException 
 	
 
 	/**
-	 * <p>Displays a detailed description along with the stacktrace.</p>
+	 * <p>Displays a detailed description with information generic object type which failed to be resolved 
+	 * to an {@link HttpEntity}.</p>
+	 * <p>Displays a detailed description with information generic object type which failed to be resolved 
+	 * to an {@link HttpEntity}.</p>
 	 * 
 	 * @param genericEntity
 	 * 			the generic object which failed to be translated to an {@link HttpEntity}
-	 * 
+	 * <br><br>
 	 * @since 1.2.4
 	 */
 	public EntityResolutionFailedException(Object genericEntity) {
@@ -54,11 +57,12 @@ public class EntityResolutionFailedException extends RoboZombieRuntimeException 
 	}
 	
 	/**
-	 * <p>Displays a detailed description along with the stacktrace.</p>
+	 * <p>Displays a detailed description with information generic {@link Class} type which failed to be 
+	 * resolved to an {@link HttpEntity}.</p>
 	 * 
 	 * @param genericType
 	 * 			the {@link Class} type which failed to be translated to an {@link HttpEntity}
-	 * 
+	 * <br><br>
 	 * @since 1.2.4
 	 */
 	public EntityResolutionFailedException(Class<?> genericType) {
@@ -67,14 +71,15 @@ public class EntityResolutionFailedException extends RoboZombieRuntimeException 
 	}
 	
 	/**
-	 * <p>Displays a detailed description along with the stacktrace.</p>
+	 * <p>Displays a detailed description with information generic object type which failed to be resolved 
+	 * to an {@link HttpEntity}, while preserving the stacktrace.</p>
 	 * 
 	 * @param genericEntity
 	 * 			the generic object whose specific {@link HttpEntity} failed to be resolved
-	 * 
+	 * <br><br>
 	 * @param rootCause
 	 * 			the root cause which resulted in this resolution failure
-	 * 
+	 * <br><br>
 	 * @since 1.2.4
 	 */
 	public EntityResolutionFailedException(Object genericEntity, Throwable rootCause) {
@@ -85,12 +90,15 @@ public class EntityResolutionFailedException extends RoboZombieRuntimeException 
 	
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException()}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
-	public EntityResolutionFailedException() {
-	}
+	public EntityResolutionFailedException() {}
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public EntityResolutionFailedException(String detailMessage) {
 		
@@ -99,6 +107,8 @@ public class EntityResolutionFailedException extends RoboZombieRuntimeException 
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public EntityResolutionFailedException(Throwable throwable) {
 		
@@ -107,6 +117,8 @@ public class EntityResolutionFailedException extends RoboZombieRuntimeException 
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String, Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public EntityResolutionFailedException(String detailMessage, Throwable throwable) {
 

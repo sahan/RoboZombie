@@ -35,7 +35,7 @@ import com.lonepulse.robozombie.annotation.Async;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This is an extension of {@link BasicRequestExecutor} which is responsible for executing <b>asynchronous 
+ * <p>An extension of {@link BasicRequestExecutor} which is responsible for executing <b>asynchronous 
  * requests</b> identified by the @{@link Async} annotation placed on the endpoint or request method.</p>
  * 
  * @version 1.1.0
@@ -79,7 +79,7 @@ class AsyncRequestExecutor extends BasicRequestExecutor {
 	
 	
 	/**
-	 * <p>Creates a new instance of {@link AsyncRequestExecutor} using the given {@link ExecutionHandler}.</p>
+	 * <p>Creates a new {@link AsyncRequestExecutor} with the given {@link ExecutionHandler}.</p>
 	 * 
 	 * <p>See {@link BasicRequestExecutor#BasicRequestExecutor(ExecutionHandler)}</p>
 	 *
@@ -98,31 +98,31 @@ class AsyncRequestExecutor extends BasicRequestExecutor {
 	 * which causes it to return immediately with {@code null}. Directing the request execution is delegated 
 	 * to the super class' implementation.</p> 
 	 * 
-	 * <p>See {@link BasicRequestExecutor#execute(HttpRequestBase, InvocationContext)}</p>
+	 * <p>See {@link BasicRequestExecutor#execute(InvocationContext, HttpRequestBase)}</p>
 	 * 
-	 * @param request
-	 * 			the {@link HttpRequestBase} to be executed using the endpoint's {@link HttpClient}
-	 * <br><br>
 	 * @param context
 	 * 			the {@link InvocationContext} used to discover information about the proxy invocation
 	 * <br><br>
-	 * @return {@code null} for all intent and purposes and returns control immediately
+	 * @param request
+	 * 			the {@link HttpRequestBase} to be executed using the endpoint's {@link HttpClient}
+	 * <br><br>
+	 * @return {@code null} for all intents and purposes and returns control immediately
 	 * <br><br>
 	 * @throws RequestExecutionException
-	 * 			if request execution failed or if the request responded with a failure status code and the 
-	 * 			subsequent handling via any callback yielded an error
+	 * 			if request execution failed or if the request responded with a failure status code and 
+	 * 			the subsequent handling via any callback yielded an error
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	public HttpResponse execute(final HttpRequestBase httpRequestBase, final InvocationContext context) {
+	public HttpResponse execute(final InvocationContext context, final HttpRequestBase request) {
 		
 		ASYNC_EXECUTOR_SERVICE.execute(new Runnable() {
 
 			@Override
 			public void run() {
 				
-				AsyncRequestExecutor.super.execute(httpRequestBase, context);
+				AsyncRequestExecutor.super.execute(context, request);
 			}
 		});
 		

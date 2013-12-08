@@ -1,10 +1,5 @@
 package com.lonepulse.robozombie.inject;
 
-import java.lang.reflect.Method;
-import java.util.List;
-
-import com.lonepulse.robozombie.annotation.Request;
-
 /*
  * #%L
  * RoboZombie
@@ -25,10 +20,14 @@ import com.lonepulse.robozombie.annotation.Request;
  * #L%
  */
 
+import java.lang.reflect.Method;
+import java.util.List;
+
+import com.lonepulse.robozombie.annotation.Request;
 
 /**
- * <p>This runtime exception is thrown when an endpoint contains request definitions without the required metadata 
- * provided by an @{@link Request} annotation.</p>
+ * <p>This runtime exception is thrown when an endpoint contains request definitions without the required 
+ * metadata provided by an @{@link Request} annotation.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -55,7 +54,7 @@ class StrayEndpointRequestException extends EndpointValidationFailedException {
 	}
 
 	/**
-	 * <p>Accepts the malformed request definitions and displays a detailed description along with the stacktrace.</p> 
+	 * <p>Accepts the malformed request definitions and displays a detailed description.</p> 
 	 * 
 	 * @param strayRequests
 	 * 			the list of request {@link Method} definitions with missing metadata

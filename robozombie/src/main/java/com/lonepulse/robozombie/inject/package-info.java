@@ -1,8 +1,8 @@
 /**
- * <p>Contains the set of classes which allows an endpoint interface 
- * implementation to be <i>injected</i> into a service.</p>
+ * <p>Contains the set of core and auxiliary classes which allows an endpoint definition interface to be 
+ * validated and its mirrored proxy to be injected.</p>
  * 
- * @since 1.1.1
+ * @since 1.1.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */

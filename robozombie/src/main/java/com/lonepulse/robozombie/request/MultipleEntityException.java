@@ -43,28 +43,31 @@ class MultipleEntityException extends RequestProcessorException {
 	
 
 	/**
-	 * <p>Displays a detailed description along with the stacktrace.
+	 * <p>Displays a detailed description with information on the proxy invocation.</p>
 	 * 
-	 * @param config
+	 * @param context
 	 * 			the {@link InvocationContext} where multiple @{@link Entity} annotations were discovered
-	 * 
+	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public MultipleEntityException(InvocationContext config) {
+	public MultipleEntityException(InvocationContext context) {
 	
 		this(new StringBuilder("Multiple entities annotated with @").append(Entity.class.getSimpleName())
-				 .append(" was not found on the request named [").append(config.getRequest().getName())
-				 .append("]. Only a single entity may be annotated and enclosed this request. ").toString());
+			 .append(" was not found on the request named [").append(context.getRequest().getName())
+			 .append("]. Only a single entity may be annotated and enclosed this request. ").toString());
 	}
 	
 	/**
 	 * See {@link RequestProcessorException#RequestPopulatorException()}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
-	public MultipleEntityException() {
-	}
+	public MultipleEntityException() {}
 
 	/**
 	 * See {@link RequestProcessorException#RequestPopulatorException(String)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public MultipleEntityException(String detailMessage) {
 		
@@ -73,6 +76,8 @@ class MultipleEntityException extends RequestProcessorException {
 
 	/**
 	 * See {@link RequestProcessorException#RequestPopulatorException(Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public MultipleEntityException(Throwable throwable) {
 		
@@ -81,6 +86,8 @@ class MultipleEntityException extends RequestProcessorException {
 
 	/**
 	 * See {@link RequestProcessorException#RequestPopulatorException(String, Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public MultipleEntityException(String detailMessage, Throwable throwable) {
 

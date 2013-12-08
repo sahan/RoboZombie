@@ -44,6 +44,7 @@ import org.simpleframework.xml.core.Persister;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.gson.Gson;
 import com.lonepulse.robozombie.annotation.Bite;
+import com.lonepulse.robozombie.inject.InvocationException;
 import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.model.User;
 import com.lonepulse.robozombie.request.AbstractSerializer;
@@ -138,7 +139,7 @@ public class SerializerEndpointTest {
 	 * @since 1.2.4
 	 */
 	@Test  
-	public final void testPlain() throws ClassNotFoundException {
+	public final void testPlain() {
 
 		String subpath = "/plain";
 		
@@ -183,7 +184,7 @@ public class SerializerEndpointTest {
 	 * @since 1.2.4
 	 */
 	@Test  
-	public final void testDetachSerializer() throws ClassNotFoundException, ParseException, IOException {
+	public final void testDetachSerializer() throws ParseException, IOException {
 
 		String subpath = "/detach";
 		
@@ -204,8 +205,8 @@ public class SerializerEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testUninstantiableSerializer() throws ClassNotFoundException {
+	@Test
+	public final void testUninstantiableSerializer() {
 		
 		String subpath = "/uninstantiableserializer";
 		
@@ -213,8 +214,7 @@ public class SerializerEndpointTest {
 				.willReturn(aResponse()
 				.withStatus(200)));
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-			Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		serializerEndpoint.uninstantiableSerializer("serialized");
 	}
@@ -224,8 +224,8 @@ public class SerializerEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable> 
-	public final void testIllegalSerializer() throws ClassNotFoundException {
+	@Test 
+	public final void testIllegalSerializer() {
 		
 		String subpath = "/illegalserializer";
 		
@@ -233,8 +233,7 @@ public class SerializerEndpointTest {
 				.willReturn(aResponse()
 				.withStatus(200)));
 
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-			Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		serializerEndpoint.illegalSerializer("serialized");
 	}

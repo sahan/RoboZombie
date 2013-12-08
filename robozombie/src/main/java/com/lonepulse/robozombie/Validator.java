@@ -20,10 +20,9 @@ package com.lonepulse.robozombie;
  * #L%
  */
 
-
 /**
- * <p>A generic contract for validating metadata and runtime information. Each {@link Validator} operates 
- * on a given context which provides sufficient information for executing the rules of validation.</p>
+ * <p>A generic contract for validating metadata and runtime information. Each {@link Validator} 
+ * operates on a given context which provides information for executing the validation rules.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -34,7 +33,7 @@ package com.lonepulse.robozombie;
 public interface Validator<CONTEXT extends Object> {
 
 	/**
-	 * <p>Accepts a given context and validates the information therein using a set of predetermined rules. 
+	 * <p>Accepts a given context and validates the contained information using predetermined rules. 
 	 * A validation failure is signaled at runtime using an instance of {@link ValidationFailedException}. 
 	 * Custom extensions of {@link ValidationFailedException} may be used for failure specificity.</p>
 	 * 

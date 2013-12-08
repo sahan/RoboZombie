@@ -23,11 +23,11 @@ package com.lonepulse.robozombie.request;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This contract defines the policy of a <b>serializer</b> which is responsible for translating 
- * a model into a content-type suitable for network transmission.</p>  
+ * <p>This contract defines the policy of a <b>serializer</b> which is responsible for translating a model 
+ * into a content-type suitable for network transmission.</p>  
  * 
- * <p><b>Note</b> that, ideally, the serialized content should capture all information on the model.</p> 
- * 
+ * <p><b>Note</b> that, ideally, the serialized content should capture all information on the model.</p>
+ *  
  * @version 1.1.0
  * <br><br>
  * @since 1.2.4
@@ -45,17 +45,17 @@ public interface Serializer<INPUT, OUTPUT> {
 	 * </ol>
 	 * <br><br>
 	 * 
-	 * @param input
-	 * 			the <b>model</b> to be converted to a serialized representation which <b>captures 
-	 * 			all its information</b>
-	 * <br><br>
 	 * @param context
 	 * 			the {@link InvocationContext} which can be used to discover information about the 
 	 * 			current proxy invocation
+	 * <br><br>
+	 * @param input
+	 * 			the <b>model</b> to be converted to a serialized representation which <b>captures 
+	 * 			all its information</b>
 	 * <br><br>
 	 * @return the serialized content which captures all the information the provided model
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	OUTPUT run(INPUT input, InvocationContext context);
+	OUTPUT run(InvocationContext context, INPUT input);
 }

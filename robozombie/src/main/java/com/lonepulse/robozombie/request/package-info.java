@@ -1,10 +1,10 @@
 /**
- * <p>Contains the set of classes which create HTTP requests for a proxy invocation using the annotated meta-data 
- * found on the endpoint request method declarations.</p>
+ * <p>Contains the set of core and auxiliary classes which create requests and process requests for a proxy 
+ * invocation using the annotated meta-data found on the endpoint definition.</p>
  * 
- * @since 1.1.1
+ * @since 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 package com.lonepulse.robozombie.request;
 

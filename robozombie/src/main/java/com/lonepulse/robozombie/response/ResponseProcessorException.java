@@ -28,8 +28,8 @@ import com.lonepulse.robozombie.RoboZombieRuntimeException;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This runtime exception is thrown when an HTTP {@link ResponseProcessor} fails to execute successfully 
- * for a given {@link HttpResponse} and {@link InvocationContext}.
+ * <p>This runtime exception is thrown when an {@link AbstractResponseProcessor} fails to execute 
+ * successfully for a given {@link InvocationContext} and {@link HttpResponse}.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -44,38 +44,38 @@ class ResponseProcessorException extends RoboZombieRuntimeException {
 	
 
 	/**
-	 * <p>Displays a detailed description along with the stacktrace.
+	 * <p>Displays a detailed description with information on the failed processor and content.</p>
 	 * 
+	 * @param context
+	 * 			the {@link InvocationContext} for the failed {@link AbstractResponseProcessor}
+	 * <br><br>
 	 * @param responseProcessorClass
-	 * 			the {@link Class} of the {@link ResponseProcessor} implementation which failed
-	 * 
-	 * @param config
-	 * 			the {@link InvocationContext} which caused the {@link ResponseProcessor} to fail
-	 * 
+	 * 			the {@link Class} of the {@link AbstractResponseProcessor} implementation which failed
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	public ResponseProcessorException(Class<?> responseProcessorClass, 
-									  InvocationContext config) {
+									  InvocationContext context) {
 	
 		this(new StringBuilder(responseProcessorClass.getName())
-		 .append(" failed to process the response for the request [")
-		 .append(config.getRequest().getName())
-		 .append("] with arguments ")
-		 .append(Arrays.toString(config.getArguments().toArray())).toString());
+			 .append(" failed to process the response for the request [")
+			 .append(context.getRequest().getName())
+			 .append("] with arguments ")
+			 .append(Arrays.toString(context.getArguments().toArray())).toString());
 	}
 	
 	/**
-	 * <p>Displays a detailed description along with the stacktrace.
+	 * <p>Displays a detailed description with information on the failed processor and content, while 
+	 * preserving the stacktrace.</p>
 	 * 
+	 * @param context
+	 * 			the {@link InvocationContext} for the failed {@link AbstractResponseProcessor}
+	 * <br><br>
 	 * @param responseProcessorClass
-	 * 			the {@link Class} of the {@link ResponseProcessor} implementation which failed
-	 * 
-	 * @param config
-	 * 			the {@link InvocationContext} which caused the {@link ResponseProcessor} to fail
-	 * 
+	 * 			the {@link Class} of the {@link AbstractResponseProcessor} implementation which failed
+	 * <br><br>
 	 * @param rootCause
-	 * 			the parent exception which caused the {@link RequestProcessor} to fail
+	 * 			the parent exception which caused the {@link AbstractResponseProcessor} to fail
 	 * <br><br>
 	 * @since 1.2.4
 	 */
@@ -84,10 +84,10 @@ class ResponseProcessorException extends RoboZombieRuntimeException {
 									  Throwable rootCause) {
 		
 		this(new StringBuilder(responseProcessorClass.getName())
-		 .append(" failed to process the response for the request [")
-		 .append(config.getRequest().getName())
-		 .append("] with arguments ")
-		 .append(Arrays.toString(config.getArguments().toArray())).toString(), rootCause);
+			 .append(" failed to process the response for the request [")
+			 .append(config.getRequest().getName())
+			 .append("] with arguments ")
+			 .append(Arrays.toString(config.getArguments().toArray())).toString(), rootCause);
 	}
 	
 	/**

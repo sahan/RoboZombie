@@ -21,7 +21,6 @@ package com.lonepulse.robozombie;
  * #L%
  */
 
-
 /**
  * <p>This runtime exception signals a <b>generic</b> validation failure when using {@link Validator}s.</p>
  * 
@@ -39,11 +38,15 @@ public class ValidationFailedException extends RoboZombieRuntimeException {
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException()}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ValidationFailedException() {}
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ValidationFailedException(String detailMessage) {
 		
@@ -52,6 +55,8 @@ public class ValidationFailedException extends RoboZombieRuntimeException {
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ValidationFailedException(Throwable throwable) {
 		
@@ -60,6 +65,8 @@ public class ValidationFailedException extends RoboZombieRuntimeException {
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String, Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ValidationFailedException(String detailMessage, Throwable throwable) {
 

@@ -23,10 +23,10 @@ package com.lonepulse.robozombie.processor;
 import static com.lonepulse.robozombie.util.Assert.assertNotNull;
 
 /**
- * <p>This entity represents a <b>single link</b> in a <i>processor chain</i>. It wraps the {@link Processor} 
- * which should be executed and accepts another {@link ProcessorChainLink} as its <b>successor</b>. All 
- * implementations are expected to check for the availability of a successor and invoke it with the results 
- * of the current link's execution and return the <i>successive results</i>.</p>
+ * <p>Represents a <b>single link</b> in a <i>processor chain</i>. It wraps the {@link Processor} to 
+ * be executed and accepts another {@link ProcessorChainLink} as its <b>successor</b>. All implementations 
+ * are expected to check for the availability of a successor and invoke it with the results of the current 
+ * link's execution and return the <i>successive results</i>.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -42,25 +42,14 @@ public final class ProcessorChainLink<RESULT, FAILURE extends Throwable> {
 	private ProcessorChainLink<RESULT, FAILURE> successor;
 	
 	
-	/**
-	 * <p>Instantiates a new instance of {@link ProcessorChainLink} and wraps the given {@link Processor} 
-	 * which handles the <i>execution</i> for this link in the chain.</p>
-	 * 
-	 * <p><b>Restricted</b>, use {@link #from(Processor)} instead.</p>
-	 * 
-	 * @param processor
-	 * 			the {@link Processor} to be wrapped by this instance of {@link ProcessorChainLink}
-	 * <br><br>
-	 * @since 1.2.4
-	 */
 	private ProcessorChainLink(Processor<RESULT, FAILURE> processor) {
 	
 		this.processor = processor;
 	}
 	
 	/**
-	 * <p>Creates a new instance of {@link ProcessorChainLink} and wraps the given {@link Processor} which handles 
-	 * the <i>execution</i> for this link in the chain.</p>
+	 * <p>Creates a new {@link ProcessorChainLink} and wraps the given {@link Processor} which handles the 
+	 * <i>execution</i> for this link in the chain.</p>
 	 *
 	 * @param processor
 	 * 			the {@link Processor} to be wrapped by this instance of {@link ProcessorChainLink}
@@ -68,8 +57,8 @@ public final class ProcessorChainLink<RESULT, FAILURE extends Throwable> {
 	 * @return a new instance of {@link ProcessorChainLink} which wraps the provided {@link Processor} 
 	 * <br><br>
 	 * @throws IllegalStateException
-	 * 			if the given {@link Processor} is {@code null}; a {@link ProcessorChainLink} must always enclose 
-	 * 			a {@link Processor} which is invoked when the execution reaches this link in a chain
+	 * 			if the given {@link Processor} is {@code null}; a {@link ProcessorChainLink} must always 
+	 * 			enclose a {@link Processor} which is invoked when the execution reaches this link in a chain
 	 * <br><br>
 	 * @since 1.2.4
 	 */
@@ -85,16 +74,15 @@ public final class ProcessorChainLink<RESULT, FAILURE extends Throwable> {
 	}
 	
 	/**
-	 * <p><b>Assigns</b> the given {@link ProcessorChainLink} as the <b>successor</b> which has been designated 
-	 * to this link.</p>
+	 * <p>Assigns the given {@link ProcessorChainLink} as the designated <b>successor</b> to this link.</p>
 	 * 
-	 * <p>Once the {@link Processor} instance which is wrapped by this link produces it result, they are to be fed 
-	 * to the successor and the resulting <i>successive result</i> is the <i>output</i> of this link.</p>
+	 * <p>Once this link's {@link Processor} produces it result, it is to be fed to the successor and the 
+	 * <b>successive result</b> is the <i>output</i> of this link.</p>
 	 * 
 	 * @param successor
 	 * 			the {@link ProcessorChainLink} to be designated as the <b>successor</b> to this link
 	 * <br><br>
-	 * @return the {@link Processor} which was provided as the <b>successor</b> to this {@link ProcessorChainLink} 
+	 * @return the same {@link Processor} which was provided as the <b>successor</b> 
 	 * <br><br>
 	 * @since 1.2.4
 	 */
@@ -108,11 +96,8 @@ public final class ProcessorChainLink<RESULT, FAILURE extends Throwable> {
 	}
 	
 	/**
-	 * <p>Retrieves the {@link ProcessorChainLink} which has been designated as the <b>successor</b> of this link.</p> 
+	 * <p>Retrieves the {@link ProcessorChainLink} which is the designated <b>successor</b> to this link.</p> 
 	 * 
-	 * <p>Once the {@link Processor} instance which is wrapped by this link produces it result, they are to be fed 
-	 * to the successor and the resulting <i>successive result</i> is the <i>output</i> of this link.</p> 
-	 *
 	 * @return the {@link ProcessorChainLink} designated as the <b>successor</b> to this link
 	 * <br><br>
 	 * @since 1.2.4
@@ -123,8 +108,8 @@ public final class ProcessorChainLink<RESULT, FAILURE extends Throwable> {
 	}
 	
 	/**
-	 * <p>Checks whether this {@link ProcessorChainLink} is the last link in its chain and ensures that there are 
-	 * <b>no more successors</b> to traverse.</p> 
+	 * <p>Checks whether this {@link ProcessorChainLink} is the last link in its chain and ensures that there 
+	 * are <b>no more successors</b> to traverse.</p> 
 	 *
 	 * @return {@code true} if this is indeed the terminal link
 	 * <br><br>

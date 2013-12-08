@@ -110,7 +110,7 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
 	
 	/**
 	 * <p>Creates a new instance of {@link JsonDeserializer} and register the generic type {@link Object} 
-	 * as the entity which results from its <i>parse</i> operation.</p>
+	 * as the entity which results from its deserialization operation.</p>
 	 *
 	 * @since 1.2.4
 	 */
@@ -123,21 +123,20 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
      * <p>Parses the JSON String in the {@link HttpResponse} using <b>GSON</b> and returns the entity modeled 
      * by the JSON data.</p>
      * 
-     * <p>See {@link AbstractDeserializer#deserialize(HttpResponse, InvocationContext)}.
+     * <p>See {@link AbstractDeserializer#deserialize(InvocationContext, HttpResponse)}.
      * 
-	 * @param httpResponse
-	 * 				the {@link HttpResponse} which contains the JSON content to be deserialized to a model
-	 * <br><br>
-	 * @param context
-	 * 				the {@link InvocationContext} which is used to discover further information regarding 
-	 * 				the proxy invocation
+     * @param context
+     * 			the {@link InvocationContext} with information on the the proxy invocation
      * <br><br>
+	 * @param response
+	 * 			the {@link HttpResponse} which contains the JSON content to be deserialized
+	 * <br><br>
 	 * @return the model which was deserialized from the JSON response content, else {@code null} if the 
 	 * 		   given {@link HttpResponse} did not contain an {@link HttpEntity}
 	 * <br><br>
 	 * @throws IllegalStateException 
-	 * 				if the <b>GSON library</b> was not found on the classpath or if an incompatible version 
-	 * 				of the library is being used
+ * 				if the <b>GSON library</b> was not found on the classpath or if an incompatible version 
+ * 				of the library is being used
 	 * <br><br>
 	 * @throws DeserializerException
 	 * 			if JSON deserialization failed for the given entity using the Gson library 
@@ -145,14 +144,14 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected Object deserialize(HttpResponse httpResponse, InvocationContext context) {
+	protected Object deserialize(InvocationContext context, HttpResponse response) {
 		
 		if(unavailable || incompatible) {
 			
 			throw new IllegalStateException(unavailable? ERROR_CONTEXT_UNAVAILABLE :ERROR_CONTEXT_INCOMPATIBLE);
 		}
 		
-		HttpEntity entity = httpResponse.getEntity();
+		HttpEntity entity = response.getEntity();
 		
 		try {
 			

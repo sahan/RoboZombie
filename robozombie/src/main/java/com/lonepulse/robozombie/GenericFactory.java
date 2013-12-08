@@ -23,14 +23,14 @@ package com.lonepulse.robozombie;
 import java.util.Map;
 
 /**
- * <p>This contract specifies a generic policy for a factory. Its takes the raw materials specified by 
- * <i>INPUT</i> to manufacture an object of the type <i>OUTPUT</i> and expects a {@link Throwable} of 
- * the type <i>FAILURE</i> to be thrown in case of a manufacturing error.</p>
+ * <p>This contract specifies a generic policy for a factory. Its takes the raw materials specified 
+ * by <b>INPUT</b> to manufacture an object of the type <b>OUTPUT</b> and expects a {@link Throwable} 
+ * of type <b>FAILURE</b> to be thrown in case of a manufacturing error.</p>
  * 
  * <p>Use this contract when different factories may be passed to a dependent object, where the factories 
- * produce an <i>OUTPUT</i> which adhere to a contract or super-type and yet differ in implementation or 
- * extended-type based on the provided concrete factory. The same can be said for the <i>INPUT</i> and 
- * <i>FAILURE</i> types as well.</p> 
+ * produce an <b>OUTPUT</b> which adheres to a contract or super-type and yet differ in implementation or 
+ * extended-type based on the provided concrete factory. The same can be said for the <b>INPUT</b> and 
+ * <b>FAILURE</b> types as well.</p> 
  * 
  * @version 1.2.0
  * <br><br>
@@ -41,51 +41,51 @@ import java.util.Map;
 public interface GenericFactory<INPUT extends Object, OUTPUT extends Object, FAILURE extends Throwable> {
 
 	/**
-	 * <p>Manufactures a new instance of the <i>OUTPUT</i> product using no <i>INPUT</i>. This method 
-	 * could be used to create the entity with its default components and properties. Such details must 
-	 * be clearly documented in the implementation.</p> 
+	 * <p>Manufactures a new instance of the <b>OUTPUT</b> without any <b>INPUT</b>. This method 
+	 * could be used to create the entity with its default components and properties. Such details 
+	 * must be clearly documented in the implementation.</p> 
 	 * 			
-	 * @return a <b>new instance</b> of the <i>OUTPUT</i>
+	 * @return a <b>new instance</b> of the <b>INPUT</b>
 	 * <br><br>
-	 * @throws the type of <i>FAILURE</i> to expect from a manufacturing error 
+	 * @throws the type of <b>FAILURE</b> to expect from a manufacturing error 
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	OUTPUT newInstance() throws FAILURE;
 	
 	/**
-	 * <p>Takes a {@link Map} of raw materials (keyed by {@link String}s) as the <i>INPUT</i> and 
-	 * manufactures the <i>OUTPUT</i>. All implementations must check for the <b>existence</b> of 
-	 * the <i>INPUT</i> and validate it before proceeding with the manufacture.</p>
+	 * <p>Takes a {@link Map} of raw materials (keyed by {@link String}s) as the <b>INPUT</b> and 
+	 * manufactures the <b>INPUT</b>. All implementations must check for the <b>existence</b> of 
+	 * the <b>INPUT</b> and validate it before proceeding with the manufacture.</p>
 	 * 
 	 * @param inputMap
-	 * 			the <i>INPUT</i> {@link Map} whose entries are used to manufacture the <i>OUTPUT</i>
+	 * 			the <b>INPUT</b> {@link Map} whose entries are used to manufacture the <b>INPUT</b>
 	 * <br><br>			
-	 * @return a <b>new instance</b> of the <i>OUTPUT</i>
+	 * @return a <b>new instance</b> of the <b>INPUT</b>
 	 * <br><br>
-	 * @throws the type of <i>FAILURE</i> to expect from a manufacturing error
+	 * @throws the type of <b>FAILURE</b> to expect from a manufacturing error
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	OUTPUT newInstance(Map<String, INPUT> inputMap) throws FAILURE;
 	
 	/**
-	 * <p>Takes a single <i>INPUT</i> as an essential raw material to manufacture the <i>OUTPUT</i> 
-	 * and produces a new instance of it. It <i>may</i> take additional <i>INPUT</i>s which are 
+	 * <p>Takes a single <b>INPUT</b> as an essential raw material to manufacture the <b>INPUT</b> 
+	 * and produces a new instance of it. It <i>may</i> take additional <b>INPUT</b>s which are 
 	 * required for the manufacturing process. All implementations must check for the <b>existence</b> 
 	 * of the <i>essential INPUT</i> and validate it before proceeding with the manufacture.</p>
 	 * 
 	 * @param input
-	 * 			an <i>INPUT</i> which is essential to the manufacture of the <i>OUTPUT</i> without 
+	 * 			an <b>INPUT</b> which is essential to the manufacture of the <b>INPUT</b> without 
 	 * 			which the manufacturing process will fail  
-	 * 
+	 * <br><br>			
 	 * @param inputs
-	 * 			further <i>INPUT</i>s which can be used in the manufacturing of the <i>OUTPUT</i> 
+	 * 			further <b>INPUT</b>s which can be used in the manufacturing of the <b>INPUT</b> 
 	 * 			but are not <i>essential</i> to the process
 	 * <br><br>			
-	 * @return a <b>new instance</b> of the <i>OUTPUT</i>
+	 * @return a <b>new instance</b> of the <b>INPUT</b>
 	 * <br><br>
-	 * @throws the type of <i>FAILURE</i> to expect from a manufacturing error
+	 * @throws the type of <b>FAILURE</b> to expect from a manufacturing error
 	 * <br><br>
 	 * @since 1.2.4
 	 */

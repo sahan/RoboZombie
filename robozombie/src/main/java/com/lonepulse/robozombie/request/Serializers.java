@@ -27,8 +27,8 @@ import com.lonepulse.robozombie.annotation.Entity.ContentType;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>Exposes all available {@link AbstractSerializer}s, resolves concrete instances of their serializer types 
- * and mediates communication.</p> 
+ * <p>Exposes all available {@link AbstractSerializer}s, resolves concrete instances of their serializer 
+ * types and mediates communication.</p> 
  * 
  * @version 1.1.0
  * <br><br>
@@ -75,9 +75,9 @@ public enum Serializers implements Serializer<Object, Object> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object run(Object input, InvocationContext context) {
+	public Object run(InvocationContext context, Object input) {
 	
-		return this.serializer.run(input, context);
+		return this.serializer.run(context, input);
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public enum Serializers implements Serializer<Object, Object> {
 	 * 
 	 * @param contentType
 	 * 			the {@link ContentType} whose implementation of {@link AbstractSerializer} is retrieved
-	 * 
+	 * <br><br>
 	 * @return the implementation of {@link AbstractSerializer} which serves the given {@link ContentType}
 	 * <br><br>
 	 * @since 1.2.4
@@ -110,7 +110,7 @@ public enum Serializers implements Serializer<Object, Object> {
 	 * 
 	 * @param serializerType
 	 * 			the {@link Class} whose implementation of {@link AbstractSerializer} is retrieved
-	 * 
+	 * <br><br>
 	 * @return the implementation of {@link AbstractSerializer} for the given {@link Class}
 	 * <br><br>
 	 * @throws SerializerInstantiationException

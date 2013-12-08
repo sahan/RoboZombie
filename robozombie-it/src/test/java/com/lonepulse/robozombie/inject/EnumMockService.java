@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.inject;
  * #L%
  */
 
-
 import com.lonepulse.robozombie.annotation.Bite;
 
 /**

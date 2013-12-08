@@ -30,15 +30,15 @@ import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**
- * <p>This is a concrete implementation of {@link ResponseProcessor} which retrieves the <i>response-headers</i> 
- * from an {@link HttpResponse} and exposes them via <b>in-out</b> parameters on the endpoint request request 
- * definition. It targets <b>dynamic response headers</b> which are identified by the @{@link Header} annotation 
+ * <p>This {@link AbstractResponseProcessor} retrieves the <i>response headers</i> from an 
+ * {@link HttpResponse} and exposes them via <b>in-out</b> parameters on the endpoint request definition. 
+ * It targets <b>dynamic response headers</b> which are identified by the @{@link Header} annotation 
  * used on parameters of type {@link StringBuilder}.</p>
  * 
- * <p><b>Note</b> that the endpoint may return multiple response headers with the same name and each of these may 
- * be retrieved by annotating multiple parameters with @{@link Header}. An alternative would be to implement an 
- * {@link AbstractDeserializer} and processing the headers manually (this could also be achieved by running the 
- * request <i>asynchronously</i> and processing the headers in an {@link AsyncHandler}).</p> 
+ * <p><b>Note</b> that the endpoint may return multiple response headers with the same name and each of 
+ * these may be retrieved by annotating multiple parameters with @{@link Header}. An alternative would be 
+ * to implement an {@link AbstractDeserializer} and processing the headers manually. This could also be 
+ * achieved by running the request <i>asynchronously</i> and processing the headers in an {@link AsyncHandler}).</p> 
  * 
  * @version 1.1.0
  * <br><br>
@@ -50,21 +50,19 @@ class HeaderProcessor extends AbstractResponseProcessor {
 
 	
 	/**
-	 * <p>Accepts the {@link InvocationContext} along with the {@link HttpResponse} plus the deserialized entity 
-	 * response (if any) and retrieves all HTTP response headers which are discovered in the {@link HttpResponse}. 
-	 * These are then injected into their matching {@link StringBuilder} which are identified by @{@link Header} on 
-	 * the endpoint request definition. The HTTP response headers and the in-out parameters are matched using the header 
-	 * name and all parameters with a runtime value of {@code null} will be ignored.</p> 
+	 * <p>Accepts the {@link InvocationContext} along with the {@link HttpResponse} and retrieves all response 
+	 * headers which are discovered in the {@link HttpResponse}. These are then injected into their matching 
+	 * {@link StringBuilder} which are identified by @{@link Header} on the endpoint request definition. The 
+	 * response headers and the in-out parameters are matched using the header name and all parameters with 
+	 * a runtime value of {@code null} will be ignored.</p> 
 	 * 
-	 * <p>See {@link ResponseUtils#findHeaders(InvocationContext)}.</p>
-	 * 
-	 * @param response
-	 * 			the instance of {@link HttpResponse} whose headers are to be retrieves and injected in the in-out 
-	 * 			{@link StringBuilder} parameters found on the request definition
-	 * <br><br>
 	 * @param context
-	 * 			an immutable instance of {@link InvocationContext} which is used to discover any 
-	 * 			@{@link Header} metadata in its <i>request</i> and <i>args</i>
+	 * 			the {@link InvocationContext} which is used to discover any @{@link Header} metadata in its 
+	 * 			<i>request</i> and <i>args</i>
+	 * <br><br>
+	 * @param response
+	 * 			the {@link HttpResponse} whose headers are to be retrieved and injected in the in-out 
+	 * 			{@link StringBuilder} parameters found on the request definition
 	 * <br><br>
 	 * @return the <i>same</i> deserialized response entity instance which was supplied as a parameter 
 	 * <br><br>
@@ -74,7 +72,7 @@ class HeaderProcessor extends AbstractResponseProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected Object process(HttpResponse response, InvocationContext context, Object content) {
+	protected Object process(InvocationContext context, HttpResponse response, Object content) {
 
 		try {
 			

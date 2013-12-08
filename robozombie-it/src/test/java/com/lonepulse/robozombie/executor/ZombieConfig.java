@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.executor;
  * #L%
  */
 
-
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;

@@ -30,8 +30,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>This is a concrete implementation of {@link ProxyFactory} which is used for constructing proxies 
- * for endpoint definitions.</p>
+ * <p>This is an implementation of {@link ProxyFactory} which is used for constructing thread-safe 
+ * proxies of endpoint definitions.</p>
  * 
  * @version 2.2.0
  * <br><br>
@@ -43,8 +43,7 @@ enum EndpointProxyFactory implements ProxyFactory {
 	
 	
 	/**
-	 * <p>The single instance of the factory which caters to all endpoint 
-	 * injection requirements by creating endpoint proxies.
+	 * <p>The {@link EndpointProxyFactory} which creates thread-safe proxies of endpoint definitions.</p>
 	 * 
 	 * @since 1.1.0
 	 */

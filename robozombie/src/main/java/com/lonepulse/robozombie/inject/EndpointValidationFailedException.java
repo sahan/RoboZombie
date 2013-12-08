@@ -24,8 +24,8 @@ import com.lonepulse.robozombie.ValidationFailedException;
 
 
 /**
- * <p>This runtime exception is thrown whenever an {@link EndpointValidator} fails to validate an 
- * endpoint definition against a set of predefined rules.</p>
+ * <p>This runtime exception is thrown when an {@link EndpointValidator} fails to validate an endpoint 
+ * definition against a set of predefined rules.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -36,18 +36,18 @@ import com.lonepulse.robozombie.ValidationFailedException;
 class EndpointValidationFailedException extends ValidationFailedException {
 
 
-	private static final long serialVersionUID = -7647297337822890607L;
-	
+	private static final long serialVersionUID = 4063102218823910819L;
 
+	
 	/**
-	 * <p>Displays a detailed description using information about the endpoint definition, along with 
-	 * the stacktrace.</p>
+	 * <p>Displays a detailed description using information about the endpoint definition and preserves 
+	 * the root cause in the stacktrace.</p>
 	 * 
 	 * @param endpoint
-	 * 			the {@link Class} of the endpoint definition
-	 * 
+	 * 			the {@link Class} of the endpoint definition which was deemed invalid
+	 * <br><br>
 	 * @param rootCause
-	 * 			the root {@link Throwable} cause which resulted in this failure
+	 * 			the root {@link Throwable} cause which caused the invalidation
 	 * <br><br>
 	 * @since 1.2.4
 	 */

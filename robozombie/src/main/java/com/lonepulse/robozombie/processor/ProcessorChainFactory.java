@@ -20,17 +20,16 @@ package com.lonepulse.robozombie.processor;
  * #L%
  */
 
-
 import static com.lonepulse.robozombie.util.Assert.assertNotNull;
 
 import com.lonepulse.robozombie.AbstractGenericFactory;
 
 /**
- * <p>This is a concrete implementation of {@link AbstractGenericFactory} which creates a <b>processor-chain</b> 
- * using the given array of {@link Processor}s by linking them using {@link ProcessorChainLink}s. The sequence 
- * in the given array is preserved in the resulting chain.</p>
+ * <p>This is a concrete implementation of {@link AbstractGenericFactory} which creates a <b>processor 
+ * chain</b> using the given array of {@link Processor}s which are wrapped in {@link ProcessorChainLink}s 
+ * and linked together. The sequence of {@link Processor}s in the given array is preserved in the chain.</p>
  * 
- * <p>Supports the following factory services:</p>
+ * <p>Supports the following factory methods:</p>
  * <ul>
  * 	<li>{@link ProcessorChainFactory#newInstance(Processor, Processor...)}</i>
  * </ul>
@@ -49,24 +48,25 @@ extends AbstractGenericFactory <Processor<RESULT, FAILURE>, ProcessorChainLink<R
 
 
 	/**
-	 * <p>Creates a <b>processor-chain</b> using the given array of {@link Processor}s by wrapping each of them in 
-	 * an instance of {@link ProcessorChainLink} and linking them in the sequence reflected in the array.</p>
+	 * <p>Creates a <b>processor-chain</b> using the given array of {@link Processor}s by wrapping each 
+	 * of them in an instance of {@link ProcessorChainLink} and linking them in the sequence reflected 
+	 * in the array.</p>
 	 * 
 	 * @param root
-	 * 			an instance of {@link Processor} which will become the first (root) link in the processor-chain
-	 * 
+	 * 			the {@link Processor} which will be the initial link in the processor-chain
+	 * <br><br>
 	 * @param successors
-	 * 			further instances of {@link Processor} which will form the successive <i>links</i> of the processor-chain
-	 * 
-	 * @return the root {@link ProcessorChainLink} of the processor-chain which can be used to follow all successive 
+	 * 			further {@link Processor}s which will create the successive <i>links</i> in the chain
+	 * <br><br>
+	 * @return the root {@link ProcessorChainLink} of the chain which can be used to follow all successive 
 	 * 		   links by invoking {@link ProcessorChainLink#getSuccessor()}
-	 *
+	 * <br><br>
 	 * @throws IllegalArgumentException
 	 * 			if the given <b>root</b> {@link Processor} is {@code null}
-	 *
+	 * <br><br>
 	 * @throws ChainCreationException
-	 * 			a {@link ChainCreationException} if a processor-chain failed to be created using the given {@link Processor}s
-	 * 
+	 * 			if the chain failed to be created using the given {@link Processor}s
+	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
@@ -97,8 +97,7 @@ extends AbstractGenericFactory <Processor<RESULT, FAILURE>, ProcessorChainLink<R
 		}
 		catch(Exception e) {
 			
-			throw (e instanceof ChainCreationException)? 
-					(ChainCreationException)e :new ChainCreationException(e);
+			throw new ChainCreationException(e);
 		}
 	}
 }

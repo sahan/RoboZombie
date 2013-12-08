@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.processor;
  * #L%
  */
 
-
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Endpoint;

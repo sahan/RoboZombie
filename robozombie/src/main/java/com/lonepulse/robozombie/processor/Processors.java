@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.processor;
  * #L%
  */
 
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
@@ -31,16 +30,19 @@ import com.lonepulse.robozombie.annotation.FormParam;
 import com.lonepulse.robozombie.annotation.PathParam;
 import com.lonepulse.robozombie.annotation.QueryParam;
 import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.inject.InvocationException;
 import com.lonepulse.robozombie.request.RequestProcessorChain;
 import com.lonepulse.robozombie.response.ResponseProcessorChain;
 
 /**
- * <p>This enum aggregates all <i>thread-safe</i> processor-chains and exposes the services common to each chain and 
- * may even offer services which encompass all the chains as a whole. Any swap between chains (for e.g. a deprecated 
- * implementation for its enhancement) for the same target criteria occurs transparently. Refer the documentation for 
- * the enum instance for more information on the current version of the processor-chain in use.</p>
+ * <p>This enum aggregates all <i>thread-safe</i> processor-chains and exposes the services common to each 
+ * chain and may even offer services which encompass all the chains as a whole. Any swap between chains 
+ * (e.g. a deprecated implementation for its enhancement) for the same target criteria occurs transparently.</p>
  * 
- * @version 1.2.0
+ * <p>All processor-chains are ensured to be independent of an internal (or an external object's) state and 
+ * is thread-safe. If a state is incurred, proper {@link ThreadLocal} management will be performed.</p>
+ *  
+ * @version 1.1.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
@@ -50,38 +52,39 @@ public enum Processors {
 
 	
 	/**
-	 * <p>This is a concrete implementation of {@link AbstractProcessorChain} which creates a sequentially executed 
-	 * series of <b>request processors</b> responsible for building the {@link HttpRequest} for a request 
-	 * invocation.</p>
+	 * <p>This is a concrete implementation of {@link AbstractProcessorChain} which creates a sequentially 
+	 * executed series of <b>request processors</b> responsible for building the {@link HttpRequest} for a 
+	 * request invocation.</p>
 	 * 
 	 * <p>This chain consists of the <b>request processors</b> listed below in the given order:  
 	 * 
 	 * <ol>
 	 * 	<li>{@link UriProcessor} - builds the complete URI from the root-path and the sub-path</li>
 	 * 	<li>{@link HeaderProcessor} - populates all static and dynamic HTTP headers</li>
-	 *  <li>{@link PathParamProcessor} - populates path parameters placeholders in the URI for any @{@link PathParam}s</li>
+	 *  <li>{@link PathParamProcessor} - replaces path parameter placeholders in the URI with any @{@link PathParam}s</li>
 	 *  <li>{@link QueryParamProcessor} - appends a query-string formulated for any @{@link QueryParam}s</li>
 	 *  <li>{@link FormParamProcessor} - inserts a form-url-encoded query-string for any @{@link FormParam}s</li>
 	 *  <li>{@link EntityProcessor} - inserts the {@link HttpEntity} identified using @{@link Entity}</li>
+	 *  <li>{@link InterceptionProcessor} - runs hooks for custom request processing just before execution</li>
 	 * </ol>
 	 * 
-	 * <p><b>Note</b> that this processor-chain requires a single {@link InvocationContext} to be {@link #run(Object...)}} 
-	 * and returns the {@link HttpRequestBase} which was processed through the entire chain.</p>
+	 * <p><b>Note</b> that this processor-chain requires a single {@link InvocationContext} to be fed into 
+	 * {@link #run(Object...)}} and returns the {@link HttpRequestBase} which was processed by the chain.</p>
 	 * 
-	 * <p><b>Note</b> that a chain-wide failure is <b>NOT recoverable</b>. All failures are of type RequestProcessorException 
-	 * which may be thrown from any arbitrary {@link ProcessorChainLink}. Any changes made on the arguments to the chain 
-	 * are <b>NOT rolled back</b>.</p> 
+	 * <p><b>Note</b> that a chain-wide failure is <b>NOT recoverable</b>. All failures are of type 
+	 * <b>RequestProcessorException</b> and may be thrown from any arbitrary {@link ProcessorChainLink}. 
+	 * Any changes made on the arguments to the chain are <b>NOT rolled back</b>.</p> 
 	 * 
-	 * @version 1.1.0
+	 * @version 1.2.0
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	REQUEST(new RequestProcessorChain()),
 	
 	/**
-	 * <p>This is a concrete implementation of {@link AbstractProcessorChain} which creates a sequentially executed 
-	 * series of <b>response processors</b> responsible for handling the {@link HttpResponse} which was returned 
-	 * for an successful request invocation.</p>
+	 * <p>This is a concrete implementation of {@link AbstractProcessorChain} which creates a sequentially 
+	 * executed series of <b>response processors</b> responsible for handling the {@link HttpResponse} 
+	 * which was returned for a request execution.</p>
 	 * 
 	 * <p>This chain consists of the <b>response processors</b> listed below in the given order:  
 	 * 
@@ -90,12 +93,12 @@ public enum Processors {
 	 * 	<li>{@link EntityProcessor} - parses and returns the content of the response body</li>
 	 * </ol>
 	 * 
-	 * <p><b>Note</b> that this processor-chain <b>may or may not</b> return the deserialized response entity depending 
-	 * on the availability of response content.</p>
+	 * <p><b>Note</b> that this processor-chain <b>may or may not</b> return the deserialized response 
+	 * entity depending on the availability of response content.</p>
 	 * 
-	 * <p><b>Note</b> that a chain-wide failure is <b>NOT recoverable</b>. All failures are of type ResponseProcessorException 
-	 * which may be thrown from any arbitrary {@link ProcessorChainLink}. Any changes made on the arguments to the chain 
-	 * are <b>NOT rolled back</b>.</p> 
+	 * <p><b>Note</b> that a chain-wide failure is <b>NOT recoverable</b>. All failures are of type 
+	 * <b>ResponseProcessorException</b> and may be thrown from any arbitrary {@link ProcessorChainLink}. 
+	 * Any changes made on the arguments to the chain are <b>NOT rolled back</b>.</p> 
 	 * 
 	 * @version 1.1.0
 	 * <br><br>
@@ -105,35 +108,22 @@ public enum Processors {
 	
 	
 	
-	/**
-	 * <p>The {@link AbstractProcessorChain} which is served by this instance of the processor-chain aggregation.</p>
-	 */
 	private AbstractProcessorChain<?, ? extends Throwable> processorChain;
 	
 	
-	/**
-	 * <p>Instantiates the {@link Processors} instance with the given {@link AbstractProcessorChain}. Ensure that 
-	 * this processor-chain is not dependent on an internal (or an external object's) state and is thread safe. 
-	 * If a state is incurred, ensure that proper {@link ThreadLocal} management is performed.</p>
-	 * 	
-	 * @param processorChain
-	 * 			the instance of {@link AbstractProcessorChain} served by this instance of {@link Processors}
-	 * <br><br>
-	 * @since 1.2.4
-	 */
 	private Processors(AbstractProcessorChain<?, ? extends Throwable> processorChain) {
 	
 		this.processorChain = processorChain;
 	}
 
 	/**
-	 * <p>Accepts the arguments to which will be used by the processor-chain and invokes the root link - which will 
-	 * in-turn invoke all successive links with the arguments and return the final result of the chain.</p>
+	 * <p>Accepts the arguments which will be used by the processor-chain and invokes the root link which 
+	 * will in-turn invoke all successive links with the arguments and return the final result.</p>
 	 * 
-	 * <p>If a chain-wide failure for the current processor-chain is recoverable, ensure that you handle the failure 
-	 * of the appropriate type and take any steps for recovery. For example, a processor chain which acts on the input 
-	 * arguments and yet does not rollback the changes on failure could be mitigated by reverting to a deep-clone of 
-	 * the original arguments.</p>
+	 * <p>If a chain-wide failure for the current processor-chain is recoverable, ensure that you handle 
+	 * the failure of the appropriate type and take any steps for recovery. For example, a processor chain 
+	 * which acts on the input arguments and yet does not rollback the changes on failure could be mitigated 
+	 * by reverting to a deep-clone of the original arguments.</p>
 	 * 
 	 * <p>See {@link AbstractProcessorChain#run(Object...)}.</p>
 	 * 
@@ -142,13 +132,25 @@ public enum Processors {
 	 * 			links that follow; see {@link AbstractProcessorChain#onInitiate(ProcessorChainLink, Object...)} 
 	 * <br><br>
 	 * @return the final result produced by the tail of the chain which may or may not have been processed 
-	 * 			for terminal conditions by {@link AbstractProcessorChain#onTerminate(Object, Object...)}; ensure 
-	 * 			that you <i>cast</i> this to the type which is expected from the processor-chain 
+	 * 		   for terminal conditions by {@link AbstractProcessorChain#onTerminate(Object, Object...)}; 
+	 * 		   ensure that you <i>cast</i> this to the type which is expected from the processor-chain 
+	 * <br><br>
+	 * @throws InvocationException
+	 * 			if a chain-wide failure occurred in either the request or response processor chains 
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	public Object run(Object... args) {
 		
-		return this.processorChain.run(args);
+		try {
+		
+			return this.processorChain.run(args);
+		}
+		catch(Exception e) {
+			
+			throw this.equals(REQUEST)? 
+				InvocationException.newInstance((InvocationContext)args[0], e):
+				InvocationException.newInstance((InvocationContext)args[0], (HttpResponse)args[1], e);
+		}
 	}
 }

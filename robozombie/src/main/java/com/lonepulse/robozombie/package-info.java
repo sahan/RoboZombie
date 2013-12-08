@@ -1,7 +1,7 @@
 /**
- * <p>Contains the <i>core</i> contracts and implementations which common to all modules.
+ * <p>Contains the <i>core</i> contracts and implementations which are common to all modules.</p>
  * 
- * @since 1.1.1
+ * @since 1.1.0
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */

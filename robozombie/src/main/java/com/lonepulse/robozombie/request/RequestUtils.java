@@ -54,8 +54,6 @@ import com.lonepulse.robozombie.util.Metadata;
  * <br><br>
  * @since 1.2.4
  * <br><br>
- * @category utility
- * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 final class RequestUtils {
@@ -75,7 +73,7 @@ final class RequestUtils {
 	 * @return an <b>unmodifiable</b> {@link List} which aggregates all the @{@link Param} annotations 
 	 * 	   	   found on the {@link QueryParams} annotation
 	 * <br><br>
-	 * @throws IllegalArgumentException
+	 * @throws NullPointerException
 	 * 			if the supplied {@link InvocationContext} was {@code null}
 	 * <br><br>
 	 * @since 1.2.4
@@ -102,7 +100,7 @@ final class RequestUtils {
 	  * @return an <b>unmodifiable</b> {@link List} which aggregates all the @{@link Param} annotations 
 	  * 	   	   found on the {@link FormParams} annotation
 	  * <br><br>
-	  * @throws IllegalArgumentException
+	  * @throws NullPointerException
 	  * 			if the supplied {@link InvocationContext} was {@code null}
 	  * <br><br>
 	  * @since 1.2.4
@@ -118,12 +116,13 @@ final class RequestUtils {
 	 }
 	
 	/**
-	 * <p>Finds all <b>static headers</b> in the given {@link InvocationContext} and returns an unmodifiable {@link List} 
-	 * of {@link Map.Entry} instances with the header <i>name</i> as the key and the runtime argument as the <i>value</i>.
+	 * <p>Finds all <b>static headers</b> in the given {@link InvocationContext} and returns an unmodifiable 
+	 * {@link List} of {@link Map.Entry} instances with the header <i>name</i> as the key and the runtime 
+	 * argument as the <i>value</i>.
 	 *  
-	 * <b>Note</b> that this implementation of {@link Map.Entry#setValue(Object)} throws an {@link UnsupportedOperationException}. 
-	 * This list may contain multiple entries with the <i>same name</i> as these headers are meant to be <b>added</b> ant not 
-	 * overwritten for a request.</p>
+	 * <b>Note</b> that this implementation of {@link Map.Entry#setValue(Object)} throws an 
+	 * {@link UnsupportedOperationException}. This list may contain multiple entries with the <i>same name</i> 
+	 * as these headers are meant to be <b>added</b> ant not overwritten for a request.</p>
 	 * 
 	 * <p><i>Static-headers</i> are specified at request-level with @{@link Headers}</p>
 	 * 
@@ -131,9 +130,12 @@ final class RequestUtils {
 	 * @param context
 	 * 			the {@link InvocationContext} from which all static headers will be discovered
 	 * <br><br>
-	 * @return an <b>unmodifiable</b> {@link List} of {@link Map.Entry} instances with the header <i>name</i> as the key and 
-	 * 		   the runtime argument as the <i>value</i>; <b>note</b> that this implementation of {@link Map.Entry#setValue(Object)} 
-	 * 		   throws an {@link UnsupportedOperationException} 
+	 * @return an <b>unmodifiable</b> {@link List} of {@link Map.Entry} instances with the header <i>name</i> 
+	 * 		   as the key and the runtime argument as the <i>value</i>; <b>note</b> that this implementation 
+	 * 			of {@link Map.Entry#setValue(Object)} hrows an {@link UnsupportedOperationException} 
+	 * <br><br>
+	 * @throws NullPointerException
+	 * 			if the supplied {@link InvocationContext} was {@code null}
 	 * <br><br>
 	 * @since 1.2.4
 	 */
@@ -176,20 +178,23 @@ final class RequestUtils {
 	}
 	
 	/**
-	 * <p>Retrieves the proper extension of {@link HttpRequestBase} for the given {@link InvocationContext}. This 
-	 * implementation is solely dependent upon the {@link RequestMethod} property in the annotated metdata of the 
-	 * endpoint method definition.</p>
+	 * <p>Retrieves the proper extension of {@link HttpRequestBase} for the given {@link InvocationContext}. 
+	 * This implementation is solely dependent upon the {@link RequestMethod} property in the annotated 
+	 * metdata of the endpoint method definition.</p>
 	 *
 	 * @param context
 	 * 			the {@link InvocationContext} for which a {@link HttpRequestBase} is to be generated 
-	 * 
-	 * @return the {@link HttpRequestBase} translated from the {@link InvocationContext}'s {@link RequestMethod} 
+	 * <br><br>
+	 * @return the {@link HttpRequestBase} translated from the {@link InvocationContext}'s {@link RequestMethod}
+	 * <br><br>
+	 * @throws NullPointerException
+	 * 			if the supplied {@link InvocationContext} was {@code null} 
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	static HttpRequestBase translateRequestMethod(InvocationContext context) {
 		
-		RequestMethod requestMethod = Metadata.findMethod(context.getRequest());
+		RequestMethod requestMethod = Metadata.findMethod(assertNotNull(context).getRequest());
 		
 		switch (requestMethod) {
 		

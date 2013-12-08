@@ -45,9 +45,10 @@ import com.lonepulse.robozombie.RoboZombieRuntimeException;
  */
 enum HttpContextDirectory implements Directory<Class<?>, HttpContext> {
 	
+	
 	/**
-	 * <p>The instance of {@link HttpContextDirectory} which exposes the {@link HttpContext} which 
-	 * can be bound and looked up using their endpoints.</p>
+	 * <p>The {@link HttpContextDirectory} which caches the {@link HttpContext}s which can be bound 
+	 * and looked up using their endpoints.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -81,16 +82,16 @@ enum HttpContextDirectory implements Directory<Class<?>, HttpContext> {
 	
 	/**
 	 * <p>Registers the given {@link HttpContext} under the specified endpoint's name. If an instance 
-	 * of {@link HttpContext} is already registered under the endpoint, the existing will be returned 
-	 * without being replaced by the given {@link HttpContext}.</p>
+	 * of {@link HttpContext} is already registered under the endpoint, the existing instance will be 
+	 * returned without being replaced by the given {@link HttpContext}.</p>
 	 *
 	 * @param endpoint
-	 * 			the {@link Class} of the endpoint definition for which the {@link HttpContext} is bound
+	 * 			the {@link Class} of the endpoint definition to which the {@link HttpContext} is bound
 	 * <br><br>
 	 * @param httpContext
 	 * 			the {@link HttpContext} which is to be bound under the given endpoint definition
 	 * <br><br>
-	 * @return the bound {@link HttpContext} for the specified endpoint definition 
+	 * @return the {@link HttpContext} which was bound under the specified endpoint definition 
 	 * <br><br>
 	 * @since 1.2.4
 	 */

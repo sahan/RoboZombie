@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.processor;
  * #L%
  */
 
-
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.JSON;
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.PLAIN;
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.XML;
@@ -98,7 +97,7 @@ public interface SerializerEndpoint {
 		}
 
 		@Override
-		protected String serialize(User user, InvocationContext context) {
+		protected String serialize(InvocationContext context, User user) {
 
 			user.setFirstName("<redacted>");
 			user.setLastName("<redacted>");
@@ -140,7 +139,7 @@ public interface SerializerEndpoint {
 		}
 		
 		@Override
-		protected String serialize(String entity, InvocationContext context) {
+		protected String serialize(InvocationContext context, String entity) {
 			
 			return entity;
 		}
@@ -167,7 +166,7 @@ public interface SerializerEndpoint {
 		}
 		
 		@Override
-		protected String serialize(String entity, InvocationContext context) {
+		protected String serialize(InvocationContext context, String entity) {
 			
 			return entity;
 		}

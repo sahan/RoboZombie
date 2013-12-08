@@ -21,9 +21,9 @@ package com.lonepulse.robozombie.processor;
  */
 
 /**
- * <p>This contract defines a strategy which accepts data, acts on them based on a given set of instructions 
- * and returns a result. Its designed to be as generic as possible and any concrete or abstract implementation 
- * should override {@link Processor#run(Object...)} to suit itself.</p>
+ * <p>This contract defines a strategy which accepts data, acts on them (based on predefined instructions) 
+ * and returns a result. It's designed to be as generic as possible; any concrete or abstract implementation 
+ * may override {@link Processor#run(Object...)} to suit itself.</p>
  * 
  * <p><b>Note</b> that implementations are discouraged from using this contract to model <i>command objects</i>.</p> 
  * 
@@ -36,25 +36,25 @@ package com.lonepulse.robozombie.processor;
 public interface Processor<RESULT, FAILURE extends Throwable> {
 
 	/**
-	 * <p>Accepts a generic array of arguments, which is expected to contain <i>all the required information</i>, 
-	 * and executes the strategy and returns a result of <i>the assigned type</i>. Ensure that you validate the 
+	 * <p>Accepts a generic argument array (which is expected to contain <i>all the required information</i>), 
+	 * executes the strategy and returns a result of <i>the assigned type</i>. Ensure that you validate the 
 	 * incoming the argument array and wrap any disparate exceptions in instance of the assigned exception type. 
-	 * Exceptions which indicate a precondition failure (such as {@link IllegalArgumentException}) must be properly 
-	 * documented.</p>
+	 * All exceptions which indicate a failed precondition (e.g. {@link IllegalArgumentException}) should be 
+	 * properly documented.</p>
 	 *
 	 * @param args
 	 * 			a generic array of arguments which is expected to contain <i>all the required information</i> 
-	 * 
-	 * @return an instance of the </i>assigned type</i> if processing completed successfully; else {@code null} if 
-	 * 		   this strategy is not expected to return a result - such processors should define {@link Void} for the 
-	 * 		   generic RESULT type
-	 * 
+	 * <br><br>
+	 * @return an instance of the </i>assigned type</i> if processing completed successfully; else {@code null} 
+	 * 		   if this strategy is not expected to return a result - such processors should define {@link Void} 
+	 * 		   for the generic RESULT type
+	 * <br><br>
 	 * @throws FAILURE
-	 * 			if the strategy failed to complete successfully; the type of the {@link Throwable} should be strictly 
-	 * 			indicative of a failure in the strategy and not of a failure in the preconditions; {@link Processor}s 
-	 * 			which are recoverable should <b>not</b> define a subclass of {@link RuntimeException} for the generic 
-	 * 			FAILURE type
-	 * 
+	 * 			if the strategy failed to complete successfully; the type of the {@link Throwable} should be 
+	 * 			strictly indicative of a failure in the strategy and not of a failure in the preconditions; 
+	 * 			{@link Processor}s which are recoverable should <b>not</b> define a {@link RuntimeException} 
+	 * 			for the generic FAILURE type
+	 * <br><br>
 	 * @since 1.2.4
 	 */
 	RESULT run(Object... args) throws FAILURE;

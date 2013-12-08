@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
-
 import java.util.Map;
 
 import org.apache.http.client.methods.HttpRequestBase;
@@ -31,10 +30,9 @@ import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**
- * <p>This is a concrete implementation of {@link RequestProcessor} which populates the <i>request-headers</i> 
- * of an {@link HttpRequestBase} for an endpoint request definition. It targets both <b>static headers</b> 
- * which are identified by @{@link Headers} and <b>dynamic headers</b> which are identified by @{@link Header} 
- * (used on the request method arguments).</p>
+ * <p>This {@link AbstractRequestProcessor} populates the <i>request-headers</i> of an {@link HttpRequestBase} 
+ * for an endpoint request definition. It targets both <b>static headers</b> identified by @{@link Headers} 
+ * and <b>dynamic headers</b> identified by @{@link Header} (used on the request method arguments).</p>
  * 
  * <p><b>Note</b> that all headers will be <b>added</b> and <b>not overwritten</b>. This allows multiple 
  * headers with the same name (having the same or different values) to be used in the same HTTP request.</p> 
@@ -49,27 +47,27 @@ final class HeaderProcessor extends AbstractRequestProcessor {
 
 	
 	/**
-	 * <p>Accepts the {@link InvocationContext} along with an {@link HttpRequestBase} and populates 
-	 * the all HTTP headers which are discovered in the request method definition. These might be <i>static headers</i> 
-	 * or <i>dynamic headers</i>. <i>Static-headers</i> are specified directly on a request method with @{@link Headers}, 
-	 * whereas <i>dynamic-headers</i> are specified on the method argument which provides the dynamic header using 
-	 * @{@link Header}.</p>
+	 * <p>Accepts the {@link InvocationContext} along with an {@link HttpRequestBase} and populates the 
+	 * HTTP headers which are discovered in the request definition. These might be <i>static headers</i> 
+	 * or <i>dynamic headers</i>. <i>Static-headers</i> are specified directly on a request method with 
+	 * @{@link Headers}, whereas <i>dynamic-headers</i> are specified on the method argument which provides 
+	 * the dynamic header using @{@link Header}.</p>
 	 * 
-	 * <p>All discovered headers are <b>added</b> to the request - if two headers exists with the same name (with 
-	 * the same or different values) both are included in the final {@link HttpRequestBase}.</p>
+	 * <p>All discovered headers are <b>added</b> to the request - if two headers exists with the same 
+	 * name (with the same or different values) both are included in the final {@link HttpRequestBase}.</p>
 	 * 
-	 * <p><b>Note</b> that header arguments which are {@code null} (or those that produce an <i>empty string</i>) 
-	 * are ignored. It is assumed that these headers are not being used for the current request invocation.</p>
+	 * <p><b>Note</b> that header arguments which are {@code null} (or are <i>empty strings</i>) are 
+	 * ignored. It is assumed that these headers are ignored for the current request invocation.</p>
 	 * 
 	 * <p>See {@link RequestUtils#findStaticHeaders(InvocationContext)}.</p>
 	 * 
-	 * @param request
-	 * 			the instance of {@link HttpRequestBase} whose headers are to be populated by reading the metadata 
-	 * 			available in @{@link Headers} and @{@link Header} annotations 
-	 * <br><br>
 	 * @param context
-	 * 			an immutable instance of {@link InvocationContext} which is used to discover any 
-	 * 			@{@link Headers} and @{@link Header} metadata in its <i>request</i> and <i>args</i> 
+	 * 			the {@link InvocationContext} which is used to discover any @{@link Headers} and 
+	 * 			@{@link Header} metadata in its <i>request</i> and <i>args</i> 
+	 * <br><br>
+	 * @param request
+	 * 			the {@link HttpRequestBase} whose headers are to be populated by reading the metadata 
+	 * 			available in @{@link Headers} and @{@link Header} annotations 
 	 * <br><br>
  	 * @return the same instance of {@link HttpRequestBase} which was given for processing headers
 	 * <br><br>
@@ -79,7 +77,7 @@ final class HeaderProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected HttpRequestBase process(HttpRequestBase request, InvocationContext context) throws RequestProcessorException {
+	protected HttpRequestBase process(InvocationContext context, HttpRequestBase request) {
 
 		try {
 			
@@ -97,7 +95,7 @@ final class HeaderProcessor extends AbstractRequestProcessor {
 		}
 		catch(Exception e) {
 			
-			throw new RequestProcessorException(getClass(), context, e);
+			throw new RequestProcessorException(context, getClass(), e);
 		}
 	}
 	

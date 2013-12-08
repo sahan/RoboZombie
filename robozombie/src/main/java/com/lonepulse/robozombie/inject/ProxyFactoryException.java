@@ -1,7 +1,5 @@
 package com.lonepulse.robozombie.inject;
 
-import com.lonepulse.robozombie.RoboZombieRuntimeException;
-
 /*
  * #%L
  * RoboZombie
@@ -22,14 +20,17 @@ import com.lonepulse.robozombie.RoboZombieRuntimeException;
  * #L%
  */
 
+import com.lonepulse.robozombie.RoboZombieRuntimeException;
 
 /**
- * <p>This runtime exception is thrown whenever a failure occurs in creating 
- * a proxy via an instance of {@link ProxyFactory}.</p>
+ * <p>This runtime exception is thrown due to a failure in creating a proxy which reflects a given 
+ * endpoint definition using an instance of {@link ProxyFactory}.</p>
  * 
  * @version 1.1.1
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.1.0
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 class ProxyFactoryException extends RoboZombieRuntimeException {
 
@@ -38,21 +39,33 @@ class ProxyFactoryException extends RoboZombieRuntimeException {
 
 	
 	/**
-	 * <p>Displays a detailed description along with the stacktrace. 
+	 * <p>Displays a simple message which identifies the {@link ProxyFactory} and preserves the root 
+	 * cause on stacktrace.</p> 
+	 * 
+	 * @param proxyFactory
+	 * 			the {@link Class} of the proxy factory which generated the failure
+	 * <br><br>
+	 * @param rootCause
+	 * 			the root {@link Throwable} cause which resulted in the failure
+	 * <br><br>
+	 * @since 1.1.0
 	 */
-	public ProxyFactoryException(Class<?> proxyFactoryInstance, Throwable rootCause) {
+	public ProxyFactoryException(Class<?> proxyFactory, Throwable rootCause) {
 		
-		this("Error in proxy factory " + proxyFactoryInstance.getName(), rootCause);
+		this("Error in proxy factory " + proxyFactory.getName(), rootCause);
 	}
 	
 	/**
-	 * See {@link RuntimeException#RuntimeException()}.
+	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException()}.
+	 * <br><br>
+	 * @since 1.1.0
 	 */
-	public ProxyFactoryException() {
-	}
+	public ProxyFactoryException() {}
 
 	/**
-	 * See {@link RuntimeException#RuntimeException(String)}.
+	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String)}.
+	 * <br><br>
+	 * @since 1.1.0
 	 */
 	public ProxyFactoryException(String detailMessage) {
 		
@@ -60,7 +73,9 @@ class ProxyFactoryException extends RoboZombieRuntimeException {
 	}
 
 	/**
-	 * See {@link RuntimeException#RuntimeException(Throwable)}.
+	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(Throwable)}.
+	 * <br><br>
+	 * @since 1.1.0
 	 */
 	public ProxyFactoryException(Throwable throwable) {
 		
@@ -68,7 +83,9 @@ class ProxyFactoryException extends RoboZombieRuntimeException {
 	}
 
 	/**
-	 * See {@link RuntimeException#RuntimeException(String, Throwable)}.
+	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String, Throwable)}.
+	 * <br><br>
+	 * @since 1.1.0
 	 */
 	public ProxyFactoryException(String detailMessage, Throwable throwable) {
 

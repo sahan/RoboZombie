@@ -39,21 +39,19 @@ import org.apache.http.entity.StringEntity;
  * <br><br>
  * @since 1.2.4
  * <br><br>
- * @category utility
- * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public final class Entities {
-	
+
 
 	 /**
-	  * <p>Discovers which concrete implementation of {@link HttpEntity} is suitable for wrapping the given object. 
-	  * This discovery proceeds in the following order by checking the runtime-type of the generic object:</p> 
+	  * <p>Discovers which implementation of {@link HttpEntity} is suitable for wrapping the given object. 
+	  * This discovery proceeds in the following order by checking the runtime-type of the object:</p> 
 	  *
 	  * <ol>
 	  * 	<li>org.apache.http.{@link HttpEntity} --&gt; returned as-is.</li> 
 	  * 	<li>{@code byte[]}, {@link Byte}[] --&gt; {@link ByteArrayEntity}</li> 
-	  *  <li>java.io.{@link File} --&gt; {@link FileEntity}</li>
+	  *  	<li>java.io.{@link File} --&gt; {@link FileEntity}</li>
 	  * 	<li>java.io.{@link InputStream} --&gt; {@link BufferedHttpEntity}</li>
 	  * 	<li>{@link CharSequence} --&gt; {@link StringEntity}</li>
 	  * 	<li>java.io.{@link Serializable} --&gt; {@link SerializableEntity} (with an internal buffer)</li>
@@ -130,7 +128,7 @@ public final class Entities {
 	 }
 	 
 	 /**
-	  * <p>Discovers type of {@link HttpEntity} is suitable for wrapping an instance of the given {@link Class}. 
+	  * <p>Discovers the {@link HttpEntity} which is suitable for wrapping an instance of the given {@link Class}. 
 	  * This discovery proceeds in the following order by checking the provided generic type:</p> 
 	  *
 	  * <ol>

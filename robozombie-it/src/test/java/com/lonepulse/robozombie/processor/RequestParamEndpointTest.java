@@ -68,6 +68,7 @@ import com.lonepulse.robozombie.annotation.FormParams;
 import com.lonepulse.robozombie.annotation.QueryParam;
 import com.lonepulse.robozombie.annotation.QueryParams;
 import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.inject.InvocationException;
 import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.model.User;
 
@@ -160,8 +161,8 @@ public class RequestParamEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testQueryParamsFail() throws ClassNotFoundException {
+	@Test
+	public final void testQueryParamsFail() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -171,8 +172,7 @@ public class RequestParamEndpointTest {
 				.willReturn(aResponse()
 				.withStatus(200)));
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		requestEndpoint.queryParamsFail(new User(1, "Ra's", "al Ghul", 47, false));
 	}
@@ -182,8 +182,8 @@ public class RequestParamEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testFormParamsFail() throws ClassNotFoundException {
+	@Test
+	public final void testFormParamsFail() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -193,8 +193,7 @@ public class RequestParamEndpointTest {
 				.willReturn(aResponse()
 				.withStatus(200)));
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		requestEndpoint.formParamsFail(new User(1, "Ra's", "al Ghul", 47, false));
 	}
@@ -262,8 +261,8 @@ public class RequestParamEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testQueryParamsBatchTypeFail() throws ClassNotFoundException {
+	@Test
+	public final void testQueryParamsBatchTypeFail() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -273,8 +272,7 @@ public class RequestParamEndpointTest {
 				.willReturn(aResponse()
 				.withStatus(200)));
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		requestEndpoint.queryParamsBatchTypeFail(new ArrayList<String>());
 	}
@@ -284,8 +282,8 @@ public class RequestParamEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testFormParamsBatchTypeFail() throws ClassNotFoundException {
+	@Test
+	public final void testFormParamsBatchTypeFail() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -295,8 +293,7 @@ public class RequestParamEndpointTest {
 				.willReturn(aResponse()
 				.withStatus(200)));
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		requestEndpoint.formParamsBatchTypeFail(new ArrayList<String>());
 	}
@@ -306,8 +303,8 @@ public class RequestParamEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testQueryParamsBatchElementFail() throws ClassNotFoundException {
+	@Test
+	public final void testQueryParamsBatchElementFail() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -320,8 +317,7 @@ public class RequestParamEndpointTest {
 				.willReturn(aResponse()
 				.withStatus(200)));
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		requestEndpoint.queryParamsBatchElementFail(params);
 	}
@@ -331,8 +327,8 @@ public class RequestParamEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testFormParamsBatchElementFail() throws ClassNotFoundException {
+	@Test
+	public final void testFormParamsBatchElementFail() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -345,8 +341,7 @@ public class RequestParamEndpointTest {
 				.willReturn(aResponse()
 				.withStatus(200)));
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		requestEndpoint.formParamsBatchElementFail(params);
 	}
@@ -420,8 +415,8 @@ public class RequestParamEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testQueryParamsMultivaluedFail() throws ClassNotFoundException {
+	@Test
+	public final void testQueryParamsMultivaluedFail() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -439,8 +434,7 @@ public class RequestParamEndpointTest {
 				.willReturn(aResponse()
 				.withStatus(200)));
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		requestEndpoint.queryParamsMultivaluedFail(params);
 	}
@@ -450,8 +444,8 @@ public class RequestParamEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testFormParamsMultivaluedFail() throws ClassNotFoundException {
+	@Test
+	public final void testFormParamsMultivaluedFail() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -469,8 +463,7 @@ public class RequestParamEndpointTest {
 				.willReturn(aResponse()
 				.withStatus(200)));
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-				Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		requestEndpoint.formParamsMultivaluedFail(params);
 	}
@@ -733,13 +726,12 @@ public class RequestParamEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testMissingEntity() throws ClassNotFoundException {
+	@Test
+	public final void testMissingEntity() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-			Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		requestEndpoint.missingEntity();
 	}
@@ -749,13 +741,12 @@ public class RequestParamEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testMultipleEntity() throws ClassNotFoundException {
+	@Test
+	public final void testMultipleEntity() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-			Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		requestEndpoint.multipleEntity("entity1", "entity2");
 	}
@@ -765,13 +756,12 @@ public class RequestParamEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testResolutionFailedEntity() throws IOException, ClassNotFoundException {
+	@Test
+	public final void testResolutionFailedEntity() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-			Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		requestEndpoint.resolutionFailedEntity(new Object());
 	}

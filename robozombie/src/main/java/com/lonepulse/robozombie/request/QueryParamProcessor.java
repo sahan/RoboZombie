@@ -36,9 +36,9 @@ import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**
- * <p>This is a concrete implementation of {@link AbstractRequestProcessor} which discovers <i>query parameters</i> 
- * in a request which are annotated with @{@link QueryParam} or @{@link QueryParams} and constructs a 
- * <a href="http://en.wikipedia.org/wiki/Query_string">query string</a> to be appended to the request URL.</p> 
+ * <p>This {@link AbstractRequestProcessor} discovers <i>query parameters</i> in a request which are 
+ * annotated with @{@link QueryParam} or @{@link QueryParams} and constructs a 
+ * <a href="http://en.wikipedia.org/wiki/Query_string">query string</a> to be appended to the URL.</p> 
  * 
  * <p>The @{@link QueryParam} annotation should be used on an implementation of {@link CharSequence} which 
  * provides the <i>value</i> for each <i>name-value</i> pair; and the supplied {@link QueryParam#value()} 
@@ -62,33 +62,32 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 
 	
 	/**
-	 * <p>Accepts the {@link InvocationContext} along with an {@link HttpRequestBase} and creates 
-	 * a <a href="http://en.wikipedia.org/wiki/Query_string">query string</a> using any arguments which were 
-	 * annotated with @{@link QueryParam} and @{@link QueryParams} which is subsequently appended to the URI.</p>
+	 * <p>Accepts the {@link InvocationContext} along with an {@link HttpRequestBase} and creates a 
+	 * <a href="http://en.wikipedia.org/wiki/Query_string">query string</a> using arguments annotated 
+	 * with @{@link QueryParam} and @{@link QueryParams}; which is subsequently appended to the URI.</p>
 	 * 
-	 * <p>See {@link AbstractRequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
+	 * <p>See {@link AbstractRequestProcessor#process(InvocationContext, HttpRequestBase)}.</p>
 	 * 
-	 * @param httpRequestBase
-	 * 			prefers an instance of {@link HttpGet} so as to conform with HTTP 1.1; however, other request 
-	 * 			types will be entertained to allow compliance with unusual endpoint definitions 
-	 * <br><br>
 	 * @param context
-	 * 			an immutable instance of {@link InvocationContext} which is used to form the query 
-	 * 			string and append it to the request URL
+	 * 			the {@link InvocationContext} which is used to discover annotated query parameters
 	 * <br><br>
- 	 * @return the same instance of {@link HttpRequestBase} which was given for processing query params
+	 * @param request
+	 * 			prefers an instance of {@link HttpGet} so as to conform with HTTP 1.1; however, other 
+	 * 			request types will be entertained to allow compliance with unusual endpoint definitions 
+	 * <br><br>
+ 	 * @return the same instance of {@link HttpRequestBase} which was given for processing query parameters
 	 * <br><br>
 	 * @throws RequestProcessorException
-	 * 			if the creation of a query string failed due to an unrecoverable error
+	 * 			if the creation of a query string failed due to an unrecoverable errorS
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) {
+	protected HttpRequestBase process(InvocationContext context, HttpRequestBase request) {
 
 		try {
 			
-			URIBuilder uriBuilder = new URIBuilder(httpRequestBase.getURI());
+			URIBuilder uriBuilder = new URIBuilder(request.getURI());
 			
 			//add static name and value pairs
 			List<Param> constantQueryParams = RequestUtils.findStaticQueryParams(context);
@@ -117,7 +116,7 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 					
 					throw new RequestProcessorException(new IllegalArgumentException(errorContext.toString()));
 				}
-			
+				
 				uriBuilder.setParameter(name, ((CharSequence)value).toString());
 			}
 			
@@ -161,12 +160,12 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 						.append("The <java.util.Map> identified by @QueryParams can only contain mappings of type ")
 						.append("<java.lang.CharSequence, java.lang.CharSequence> or ")
 						.append("<java.lang.CharSequence, java.util.Collection<? extends CharSequence>>");
-								
+						
 						throw new RequestProcessorException(new IllegalArgumentException(errorContext.toString()));
 					}
 					
 					if(value instanceof CharSequence) {
-						
+					
 						uriBuilder.addParameter(((CharSequence)name).toString(), ((CharSequence)value).toString());
 					}
 					else { //add multi-valued query params 
@@ -190,14 +189,14 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 				}
 			}
 			
-			httpRequestBase.setURI(uriBuilder.build());
+			request.setURI(uriBuilder.build());
 			
-			return httpRequestBase;
+			return request;
 		}
 		catch(Exception e) {
 			
 			throw (e instanceof RequestProcessorException)? 
-					(RequestProcessorException)e :new RequestProcessorException(getClass(), context, e);
+					(RequestProcessorException)e :new RequestProcessorException(context, getClass(), e);
 		}
 	}
 }

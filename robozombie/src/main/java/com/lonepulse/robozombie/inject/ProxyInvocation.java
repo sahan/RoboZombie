@@ -115,39 +115,39 @@ final class ProxyInvocation implements Invocation {
 		 * <p>Responsible for executing a request using the designated {@link HttpClient} and returning the 
 		 * resulting {@link HttpResponse}, if any.</p>
 		 * 
-		 * @param request
-		 * 			the extension of {@link HttpRequestBase} which is to be executed
-		 * <br><br>
 		 * @param context
 		 * 			the {@link InvocationContext} associated with the current request execution
+		 * <br><br>
+		 * @param request
+		 * 			the extension of {@link HttpRequestBase} which is to be executed
 		 * <br><br>
 		 * @return the {@link HttpResponse} which resulted from the request execution; else {@code null} 
 		 * 		   if the execution did not produce any response 
 		 * <br><br>
 		 * @since 1.2.4
 		 */
-		protected HttpResponse executeRequest(HttpRequestBase request, InvocationContext context) {
+		protected HttpResponse executeRequest(InvocationContext context, HttpRequestBase request) {
 			
-			return RequestExecutors.resolve(context).execute(request, context);
+			return RequestExecutors.resolve(context).execute(context, request);
 		}
 		
 		/**
 		 * <p>Responsible for deserializing the response content to produce a <i>meaningful</i> result which 
 		 * can the readily consumed by clients.</p>
 		 *
-		 * @param response
-		 * 			the {@link HttpResponse} containing the raw unprocessed response content
-		 * <br><br>
 		 * @param context
 		 * 			the {@link InvocationContext} associated with the current response processing 
+		 * <br><br>
+		 * @param response
+		 * 			the {@link HttpResponse} containing the raw unprocessed response content
 		 * <br><br>
 		 * @return the processed response content in the form of a generic object
 		 * <br><br>
 		 * @since 1.2.4
 		 */
-		protected Object handleResponse(HttpResponse response, InvocationContext context) {
+		protected Object handleResponse(InvocationContext context, HttpResponse response) {
 			
-	        return Processors.RESPONSE.run(response, context);
+	        return Processors.RESPONSE.run(context, response);
 		}
 	}
 	
@@ -179,14 +179,12 @@ final class ProxyInvocation implements Invocation {
 	public static ProxyInvocation newInstance(
 		ProxyInvocation.Template template, Object proxy, Method method, Object[] args) {
 		
-		InvocationContext context = InvocationContext.newBuilder()
-		.setEndpoint(template.endpoint)
-		.setProxy(proxy)
-		.setRequest(method)
-		.setArguments(args)
-		.build();
-		
-		return new ProxyInvocation(context, template);
+		return new ProxyInvocation(InvocationContext.newBuilder()
+				.setEndpoint(template.endpoint)
+				.setProxy(proxy)
+				.setRequest(method)
+				.setArguments(args)
+				.build(), template);
 	}
 	
 	private ProxyInvocation(InvocationContext context, Template template) {
@@ -210,7 +208,7 @@ final class ProxyInvocation implements Invocation {
 	public Object invoke() {
 		
 		HttpRequestBase request = template.buildRequest(context); 
-		HttpResponse response = template.executeRequest(request, context);
-		return response == null? null :template.handleResponse(response, context);
+		HttpResponse response = template.executeRequest(context, request);
+		return response == null? null :template.handleResponse(context, response);
 	}
 }

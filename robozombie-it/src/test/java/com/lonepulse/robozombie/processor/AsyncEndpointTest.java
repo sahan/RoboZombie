@@ -45,6 +45,7 @@ import org.robolectric.RobolectricTestRunner;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.lonepulse.robozombie.annotation.Async;
 import com.lonepulse.robozombie.annotation.Bite;
+import com.lonepulse.robozombie.inject.InvocationException;
 import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.model.User;
 import com.lonepulse.robozombie.response.AsyncHandler;
@@ -220,7 +221,7 @@ public class AsyncEndpointTest {
 			public void onSuccess(HttpResponse httpResponse, User user) {}
 			
 			@Override
-			public void onError(Exception error) {
+			public void onError(InvocationException error) {
 				
 				lock.lock();
 				
@@ -238,7 +239,7 @@ public class AsyncEndpointTest {
 		verify(getRequestedFor(urlEqualTo(subpath)));
 		
 		assertTrue(content[0] != null);
-		assertTrue(content[0] instanceof Exception);
+		assertTrue(content[0] instanceof InvocationException);
 	}
 	
 	/**
@@ -390,7 +391,7 @@ public class AsyncEndpointTest {
 			public void onSuccess(HttpResponse httpResponse, User user) {}
 			
 			@Override
-			public void onError(Exception error) {
+			public void onError(InvocationException error) {
 				
 				try {
 					

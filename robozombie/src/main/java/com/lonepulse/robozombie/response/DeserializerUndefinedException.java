@@ -28,13 +28,13 @@ import com.lonepulse.robozombie.annotation.Request;
 
 /**
  * <p>This runtime exception is thrown when a {@link Deserializer} to be used for a particular 
- * {@link Endpoint}, or {@link Request} thereof, has not been declared using {@link Deserializer}.
+ * {@link Endpoint} or {@link Request} has not been declared using @{@link Deserializer}.
  * 
- * @version 1.1.1
+ * @version 1.1.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 class DeserializerUndefinedException extends ResponseProcessorException {
 
@@ -43,7 +43,15 @@ class DeserializerUndefinedException extends ResponseProcessorException {
 
 	
 	/**
-	 * <p>Displays a detailed description along with the stacktrace. 
+	 * <p>Displays a detailed description with information on the endpoint and request definitions.</p> 
+	 * 
+	 * @param endpoint
+	 * 			the {@link Class} of the endpoint definition interface 
+	 * <br><br>
+	 * @param method
+	 * 			the {@link Method} which defines the invoked request
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public DeserializerUndefinedException(Class<?> endpoint, Method method) {
 		
@@ -53,16 +61,9 @@ class DeserializerUndefinedException extends ResponseProcessorException {
 	}
 
 	/**
-	 * <p>Displays a detailed description along with the stacktrace. 
-	 */
-	public DeserializerUndefinedException() {
-		
-		this("Deserialization failed for request. A " + Deserializer.class.getName() + 
-			  " has not been defined via the " + Deserializer.class.getName() + " annotation.");
-	}
-
-	/**
-	 * <p>See {@link ResponseProcessorException#ResponseProcessorException(String)}.
+	 * <p>See {@link ResponseProcessorException#ResponseProcessorException(String)}.</p>
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public DeserializerUndefinedException(String detailMessage) {
 		
@@ -71,6 +72,8 @@ class DeserializerUndefinedException extends ResponseProcessorException {
 
 	/**
 	 * <p>See {@link ResponseProcessorException#ResponseProcessorException(Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public DeserializerUndefinedException(Throwable throwable) {
 		
@@ -79,6 +82,8 @@ class DeserializerUndefinedException extends ResponseProcessorException {
 
 	/**
 	 * <p>See {@link ResponseProcessorException#ResponseProcessorException(String, Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public DeserializerUndefinedException(String detailMessage, Throwable throwable) {
 

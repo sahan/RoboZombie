@@ -56,7 +56,7 @@ public class ProcessorInvocationTest {
 	@Test
 	public final void testRequestArgumentType() {
 		
-		expectedException.expectCause(Is.isA(IllegalArgumentException.class));
+		expectedException.expect(Is.isA(RuntimeException.class));
 		Processors.REQUEST.run(new Object[]{});
 	}
 	
@@ -68,7 +68,7 @@ public class ProcessorInvocationTest {
 	@Test
 	public final void testRequestArgumentContextType() {
 		
-		expectedException.expectCause(Is.isA(ClassCastException.class));
+		expectedException.expect(Is.isA(RuntimeException.class));
 		Processors.REQUEST.run(new Object());
 	}
 	
@@ -80,7 +80,7 @@ public class ProcessorInvocationTest {
 	@Test
 	public final void testResponseArgumentCount() {
 		
-		expectedException.expectCause(Is.isA(IllegalArgumentException.class));
+		expectedException.expect(Is.isA(RuntimeException.class));
 		Processors.RESPONSE.run(new Object());
 	}
 	
@@ -92,7 +92,7 @@ public class ProcessorInvocationTest {
 	@Test
 	public final void testResponseArgumentContextType() {
 		
-		expectedException.expectCause(Is.isA(ClassCastException.class));
+		expectedException.expect(Is.isA(RuntimeException.class));
 		Processors.RESPONSE.run(new HttpGet(), new Object());
 	}
 	

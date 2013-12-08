@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.response;
  * #L%
  */
 
-
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.processor.AbstractProcessorChain;
@@ -28,19 +27,19 @@ import com.lonepulse.robozombie.processor.ProcessorChainFactory;
 import com.lonepulse.robozombie.processor.ProcessorChainLink;
 
 /**
- * <p>This is a concrete implementation of {@link AbstractProcessorChain} which creates a sequentially executed 
- * series of {@link AbstractResponseProcessor}s responsible for handling the {@link HttpResponse} of an endpoint 
- * request invocation.</p>
+ * <p>This is a concrete implementation of {@link AbstractProcessorChain} which creates a sequentially 
+ * executed series of {@link AbstractResponseProcessor}s responsible for handling the {@link HttpResponse} 
+ * of an endpoint request invocation.</p>
  * 
- * <p>This chain consists of the {@link AbstractResponseProcessor}s listed below in the given order:  
+ * <p>This chain consists of the {@link AbstractResponseProcessor}s listed below in the given order:</p>
  * 
  * <ol>
  * 	<li>{@link HeaderProcessor} - retrieves the response headers and makes them available</li>
- * 	<li>{@link EntityProcessor} - parses and returns the content of the response body</li>
+ * 	<li>{@link EntityProcessor} - deserializes and returns the content of the response body</li>
  * </ol>
  * 
- * <p><b>Note</b> that this processor-chain <b>may or may not</b> return the deserialized response entity depending 
- * on the availability of response content.</p>
+ * <p><b>Note</b> that this processor-chain <b>may or may not</b> return the deserialized response entity 
+ * depending on the availability of response content.</p>
  * 
  * <p><b>Note</b> that a chain-wide failure is <b>NOT recoverable</b>. All failures are of type 
  * {@link ResponseProcessorException} which may be thrown from any arbitrary {@link ProcessorChainLink}. 
@@ -56,12 +55,12 @@ public final class ResponseProcessorChain extends AbstractProcessorChain<Object,
 	
 	
 	/**
-	 * <p>Creates a new instance of {@link ResponseProcessorChain} with the {@link AbstractResponseProcessor}s 
-	 * linked in the following sequence:</p>
+	 * <p>Creates a new {@link ResponseProcessorChain} with the {@link AbstractResponseProcessor}s linked 
+	 * in the following sequence:</p>
 	 * 
 	 * <ol>
 	 * 	<li>{@link HeaderProcessor} - retrieves the response headers and makes them available</li>
-	 * 	<li>{@link EntityProcessor} - parses and returns the content of the response body</li>
+	 * 	<li>{@link EntityProcessor} - deserializes and returns the content of the response body</li>
 	 * </ol>
 	 * <br><br>
 	 * @since 1.2.4
@@ -70,14 +69,14 @@ public final class ResponseProcessorChain extends AbstractProcessorChain<Object,
 	public ResponseProcessorChain() {
 		
 		super(new ProcessorChainFactory<Object, ResponseProcessorException>().newInstance(
-				new HeaderProcessor(), 
-				new EntityProcessor()));
+			  new HeaderProcessor(), 
+			  new EntityProcessor()));
 	}
 
 	/**
-	 * <p>Executed for the root link which runs the {@link HeaderProcessor}. Takes the argument array which was provided 
-	 * in {@link #run(Object...)} and invokes the root link, i.e. the {@link HeaderProcessor} and returns {@code null} 
-	 * for the deserialized response content - which is passed on to the next processor.</p>
+	 * <p>Executed for the root link which runs the {@link HeaderProcessor}. Takes the argument array which 
+	 * was provided in {@link #run(Object...)} and invokes the root link, i.e. the {@link HeaderProcessor} 
+	 * and returns the deserialized response content passed down from the successive processor.</p>
 	 * 
 	 * <p>See {@link AbstractResponseProcessor}.</p>
 	 * 
@@ -90,9 +89,9 @@ public final class ResponseProcessorChain extends AbstractProcessorChain<Object,
 	}
 
 	/**
-	 * <p>Executed for each "link-crossing" from the root {@link HeaderProcessor} onwards. Takes the <b>successor</b> 
-	 * and invokes it with the argument array which was provided in {@link #run(Object...)} and returns the deserialized 
-	 * response body (if any).</p>
+	 * <p>Executed for each "link-crossing" from the root {@link HeaderProcessor} onwards. Takes the 
+	 * <b>successor</b> and invokes it with the argument array which was provided in {@link #run(Object...)} 
+	 * and returns the deserialized response content (if any).</p>
 	 * 
 	 * <p>See {@link AbstractResponseProcessor}.</p>
 	 * 

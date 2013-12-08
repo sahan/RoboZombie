@@ -29,15 +29,13 @@ import com.lonepulse.robozombie.Validator;
 /**
  * <p>A collection of utility services which eases certain trivial validations.</p>
  * 
- * <p><b>Note</b> that while most of the services are generic, some assertions may be coupled to 
- * certain modules. For example, the exceptions which are thrown due to assertion failures may not 
- * be a good fit for all scenarios. Consult the documentation for further information.</p>
+ * <p><b>Note</b> that while most of the services are generic, some assertions may be coupled to certain 
+ * modules. For example, the exceptions which are thrown due to assertion failures may not be a good fit 
+ * for all scenarios. Consult the documentation for further information.</p>
  * 
  * @version 1.1.0
  * <br><br>
  * @since 1.2.4
- * <br><br>
- * @category utility
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -74,9 +72,10 @@ public final class Assert {
 		
 		if(!type.isAssignableFrom(arg.getClass())) {
 		
-			throw new ClassCastException(new StringBuilder("The instance of type ")
-			.append(arg.getClass().getName()).append(" cannot be assigned to a ")
-			.append(type.getName()).toString());
+			throw new ClassCastException(new StringBuilder("The instance of type <")
+			.append(arg.getClass().getName()).append("> cannot be assigned to a <")
+			.append(type.getName())
+			.append(">").toString());
 		}
 		
 		return type.cast(arg);
@@ -100,7 +99,7 @@ public final class Assert {
 	public static <T extends Object> T assertNotNull(T arg) {
 		
 		if(arg == null) {
-		
+			
 			throw new NullPointerException("The supplied argument was found to be <null>");
 		}
 		
@@ -115,7 +114,7 @@ public final class Assert {
 	 * 			the argument to be asserted as being {@code not null}
 	 * <br><br>
 	 * @param arg
-	 * 			the message to be provided with the {@link NullPointerException} if the assertion fails  
+	 * 			the message to be provided with the {@link NullPointerException} if the assertion fails 
 	 * <br><br>
 	 * @return the argument which was asserted to be {@code not null}
 	 * <br><br>
@@ -280,8 +279,8 @@ public final class Assert {
 	}
 	
 	/**
-	 * <p>Asserts that the given context is valid using the supplied {@link Validator} along with 
-	 * a few other trivial validations such as a {@code null} check.</p>
+	 * <p>Asserts that the given context is valid using the supplied {@link Validator} along with a few 
+	 * other trivial validations such as a {@code null} check.</p>
 	 *
 	 * @param context
 	 * 			the context to be validated using the given {@link Validator}

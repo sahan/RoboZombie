@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.util;
  * #L%
  */
 
-
 import static com.lonepulse.robozombie.util.Assert.assertNotEmpty;
 import static com.lonepulse.robozombie.util.Assert.assertNotNull;
 
@@ -44,8 +43,6 @@ import java.util.Set;
  * @version 1.1.0
  * <br><br>
  * @since 1.2.4
- * <br><br>
- * @category utility
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -115,9 +112,9 @@ public final class Fields implements Iterable<Field> {
 	 *
 	 * @param target
 	 * 			the {@link Class} whose fields are to extracted
-	 * 
+	 * <br><br>
 	 * @return a new instance of {@link Fields} for the {@link Field}s on the given {@link Class}
-	 * 
+	 * <br><br>
 	 * @since 1.2.4
 	 */
 	public static Fields in(Class<? extends Object> target) {
@@ -163,8 +160,8 @@ public final class Fields implements Iterable<Field> {
 	}
 	
 	/**
-	 * <p>Filters the {@link Field}s which are annotated with <b>all</b> the given annotations and 
-	 * returns a new instance of {@link Fields} that wrap the filtered collection.</p>
+	 * <p>Filters the {@link Field}s which are annotated with <b>all</b> the given annotations and returns 
+	 * a new instance of {@link Fields} that wrap the filtered collection.</p>
 	 * 
 	 * @param annotation
 	 * 			the {@link Field}s annotated with <b>all</b> these types will be filtered
@@ -232,8 +229,8 @@ public final class Fields implements Iterable<Field> {
 	}
 	
 	/**
-	 * <p>Filters the {@link Field}s whose name equals (case-sensitive) the given name and returns 
-	 * a new instance of {@link Fields} that wrap the filtered collection.</p> 
+	 * <p>Filters the {@link Field}s whose name equals (case-sensitive) the given name and returns a new 
+	 * instance of {@link Fields} that wrap the filtered collection.</p> 
 	 *
 	 * @param fieldName
 	 * 			the {@link Field}s having this name will be filtered
@@ -257,14 +254,14 @@ public final class Fields implements Iterable<Field> {
 	}
 	
 	/**
-	 * <p>Filters the {@link Field}s whose <b>case insensitive</b> name equals the given name and 
-	 * returns a new instance of {@link Fields} that wrap the filtered collection. 
+	 * <p>Filters the {@link Field}s whose <b>case insensitive</b> name equals the given name and returns 
+	 * a new instance of {@link Fields} that wrap the filtered collection. 
 	 *
 	 * @param fieldName
 	 * 			the {@link Field}s having this case insensitive name will be filtered
-	 * 
+	 * <br><br>
 	 * @return a <b>new instance</b> of {@link Fields} which wraps the filtered {@link Field}s
-	 * 
+	 * <br><br>
 	 * @since 1.2.4
 	 */
 	public Fields strictlyNamed(final String fieldName) {
@@ -282,8 +279,8 @@ public final class Fields implements Iterable<Field> {
 	}
 	
 	/**
-	 * <p>Filters the {@link Field}s whose type <b>can be assigned</b> to the given type and 
-	 * returns a new instance of {@link Fields} that wrap the filtered collection.</p> 
+	 * <p>Filters the {@link Field}s whose type <b>can be assigned</b> to the given type and returns 
+	 * a new instance of {@link Fields} that wrap the filtered collection.</p> 
 	 *
 	 * @param type
 	 * 			the {@link Class} type of the {@link Field}s to be filtered 
@@ -307,8 +304,8 @@ public final class Fields implements Iterable<Field> {
 	}
 	
 	/**
-	 * <p>Filters the {@link Field}s whose type <b>equals</b> the given type and returns a new 
-	 * instance of {@link Fields} that wrap the filtered collection.</p> 
+	 * <p>Filters the {@link Field}s whose type <b>equals</b> the given type and returns a new instance 
+	 * of {@link Fields} that wrap the filtered collection.</p> 
 	 *
 	 * @param type
 	 * 			the {@link Class} type of the {@link Field}s to be filtered 
@@ -366,9 +363,9 @@ public final class Fields implements Iterable<Field> {
 	}
 	
 	/**
-	 * <p>Finds the <b>union</b> between this instance and a supplied instance. Reeturns a new 
-	 * instance of {@link Fields} which contains a <b>set of all</b> the {@link Field}s which in 
-	 * both this instance and the supplied instance.</p>
+	 * <p>Finds the <b>union</b> between this instance and a supplied instance. Returns a new instance 
+	 * of {@link Fields} which contains a <b>set of all</b> the {@link Field}s which in both this instance 
+	 * and the supplied instance.</p>
 	 * 
 	 * <p><pre>
 	 * Union can be expressed as, 
@@ -451,11 +448,12 @@ public final class Fields implements Iterable<Field> {
 	}
 	
 	/**
-	 * <p>Allows the {@link Field}s envelopped by this instance of {@link Fields} to be traversed sequentially 
-	 * using the returned {@link Iterator}.</p> 
+	 * <p>Allows the {@link Field}s envelopped by this instance of {@link Fields} to be traversed 
+	 * sequentially using the returned {@link Iterator}.</p> 
 	 * 
-	 * <p><b>Note</b> this {@link Iterator} does not allow the underlying {@link Field}s to be modified, for 
-	 * example using {@link Iterator#remove()}. Doing so will result in an {@link UnsupportedOperationException}.</p>
+	 * <p><b>Note</b> this {@link Iterator} does not allow the underlying {@link Field}s to be modified, 
+	 * for example using {@link Iterator#remove()}. Doing so will result in an 
+	 * {@link UnsupportedOperationException}.</p>
 	 *
 	 * @return the iterator which allows the enclosed {@link Field}s to traversed sequentially
 	 * <br><br>

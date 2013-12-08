@@ -52,7 +52,7 @@ import org.robolectric.tester.org.apache.http.TestHttpResponse;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.gson.Gson;
 import com.lonepulse.robozombie.annotation.Bite;
-import com.lonepulse.robozombie.executor.RequestFailedException;
+import com.lonepulse.robozombie.inject.InvocationException;
 import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.model.User;
 
@@ -107,14 +107,14 @@ public class ResponseEndpointTest {
 		try {
 		
 			responseEndpoint.failure();
-			fail("Failed request did not throw a context aware <RequestFailedException>.");
+			fail("Failed request did not throw a context aware <InvocationException>.");
 		}
-		catch(RequestFailedException rfe) {
+		catch(InvocationException error) {
 
-			assertTrue(rfe.hasResponse());
-			assertNotNull(rfe.getResponse());
-			assertNotNull(rfe.getContext());
-			assertEquals(content, EntityUtils.toString(rfe.getResponse().getEntity()));
+			assertTrue(error.hasResponse());
+			assertNotNull(error.getResponse());
+			assertNotNull(error.getContext());
+			assertEquals(content, EntityUtils.toString(error.getResponse().getEntity()));
 		}
 		
 		verify(getRequestedFor(urlEqualTo(subpath)));
@@ -213,8 +213,8 @@ public class ResponseEndpointTest {
 	 *
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testNoDeserializer() throws ClassNotFoundException {
+	@Test
+	public final void testNoDeserializer() {
 		
 		String subpath = "/nodeserializer";
 		String url = "http://0.0.0.0:8080" + subpath;
@@ -222,8 +222,7 @@ public class ResponseEndpointTest {
 		
 		Robolectric.addHttpResponseRule(HttpGet.METHOD_NAME, url, new TestHttpResponse(200, body));
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-			Class.forName("com.lonepulse.robozombie.response.DeserializerUndefinedException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		responseEndpoint.noDeserializer();
 	}

@@ -21,12 +21,13 @@ package com.lonepulse.robozombie;
  */
 
 /**
- * <p>An extension of {@link RuntimeException} which marks unrecoverable 
- * runtime discrepancies.</p>
+ * <p>An extension of {@link RuntimeException} which signals unrecoverable runtime errors.</p>
  * 
- * @version 1.1.1
+ * @version 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.1.0
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public class RoboZombieRuntimeException extends RuntimeException {
 
@@ -36,12 +37,15 @@ public class RoboZombieRuntimeException extends RuntimeException {
 	
 	/**
 	 * See {@link RuntimeException#RuntimeException()}.
+	 * <br><br>
+	 * @since 1.1.0
 	 */
-	public RoboZombieRuntimeException() {
-	}
+	public RoboZombieRuntimeException() {}
 
 	/**
 	 * See {@link RuntimeException#RuntimeException(String)}.
+	 * <br><br>
+	 * @since 1.1.0
 	 */
 	public RoboZombieRuntimeException(String detailMessage) {
 		
@@ -50,6 +54,8 @@ public class RoboZombieRuntimeException extends RuntimeException {
 
 	/**
 	 * See {@link RuntimeException#RuntimeException(Throwable)}.
+	 * <br><br>
+	 * @since 1.1.0
 	 */
 	public RoboZombieRuntimeException(Throwable throwable) {
 		
@@ -58,6 +64,8 @@ public class RoboZombieRuntimeException extends RuntimeException {
 
 	/**
 	 * See {@link RuntimeException#RuntimeException(String, Throwable)}.
+	 * <br><br>
+	 * @since 1.1.0
 	 */
 	public RoboZombieRuntimeException(String detailMessage, Throwable throwable) {
 

@@ -42,9 +42,10 @@ import com.lonepulse.robozombie.inject.Zombie;
  */
 enum HttpClientDirectory implements Directory<Class<?>, HttpClient> {
 	
+	
 	/**
-	 * <p>The instance of {@link HttpClientDirectory} which caches {@link HttpClient}s that are uniquely configured 
-	 * for each endpoint. An {@link HttpClient} is stored or accessed using an endpoint {@link Class}.</p>
+	 * <p>The {@link HttpClientDirectory} which caches {@link HttpClient}s that are uniquely configured 
+	 * for each endpoint. An {@link HttpClient} is stored or accessed using an endpoint's {@link Class}.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -52,8 +53,8 @@ enum HttpClientDirectory implements Directory<Class<?>, HttpClient> {
 	
 	
 	/**
-	 * <p>The default configuration for an {@link HttpClient} which will be used to executing endpoint requests if 
-	 * no specialized configuration is provided.</p>
+	 * <p>The default configuration for an {@link HttpClient} which will be used to execute endpoint 
+	 * requests if no specialized configuration is provided.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -96,15 +97,15 @@ enum HttpClientDirectory implements Directory<Class<?>, HttpClient> {
 	
 	
 	/**
-	 * <p>Registers an instance of {@link HttpClient} under the given {@link Class} of the endpoint definition. 
-	 * If an {@link HttpClient} already exists under the given endpoint, <i>no attempt will be made to replace 
-	 * the existing instance</i>.</p>
+	 * <p>Registers an instance of {@link HttpClient} under the given {@link Class} of the endpoint 
+	 * definition. If an {@link HttpClient} already exists under the given endpoint, <i>no attempt 
+	 * will be made to replace the existing instance</i>.</p>
 	 * 
 	 * @param endpoint
-	 * 			the {@link Class} of the endpoint whose {@link HttpClient} is to be added to the directory
+	 * 			the {@link Class} of the endpoint whose {@link HttpClient} is added to the directory
 	 * <br><br>
 	 * @param httpClient
-	 * 			the {@link HttpClient} to be registered under the given endpoint definition
+	 * 			the {@link HttpClient} which to be registered under the given endpoint definition
 	 * <br><br>
 	 * @return the {@link HttpClient} which was registered under the given endpoint definition
 	 * <br><br> 
@@ -132,8 +133,8 @@ enum HttpClientDirectory implements Directory<Class<?>, HttpClient> {
 	}
 
 	/**
-	 * <p>Retrieves the {@link HttpClient} which was added under the given endpoint. If no instance was registered 
-	 * for this endpoint {@link Class}, the {@link #DEFAULT} instance is returned.</p>
+	 * <p>Retrieves the {@link HttpClient} which was registered under the given endpoint. If no instance 
+	 * was registered for this endpoint's {@link Class}, the {@link #DEFAULT} instance is returned.</p>
 	 *  
 	 * @param endpointClass
 	 * 			the {@link Class} of the endpoint definition whose {@link HttpClient} is to be retrieved

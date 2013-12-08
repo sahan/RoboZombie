@@ -24,9 +24,9 @@ import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.inject.Zombie.Configuration;
 
 /**
- * <p>This contract defines the services which are offered for managing <b>request execution configurations</b>. 
- * A configuration may govern aspects such as the schemes which are handled, or the number of pooled connections. 
- * These configurations may apply when executing requests on discrete endpoints or on all endpoints in general.</p>
+ * <p>This contract defines the services for managing <b>request execution configurations</b>. These may 
+ * govern aspects such as the schemes which are handled, or the number of pooled connections. Configurations 
+ * may be applied when executing requests on discrete endpoints or on all endpoints in general.</p>
  * 
  * <p>See {@link Zombie.Configuration}</p>
  * 
@@ -38,30 +38,29 @@ import com.lonepulse.robozombie.inject.Zombie.Configuration;
  */
 public interface ConfigurationManager {
 	
-	
 	/**
-	 * <p>Creates a new instance of the <i>out-of-the-box</i> configuration which will be used by default for 
-	 * executing all endpoint requests.</p>
+	 * <p>Creates a new instance of the <i>out-of-the-box</i> configuration which will be used by default 
+	 * for executing all endpoint requests.</p>
 	 *
-	 * @return the default {@link Config} used for all endpoints
+	 * @return the default {@link Zombie.Configuration} used for all endpoints
 	 * <br><br> 
 	 * @since 1.2.4
 	 */
 	Configuration getDefault();
 	
 	/**
-	 * <p>Takes the {@link Class} of an endpoint interface and registers the associated {@link Config}. This 
-	 * may be a custom configuration which is specified using the <b>@Config</b> annotation or the default 
-	 * configuration if the annotation is not found. In either case, the {@link Config} will be instantiated, 
-	 * registered and returned.</p>
+	 * <p>Takes the {@link Class} of an endpoint interface and registers the associated configurations. 
+	 * This may be a custom configuration which is specified using the <b>@{@link Config}</b> annotation 
+	 * or the default configuration if the annotation is not found. In either case, the configuration 
+	 * will be instantiated, registered and returned.</p>
 	 *
 	 * @param endpointClass
-	 * 			the {@link Class} of the endpoint definition interface whose {@link Config} is to be registered
+	 * 			the {@link Class} of the endpoint whose {@link Zombie.Configuration} is registered
 	 * <br><br>
-	 * @return a <b>new instance</b> of the {@link Config} which was instantiated and registered
+	 * @return a <b>new instance</b> of the configuration which was instantiated and registered
 	 * <br><br>
 	 * @throws ConfigurationFailedException
-	 * 			if the associated {@link Config} failed to be instantiated or registered
+	 * 			if the associated configuration failed to be instantiated or registered
 	 * <br><br>
 	 * @since 1.2.3
 	 */

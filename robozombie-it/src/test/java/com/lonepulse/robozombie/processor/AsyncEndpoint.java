@@ -39,7 +39,7 @@ import com.lonepulse.robozombie.response.AsyncHandler;
  * <br><br> 
  * @since 1.2.4
  * <br><br> 
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Async @Endpoint(host = "0.0.0.0", port = 8080)
 public interface AsyncEndpoint {

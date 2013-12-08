@@ -42,11 +42,11 @@ import com.lonepulse.robozombie.util.EntityResolutionFailedException;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**
- * <p>This is a concrete implementation of {@link AbstractRequestProcessor} which resolves and inserts the enclosing 
- * entity for an {@link HttpEntityEnclosingRequest} into the body of the request.</p>
+ * <p>This is a concrete implementation of {@link AbstractRequestProcessor} which resolves and inserts 
+ * the enclosing entity for an {@link HttpEntityEnclosingRequest} into the body of the request.</p>
  * 
- * <p>It identifies an @{@link Entity} annotation on a parameter of an endpoint interface method and inserts 
- * the value as a form entity in the resulting {@link HttpEntityEnclosingRequest}.</p>
+ * <p>It identifies an @{@link Entity} annotation on a parameter of an endpoint interface method and 
+ * inserts the value as the body in the resulting {@link HttpEntityEnclosingRequest}.</p>
  * 
  * @version 1.2.0
  * <br><br>
@@ -61,9 +61,9 @@ class EntityProcessor extends AbstractRequestProcessor {
 	 * <p>Accepts the {@link InvocationContext} of an {@link HttpEntityEnclosingRequest} and inserts 
 	 * <b>the</b> request parameter which is annotated with @{@link Entity} into its body.</p>
 	 * 
-	 * <p><b>Note</b> that it makes no sense to scope multiple entities within the same entity enclosing request 
-	 * (HTTP/1.1 <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">RFC-2616</a>). This processor 
-	 * fails for the following scenarios:</p>
+	 * <p><b>Note</b> that it makes no sense to scope multiple entities within the same entity enclosing 
+	 * request (HTTP/1.1 <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">RFC-2616</a>). 
+	 * This processor fails for the following scenarios:</p>
 	 * 
 	 * <ul>
 	 * 	<li><b>No entity</b> was found in the endpoint method definition.</li>
@@ -73,31 +73,31 @@ class EntityProcessor extends AbstractRequestProcessor {
 	 * 
 	 * <p>Parameter types are resolved to their {@link HttpEntity} as specified in 
 	 * {@link Entities#resolve(Object)}. If an attached @{@link Serializer} is discovered, the entity 
-	 * will first be serialized using the specified serializer before translation to an {@link HttpEntity}.</p>
+	 * will be serialized using the specified serializer before translation to an {@link HttpEntity}.</p>
 	 * 
-	 * <p>See {@link AbstractRequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
+	 * <p>See {@link AbstractRequestProcessor#process(InvocationContext, HttpRequestBase)}.</p>
 	 *
-	 * @param httpRequestBase
+	 * @param context
+	 * 			the {@link InvocationContext} which is used to retrieve the entity
+	 * <br><br>
+	 * @param request
 	 * 			an instance of {@link HttpEntityEnclosingRequestBase} which allows the inclusion of an 
 	 * 			{@link HttpEntity} in its body
-	 * <br><br>
-	 * @param context
-	 * 			an immutable instance of {@link InvocationContext} which is used to retrieve the entity
 	 * <br><br>
  	 * @return the same instance of {@link HttpRequestBase} which was given for processing entities 
 	 * <br><br>
 	 * @throws RequestProcessorException
-	 * 			if an {@link HttpEntityEnclosingRequestBase} was discovered and yet the entity failed to be resolved 
-	 * 			and inserted into the request body
+	 * 			if an {@link HttpEntityEnclosingRequestBase} was discovered and yet the entity failed to 
+	 * 			be resolved and inserted into the request body
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override @SuppressWarnings("unchecked") //welcomes a ClassCastException on misuse of @Serializer(Custom.class)
-	protected HttpRequestBase process(HttpRequestBase httpRequestBase, InvocationContext context) {
+	protected HttpRequestBase process(InvocationContext context, HttpRequestBase request) {
 
 		try {
 
-			if(httpRequestBase instanceof HttpEntityEnclosingRequestBase) {
+			if(request instanceof HttpEntityEnclosingRequestBase) {
 				
 				List<Entry<Entity, Object>> entities = Metadata.onParams(Entity.class, context);
 				
@@ -118,25 +118,25 @@ class EntityProcessor extends AbstractRequestProcessor {
 						context.getEndpoint().getAnnotation(Serializer.class) :metadata;
 				
 				if(metadata != null && !detached(context, Serializer.class)) {
-										
+					
 					@SuppressWarnings("rawtypes") //no restrictions on custom serializer types with @Serializer
 					AbstractSerializer serializer = (metadata.value() == UNDEFINED)? 
 						Serializers.resolve(metadata.type()) :Serializers.resolve(metadata.value());
 						
-					entity = serializer.run(entity, context);
+					entity = serializer.run(context, entity);
 				}
 				
 				HttpEntity httpEntity = Entities.resolve(entity);
 				
-				((HttpEntityEnclosingRequestBase)httpRequestBase).setHeader(
+				((HttpEntityEnclosingRequestBase)request).setHeader(
 					HttpHeaders.CONTENT_TYPE, ContentType.getOrDefault(httpEntity).getMimeType());
 				
-				((HttpEntityEnclosingRequestBase)httpRequestBase).setEntity(httpEntity);
+				((HttpEntityEnclosingRequestBase)request).setEntity(httpEntity);
 			}
 		}
 		catch(MissingEntityException mee) { //violates HTTP 1.1 specification, be more verbose 
 			
-			if(!(httpRequestBase instanceof HttpPost)) { //allow leeway for POST requests
+			if(!(request instanceof HttpPost)) { //allow leeway for POST requests
 			
 				StringBuilder errorContext = new StringBuilder("It is imperative that this request encloses an entity.")
 				.append(" Identify exactly one entity by annotating an argument with @")
@@ -167,9 +167,9 @@ class EntityProcessor extends AbstractRequestProcessor {
 		}
 		catch(Exception e) {
 			
-			throw new RequestProcessorException(getClass(), context, e);
+			throw new RequestProcessorException(context, getClass(), e);
 		}
 		
-		return httpRequestBase;
+		return request;
 	}
 }

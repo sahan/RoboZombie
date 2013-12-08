@@ -20,16 +20,14 @@ package com.lonepulse.robozombie.response;
  * #L%
  */
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 
-import com.lonepulse.robozombie.annotation.Deserializer;
+import com.lonepulse.robozombie.inject.InvocationException;
 
 /**
- * <p>To be used with <b>asynchronous request execution</b> for retrieving the deserialized response content or 
- * for gaining insight into any failures and errors which might have occurred.</p>
- * 
- * <p>Note that <i>response handling</i> will not commence without an {@link AsyncHandler} in an endpoint 
- * request definition</p>.  
+ * <p>To be used with <b>asynchronous request execution</b> for retrieving the deserialized response content 
+ * or for gaining insight into any failures and errors which might have occurred.</p>
  * 
  * <p>This contract defines the following callbacks:</p>
  * <ul>
@@ -42,55 +40,58 @@ import com.lonepulse.robozombie.annotation.Deserializer;
  * <br><br>
  * @since 1.1.0
  * <br><br>
+ * @category API
+ * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public abstract class AsyncHandler<RESPONSE extends Object> {
+public abstract class AsyncHandler<RESPONSE> {
 
 	/**
-	 * <p>Use this callback to handle a <i>successful request execution</i>.</p>
+	 * <p>Use this callback to handle a <i>successful request execution</i>.</p> 
 	 * 
-	 * @param httpResponse
+	 * <p>Successful responses contain an <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">
+	 * HTTP status code</a> in the range <b>2xx</b>.</p>
+	 * 
+	 * @param response
 	 * 			the {@link HttpResponse} which was returned for a successful request execution
 	 * <br><br>
-	 * @param response
-	 * 			the response content deserialized as specified by @{@link Deserializer}
+	 * @param content
+	 * 			the deserialized response entity or an instance of the required type (e.g. the 
+	 * 			{@link HttpEntity} as specified on the request definition   
 	 * <br><br>
 	 * @since 1.1.0
 	 */
-	public abstract void onSuccess(HttpResponse httpResponse, RESPONSE response);
+	public abstract void onSuccess(HttpResponse response, RESPONSE content);
 
 	/**
-	 * <p>Use this callback method to handle a <i>failed HTTP response</i>.</p>
+	 * <p>Use this callback method to handle a <i>failed HTTP response</i>, in which the response code 
+	 * does not fall into the category <b>2xx</b>.</p>
 	 * 
-	 * <p>A successful response must contain an <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">
-	 * HTTP status code</a> of range <b>2xx</b>. Any other response code is considered to be failure and initiates 
-	 * this callback.</p>
+	 * <p><b>Note</b> that the default implementation does absolutely nothing. A minimal usage would be 
+	 * to override this callback, retrieve the actual status code and act upon it as necessary.</p>
 	 * 
-	 * <p><b>Note</b> that the default implementation does absolutely nothing. A minimal usage would be to override 
-	 * this callback, retrieve the HTTP status code and act upon it as necessary.</p>
-	 * 
-	 * @param httpResponse
-	 * 			the resulting {@link HttpResponse} containing a failed status code 
+	 * @param response
+	 * 			the {@link HttpResponse} with a failure status code signifying a failed request
 	 * <br><br>
 	 * @since 1.1.0
 	 */
-	public void onFailure(HttpResponse httpResponse){}
+	public void onFailure(HttpResponse response){}
 	
 	/**
-	 * <p>Callback to handle an <i>erroneous request execution</i>.</p>
+	 * <p>Use this callback to handle an <i>erroneous request execution</i>.</p>
 	 * 
-	 * <p>This callback will be invoked if request execution failed with an {@link Exception}. This signifies 
-	 * a failure to execute the request or handle the response; unlike {@link #onFailure(HttpResponse)} which 
-	 * indicates the return of a non-successful <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">
+	 * <p>This callback will be invoked if request execution failed with an exception. It signifies a 
+	 * failure to execute the request or handle the response; unlike {@link #onFailure(HttpResponse)} 
+	 * which indicates a non-successful <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">
 	 * HTTP status code</a>.</p>
 	 *  
-	 * <p><b>Note</b> that the default implementation does absolutely nothing. A minimal usage would be to override 
-	 * this callback and log any exceptions.</p>
+	 * <p><b>Note</b> that the default implementation does absolutely nothing. A minimal usage would be to 
+	 * override this callback and log any exceptions.</p>
 	 * 
-	 * @param error
-	 * 			the {@link Exception} which caused a failure in asynchronous request execution
+	 * @param errorContext
+	 * 			the {@link InvocationException} with information on the failed request execution
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public void onError(Exception error){}
+	public void onError(InvocationException errorContext){}
 }

@@ -43,6 +43,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.lonepulse.robozombie.annotation.Bite;
 import com.lonepulse.robozombie.annotation.PathParam;
 import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.inject.InvocationException;
 import com.lonepulse.robozombie.inject.Zombie;
 
 /**
@@ -130,8 +131,8 @@ public class PathEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable>
-	public final void testRestfulSubpathWithIllegalParamType() throws ClassNotFoundException {
+	@Test
+	public final void testRestfulSubpathWithIllegalParamType() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -142,8 +143,7 @@ public class PathEndpointTest {
 				.withStatus(200)
 				.withBody(body)));
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-			Class.forName("com.lonepulse.robozombie.request.RequestProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		assertNull(pathEndpoint.restfulSubpathWithIllegalParamType(1L));
 	}

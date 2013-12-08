@@ -33,8 +33,8 @@ import org.apache.http.client.methods.HttpRequestBase;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This is a concrete implementation of {@link AbstractRequestProcessor} which executes any {@link Interceptor}s 
- * that fall within the current invocation scope.</p>
+ * <p>This {@link AbstractRequestProcessor} executes any {@link Interceptor}s that fall within the current 
+ * invocation scope.</p>
  * 
  * <p>{@link Interceptor}s may be attached to a proxy invocation using an {@code @Interceptor} annotation 
  * at the endpoint or request level. An {@link Interceptor} may also be passed as an instance along with 
@@ -58,17 +58,17 @@ class InterceptionProcessor extends AbstractRequestProcessor {
 	
 	
 	/**
-	 * <p>Accepts the {@link InvocationContext} and executes any {@link Interceptor}s which fall within the 
-	 * scope of the current proxy invocation by passing in the provided {@link HttpRequestBase}.</p> 
+	 * <p>Accepts the {@link InvocationContext} and executes any {@link Interceptor}s which fall within 
+	 * the scope of the current proxy invocation by passing in the provided {@link HttpRequestBase}.</p> 
 	 * 
-	 * <p>See {@link RequestProcessor#process(HttpRequestBase, InvocationContext)}.</p>
+	 * <p>See {@link AbstractRequestProcessor#process(InvocationContext, HttpRequestBase)}.</p>
 	 * 
+	 * @param context
+	 * 			the {@link InvocationContext} which will be used to discover all {@link Interceptor}s 
+	 * 			which are within the scope of the current request invocation
+	 * <br><br>
 	 * @param request
 	 * 			the {@link HttpRequestBase} which will be processed by all discovered {@link Interceptor}s  
-	 * <br><br>
-	 * @param context
-	 * 			the instance of {@link InvocationContext} which will be used to discover all {@link Interceptor}s 
-	 * 			which are within the scope of the current request invocation
 	 * <br><br>
  	 * @return the same instance of {@link HttpRequestBase} which was processed by the {@link Interceptor}s
 	 * <br><br>
@@ -78,7 +78,7 @@ class InterceptionProcessor extends AbstractRequestProcessor {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected HttpRequestBase process(HttpRequestBase request, InvocationContext context) throws RequestProcessorException {
+	protected HttpRequestBase process(InvocationContext context, HttpRequestBase request) {
 
 		try {
 			
@@ -111,7 +111,7 @@ class InterceptionProcessor extends AbstractRequestProcessor {
 					INTERCEPTORS.put(key, interceptor);
 				}
 				
-				interceptor.intercept(request, context);
+				interceptor.intercept(context, request);
 			}
 			
 			List<Object> requestArgs = context.getArguments();
@@ -122,7 +122,7 @@ class InterceptionProcessor extends AbstractRequestProcessor {
 					
 					if(arg instanceof Interceptor) {
 						
-						((Interceptor)arg).intercept(request, context);
+						((Interceptor)arg).intercept(context, request);
 					}
 				}
 			}
@@ -131,7 +131,7 @@ class InterceptionProcessor extends AbstractRequestProcessor {
 		}
 		catch(Exception e) {
 			
-			throw new RequestProcessorException(getClass(), context, e);
+			throw new RequestProcessorException(context, getClass(), e);
 		}
 	}
 }

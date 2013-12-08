@@ -20,35 +20,30 @@ package com.lonepulse.robozombie.inject;
  * #L%
  */
 
-import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.annotation.Request;
-
 /**
- * <p>This is is a common policy which all proxy factories must implement.
+ * <p>This contract defines the services for creating a proxy from and endpoint's definition interface.</p> 
  * 
  * @version 1.1.1
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.1.0
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 interface ProxyFactory {
 
 	/**
-	 * <p>This factory method takes a {@link Class} representation of an interface 
-	 * which models a communication endpoint and returns a single instance of a 
-	 * dynamically generated proxy for that endpoint interface.</p>
-	 * <br>
-	 * <p>The interface should be annotated with {@link Endpoint} and may contain 
-	 * one or more abstract method declarations which are annotated with {@link Request}.</p>
+	 * <p>Accepts the {@link Class} of an annotated interface which defines an endpoint and returns a 
+	 * thread-safe instance of a dynamically generated proxy which reflects the given definition.</p>
 	 * 
-	 * @param typeClass
-	 * 				the {@link Class} of the interface which model an {@link Endpoint}
+	 * @param type
+	 * 			the {@link Class} of interface which defines the endpoint 
 	 * <br><br>
-	 * @return the dynamically created proxy for the endpoint interface
+	 * @return the dynamically proxy which reflects the endpoint definition
 	 * <br><br>
 	 * @throws ProxyFactoryException
-	 * 				due to any failure in creating a proxy
+	 * 			if the proxy failed to be created for the given endpoint definition 
 	 * <br><br>
-	 * @since 1.1.1			
+	 * @since 1.1.0			
 	 */
-	<T> T create(final Class<T> typeClass);
+	<T> T create(final Class<T> type);
 }

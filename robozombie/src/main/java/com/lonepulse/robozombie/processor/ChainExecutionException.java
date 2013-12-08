@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.processor;
  * #L%
  */
 
-
 /**
  * <p>This runtime exception is thrown when a {@link AbstractProcessorChain} halted due to an unrecoverable 
  * failure in one of its {@link ProcessorChainLink}s.</p>
@@ -39,11 +38,15 @@ class ChainExecutionException extends ProcessorChainException {
 
 	/**
 	 * See {@link ProcessorChainException#ProcessorChainException()}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ChainExecutionException() {}
 
 	/**
 	 * See {@link ProcessorChainException#ProcessorChainException(String)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ChainExecutionException(String detailMessage) {
 		
@@ -52,6 +55,8 @@ class ChainExecutionException extends ProcessorChainException {
 
 	/**
 	 * See {@link ProcessorChainException#ProcessorChainException(Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ChainExecutionException(Throwable throwable) {
 		
@@ -60,6 +65,8 @@ class ChainExecutionException extends ProcessorChainException {
 
 	/**
 	 * See {@link ProcessorChainException#ProcessorChainException(String, Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ChainExecutionException(String detailMessage, Throwable throwable) {
 

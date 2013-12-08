@@ -23,7 +23,7 @@ package com.lonepulse.robozombie.request;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>An extension of {@link AbstractSerializer} which simply invokes {@code String#valueOf(...)} on a model.</p>
+ * <p>An {@link AbstractSerializer} which simply invokes {@code String#valueOf(...)} on a model.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -35,7 +35,7 @@ public class PlainSerializer extends AbstractSerializer<Object, String> {
 
 	
 	/**
-	 * <p>Creates a new instance of {@link PlainSerializer} and registers the output {@link Class} as the 
+	 * <p>Creates a new {@link PlainSerializer} and registers {@code Class<String>} as the output 
 	 * content-type which results from serialization.</p>
 	 *
 	 * @since 1.2.4
@@ -46,25 +46,22 @@ public class PlainSerializer extends AbstractSerializer<Object, String> {
 	}
 	
 	/**
-	 * <p>Converts the given model to a {@link String} by simply invoking {@code String#valueOf(...)} on it.</p>
+	 * <p>Converts a model to a {@link String} by simply invoking {@code String#valueOf(...)} on it.</p>
 	 * 
-	 * @param input
-	 * 			the model to be serialized into a {@link String}
-	 * <br><br>
 	 * @param context
 	 * 			the {@link InvocationContext} which is used to discover further information regarding 
 	 * 			the proxy invocation
 	 * <br><br>
+	 * @param input
+	 * 			the model to be serialized into a {@link String}
+	 * <br><br>
 	 * @return the {@link String} which represents the provided input model, else an empty string if the 
 	 * 		   provided input was {@code null}
-	 * <br><br>
-	 * @throws Exception 
-	 * 			if serialization failed due to an error
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	public String serialize(Object input, InvocationContext context) {
+	public String serialize(InvocationContext context, Object input) {
 
 		return input == null? "" :String.valueOf(input);
 	}

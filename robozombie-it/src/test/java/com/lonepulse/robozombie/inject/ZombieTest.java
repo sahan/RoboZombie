@@ -29,7 +29,7 @@ import org.robolectric.RobolectricTestRunner;
 
 
 /**
- * <p>Performs <b>Unit Testing</b> on the {@link Zombie} and its injection capabilities.
+ * <p>Performs <b>Unit Testing</b> on the {@link Zombie} and its infection capabilities.
  * 
  * @category test
  * <br><br>

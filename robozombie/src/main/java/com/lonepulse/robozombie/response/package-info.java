@@ -1,11 +1,10 @@
 /**
- * <p>Contains the set of classes which initiates the processing of the 
- * results of an HTTP call. Use {@link com.lonepulse.robozombie.response.ResponseHandlers} 
- * to access all available response handlers.</p>
+ * <p>Contains the set of core and auxiliary classes which process requests of successful request executions 
+ * for a proxy invocation using the annotated meta-data found on the endpoint definition.</p>
  * 
- * @since 1.1.1
+ * @since 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 package com.lonepulse.robozombie.response;
 

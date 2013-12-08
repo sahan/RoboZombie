@@ -45,6 +45,7 @@ import org.simpleframework.xml.core.Persister;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.gson.Gson;
 import com.lonepulse.robozombie.annotation.Bite;
+import com.lonepulse.robozombie.inject.InvocationException;
 import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.model.User;
 import com.lonepulse.robozombie.response.AbstractDeserializer;
@@ -92,8 +93,8 @@ public class DeserializerEndpointTest {
 	 *
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable> 
-	public final void testResponseError() throws ClassNotFoundException {
+	@Test 
+	public final void testResponseError() {
 
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -104,8 +105,7 @@ public class DeserializerEndpointTest {
 				.withStatus(403)
 				.withBody(body)));
 		
-		expectedException.expect((Class<Throwable>)
-			Class.forName("com.lonepulse.robozombie.executor.RequestExecutionException"));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		String deserializedContent = deserializerEndpoint.responseError();
 		
@@ -185,7 +185,7 @@ public class DeserializerEndpointTest {
 	 * @since 1.2.4
 	 */
 	@Test  
-	public final void testRaw() throws ClassNotFoundException {
+	public final void testRaw() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -269,8 +269,8 @@ public class DeserializerEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable> 
-	public final void testUninstantiableDeserializer() throws ClassNotFoundException {
+	@Test 
+	public final void testUninstantiableDeserializer() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -280,8 +280,7 @@ public class DeserializerEndpointTest {
 				.willReturn(aResponse()
 				.withStatus(200)));
 		
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-			Class.forName("com.lonepulse.robozombie.response.ResponseProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		deserializerEndpoint.uninstantiableDeserializer();
 		
@@ -293,8 +292,8 @@ public class DeserializerEndpointTest {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Test @SuppressWarnings("unchecked") //safe cast to Class<Throwable> 
-	public final void testIllegalDeserializer() throws ClassNotFoundException {
+	@Test 
+	public final void testIllegalDeserializer() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -304,8 +303,7 @@ public class DeserializerEndpointTest {
 				.willReturn(aResponse()
 				.withStatus(200)));
 
-		expectedException.expectCause(Is.isA((Class<Throwable>)
-			Class.forName("com.lonepulse.robozombie.response.ResponseProcessorException")));
+		expectedException.expect(Is.isA(InvocationException.class));
 		
 		deserializerEndpoint.illegalDeserializer();
 		

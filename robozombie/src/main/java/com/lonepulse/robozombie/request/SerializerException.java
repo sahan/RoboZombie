@@ -20,9 +20,8 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
-
 /**
- * <p>This runtime exception is thrown whenever there is a failure in serializing a model to a content type 
+ * <p>This runtime exception is thrown whenever there is a failure in serializing a model to a content-type 
  * suitable for transmission.</p>
  * 
  * @version 1.1.1
@@ -39,11 +38,15 @@ class SerializerException extends RequestProcessorException {
 
 	/**
 	 * See {@link RequestProcessorException#RequestProcessorException()}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public SerializerException() {}
 
 	/**
 	 * See {@link RequestProcessorException#RequestProcessorException(String)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public SerializerException(String detailMessage) {
 		
@@ -52,6 +55,8 @@ class SerializerException extends RequestProcessorException {
 
 	/**
 	 * See {@link RequestProcessorException#RequestProcessorException(Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public SerializerException(Throwable throwable) {
 		
@@ -60,6 +65,8 @@ class SerializerException extends RequestProcessorException {
 
 	/**
 	 * See {@link RequestProcessorException#RequestProcessorException(String, Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public SerializerException(String detailMessage, Throwable throwable) {
 

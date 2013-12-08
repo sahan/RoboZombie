@@ -1,7 +1,5 @@
 package com.lonepulse.robozombie.inject;
 
-import com.lonepulse.robozombie.annotation.Endpoint;
-
 /*
  * #%L
  * RoboZombie
@@ -22,6 +20,7 @@ import com.lonepulse.robozombie.annotation.Endpoint;
  * #L%
  */
 
+import com.lonepulse.robozombie.annotation.Endpoint;
 
 /**
  * <p>This runtime exception is thrown when the @{@link Endpoint} annotation is missing on an 
@@ -40,12 +39,11 @@ class MissingEndpointAnnotationException extends EndpointValidationFailedExcepti
 
 	
 	/**
-	 * <p>Displays a detailed description with information about the endpoint definition and the missing 
-	 * annotation, along with the stacktrace.</p>
+	 * <p>Displays a detailed description with the endpoint definition and the missing annotation.</p>
 	 * 
 	 * @param endpoint
 	 * 			the {@link Class} of the endpoint definition interface
-	 * 
+	 * <br><br>
 	 * @param missingAnnotation
 	 * 			the required annotation which was not found on the endpoint definition
 	 * <br><br>
@@ -53,7 +51,7 @@ class MissingEndpointAnnotationException extends EndpointValidationFailedExcepti
 	 */
 	public MissingEndpointAnnotationException(Class<?> endpoint, Class<?> missingAnnotation) {
 		
-		this(new StringBuilder("Missing annotation ").append(missingAnnotation.getName())
+		this(new StringBuilder("Missing annotation @").append(missingAnnotation.getName())
 			 .append( " on endpoint ").append(endpoint == null? "<null>" :endpoint.getName()).toString());
 	}
 	

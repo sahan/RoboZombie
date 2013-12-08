@@ -1,10 +1,10 @@
 /**
- * <p>Contains the set of classes which execute HTTP requests on an HTTP client. 
- * Use {@link java.util.concurrent.Executors} to access all available executors.</p>
+ * <p>Contains a set of core and auxiliary classes which directs the execution of requests and manages 
+ * the presentation of response results.</p>
  * 
- * @since 1.2.1
+ * @since 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 package com.lonepulse.robozombie.executor;
 

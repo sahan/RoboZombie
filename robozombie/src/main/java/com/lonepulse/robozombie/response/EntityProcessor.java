@@ -33,15 +33,14 @@ import org.apache.http42.util.EntityUtils;
 
 import com.lonepulse.robozombie.annotation.Deserializer;
 import com.lonepulse.robozombie.annotation.Entity.ContentType;
-import com.lonepulse.robozombie.annotation.Header;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This is a concrete implementation of {@link AbstractResponseProcessor} which retrieves the {@link HttpEntity} 
- * of an {@link HttpResponse} and parses it using the defined {@link ContentType}. {@link ContentType}s are defined 
- * using @{@link Deserializer} either at the endpoint level or at the request level. All endpoint request declarations 
- * which defined a return type should be associated with a deserializer. Custom deserializers may be used by extending 
- * {@link AbstractDeserializer} and defining its type on {@link Deserializer#type()}.</p>
+ * <p>This {@link AbstractResponseProcessor} retrieves the {@link HttpEntity} of an {@link HttpResponse} 
+ * and deserializes its content using the defined deserializer. Deserializers are defined using 
+ * @{@link Deserializer} either at the endpoint level or at the request level. All endpoint request 
+ * declarations which define a return type should be associated with a deserializer. Custom deserializers 
+ * may be used by extending {@link AbstractDeserializer} and defining its type at {@link Deserializer#type()}.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -53,30 +52,31 @@ class EntityProcessor extends AbstractResponseProcessor {
 
 	
 	/**
-	 * <p>Accepts the {@link InvocationContext} along with the {@link HttpResponse} plus the results-map 
-	 * and retrieves the {@link HttpEntity} form the response. This is then fed all HTTP response headers which 
-	 * are discovered in the {@link HttpResponse}. These are then injected into their matching {@link StringBuilder} 
-	 * which are identified by @{@link Header} on the endpoint request definition. The HTTP response headers and the 
-	 * in-out parameters are matched using the header name and all parameters with a runtime value of {@code null} 
-	 * will be ignored.</p> 
+	 * <p>Accepts the {@link InvocationContext} along with the {@link HttpResponse} and retrieves the 
+	 * {@link HttpEntity} form the response. This is then converted to an instance of the required request 
+	 * return type by consulting the @{@link Deserializer} metadata on the endpoint definition.</p>
 	 * 
-	 * @param response
-	 * 			the instance of {@link HttpResponse} whose headers are to be retrieves and injected in the in-out 
-	 * 			{@link StringBuilder} parameters found on the request definition
-	 * <br><br>
+	 * <p>If the desired return type is {@link HttpResponse} or {@link HttpEntity} the response or entity 
+	 * is simply returned without any further processing.</p>
+	 * 
+	 * <p><b>Note</b> that this processor returns {@code null} for successful responses with the status 
+	 * codes {@code 205} or {@code 205}.</p>
+	 * 
 	 * @param context
-	 * 			an immutable instance of {@link InvocationContext} which is used to discover any 
-	 * 			@{@link Header} metadata in its <i>request</i> and <i>args</i>
-	 * <br><br> 
-	 * @return the deserialized response entity which conforms to the expected type
+	 * 			the {@link InvocationContext} which is used to discover deserializer metadata 
 	 * <br><br>
+	 * @param response
+	 * 			the {@link HttpResponse} whose response content is deserialized to the desired output type
+	 * <br><br>
+	 * @return the deserialized response content which conforms to the expected type
+	 * <br><br> 
 	 * @throws ResponseProcessorException
-	 * 			if the response-header retrieval or injection failed due to an unrecoverable error
+	 * 			if deserializer instantiation or execution failed for the response entity
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	protected Object process(HttpResponse response, InvocationContext context, Object content) {
+	protected Object process(InvocationContext context, HttpResponse response, Object content) {
 
 		if(response.getEntity() == null) {
 			
@@ -84,7 +84,7 @@ class EntityProcessor extends AbstractResponseProcessor {
 		}
 		
 		HttpEntity entity = response.getEntity();
-			
+		
 		Method request = context.getRequest();
 		Class<?> responseType = request.getReturnType();
 		
@@ -102,7 +102,7 @@ class EntityProcessor extends AbstractResponseProcessor {
 					return response.getEntity();
 				}
 			
-				boolean responseExpected = !(responseType.equals(void.class) || responseType.equals(Void.class)); 
+				boolean responseExpected = !(responseType.equals(void.class) || responseType.equals(Void.class));
 				boolean handleAsync = async(context);
 				
 				if(handleAsync || responseExpected) {
@@ -115,7 +115,7 @@ class EntityProcessor extends AbstractResponseProcessor {
 							endpoint.getAnnotation(Deserializer.class) :metadata;
 					
 					if(metadata != null & !detached(context, Deserializer.class)) {
-									
+						
 						deserializer = (metadata.value() == ContentType.UNDEFINED)? 
 							Deserializers.resolve(metadata.type()) :Deserializers.resolve(metadata.value()); 
 					}
@@ -128,7 +128,7 @@ class EntityProcessor extends AbstractResponseProcessor {
 						throw new DeserializerUndefinedException(endpoint, request);
 					}
 					
-					return deserializer.run(response, context);
+					return deserializer.run(context, response);
 				}
 			}
 		}

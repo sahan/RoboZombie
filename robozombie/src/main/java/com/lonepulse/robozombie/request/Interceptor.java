@@ -25,8 +25,8 @@ import org.apache.http.client.methods.HttpRequestBase;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This contract defines the policy for <b>intercepting</b> a request and processing it just before it's 
- * submitted for execution.</p>
+ * <p>This contract defines the policy for <b>intercepting</b> a request and processing it just before 
+ * it's submitted for execution.</p>
  * 
  * <b>Usage:</b>
  * <br>
@@ -35,7 +35,7 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * <li>
  * <p>At <b>type-level</b> on an endpoint <i>interface</i>; attaches this interceptor for all requests.</p><br>
  * <code>
- * <pre>@Endpoint(scheme = "https", host = "api.twitter.com/1")<b>
+ * <pre>@Endpoint(scheme = "https", host = "api.github.com")<b>
  *&#064;Interceptor(RequestInterceptor.class)</b><br>public interface GitHubEndpoint {<br>}</b>
  * </pre>
  * </code>
@@ -62,21 +62,23 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * <br><br>
  * @since 1.2.4
  * <br><br>
+ * @category API
+ * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public interface Interceptor {
 	
 	/**
-	 * <p>Accepts the {@link HttpRequestBase} which was <b>intercepted</b> just before execution and supplies 
-	 * the {@link InvocationContext} for discover additional information about the proxy invocation.</p>
+	 * <p>Accepts the {@link HttpRequestBase} which was <b>intercepted</b> just before execution and 
+	 * supplies the {@link InvocationContext} to discover additional information about the invocation.</p>
 	 *
-	 * @param request
-	 * 			the {@link HttpRequestBase} which was intercepted just before execution
-	 * <br><br>
 	 * @param context
 	 *			the {@link InvocationContext} which provides information about the proxy invocation
 	 * <br><br>
+	 * @param request
+	 * 			the {@link HttpRequestBase} which was intercepted just before execution
+	 * <br><br>
 	 * @since 1.2.4
 	 */
-	void intercept(HttpRequestBase request, InvocationContext context);
+	void intercept(InvocationContext context, HttpRequestBase request);
 }

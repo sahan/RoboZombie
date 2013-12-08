@@ -29,12 +29,11 @@ import java.util.logging.Logger;
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This is an extension of {@link AbstractSerializer} which allows an object to be converted to its 
- * XML representation.</p>
+ * <p>This {@link AbstractSerializer} allows an object to be converted to its XML representation.</p>
  * 
  * <p><b>Note</b> that this serializer requires the <a href="http://simple.sourceforge.net">Simple-XML</a> 
- * library to be available on the classpath to be active. If Simple-XML is not detected, this serializer will 
- * be disabled and any attempt to use it will result in an {@link IllegalStateException}.</p>
+ * library to be available on the classpath to be active. If Simple-XML is not detected, this serializer 
+ * will be disabled and any attempt to use it will result in an {@link IllegalStateException}.</p>
  * 
  * @version 1.2.0
  * <br><br>
@@ -112,7 +111,7 @@ final class XmlSerializer extends AbstractSerializer<Object, String> {
 	/**
      * <p>Serializes the given model using <b>Simple-XML</b> and returns the resulting XML {@link String}.</p>
      * 
-     * <p>See {@link AbstractSerializer#serialize(Object, InvocationContext)}.</p>
+     * <p>See {@link AbstractSerializer#serialize(InvocationContext, Object)}.</p>
      * 
 	 * @param input
 	 * 			the input model to be serialized into an XML {@link String}
@@ -134,7 +133,7 @@ final class XmlSerializer extends AbstractSerializer<Object, String> {
 	 * @since 1.2.4
 	 */
 	@Override
-	protected String serialize(Object input, InvocationContext context) {
+	protected String serialize(InvocationContext context, Object input) {
 		
 		if(unavailable || incompatible) {
 			

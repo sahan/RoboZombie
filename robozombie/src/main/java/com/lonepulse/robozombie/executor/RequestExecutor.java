@@ -21,31 +21,39 @@ package com.lonepulse.robozombie.executor;
  */
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.inject.Zombie;
 
 /**
- * <p>Specifies the contract for executing HTTP requests. 
+ * <p>This contract defines the services offered for executing requests which were created for an 
+ * endpoint's proxy invocation.</p> 
  * 
- * @version 1.1.0
+ * @version 1.2.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.1.0
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public interface RequestExecutor {
 
 	/**
-	 * <p>Executes the given {@link HttpRequestBase} using a 
-	 * suitable {@link HttpClientContract} implementation.
+	 * <p>Executes the given {@link HttpRequestBase} using the {@link HttpClient} which is configured 
+	 * for use with the associated endopint and returns the resulting {@link HttpResponse}.</p>
 	 * 
-	 * @param httpRequestBase
-	 * 			the {@link HttpRequestBase} to be executed
-	 * 			
-	 * @return the {@link HttpResponse} which is the result 
-	 * 			of the execution 
+	 * <p>See {@link Zombie.Configuration}</p>
 	 * 
+	 * @param request
+	 * 			the {@link HttpRequestBase} which should be executed using the endpoint's {@link HttpClient}
+	 * <br><br>
+	 * @return the {@link HttpResponse} which result from successful execution of the request 
+	 * <br><br>
 	 * @throws RequestExecutionException
-	 * 			if the HTTP request execution failed
+	 * 			if the request failed to be executed successfully using the configured {@link HttpClient}
+	 * <br><br>
+	 * @since 1.1.0
 	 */
-	HttpResponse execute(HttpRequestBase httpRequestBase, InvocationContext context);
+	HttpResponse execute(InvocationContext context, HttpRequestBase request);
 }

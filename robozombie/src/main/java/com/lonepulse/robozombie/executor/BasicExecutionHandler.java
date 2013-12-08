@@ -20,13 +20,13 @@ package com.lonepulse.robozombie.executor;
  * #L%
  */
 
-
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.inject.InvocationException;
 
 /**
- * <p>This is a minimal implementation of {@link ExecutionHandler} for use with {@link RequestExecutor}s.</p> 
+ * <p>A minimal implementation of {@link ExecutionHandler} which executes requests <b>synchronously</b>.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -38,34 +38,36 @@ public final class BasicExecutionHandler implements ExecutionHandler {
 
 
 	/**
-	 * <p>Throws a {@link RequestFailedException} with the {@link HttpResponse} and {@link InvocationContext}.</p> 
+	 * <p><b>No special action is taken for successful responses. This callback is mute.</b></p>
 	 * 
-	 * <p>See {@link ExecutionHandler#onFailure(HttpResponse, InvocationContext)}</p>
-	 * 
-	 * @param response
-	 * 			the resulting {@link HttpResponse} with a failed status code
+	 * <p>See {@link ExecutionHandler#onSuccess(InvocationContext, HttpResponse)}</p>
 	 * <br><br>
+	 * @since 1.2.4
+	 */
+	@Override
+	public void onSuccess(InvocationContext context, HttpResponse response) {}
+
+	/**
+	 * <p>Throws a {@link InvocationException} with the {@link InvocationContext} and {@link HttpResponse}.</p> 
+	 * 
+	 * <p>See {@link ExecutionHandler#onFailure(InvocationContext, HttpResponse)}</p>
+	 * 
 	 * @param context
 	 * 			the {@link InvocationContext} with information on the proxy invocation 
 	 * <br><br>
-	 * @since 1.2.4
-	 */
-	@Override
-	public void onFailure(HttpResponse response, InvocationContext context) {
-
-		throw RequestFailedException.newInstance(response, context);
-	}
-
-	/**
-	 * <p><b>No special action is taken for successful responses. This callback is mute.</b></p>
+	 * @param response
+	 * 			the resulting {@link HttpResponse} with a failed status code
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
-	public void onSuccess(HttpResponse response, InvocationContext context) {}
+	public void onFailure(InvocationContext context, HttpResponse response) {
 
+		throw InvocationException.newInstance(context, response);
+	}
+	
 	/**
-	 * <p>Throws a {@link RequestFailedException} with the {@link InvocationContext}.</p>
+	 * <p>Throws a {@link InvocationException} with the {@link InvocationContext}.</p>
 	 * 
 	 * <p>See {@link ExecutionHandler#onError(InvocationContext, Exception)}</p>
 	 * 
@@ -73,13 +75,13 @@ public final class BasicExecutionHandler implements ExecutionHandler {
 	 * 			the {@link InvocationContext} with information on the proxy invocation 
 	 * <br><br>
 	 * @param error
-	 * 			the root {@link Throwable} cause for the errored request execution  
+	 * 			the root {@link Exception} which resulted in a request execution error 
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	@Override
 	public void onError(InvocationContext context, Exception error) {
 		
-		throw RequestFailedException.newInstance(context, error);
+		throw InvocationException.newInstance(context, error);
 	}
 }

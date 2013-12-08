@@ -20,15 +20,15 @@ package com.lonepulse.robozombie.executor;
  * #L%
  */
 
-
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.inject.InvocationContext;
 
 /**
- * <p>This contract defines the callbacks offered for customizing stages in a request execution. It is 
- * to be used with a {@link RequestExecutor} which directs the execution. <b>Note that all implementations 
- * are expected to be stateless</b>.</p>
+ * <p>This contract defines the callbacks offered for customizing the stages in a request execution. 
+ * It should be used with a {@link RequestExecutor} which directs the execution.</p> 
+ * 
+ * <p><b>Note</b> that all implementations are expected to be stateless</b>.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -40,34 +40,37 @@ interface ExecutionHandler {
 	
 	/**
 	 * <p>This callback is invoked after a request execution which resulted in an {@link HttpResponse} 
-	 * with a <b>successful status code</b>.</p>
+	 * with a <b>successful status code</b>. Successful status codes fall into the range <b>2xx</b>.</p>
 	 *
+	 * <p><b>Note</b> that responses with the status codes <b>204</b> and <b>205</b> do not contain any 
+	 * response content.</p>
+	 * 
+	 * @param context
+	 * 			the {@link InvocationContext} with information on the proxy invocation 
+	 * <br><br>
 	 * @param response
 	 * 			the resulting {@link HttpResponse} with a successful status code
 	 * <br><br>
-	 * @param context
-	 * 			the {@link InvocationContext} with information on the proxy invocation 
-	 * <br><br>
 	 * @since 1.2.4
 	 */
-	void onSuccess(HttpResponse response, InvocationContext context);
+	void onSuccess(InvocationContext context, HttpResponse response);
 	
 	/**
 	 * <p>This callback is invoked after a request execution which resulted in an {@link HttpResponse} 
-	 * with a <b>failed status code</b>.</p>
+	 * with a <b>failure status code</b>, i.e. those which do not fall into the range <b>2xx</b>.</p>
 	 *
-	 * @param response
-	 * 			the resulting {@link HttpResponse} with a failed status code
-	 * <br><br>
 	 * @param context
 	 * 			the {@link InvocationContext} with information on the proxy invocation 
 	 * <br><br>
+	 * @param response
+	 * 			the resulting {@link HttpResponse} with a failed status code
+	 * <br><br>
 	 * @since 1.2.4
 	 */
-	void onFailure(HttpResponse response, InvocationContext context);
+	void onFailure(InvocationContext context, HttpResponse response);
 	
 	/**
-	 * <p>This callback is invoked upon a request execution which <b>resulted in an error</b>.</p>
+	 * <p>This callback is invoked when a request execution <b>results in an error</b>.</p>
 	 * 
 	 * <p><b>Note</b> that customized runtime exceptions may be thrown using any useful information 
 	 * discovered from the {@link InvocationContext}.</p>

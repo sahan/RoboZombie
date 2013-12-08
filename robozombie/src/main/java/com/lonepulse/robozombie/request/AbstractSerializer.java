@@ -30,12 +30,13 @@ import com.lonepulse.robozombie.util.EntityResolutionFailedException;
 /**
  * <p>An abstract implementation of {@link Serializer} which directs <i>serialization</i> for 
  * all {@link Serializer}s. To create a custom {@link Serializer} extend this class and override 
- * {@link #serialize(Object, InvocationContext)}.</p> 
+ * {@link #serialize(InvocationContext, Object)}.</p> 
  * 
  * <p><b>Note</b> that all implementations should produce an output type which can be translated 
  * to an {@link HttpEntity} type specified on {@link Entities#resolve(Class)}.</p>
  * 
- * <p><b>Note</b> that all implementations are expected to be <b>stateless</b>.</p>
+ * <p><b>Note</b> that all implementations are expected to be <b>stateless</b>. If a state is 
+ * incurred, proper {@link ThreadLocal} management should be performed.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -48,7 +49,7 @@ public abstract class AbstractSerializer<INPUT, OUTPUT> implements Serializer<IN
 	
 	/**
 	 * <p>Initializes a new {@link AbstractSerializer} with the given {@link Class} which 
-	 * represents this serializer's <i>output</i> type.</p>
+	 * identifies the output type of this serializer.</p>
 	 *
 	 * @param outputType
 	 * 			the {@link Class} of the <i>output</i> type for this serializer
@@ -75,11 +76,11 @@ public abstract class AbstractSerializer<INPUT, OUTPUT> implements Serializer<IN
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final OUTPUT run(INPUT input, InvocationContext context) {
+	public final OUTPUT run(InvocationContext context, INPUT input) {
 		
 		try {
 			
-			return serialize(input, context);
+			return serialize(context, input);
 		}
 		catch(Exception e) {
 		
@@ -93,20 +94,20 @@ public abstract class AbstractSerializer<INPUT, OUTPUT> implements Serializer<IN
 	 * 
 	 * <p><b>Note</b> that all <i>output</i>s are translated to a corresponding {@link HttpEntity} for 
 	 * enclosure within an {@link HttpRequest}. Therefore, all output instances should comply to a type 
-	 * specified at {@link Entities#resolve(Object)}.</p>
+	 * specified at {@link Entities#resolve(Class)}.</p>
 	 * 
 	 * <p><b>Note</b> that any runtime errors which might occur during serialization are caught, wrapped 
 	 * in an instance of {@link SerializerException} (stack-trace preserved) and allowed to bubble up.</p>
 	 * 
+	 * @param context
+	 * 			the {@link InvocationContext} which supplies information on the proxy invocation
+	 * <br><br>
 	 * @param input
 	 * 			the <i>input</i> model to be serialized to a transmittable format
 	 * <br><br>
-	 * @param context
-	 * 			the {@link InvocationContext} which supplies information on the proxy invocation
-     * <br><br>
 	 * @return the serialized <i>output</i> which will be translated to an {@link HttpEntity}   
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	protected abstract OUTPUT serialize(INPUT input, InvocationContext context);
+	protected abstract OUTPUT serialize(InvocationContext context, INPUT input);
 }

@@ -30,14 +30,17 @@ import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.inject.Zombie;
 
 /**
- * <p>Exposes all available {@link RequestExecutor}s and delegates communication. 
+ * <p>Exposes all available {@link RequestExecutor}s and delegates communication.</p>
  * 
  * @version 1.2.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @since 1.1.0
+ * <br><br>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public enum RequestExecutors implements RequestExecutor {
 
+	
 	/**
 	 * See {@link BasicRequestExecutor}.
 	 * 
@@ -53,19 +56,10 @@ public enum RequestExecutors implements RequestExecutor {
 	ASYNC(new AsyncRequestExecutor(new AsyncExecutionHandler()));
 	
 	
-	/**
-	 * The exposed instance of {@link RequestExecutor}.
-	 */
+	
 	private RequestExecutor requestExecutor;
 
 	
-	/**
-	 * <p>Instantiates {@link #requestExecutor} with the give instance of 
-	 * {@link RequestExecutor}.
-	 * 
-	 * @param requestExecutor
-	 * 			the associated instance of {@link RequestExecutor}
-	 */
 	private RequestExecutors(RequestExecutor requestExecutor) {
 		
 		this.requestExecutor = requestExecutor;
@@ -75,37 +69,31 @@ public enum RequestExecutors implements RequestExecutor {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public HttpResponse execute(HttpRequestBase httpRequestBase, InvocationContext context) {
+	public HttpResponse execute(InvocationContext context, HttpRequestBase request) {
 	
-		return this.requestExecutor.execute(httpRequestBase, context);
+		return this.requestExecutor.execute(context, request);
 	}
 	
 	/**
-	 * <p>Discovers a suitable {@link RequestExecutor} for a {@link InvocationContext}.</p>
+	 * <p>Discovers a suitable {@link RequestExecutor} for an {@link InvocationContext}.</p>
 	 * 
 	 * @param context
-	 * 			the {@link InvocationContext} for resolving a {@link RequestExecutor}
-	 * 
+	 * 			the {@link InvocationContext} for resolving a suitable {@link RequestExecutor}
+	 * <br><br>
 	 * @return {@link RequestExecutors#ASYNC} if the request method or endpoint is annotated with 
 	 * 		   {@link Async}, else {@link RequestExecutors#BASIC}
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	public static final RequestExecutor resolve(InvocationContext context) {
-
-		if(async(context)) {
-
-			return RequestExecutors.ASYNC.requestExecutor;
-		}
-		else {
-			 
-			return RequestExecutors.BASIC.requestExecutor;
-		}
+		
+		return async(context)? 
+				RequestExecutors.ASYNC.requestExecutor :RequestExecutors.BASIC.requestExecutor;
 	}
 	
 	/**
-	 * <p>Manages services related to {@link Zombie.Configuration}s which govern all configurable aspects of 
-	 * request execution.</p>
+	 * <p>Manages the services related to {@link Zombie.Configuration}s which govern all configurable 
+	 * aspects of request execution.</p>
 	 *  
 	 * <p>See {@link ConfigurationManager}</p>
 	 * 

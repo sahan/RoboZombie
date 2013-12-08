@@ -20,16 +20,15 @@ package com.lonepulse.robozombie.response;
  * #L%
  */
 
-
 /**
- * <p>This runtime exception is thrown when a <b>custom</b> {@link Deserializer} failed to be 
- * instantiated using the <b>default constructor</b> on its {@link Class}.</p>
+ * <p>This runtime exception is thrown when a <b>custom</b> {@link Deserializer} failed to be instantiated 
+ * using the <b>default constructor</b> on its {@link Class}.</p>
  * 
- * @version 1.1.1
+ * @version 1.1.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 class DeserializerInstantiationException extends DeserializerException {
 
@@ -38,8 +37,8 @@ class DeserializerInstantiationException extends DeserializerException {
 	
 
 	/**
-	 * <p>Displays a detailed error message with the {@link Class} of the deserializer type 
-	 * which failed to be instantiated.</p>
+	 * <p>Displays a detailed error message with the {@link Class} of the deserializer type which failed 
+	 * to be instantiated.</p>
 	 * 
 	 * @param deserializerType
 	 * 			the {@link Class} of the deserializer which failed to be instantiated
@@ -54,8 +53,8 @@ class DeserializerInstantiationException extends DeserializerException {
 	}
 	
 	/**
-	 * <p>Displays a detailed error message with the {@link Class} of the deserializer type 
-	 * which failed to be instantiated.</p>
+	 * <p>Displays a detailed error message with the {@link Class} of the deserializer type which failed 
+	 * to be instantiated, while preserving the stacktrace.</p>
 	 * 
 	 * @param deserializerType
 	 * 			the {@link Class} of the deserializer which failed to be instantiated

@@ -24,11 +24,11 @@ import com.lonepulse.robozombie.RoboZombieRuntimeException;
 import com.lonepulse.robozombie.inject.Zombie;
 
 /**
- * <p>This exception is thrown due to failure in <b>managing</b> a {@link Zombie.Configuration}.</p>
+ * <p>This exception is thrown due to a failure in <b>managing</b> a {@link Zombie.Configuration}.</p>
  * 
  * @version 1.1.0
  * <br><br>
- * @sine 1.2.4
+ * @since 1.2.4
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -46,6 +46,8 @@ public class ConfigurationFailedException extends RoboZombieRuntimeException {
 	 * <br><br>
 	 * @param rootCause
 	 * 			the root {@link Throwable} cause which resulted in a failure to manage the configuration
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ConfigurationFailedException(Class<?> endpointClass, Throwable rootCause) {
 		
@@ -55,11 +57,15 @@ public class ConfigurationFailedException extends RoboZombieRuntimeException {
 	
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException()}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ConfigurationFailedException() {}
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ConfigurationFailedException(String detailMessage) {
 		
@@ -68,6 +74,8 @@ public class ConfigurationFailedException extends RoboZombieRuntimeException {
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ConfigurationFailedException(Throwable throwable) {
 		
@@ -76,6 +84,8 @@ public class ConfigurationFailedException extends RoboZombieRuntimeException {
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String, Throwable)}.
+	 * <br><br>
+	 * @since 1.2.4
 	 */
 	public ConfigurationFailedException(String detailMessage, Throwable throwable) {
 
