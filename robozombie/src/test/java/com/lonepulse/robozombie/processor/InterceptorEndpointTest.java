@@ -32,6 +32,9 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.lonepulse.robozombie.annotation.Bite;
@@ -50,6 +53,7 @@ import com.lonepulse.robozombie.request.Interceptor;
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@RunWith(RobolectricTestRunner.class)
 public class InterceptorEndpointTest {
 
 	
@@ -77,6 +81,8 @@ public class InterceptorEndpointTest {
 	@Test
 	public final void testEndpointInterceptor() {
 		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
 		String subpath = "/endpoint";
 		
 		stubFor(get(urlEqualTo(subpath))
@@ -96,6 +102,8 @@ public class InterceptorEndpointTest {
 	 */
 	@Test
 	public final void testMetadataInterceptor() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
 		String subpath = "/metadata";
 		
@@ -117,6 +125,8 @@ public class InterceptorEndpointTest {
 	@Test
 	public final void testRequestInterceptor() {
 		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
 		String subpath = "/request";
 		
 		stubFor(get(urlEqualTo(subpath))
@@ -137,6 +147,8 @@ public class InterceptorEndpointTest {
 	 */
 	@Test
 	public final void testParamInterceptor() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
 		String subpath = "/param";
 		
@@ -167,6 +179,8 @@ public class InterceptorEndpointTest {
 	 */
 	@Test
 	public final void testDetachInterceptor() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
 		String subpath = "/detach";
 		

@@ -39,6 +39,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
 import org.simpleframework.xml.core.Persister;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
@@ -61,6 +64,7 @@ import com.lonepulse.robozombie.request.Serializers;
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@RunWith(RobolectricTestRunner.class)
 public class SerializerEndpointTest {
 
 	
@@ -94,6 +98,8 @@ public class SerializerEndpointTest {
 	@Test
 	public final void testSerializeJson() throws ParseException, IOException {
 		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
 		String subpath = "/json";
 		
 		User user = new User(1, "Tenzen", "Yakushiji", 300, true);
@@ -115,6 +121,8 @@ public class SerializerEndpointTest {
 	 */
 	@Test
 	public final void testSerializeXml() throws Exception {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
 		String subpath = "/xml";
 		
@@ -140,6 +148,8 @@ public class SerializerEndpointTest {
 	 */
 	@Test  
 	public final void testPlain() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 
 		String subpath = "/plain";
 		
@@ -162,6 +172,8 @@ public class SerializerEndpointTest {
 	 */
 	@Test
 	public final void testSerializeCustom() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
 		String subpath = "/custom", redacted = "<redacted>";
 		
@@ -186,6 +198,8 @@ public class SerializerEndpointTest {
 	@Test  
 	public final void testDetachSerializer() throws ParseException, IOException {
 
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
 		String subpath = "/detach";
 		
 		User user = new User(1, "Roy", "Mustang", 30, false);
@@ -208,6 +222,8 @@ public class SerializerEndpointTest {
 	@Test
 	public final void testUninstantiableSerializer() {
 		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
 		String subpath = "/uninstantiableserializer";
 		
 		stubFor(put(urlEqualTo(subpath))
@@ -226,6 +242,8 @@ public class SerializerEndpointTest {
 	 */
 	@Test 
 	public final void testIllegalSerializer() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
 		String subpath = "/illegalserializer";
 		
