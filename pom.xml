@@ -31,12 +31,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.6</java.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.name>RoboZombie Parent</project.name>
-		<project.url>http://lonepulse.com/robozombie</project.url>
+		<project.url>http://sahan.me/RoboZombie</project.url>
 		<project.inceptionYear>2013</project.inceptionYear>
 		<project.developer.name>Lahiru Sahan Jayasinghe</project.developer.name>
-		<project.developer.email>lahiru@lonepulse.com</project.developer.email>
+		<project.developer.email>sahan@lonepulse.com</project.developer.email>
 		<project.organization.name>Lonepulse</project.organization.name>
 		<project.organization.url>http://lonepulse.com</project.organization.url>
 		<license.licenseName>apache_v2</license.licenseName>
@@ -70,6 +69,52 @@
 		</developer>
 	</developers>
 
+	<dependencies>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<version>${platform.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.simpleframework</groupId>
+			<artifactId>simple-xml</artifactId>
+			<version>2.7.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<type>jar</type>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.robolectric</groupId>
+			<artifactId>robolectric</artifactId>
+			<version>2.1.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.tomakehurst</groupId>
+			<artifactId>wiremock</artifactId>
+			<version>1.33</version>
+			<classifier>standalone</classifier>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
 	<scm>
 		<connection>scm:git:git@github.com:sahan/RoboZombie.git</connection>
 		<developerConnection>scm:git:git@github.com:sahan/RoboZombie.git</developerConnection>
@@ -93,35 +138,8 @@
 		<url>https://travis-ci.org/sahan/RoboZombie</url>
 	</ciManagement>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>android</artifactId>
-			<version>${platform.version}</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
-
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-				<artifactId>android-maven-plugin</artifactId>
-				<version>3.8.0</version>
-				<configuration>
-					<androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
-					<sourceDirectory>${project.basedir}/src/main</sourceDirectory>
-					<testSourceDirectory>${project.basedir}/src/test</testSourceDirectory>
-					<assetsDirectory>${project.basedir}/assets</assetsDirectory>
-					<resourceDirectory>${project.basedir}/res</resourceDirectory>
-					<sdk>
-						<platform>15</platform>
-					</sdk>
-					<undeployBeforeDeploy>true</undeployBeforeDeploy>
-				</configuration>
-				<extensions>true</extensions>
-			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -158,6 +176,40 @@
 				<version>2.2.2</version>
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>2.0</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eluder.coveralls</groupId>
+				<artifactId>coveralls-maven-plugin</artifactId>
+				<version>2.0.0</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.5.2</version>
+				<configuration>
+					<instrumentation>
+						<excludes>
+							<exclude>com/lonepulse/robozombie/*.class</exclude>
+							<exclude>com/lonepulse/robozombie/**/*Exception.class</exclude>
+							<exclude>com/lonepulse/robozombie/util/*.class</exclude>
+							<exclude>com/lonepulse/robozombie/annotation/*.class</exclude>
+							<exclude>com/lonepulse/robozombie/request/JsonSerializer.class</exclude>
+							<exclude>com/lonepulse/robozombie/request/XmlSerializer.class</exclude>
+							<exclude>com/lonepulse/robozombie/response/JsonDeserializer.class</exclude>
+							<exclude>com/lonepulse/robozombie/response/XmlDeserializer.class</exclude>
+							<exclude>org/apache/http42/**/*.class</exclude>
+						</excludes>
+					</instrumentation>
+					<format>xml</format>
 				</configuration>
 			</plugin>
 		</plugins>
