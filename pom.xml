@@ -150,7 +150,11 @@
 						<configuration>
 							<roots>
 								<root>src/main/java</root>
+								<root>src/test/java</root>
 							</roots>
+							<excludes>
+								<exclude>org/apache/http42/**/*.java</exclude>
+							</excludes>
 						</configuration>
 					</execution>
 				</executions>
@@ -163,18 +167,6 @@
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<version>2.0</version>
-			</plugin>
-
-			<plugin>
-				<groupId>org.eluder.coveralls</groupId>
-				<artifactId>coveralls-maven-plugin</artifactId>
-				<version>2.0.0</version>
 			</plugin>
 
 			<plugin>
@@ -196,7 +188,20 @@
 						</excludes>
 					</instrumentation>
 					<format>xml</format>
+					<aggregate>true</aggregate>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eluder.coveralls</groupId>
+				<artifactId>coveralls-maven-plugin</artifactId>
+				<version>2.0.0</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>2.0</version>
 			</plugin>
 		</plugins>
 	</build>

@@ -259,7 +259,7 @@ public final class Assert {
 						    
 		boolean illegal = actualLength != length;
 		
-		if(illegal == true && optional != null && optional.length > 0) {
+		if(illegal && optional != null && optional.length > 0) {
 			
 			for (long optionalLength : optional) {
 				

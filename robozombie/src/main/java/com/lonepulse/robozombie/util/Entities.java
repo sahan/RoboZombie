@@ -4,6 +4,8 @@ package com.lonepulse.robozombie.util;
  * #%L
  * RoboZombie
  * %%
+ * Copyright (C) 2013 Lonepulse
+ * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -43,7 +45,10 @@ import org.apache.http.entity.StringEntity;
  */
 public final class Entities {
 
-
+	
+	 private Entities() {}
+	 
+	 
 	 /**
 	  * <p>Discovers which implementation of {@link HttpEntity} is suitable for wrapping the given object. 
 	  * This discovery proceeds in the following order by checking the runtime-type of the object:</p> 
@@ -82,7 +87,7 @@ public final class Entities {
 			 }
 			 else if(byte[].class.isAssignableFrom(genericEntity.getClass())) {
 				
-				 return new ByteArrayEntity(((byte[])genericEntity));
+				 return new ByteArrayEntity((byte[])genericEntity);
 			 }
 			 else if(Byte[].class.isAssignableFrom(genericEntity.getClass())) {
 				

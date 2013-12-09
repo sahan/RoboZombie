@@ -47,9 +47,9 @@ public final class InvocationException extends RoboZombieRuntimeException {
 
 	private static final long serialVersionUID = -6306853618935833711L;
 	
-	private HttpResponse response;
+	private final HttpResponse response;
 	
-	private InvocationContext context;
+	private final InvocationContext context;
 	
 	
 	/**
@@ -66,11 +66,7 @@ public final class InvocationException extends RoboZombieRuntimeException {
 	 */
 	public static InvocationException newInstance(InvocationContext context, HttpResponse response) {
 		
-		InvocationException rfe = new InvocationException(context, response);
-		rfe.setResponse(response);
-		rfe.setContext(context);
-		
-		return rfe;
+		return new InvocationException(context, response);
 	}
 	
 	/**
@@ -97,11 +93,7 @@ public final class InvocationException extends RoboZombieRuntimeException {
 			return (InvocationException)rootCause;
 		}
 		
-		InvocationException rfe = new InvocationException(context, response, rootCause);
-		rfe.setResponse(response);
-		rfe.setContext(context);
-		
-		return rfe;
+		return new InvocationException(context, response, rootCause);
 	}
 	
 	/**
@@ -124,30 +116,36 @@ public final class InvocationException extends RoboZombieRuntimeException {
 			return (InvocationException)rootCause;
 		}
 		
-		InvocationException rfe = new InvocationException(context, rootCause);
-		rfe.setContext(context);
-		
-		return rfe;
+		return new InvocationException(context, rootCause);
 	}
 	
 	private InvocationException(InvocationContext context, HttpResponse response) {
 		
 		super(new StringBuilder().append("Request <").append(context.getRequest().getName())
-		.append("> failed with the status code ").append(response.getStatusLine().getStatusCode())
-		.append(", ").append(response.getStatusLine().getReasonPhrase()).toString());
+			  .append("> failed with the status code ").append(response.getStatusLine().getStatusCode())
+			  .append(", ").append(response.getStatusLine().getReasonPhrase()).toString());
+		
+		this.context = context;
+		this.response = response;
 	}
 	
 	private InvocationException(InvocationContext context, HttpResponse response, Throwable rootCause) {
 		
 		super(new StringBuilder().append("Request <").append(context.getRequest().getName())
-				.append("> failed with the status code ").append(response.getStatusLine().getStatusCode())
-				.append(", ").append(response.getStatusLine().getReasonPhrase()).toString(), rootCause);
+			  .append("> failed with the status code ").append(response.getStatusLine().getStatusCode())
+			  .append(", ").append(response.getStatusLine().getReasonPhrase()).toString(), rootCause);
+		
+		this.context = context;
+		this.response = response;
 	}
 	
 	private InvocationException(InvocationContext context, Throwable rootCause) {
 		
 		super(new StringBuilder().append("Failed to execute request <")
 			  .append(context.getRequest().getName()).append(">").toString(), rootCause);
+		
+		this.context = context;
+		this.response = null;
 	}
 
 	/**
@@ -165,11 +163,6 @@ public final class InvocationException extends RoboZombieRuntimeException {
 	public HttpResponse getResponse() {
 		
 		return response;
-	}
-	
-	private void setResponse(HttpResponse response) {
-		
-		this.response = response;
 	}
 	
 	/**
@@ -197,10 +190,5 @@ public final class InvocationException extends RoboZombieRuntimeException {
 	public InvocationContext getContext() {
 		
 		return context;
-	}
-	
-	private void setContext(InvocationContext context) {
-		
-		this.context = context;
 	}
 }
