@@ -32,15 +32,16 @@ import com.lonepulse.robozombie.annotation.Request.RequestMethod;
  * 
  * <p>See <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">section 9</a> 
  * of the HTTP/1.1 specification.</p> 
- * <br><br>
+ * <br>
+ * <br>
  * <p>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
  * <code>
- * <pre>@GET("/users/{id}")</b>
- *public abstract User getUser(@PathParam("id") String id);
+ * <pre><b>@GET("/repos/{user}/{repo}/events")</b>
+ *List&lt;Event&gt; getRepoEvents(@PathParam("user") String user, &#064;PathParam("repo") String repo);
  * </pre>
  * </code>
  * </p>

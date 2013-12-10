@@ -25,22 +25,26 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.lonepulse.robozombie.inject.Zombie;
+
 /**
- * <p>Marks an endpoint reference whose proxy is to be created and injected.</p>
- * 
+ * <p>Identifies an endpoint definition whose thread-safe proxy should be created and injected. Endpoint 
+ * injection is performed with {@link Zombie#infect(Object, Object...)}.</p>
+ * <br>
+ * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
  * <code>
- * <pre><b>@Bite</b><br>private TwitterEndpoint twitterEndpoint;</pre>
+ * <pre><b>@Bite</b><br>private GitHubEndpoint gitHubEndpoint;</pre>
  * </code>
  * </p>
  * 
- * @version 1.1.2
+ * @version 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Target({ElementType.FIELD, ElementType.CONSTRUCTOR})
 @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.CONSTRUCTOR})
 public @interface Bite {}

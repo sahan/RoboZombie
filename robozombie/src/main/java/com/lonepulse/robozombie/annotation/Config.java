@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -29,14 +28,17 @@ import java.lang.annotation.Target;
 import com.lonepulse.robozombie.inject.Zombie;
 
 /**
- * <p>Identifies an alternate {@link Zombie.Configuration} which should be used on an endpoint for executing 
- * requests. Extend {@link Zombie.Configuration}, override template methods to provide a custom configuration 
- * and indicate that this configuration be used using its {@link Class}.</p> 
- * 
+ * <p>Identifies an alternate {@link Zombie.Configuration} which should be used on an endpoint for 
+ * executing requests. Extend {@link Zombie.Configuration}, override the template methods to provide 
+ * a custom configuration and indicate that this configuration be used using its {@link Class}.</p> 
+ * <br>
+ * <br>
  * <b>Usage:</b>
+ * <br>
+ * <br>
  * <code>
- * <pre><br>@Endpoint("api.twitter.com")<br><b>@Config(TwitterZombieConfig.class)</b>
- *public interface TwitterEndpoint {<br>}</pre>
+ * <pre><b>@Config(GitHubConfig.class)</b><br>@Endpoint(scheme = "https", host = "api.github.com")<br>
+ *public interface GitHubEndpoint {<br>&nbsp;...<br>}</pre>
  * </code>
  * 
  * @version 1.1.0
@@ -51,8 +53,8 @@ public @interface Config {
 
 
 	/**
-	 * <p>The {@link Class} of the custom {@link Zombie.Configuration} extension with an alternate configuration 
-	 * to be used on the endpoint.</p>
+	 * <p>The {@link Class} of the custom {@link Zombie.Configuration} extension with an alternate 
+	 * configuration to be used on the endpoint.</p>
 	 *
 	 * @return the {@link Class} of the custom {@link Zombie.Configuration} extension
 	 * 

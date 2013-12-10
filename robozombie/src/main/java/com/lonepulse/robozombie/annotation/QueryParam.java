@@ -28,13 +28,14 @@ import java.lang.annotation.Target;
 /**
  * <p>Identifies a <b>query parameter</b> to be included in a 
  * <a href="http://en.wikipedia.org/wiki/Query_string">query string</a>. 
- * 
+ * <br>
+ * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
- * <code>
- * <pre>public abstract Profile getUser(<b>@QueryParam("doctorwho")</b> String username);</pre>
+ * <code>@GET("/repos/{user}/{repo}/issues")
+ * <pre>List&lt;Issue&gt; getIssues(<b>@QueryParam("state") String state</b>, ... );</pre>
  * </code>
  * </p>
  * 
@@ -50,8 +51,8 @@ public @interface QueryParam {
 	
 	
 	/**
-	 * <p>The name of the query parameter which identifies this value uniquely 
-	 * in the form of a name-value pair in a query string.</p>
+	 * <p>The name of the query parameter which identifies this value in a name-value pair within a 
+	 * query string.</p>
 	 * 
 	 * @return the name of the request parameter
 	 * <br><br>

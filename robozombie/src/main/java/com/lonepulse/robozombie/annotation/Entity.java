@@ -26,15 +26,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Marks an entity which is to be included in the body of a request.</p>
- * 
+ * <p>Identifies an entity/content to be included in the body of a request.</p>
+ * <br>
+ * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
  * <code>
- * <pre>@Request(path = "/users/update", method = RequestMethod.POST)<br>@Headers(@Headers.Header(name = "Content-Type", value = "application/json"))
- *public abstract String updateUser(<b>@Entity</b> String userJson);</pre>
+ * <pre>@POST(path = "/gists")&nbsp;&nbsp;@Serializer(JSON)
+ *void createGist(<b>@Entity</b> Gist gist);</pre>
  * </code>
  * </p>
  * 
@@ -51,8 +52,8 @@ public @interface Entity {
 	
 	
 	/**
-	 * <p>Identifies a specific format for <i>serialized</i> content. These {@link ContentType}s mirror the sub-category 
-	 * of <a href="http://en.wikipedia.org/wiki/Internet_media_type">MIME</a> types.</p>
+	 * <p>Identifies a specific format for <i>serialized</i> content. These {@link ContentType}s mirror 
+	 * the sub-category of <a href="http://en.wikipedia.org/wiki/Internet_media_type">MIME</a> types.</p>
 	 * 
 	 * @version 1.1.0
 	 * <br><br> 
@@ -64,8 +65,8 @@ public @interface Entity {
 		
 		
 		/**
-		 * <p>Identifies <b>raw textual content</b> <i>("text/plain")</i>, which is already assumed to be in its 
-		 * serialized format.</p>
+		 * <p>Identifies <b>raw textual content</b> <i>("text/plain")</i>, which is already assumed to be 
+		 * in its serialized format.</p>
 		 * 
 		 * @since 1.2.4
 		 */
@@ -74,10 +75,10 @@ public @interface Entity {
 		/**
 		 * <p>Identifies <a href="www.json.org">JSON</a> content <i>("application/json")</i>.</p>
 		 * 
-		 * <p><b>Note</b> that activation of the <i>out-of-the-box</i> serializer and deserializer for JSON requires 
-		 * the <a href="http://code.google.com/p/google-gson">GSON</a> library to be available on the classpath. If 
-		 * GSON is not detected, both the serializer and deserializer will be disabled and any attempt to use them 
-		 * will result in an {@link IllegalStateException}.</p>
+		 * <p><b>Note</b> that activation of the <i>out-of-the-box</i> serializer and deserializer for JSON 
+		 * requires the <a href="http://code.google.com/p/google-gson">GSON</a> library to be available on 
+		 * the classpath. If GSON is not detected, both the serializer and deserializer will be disabled and 
+		 * any attempt to use them will result in an {@link IllegalStateException}.</p>
 		 * 
 		 * @since 1.2.4
 		 */
@@ -86,10 +87,10 @@ public @interface Entity {
 		/**
 		 * <p>Identifies <a href="http://en.wikipedia.org/wiki/XML">XML</a> content <i>("application/xml")</i>.</p>
 		 * 
-		 * <p><b>Note</b> that activation of the <i>out-of-the-box</i> serializer and deserializer for XML requires 
-		 * the <a href="http://simple.sourceforge.net">Simple-XML</a> library to be available on the classpath. If 
-		 * Simple-XML is not detected, both the serializer and deserializer will be disabled and any attempt to use 
-		 * them will result in an {@link IllegalStateException}.</p>
+		 * <p><b>Note</b> that activation of the <i>out-of-the-box</i> serializer and deserializer for XML 
+		 * requires the <a href="http://simple.sourceforge.net">Simple-XML</a> library to be available on 
+		 * the classpath. If Simple-XML is not detected, both the serializer and deserializer will be disabled 
+		 * and any attempt to use them will result in an {@link IllegalStateException}.</p>
 		 * 
 		 * @since 1.2.4
 		 */
@@ -98,8 +99,8 @@ public @interface Entity {
 		/**
 		 * <p>Indicates the inapplicability of a standardized content type.</p>  
 		 * 
-		 * <p>When used with {@code @Serializer} or {@code @Deserializer}, it indicates the use of a custom serializer 
-		 * or deserializer.</p>
+		 * <p>When used with {@code @Serializer} or {@code @Deserializer}, it indicates the use of a custom 
+		 * serializer or deserializer.</p>
 		 * 
 		 * @since 1.2.4
 		 */

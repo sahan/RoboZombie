@@ -27,17 +27,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Detaches any inherited <b>{@link Serializer}, {@link Deserializer} and {@link Async}</b> annotations.</p>
- * 
- * <br><br>
- * <p>
- * <b>Usage: (assuming the endpoint has @{@link Deserializer} and @{@link Async} annotations attached):</b>
+ * <p>Detaches any inherited <b>@{@link Serializer}, @{@link Deserializer}, @{@link Async} and 
+ * @{@link Interceptor}</b> annotations.</p>
+ * <br>
+ * <br>
+ * <b>Usage (assuming the endpoint is asynchronous and a type-level interceptor is attached):</b>
  * <br>
  * <br>
  * <p>
  * <code>
- * <pre>@GET("/{album}/{id}")&nbsp;<b>@Detach({Deserializer.class, Async.class})</b>
- *public abstract String getBase64Image(@PathParam("album") String album,&nbsp;@PathParam("id") String id);
+ * <pre>@GET("/meta")&nbsp;&nbsp;<b>@Detach({Async.class, Interceptor.class})</b>
+ *Meta getMetaInfo();
  * </pre>
  * </code>
  * </p>
@@ -51,6 +51,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Detach {
+	
 	
 	/**
 	 * <p>The {@link Class}es which identify the inherited annotations to be detached from the request.</p> 

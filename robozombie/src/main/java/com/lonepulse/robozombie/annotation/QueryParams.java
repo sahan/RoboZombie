@@ -33,15 +33,16 @@ import java.util.Map;
  * <p>This annotation can be used on the request definition to identify static query parameters 
  * as well as on a request parameter of type {@link Map}&lt;String, String&gt; to identify a set 
  * of dynamic query parameters.</p> 
- * 
+ * <br>
+ * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
- * <code>
- * <pre><b>@QueryParams</b>({@Param(name = "n1", value = "v1"), @Param(name = "n2", value = "v2")})
- *public abstract Profile findProfile(<b>@QueryParams</b> Map&lt;String, String&gt; params);</pre>
- * </code>
+ * <code><pre>@GET("/users/{user}/repos")
+ *<b>@QueryParams</b>({@Param(name = "per_page", value = "5")})
+ *List&lt;Repo&gt; getReposPaginated(@PathParam("user") String user, <b>@QueryParams</b> Map&lt;String, String&gt; pageParams);
+ * </code></pre>
  * </p>
  * 
  * @version 1.1.0

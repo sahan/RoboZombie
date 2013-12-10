@@ -30,26 +30,25 @@ import com.lonepulse.robozombie.request.AbstractSerializer;
 import com.lonepulse.robozombie.request.PlainSerializer;
 
 /**
- * <p>Identifies the {@link Serializer} to be used for translating a model into a content-type 
- * suitable for network transmission.</p>
+ * <p>Attaches a {@link Serializer} for converting models to the format consumed by the endpoint.</p>
  * 
  * <b>Usage:</b>
  * <br>
  * <br>
  * <ol>
  * <li>
- * <p>At <b>type-level</b> on an endpoint <i>interface</i>; attaches this serializer for all requests.</p><br>
+ * <p>At <b>type-level</b> on an endpoint <i>definition</i>; attaches this serializer for all requests.</p><br>
  * <code>
- * <pre>@Endpoint(scheme = "https", host = "api.twitter.com/1")<b>
- *&#064;Serializer(ContentType.JSON)</b><br>public interface TwitterEndpoint {<br>}</b>
+ * <pre>@Endpoint(scheme = "https", host = "api.github.com")<b>
+ *&#064;Serializer(JSON)</b><br>public interface GitHubEndpoint {<br>&nbsp;...<br>}</b>
  * </pre>
  * </code>
  * </li>
  * <li>
  * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
  * <code>
- * <pre>@Request("/users/{id}")<br><b>@Serializer(ContentType.JSON)</b>
- *public abstract String getUser();</b></b></pre>
+ * <pre>@POST(path = "/gists")&nbsp;&nbsp;<b>@Serializer(JSON)</b>
+ *void createGist(<b>@Entity</b> Gist gist);</pre>
  * </code>
  * </li>
  * </ol>
@@ -67,21 +66,22 @@ public @interface Serializer {
 
 
 	/**
-	 * <p>The prefabricated serializer to be used, which can be identified using {@link ContentType}.</p>
+	 * <p>The {@link ContentType} which identifies a pre-fabricated serializer, which is responsible for 
+	 * converting model to the accepted request content.</p>
 	 * 
-	 * @return the {@link ContentType} which identifies the prefabricated serializer
+	 * @return the {@link ContentType} which identifies an out-of-the-box serializer
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	ContentType value() default ContentType.UNDEFINED;
 	
 	/**
-	 * <p>The {@link Class} of the custom {@link AbstractSerializer} extension to be used.</p> 
+	 * <p>The {@link Class} of a custom {@link AbstractSerializer} which should be attached.</p> 
 	 * 
 	 * <code>
-     * <pre>@Request("/articles", method = RequestMethod.PUT)<br><b>@Serializer(type = ArticleSerializer.class)</b>
-     *public abstract void submitArticle(Article article);</b></b></pre>
-     * </code>
+	 * <pre><b>@Serializer(type = GistSerializer.class)</b>&nbsp;&nbsp;@POST(path = "/gists")&nbsp;&nbsp;<b>@Serializer(JSON)</b>
+	 *void createGist(<b>@Entity</b> Gist gist);</pre>
+	 * </code>
 	 * 
 	 * @return the {@link Class} of the custom {@link AbstractSerializer} to be used
 	 * <br><br>

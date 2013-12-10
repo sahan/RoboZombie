@@ -34,15 +34,19 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpTrace;
 
 /**
- * <p>This annotation is used to mark a method which initiates an HTTP request.</p>
+ * <p>This annotation is used to mark a method which initiates an HTTP request. It can be used 
+ * as a meta-annotation to identify the HTTP method for custom annotations along the lines of 
+ * <code>@GET</code> or <code>@PUT</code>. For such custom annotations, be sure to include the 
+ * property {@code String value() default "";} for accepting the request path.</p>
  * 
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
  * <code>
- * <pre>@Request(path = "/search")</b>
- *public abstract String search(@QueryParam(name = "q") String searchTerm);
+ * <code>
+ * <pre><b>@Request(path = "/repos/{user}/{repo}/events")</b>
+ *List&lt;Event&gt; getRepoEvents(@PathParam("user") String user, &#064;PathParam("repo") String repo);
  * </pre>
  * </code>
  * </p>
@@ -59,11 +63,8 @@ public @interface Request {
 	
 	
 	/**
-	 * <p>Identifies the <i>method</i> of a request as specified in <a href="">
-	 * Section 9</a> of the HTTP 1.1 RFC.</p>
-	 * 
-	 * <p>The default request method used by an @{@link Request} annotation is 
-	 * {@link RequestMethod#GET}. To alter this, use {@link Request#method()}</p>
+	 * <p>Identifies the <i>method</i> of a request as specified in <a href="">Section 9</a> 
+	 * of the HTTP 1.1 RFC.</p>
 	 * 
 	 * @version 1.1.0
 	 * <br><br>
@@ -124,21 +125,19 @@ public @interface Request {
 	}
 	
 	/**
-	 * <p>The type of the HTTP request which can be indicated using 
-	 * {@link RequestMethod}.</p>
-	 * <br>
+	 * <p>The HTTP request method indicated using {@link RequestMethod}.</p>
+	 * 
 	 * <p>The default method type is {@link RequestMethod#GET}.</p>
 	 * 
-	 * @return the type of the HTTP request
+	 * @return the HTTP request method
 	 * <br><br>
 	 * @since 1.1.0
 	 */
 	RequestMethod method() default RequestMethod.GET;
 	
 	/**
-	 * <p>A sub-path which which continues from the root hierarchy of the uri 
-	 * If no sub path is given, resource is assumed to be found at the root 
-	 * path given on the {@link Endpoint}.    
+	 * <p>A sub-path which which continues from the root hierarchy of the URI. If no sub path is given, 
+	 * the resource is assumed to be found at the root path given on the endpoint.</p>    
 	 * 
 	 * @return the sub-path on which the resource is located 
 	 * <br><br>

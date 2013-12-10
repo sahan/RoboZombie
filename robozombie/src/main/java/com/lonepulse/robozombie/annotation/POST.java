@@ -39,9 +39,8 @@ import com.lonepulse.robozombie.annotation.Request.RequestMethod;
  * <br>
  * <p>
  * <code>
- * <pre>@POST("/users")</b>
- *public abstract void updateUser(@Entity User user);
- * </pre>
+ * <pre><b>@POST(path = "/gists")</b>&nbsp;&nbsp;@Serializer(JSON)
+ *void createGist(@Entity Gist gist);</pre>
  * </code>
  * </p>
  * 

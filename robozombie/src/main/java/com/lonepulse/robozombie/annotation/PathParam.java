@@ -26,27 +26,26 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>This annotation marks a RESTful path parameter. The {@link Request#path()} may be marked 
- * with parameter place-holders having the format <i>:<parameter_name> </i>.</p> 
- * 
- * <p>The interface method parameters may then be annotated with {@link PathParam} and the 
- * {@link PathParam#value()} given the same value as those in the place-holders.</p>
- *  
+ * <p>This annotation marks a RESTful path parameter which should replace a placeholder on the request 
+ * path with the same name.</p> 
+ * <br>
+ * <br>
  * <b>Usage:</b>
+ * <br>
+ * <br>
  * <br>
  * <br>
  * <p>
  * <code>
- * <pre>
- * <br><b>@Request(path = "/{username}/posts.json")</b>
- *public abstract String getPosts(<b>@PathParam("username")</b> String username);
+ * <pre>@GET("<b>/repos/{user}/{repo}/events</b>")
+ *List&lt;Event&gt; getRepoEvents(<b>@PathParam("user") String user, &#064;PathParam("repo") String repo</b>);
  * </pre>
  * </code>
  * </p>
  * 
  * @version 1.1.1
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)

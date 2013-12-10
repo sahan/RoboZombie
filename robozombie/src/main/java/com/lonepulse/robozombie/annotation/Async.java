@@ -27,31 +27,32 @@ import java.lang.annotation.Target;
 
 /**
  * <p>Identifies requests which should be executed <b>asynchronously</b>.</p>
- * 
+ * <br>
+ * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <ol>
  * <li>
- * <p>At <b>type-level</b> on an endpoint <i>interface</i>; marks all requests as asynchronous.<br>
+ * <p>At <b>type-level</b> on an endpoint <i>definition</i>; marks all requests as asynchronous.<br>
  * <code>
- * <pre>@Endpoint<br><b>@Async</b><br>public interface TwitterEndpoint {<br>}</pre>
+ * <pre><b>@Async</b>&nbsp;&nbsp;@Endpoint(scheme = "https", host = "api.github.com")<br>public interface GithubEndpoint {<br>&nbsp;...<br>}</pre>
  * </code>
  * </li>
  *  
  * <li>
  * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
  * <code>
- * <pre>@Async<br><b>@Request</b><br>public Set&lt;Mention&gt; getMentions();</pre>
+ * <pre><b>@Async</b>&nbsp;&nbsp;@GET("/users/{user}/repos")<br>Set&lt;Repo&gt; getRepos(@PathParam("user") String user);</pre>
  * </code>
  * </li>
  * </ol>
  * </p>
  * 
- * @version 1.1.1
+ * @version 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Async {}

@@ -29,9 +29,9 @@ import org.apache.http.client.CookieStore;
 import org.apache.http.cookie.Cookie;
 
 /**
- * <p>Marks the policy of a <b>remote endpoint</b> as being <i>stateful</i>, i.e. session 
- * management is performed using {@link Cookie}s together with a {@link CookieStore}.</p>
- *
+ * <p>Allows session management to be performed using {@link Cookie}s together with a {@link CookieStore}.</p>
+ * <br>
+ * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
@@ -39,8 +39,8 @@ import org.apache.http.cookie.Cookie;
  * <li>
  * <p>At <b>type-level</b> on an endpoint <i>interface</i>.</p><br>
  * <code>
- * <pre><b> @Stateful</b>&nbsp;@Endpoint("accounts.google.com")
- * public interface GoogleAccountsEndpoint {<br> }
+ * <pre><b>@Stateful</b>&nbsp;@Endpoint(scheme = "https", host = "api.github.com")
+ *public interface GitHubEndpoint {<br>&nbsp;...<br>}</b>
  * </pre>
  * </code>
  * </li>
@@ -49,7 +49,7 @@ import org.apache.http.cookie.Cookie;
  * 
  * @version 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

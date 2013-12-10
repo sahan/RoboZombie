@@ -25,35 +25,35 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.lonepulse.robozombie.annotation.Request.RequestMethod;
-
 /**
- * <p>Marks the policy of a <b>remote endpoint</b>. For example, an interface which mirrors the method 
- * signatures of a web service contract.</p>
+ * <p>Identifies an interface to be an endpoint definition and accepts key information such as the 
+ * endpoint's host or the scheme and port to be used for communication. A bare minimum declaration 
+ * would be <code>@Endpoint("example.com")</code> which is {@code http} on port {@code 80}.</p>
+ * </p>
  * <br>
- * <p>By default, only them methods annotated with {@code @Request} are considered to be web requests 
- * (without any explicit annotations) having a default <b>HTTP</b> method type of {@link RequestMethod#GET}.</p>
- *
+ * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
  * <code>
- * <pre><b>@Endpoint("api.twitter.com")</b><br>public interface TwitterEndpoint {<br>}</pre>
+ * <pre><b>@Endpoint(scheme = "https", host = "api.github.com")</b>
+ *public interface GitHubEndpoint {<br>&nbsp;...<br>}</pre>
  * </code>
  * </p>
  * 
  * @version 1.1.2
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Endpoint {
+	
 
 	/**
-	 * <p>The scheme of the protocol used for communication. The default 
-	 * value for the scheme is <code>http</code>.</p>
+	 * <p>The scheme of the protocol used for communication. The default value for the scheme 
+	 * is <code>http</code>.</p>
 	 * 
 	 * @return the protocol scheme
 	 * <br><br>
@@ -62,9 +62,11 @@ public @interface Endpoint {
 	String scheme() default "http";
 	
 	/**
-	 * <p>The hostname of the endpoint.</p> 
+	 * <p>The hostname of the endpoint.</p>
 	 * 
-	 * @return the hostname of the endpoint
+	 * <p>Synonymous to {@link #host()}.</p>
+	 * 
+	 * @return the endpoint's hostname
 	 * <br><br>
 	 * @since 1.1.2
 	 */
@@ -73,32 +75,30 @@ public @interface Endpoint {
 	/**
 	 * <p>The hostname of the endpoint.</p> 
 	 * 
-	 * @return the hostname of the endpoint
+	 * <p>Synonymous to {@link #value()} which could be used as <code>@Endpoint("example.com")</code>.</p>
+	 * 
+	 * @return the endpoint's hostname
 	 * <br><br>
 	 * @since 1.1.2
 	 */
 	String host() default "";
 	
 	/**
-	 * <p>The <b>port</b> through which a channel is opened for communication 
-	 * with the endpoint.</p> 
+	 * <p>The <b>port</b> through which a channel is opened for communication with the endpoint.</p> 
 	 * 
-	 * <p>Leaving this blank allows the URI builder to assume the default port 
-	 * associated with the scheme. For example, port <code>80</code> for <code>
-	 * HTTP</code> or port <code>443</code> for <code>HTTPS</code>.</p>  
+	 * <p>The default ports are assumed to be <code>80</code> for <code>HTTP</code> and port 
+	 * <code>443</code> for <code>HTTPS</code>.</p>  
 	 * 
-	 * @return the port through which communication occurs
+	 * @return the port used for communication
 	 * <br><br>
 	 * @since 1.1.2
 	 */
 	int port() default -1;
 
 	/**
-	 * <p>The path hierarchy of the <b>URI</b> on which the resource is located. 
-	 * If no path is given, the resource is assumed to be found at the root 
-	 * (host).</p>    
+	 * <p>The root path to be immediately appended to the hostname.</p>    
 	 * 
-	 * @return the path from the host at which the resource is located
+	 * @return the root path which extends immediately after the hostname
 	 * <br><br>
 	 * @since 1.1.2
 	 */

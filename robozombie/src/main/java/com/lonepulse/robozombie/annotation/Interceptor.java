@@ -26,26 +26,35 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Identifies an {@link com.lonepulse.robozombie.request.Interceptor} which will be used to process a 
+ * <p>Identifies an {@link com.lonepulse.zombielink.request.Interceptor} which will be used to process a 
  * request just before it's executed.</p>
- * 
+ * <br>
+ * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <ol>
  * <li>
- * <p>At <b>type-level</b> on an endpoint <i>interface</i>; attaches this interceptor for all requests.</p><br>
+ * <p>At <b>type-level</b> on an endpoint <i>definition</i>; attaches this interceptor for all requests.</p><br>
  * <code>
- * <pre>@Endpoint(scheme = "https", host = "api.twitter.com/1")<b>
- *&#064;Interceptor(RequestInterceptor.class)</b><br>public interface GitHubEndpoint {<br>}</b>
+ * <pre>@Endpoint(scheme = "https", host = "api.github.com")<b>
+ *&#064;Interceptor({CommonInterceptor1.class, CommonInterceptor2.class})</b><br>public interface GitHubEndpoint {<br>&nbsp;...<br>}</b>
  * </pre>
  * </code>
  * </li>
  * <li>
  * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
  * <code>
- * <pre>@Request("/users/{id}")<br><b>@Interceptor(RequestInterceptor.class)</b>
- *public abstract GitHubUser getUser(@PathParam("id") String id);</b></b></pre>
+ * <pre><b>@Interceptor(SpecificInterceptor.class)</b>
+ *&#064;Deserializer(JSON)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")
+ *List&lt;Gist&gt; getGists(@PathParam("user") String user);</b></b></pre>
+ * </code>
+ * </li>
+ * <li>
+ * <p>As a <b>request parameter</b>.</p><br>
+ * <code>
+ * <pre>@Deserializer(JSON)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")
+ *List&lt;Gist&gt; getGists(@PathParam("user") String user, <b>Interceptor</b> interceptor);</b></b></pre>
  * </code>
  * </li>
  * </ol>
@@ -63,10 +72,10 @@ public @interface Interceptor {
 	
 	
 	/**
-	 * <p>The {@link Class}es which identify the custom {@link com.lonepulse.robozombie.request.Interceptor}s 
+	 * <p>The {@link Class}es which identify the custom {@link com.lonepulse.zombielink.request.Interceptor}s 
 	 * which will be use on the request before they are executed.</p> 
 	 * 
-	 * @return the {@link Class}es which identify the {@link com.lonepulse.robozombie.request.Interceptor}s 
+	 * @return the {@link Class}es which identify the {@link com.lonepulse.zombielink.request.Interceptor}s 
 	 * 		   to be used
 	 * <br><br>
 	 * @since 1.2.4

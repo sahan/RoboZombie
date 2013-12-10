@@ -39,9 +39,8 @@ import com.lonepulse.robozombie.annotation.Request.RequestMethod;
  * <br>
  * <p>
  * <code>
- * <pre>@PUT("/users")</b>
- *public abstract void createUser(@Entity User user);
- * </pre>
+ * <pre><b>@PUT(path = "/gists/{id}/star")</b>
+ *void starGist(@PathParam("id") String id);</pre>
  * </code>
  * </p>
  * 

@@ -1,10 +1,9 @@
 /**
- * <p>Contains the set of annotations which are used to mark an endpoint 
- * interface with <b>metadata<b/>.</p> 
+ * <p>Contains the set of annotations which are used to define an endpoint on an interface.</p> 
  * 
  * @since 1.1.1
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 package com.lonepulse.robozombie.annotation;
 

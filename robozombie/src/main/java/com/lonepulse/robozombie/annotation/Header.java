@@ -26,29 +26,32 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Marks a header parameter which is likely to change at runtime.</p>
- * 
+ * <p>Identifies a header which should be sent with the request. If this annotation is placed on an 
+ * instance of {@link StringBuilder}, its content will be replaced by any available response header 
+ * with the same name.</p>
+ * <br>
+ * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
- * <code>
- * <pre>public abstract String getRSSFeed(<b>@Header</b>("Accept-Charset") String charSet);</pre>
+ * <code>@GET(/repos/{user}/{repo}/git/blobs/{sha}")
+ * <pre>Blob getBlob(<b>@Header</b>("Accept") String mediaType, ... );</pre>
  * </code>
  * </p>
  * 
  * @version 1.1.1
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Header {
 	
 	/**
-	 * <p>The name of the header parameter.</p>
+	 * <p>The name of the header.</p>
 	 * 
-	 * @return the name of the header parameter
+	 * @return the header name
 	 * <br><br>
 	 * @since 1.1.1
 	 */

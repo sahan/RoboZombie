@@ -30,26 +30,27 @@ import com.lonepulse.robozombie.response.AbstractDeserializer;
 import com.lonepulse.robozombie.response.PlainDeserializer;
 
 /**
- * <p>Identifies the {@link Deserializer} which is to be used to parse 
- * the output of the HTTP request execution.</p>
- * 
+ * <p>Attaches a {@link Deserializer} for converting response content of an identified {@link ContentType} 
+ * into consumable models.</p>
+ * <br>
+ * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <ol>
  * <li>
- * <p>At <b>type-level</b> on an endpoint <i>interface</i>; attaches this deserializer for all requests.</p><br>
+ * <p>At <b>type-level</b> on an endpoint <i>definition</i>; attaches this deserializer for all requests.</p><br>
  * <code>
- * <pre>@Endpoint(scheme = "https", host = "api.twitter.com/1")<b>
- *&#064;Deserializer(ContentType.JSON)</b><br>public interface TwitterEndpoint {<br>}</b>
+ * <pre>@Endpoint(scheme = "https", host = "api.github.com")<b>
+ *&#064;Deserializer(JSON)</b><br>public interface GitHubEndpoint {<br>&nbsp;...<br>}</b>
  * </pre>
  * </code>
  * </li>
  * <li>
  * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
  * <code>
- * <pre>@Request("/users/{id}")<br><b>@Deserializer(ContentType.JSON)</b>
- *public abstract String getUser();</b></b></pre>
+ * <pre><b>@Deserializer(JSON)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")
+ *List&lt;Gist&gt; getGists(@PathParam("user") String user);</b></b></pre>
  * </code>
  * </li>
  * </ol>
@@ -59,7 +60,7 @@ import com.lonepulse.robozombie.response.PlainDeserializer;
  * <br><br>
  * @since 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
@@ -67,21 +68,22 @@ public @interface Deserializer {
 
 
 	/**
-	 * <p>The prefabricated instance of Deserializer<?> to be used, which can be identified using {@link ContentType}.</p>
+	 * <p>The {@link ContentType} which identifies a pre-fabricated deserializer, which is responsible for 
+	 * converting response content of the specified type to a model.</p>
 	 * 
-	 * @return the selected {@link ContentType} or the {@link Class} of a custom {@link Deserializer}
+	 * @return the {@link ContentType} which identifies an out-of-the-box deserializer
 	 * <br><br>
 	 * @since 1.2.4
 	 */
 	ContentType value() default ContentType.UNDEFINED;
 	
 	/**
-	 * <p>The {@link Class} of the custom {@link AbstractDeserializer} extension to be used.</p> 
+	 * <p>The {@link Class} of a custom {@link AbstractDeserializer} which should be attached.</p> 
 	 * 
 	 * <code>
-     * <pre>@Request("/license.txt")<br><b>@Deserializer(type = CustomDeserializer.class)</b>
-     *public abstract License getLicense();</b></b></pre>
-     * </code>
+	 * <pre><b>@Deserializer(type = RawGistDeserializer.class)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")<br>
+	 *RawGist[] getRawGists(@PathParam("user") String user);</b></b></pre>
+	 * </code>
 	 * 
 	 * @return the {@link Class} of the custom {@link AbstractDeserializer} to be used
 	 * <br><br>

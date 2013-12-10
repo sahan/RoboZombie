@@ -26,25 +26,25 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Models the header associated with a request and groups a constant 
- * set of {@link Headers.Header}s which is to be populated.</p>
- * 
+ * <p>Identifies a constant set of headers which should be sent with every request.</p>
+ * <br>
+ * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
  * <code>
- * <pre><b>
- * &#064;Headers({&#064;Headers.Header(name = "</b>Accept<b>", value = "</b>text/plain<b>"),
- * 	    &#064;Headers.Header(name = "</b>Accept-Charset<b>", value = "</b>utf-8<b>")})</b>
- * public abstract String getRSSFeed();
+ * <pre>@GET("/feeds")
+ *<b>@Headers({@Headers.Header(name = "</b>Accept<b>", value = "</b>application/json<b>"),
+ *          &#064;Headers.Header(name = "</b>Accept-Charset<b>", value = "</b>utf-8<b>")})</b>
+ *Feeds getFeeds();
  * </pre>
  * </code>
  * </p>
  * 
  * @version 1.1.1
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

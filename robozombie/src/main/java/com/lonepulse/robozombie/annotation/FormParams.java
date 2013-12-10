@@ -31,17 +31,20 @@ import java.util.Map;
  * <a href="http://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms">form-urlencoded</a> 
  * <b>name-value</b> pairs.
  * 
- * <p>This annotation can be used on the request definition to identify static form parameters 
- * as well as on a request parameter of type {@link Map}&lt;String, String&gt; to identify a set 
- * of dynamic form parameters.</p> 
- * 
+ * <p>This annotation can be used on the request definition to identify static form parameters as 
+ * well as on a request parameter of type {@link Map}&lt;String, String&gt; to identify a set of 
+ * dynamic form parameters.</p> 
+ * <br>
+ * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
  * <code>
- * <pre><b>@FormParams</b>({@Param(name = "n1", value = "v1"), @Param(name = "n2", value = "v2")})
- *public abstract void updateProfile(<b>@FormParams</b> Map&lt;String, String&gt; params);</pre>
+ * <pre>@POST(path = "/emails/send")<b>
+ *&#064;FormParams</b>({@Param(name = "from", value = "someone@example.com"),
+ *            &#064;Param(name = "to", value = "support@example.com")})
+ *void contactSupport(<b>@FormParams</b> Map&lt;String, String&gt; subjectAndBody);</pre>
  * </code>
  * </p>
  * 
@@ -56,8 +59,8 @@ import java.util.Map;
 public @interface FormParams {
 
 	/**
-	 * <p>An array of {@link Param}s which identifies a set of form parameters which are constant 
-	 * for every invocation of this request.</p> 
+	 * <p>An array of {@link Param}s which identifies a set of form parameters which are constant for 
+	 * every invocation of this request.</p> 
 	 * 
 	 * @return an array of static form {@link Param}s for every invocation of this request
 	 * <br><br>
