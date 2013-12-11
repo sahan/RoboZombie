@@ -36,14 +36,14 @@ import com.lonepulse.robozombie.inject.InvocationContext;
  * <p>At <b>type-level</b> on an endpoint <i>interface</i>; attaches this interceptor for all requests.</p><br>
  * <code>
  * <pre>@Endpoint(scheme = "https", host = "api.github.com")<b>
- *&#064;Interceptor(RequestInterceptor.class)</b><br>public interface GitHubEndpoint {<br>}</b>
+ *&#064;Intercept(RequestInterceptor.class)</b><br>public interface GitHubEndpoint {<br>}</b>
  * </pre>
  * </code>
  * </li>
  * <li>
  * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
  * <code>
- * <pre>@Request("/users/{id}")<br><b>@Interceptor(RequestInterceptor.class)</b>
+ * <pre>@Request("/users/{id}")<br><b>@Intercept(RequestInterceptor.class)</b>
  *public abstract GitHubUser getUser(@PathParam("id") String id);</b></b></pre>
  * </code>
  * </li>

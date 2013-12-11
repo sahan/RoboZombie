@@ -80,13 +80,10 @@ public class HttpMethodEndpointTest {
 	@Bite
 	private HttpMethodEndpoint httpMethodEndpoint;
 	
+	@Bite
+	private HttpBinEndpoint httpBinEndpoint;
 	
-	/**
-	 * <p>Sets up the test case by performing endpoint injection on {@link #httpMethodEndpoint}.
-	 * 
-	 * @throws java.lang.Exception
-	 * 			if the test case setup or endpoint injection failed
-	 */
+	
 	@Before
 	public void setUp() throws Exception {
 		
@@ -169,7 +166,7 @@ public class HttpMethodEndpointTest {
 				.willReturn(aResponse()
 				.withStatus(200)));
 		
-		String user = "{\"_id\":1, \"name\":\"DoctorWho\", \"age\":953, \"location\":\"Tardis\"}";
+		String user = "{ '_id':1, 'alias':'Black Bolt' }";
 		
 		httpMethodEndpoint.putRequest(user);
 		
@@ -182,6 +179,25 @@ public class HttpMethodEndpointTest {
 		
 		String body = request.getBodyAsString();
 		assertTrue(body.contains(user));
+	}
+	
+	/**
+	 * <p>Test for the request method PATCH.
+	 * 
+	 * @since 1.2.4
+	 */
+	@Test
+	public final void testPatchMethod() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String user = "{ '_id':1, 'alias':'Thanos' }";
+		
+		String response = httpBinEndpoint.patchRequest(user);
+		
+		assertFalse(response == null);
+		assertFalse(response.isEmpty());
+		assertTrue(response.contains("\"data\": \"" + user + "\""));
 	}
 	
 	/**

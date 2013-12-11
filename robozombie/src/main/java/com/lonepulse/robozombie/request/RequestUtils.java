@@ -37,6 +37,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.methods.HttpTrace;
+import org.apache.http42.client.methods.HttpPatch;
 
 import com.lonepulse.robozombie.annotation.FormParams;
 import com.lonepulse.robozombie.annotation.Headers;
@@ -200,6 +201,7 @@ final class RequestUtils {
 		
 			case POST: return new HttpPost();
 			case PUT: return new HttpPut();
+			case PATCH: return new HttpPatch();
 			case DELETE: return new HttpDelete();
 			case HEAD: return new HttpHead();
 			case TRACE: return new HttpTrace();

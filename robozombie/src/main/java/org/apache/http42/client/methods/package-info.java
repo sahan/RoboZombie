@@ -1,10 +1,10 @@
 /**
- * <p>Contains a <i>verbatim copy</i> of the <b>ContentType</b> class which 
+ * <p>Contains a <i>verbatim copy</i> of the <b>HttpPatch</b> class which 
  * exists in API version 4.2 of <a href="http://hc.apache.org">Apache HTTP Components</a>.</p>
  * 
  * @since 1.2.4
  */
-package org.apache.http42.entity;
+package org.apache.http42.client.methods;
 
 /*
  * #%L

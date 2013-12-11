@@ -32,13 +32,15 @@ import org.apache.http.client.methods.HttpOptions;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpTrace;
+import org.apache.http42.client.methods.HttpPatch;
 
 /**
  * <p>This annotation is used to mark a method which initiates an HTTP request. It can be used 
  * as a meta-annotation to identify the HTTP method for custom annotations along the lines of 
  * <code>@GET</code> or <code>@PUT</code>. For such custom annotations, be sure to include the 
  * property {@code String value() default "";} for accepting the request path.</p>
- * 
+ * <br>
+ * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
@@ -94,6 +96,13 @@ public @interface Request {
 		 * @since 1.2.4
 		 */
 		PUT,
+		
+		/**
+		 * <p>Identifies an {@link HttpPatch} request.</p>
+		 * 
+		 * @since 1.2.4
+		 */
+		PATCH,
 		
 		/**
 		 * <p>Identifies an {@link HttpDelete} request.</p>

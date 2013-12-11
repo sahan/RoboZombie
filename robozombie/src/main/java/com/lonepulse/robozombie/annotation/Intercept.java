@@ -25,9 +25,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.lonepulse.robozombie.request.Interceptor;
+
 /**
- * <p>Identifies an {@link com.lonepulse.zombielink.request.Interceptor} which will be used to process a 
- * request just before it's executed.</p>
+ * <p>Identifies an {@link Interceptor} which will be used to process a request just before it's executed.</p>
  * <br>
  * <br>
  * <b>Usage:</b>
@@ -38,14 +39,14 @@ import java.lang.annotation.Target;
  * <p>At <b>type-level</b> on an endpoint <i>definition</i>; attaches this interceptor for all requests.</p><br>
  * <code>
  * <pre>@Endpoint(scheme = "https", host = "api.github.com")<b>
- *&#064;Interceptor({CommonInterceptor1.class, CommonInterceptor2.class})</b><br>public interface GitHubEndpoint {<br>&nbsp;...<br>}</b>
+ *&#064;Intercept({CommonInterceptor1.class, CommonInterceptor2.class})</b><br>public interface GitHubEndpoint {<br>&nbsp;...<br>}</b>
  * </pre>
  * </code>
  * </li>
  * <li>
  * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
  * <code>
- * <pre><b>@Interceptor(SpecificInterceptor.class)</b>
+ * <pre><b>@Intercept(SpecificInterceptor.class)</b>
  *&#064;Deserializer(JSON)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")
  *List&lt;Gist&gt; getGists(@PathParam("user") String user);</b></b></pre>
  * </code>
@@ -68,17 +69,16 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-public @interface Interceptor {
+public @interface Intercept {
 	
 	
 	/**
-	 * <p>The {@link Class}es which identify the custom {@link com.lonepulse.zombielink.request.Interceptor}s 
-	 * which will be use on the request before they are executed.</p> 
+	 * <p>The {@link Class}es which identify the custom {@link Interceptor}s which will be use on the 
+	 * request before they are executed.</p> 
 	 * 
-	 * @return the {@link Class}es which identify the {@link com.lonepulse.zombielink.request.Interceptor}s 
-	 * 		   to be used
+	 * @return the {@link Class}es which identify the {@link Interceptor}s to be used
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	Class<? extends com.lonepulse.robozombie.request.Interceptor>[] value();
+	Class<? extends Interceptor>[] value();
 }

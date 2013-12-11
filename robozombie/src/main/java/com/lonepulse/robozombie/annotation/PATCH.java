@@ -20,25 +20,26 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
-import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.lonepulse.robozombie.annotation.Request.RequestMethod;
+
 /**
- * <p>Detaches any inherited <b>@{@link Serializer}, @{@link Deserializer}, @{@link Async} and 
- * @{@link Intercept}</b> annotations.</p>
+ * <p>This annotation identifies an <b>HTTP PATCH</b> request.</p>
+ * 
+ * <p>See <a href="http://tools.ietf.org/html/rfc5789">HTTP PATCH</a>.</p> 
  * <br>
  * <br>
- * <b>Usage (assuming the endpoint is asynchronous and a type-level interceptor is attached):</b>
+ * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
  * <code>
- * <pre>@GET("/meta")&nbsp;&nbsp;<b>@Detach({Async.class, Intercept.class})</b>
- *Meta getMetaInfo();
- * </pre>
+ * <pre><b>@PATCH(path = "/gists/{id}")</b>&nbsp;&nbsp;@Serializer(JSON)
+ *void editGist(@PathParam("id") String id, &#064;Entity Gist gist);</pre>
  * </code>
  * </p>
  * 
@@ -50,15 +51,15 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Detach {
-	
+@Request(method = RequestMethod.PATCH)
+public @interface PATCH {
 	
 	/**
-	 * <p>The {@link Class}es which identify the inherited annotations to be detached from the request.</p> 
+	 * <p>The sub-path (if any) which should be appended to the root path defined on the endpoint.</p> 
 	 * 
-	 * @return the {@link Class}es for the annotations to be detached
+	 * @return the path which extends from the root path defined on the endpoint
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	Class<? extends Annotation>[] value();
+	String value() default "";
 }

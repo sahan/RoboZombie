@@ -34,6 +34,7 @@ import com.lonepulse.robozombie.annotation.DELETE;
 import com.lonepulse.robozombie.annotation.GET;
 import com.lonepulse.robozombie.annotation.HEAD;
 import com.lonepulse.robozombie.annotation.OPTIONS;
+import com.lonepulse.robozombie.annotation.PATCH;
 import com.lonepulse.robozombie.annotation.POST;
 import com.lonepulse.robozombie.annotation.PUT;
 import com.lonepulse.robozombie.annotation.Request;
@@ -194,7 +195,8 @@ public final class Metadata {
 					
 					path = type.equals(GET.class)? ((GET)annotation).value() :
 						   type.equals(POST.class)? ((POST)annotation).value() :
-						   type.equals(PUT.class)? ((PUT)annotation).value() : 
+						   type.equals(PUT.class)? ((PUT)annotation).value() :
+						   type.equals(PATCH.class)? ((PATCH)annotation).value() : 
 					       type.equals(DELETE.class)? ((DELETE)annotation).value() :
 					       type.equals(HEAD.class)? ((HEAD)annotation).value() :
 					       type.equals(TRACE.class)? ((TRACE)annotation).value() :
