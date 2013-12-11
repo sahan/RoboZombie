@@ -3,7 +3,7 @@
 > **RoboZombie** /rō-bō'zŏm'bē/ <em>noun.</em> **1** A lightweight HTTP facade 
 which simplifies network communication. **2** An endpoint proxy generator for web services. 
 [![Build Status](https://travis-ci.org/sahan/RoboZombie.png?branch=master)](https://travis-ci.org/sahan/RoboZombie) 
-[![Stories in Ready](https://badge.waffle.io/sahan/RoboZombie.png)](http://waffle.io/sahan/RoboZombie)
+[![Coverage Status](https://coveralls.io/repos/sahan/RoboZombie/badge.png?branch=master)](https://coveralls.io/r/sahan/RoboZombie?branch=master)
 
 <br>
 ##About
