@@ -23,7 +23,7 @@ package com.lonepulse.robozombie.request;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 import com.lonepulse.robozombie.util.Entities;
 import com.lonepulse.robozombie.util.EntityResolutionFailedException;
 

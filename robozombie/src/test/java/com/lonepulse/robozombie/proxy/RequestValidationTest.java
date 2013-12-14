@@ -1,4 +1,4 @@
-package com.lonepulse.robozombie.inject;
+package com.lonepulse.robozombie.proxy;
 
 /*
  * #%L
@@ -72,7 +72,7 @@ public class RequestValidationTest {
 	public void setUp() throws Exception {
 		
 		strayRequestException = (Class<Throwable>) 
-			Class.forName("com.lonepulse.robozombie.inject.StrayEndpointRequestException");
+			Class.forName("com.lonepulse.robozombie.proxy.StrayEndpointRequestException");
 	}
 	
 	/**

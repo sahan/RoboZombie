@@ -23,7 +23,7 @@ package com.lonepulse.robozombie.executor;
 import com.lonepulse.robozombie.annotation.Config;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.GET;
-import com.lonepulse.robozombie.inject.Zombie;
+import com.lonepulse.robozombie.proxy.Zombie;
 
 /**
  * <p>An endpoint which uses a custom {@link Zombie.Configuration}.</p>

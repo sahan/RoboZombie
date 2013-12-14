@@ -25,7 +25,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.lonepulse.robozombie.inject.Zombie;
+import com.lonepulse.robozombie.proxy.Zombie;
 
 /**
  * <p>Identifies an endpoint definition whose thread-safe proxy should be created and injected. Endpoint 

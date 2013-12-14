@@ -31,8 +31,8 @@ import com.lonepulse.robozombie.annotation.Detach;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.GET;
 import com.lonepulse.robozombie.annotation.Intercept;
-import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.processor.InterceptorEndpoint.EndpointInterceptor;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 import com.lonepulse.robozombie.request.Interceptor;
 
 /**

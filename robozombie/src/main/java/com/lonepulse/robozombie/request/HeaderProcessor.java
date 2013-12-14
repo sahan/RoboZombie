@@ -26,7 +26,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 
 import com.lonepulse.robozombie.annotation.Header;
 import com.lonepulse.robozombie.annotation.Headers;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**

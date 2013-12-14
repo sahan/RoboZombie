@@ -22,7 +22,7 @@ package com.lonepulse.robozombie.request;
 
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>This contract defines the policy for <b>intercepting</b> a request and processing it just before 

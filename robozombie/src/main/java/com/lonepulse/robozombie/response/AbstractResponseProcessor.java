@@ -27,8 +27,8 @@ import static com.lonepulse.robozombie.util.Assert.assertNotNull;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.processor.Processor;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>This is an abstract implementation of {@link Processor} which specifies a template for processing 

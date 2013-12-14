@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>This {@link AbstractSerializer} allows an object to be converted to its XML representation.</p>
@@ -48,7 +48,7 @@ final class XmlSerializer extends AbstractSerializer<Object, String> {
 	
 	private static final String ERROR_CONTEXT_UNAVAILABLE = new StringBuilder()
 	.append("\n\nSimple-XML (simple-xml-2.7.1.jar) was not detected on the classpath. ")
-	.append("To enable XML serialization with @Serializer(ContentType.XML) ")
+	.append("To enable XML serialization with @Serialize(ContentType.XML) ")
 	.append("add the following dependency to your build configuration.\n\n")
 	.append("Maven:\n")
 	.append("<dependency>\n")
@@ -64,7 +64,7 @@ final class XmlSerializer extends AbstractSerializer<Object, String> {
 	.append("http://simple.sourceforge.net/download.php \n\n").toString();
 	
 	private static final String ERROR_CONTEXT_INCOMPATIBLE = new StringBuilder()
-	.append("\n\nFailed to initialize XmlSerializer; use of @Serializer(ContentType.XML) is disabled.\n")
+	.append("\n\nFailed to initialize XmlSerializer; use of @Serialize(ContentType.XML) is disabled.\n")
 	.append("Please make sure that you are using version 2.7.1 of Simple-XML.\n\n").toString();
 	
 

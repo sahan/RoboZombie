@@ -20,7 +20,7 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>This contract defines the policy of a <b>serializer</b> which is responsible for translating a model 

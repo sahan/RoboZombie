@@ -32,7 +32,7 @@ import org.apache.http42.client.utils.URIBuilder;
 import com.lonepulse.robozombie.annotation.Param;
 import com.lonepulse.robozombie.annotation.QueryParam;
 import com.lonepulse.robozombie.annotation.QueryParams;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**

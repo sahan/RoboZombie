@@ -29,7 +29,7 @@ import android.util.Log;
 
 import com.lonepulse.robozombie.Directory;
 import com.lonepulse.robozombie.annotation.Config;
-import com.lonepulse.robozombie.inject.Zombie;
+import com.lonepulse.robozombie.proxy.Zombie;
 
 /**
  * <p>A registry of {@link HttpClient}s which are configured to be used for a specific endpoint.</p>

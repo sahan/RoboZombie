@@ -25,7 +25,7 @@ import java.lang.reflect.Type;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>An extension of {@link AbstractSerializer} which converts an object to a JSON string.</p>
@@ -47,7 +47,7 @@ final class JsonSerializer extends AbstractSerializer<Object, String> {
 	
 	private static final String ERROR_CONTEXT_UNAVAILABLE = new StringBuilder()
 	.append("\n\nGSON (gson-2.2.4.jar) was not detected on the classpath. ")
-	.append("To enable JSON serialization with @Serializer(ContentType.JSON) ")
+	.append("To enable JSON serialization with @Serialize(ContentType.JSON) ")
 	.append("add the following dependency to your build configuration.\n\n")
 	.append("Maven:\n")
 	.append("<dependency>\n")
@@ -63,7 +63,7 @@ final class JsonSerializer extends AbstractSerializer<Object, String> {
 	.append("http://code.google.com/p/google-gson/downloads/list \n\n").toString();
 	
 	private static final String ERROR_CONTEXT_INCOMPATIBLE = new StringBuilder()
-	.append("\n\nFailed to initialize JsonSerializer; use of @Serializer(ContentType.JSON) is disabled.\n")
+	.append("\n\nFailed to initialize JsonSerializer; use of @Serialize(ContentType.JSON) is disabled.\n")
 	.append("Please make sure that you are using version 2.2.4 of GSON.\n\n").toString();
 	
 	

@@ -29,9 +29,9 @@ import com.lonepulse.robozombie.annotation.Detach;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Entity;
 import com.lonepulse.robozombie.annotation.PUT;
-import com.lonepulse.robozombie.annotation.Serializer;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.annotation.Serialize;
 import com.lonepulse.robozombie.model.User;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 import com.lonepulse.robozombie.request.AbstractSerializer;
 
 /**
@@ -46,7 +46,7 @@ import com.lonepulse.robozombie.request.AbstractSerializer;
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Serializer(JSON)
+@Serialize(JSON)
 @Endpoint(host = "0.0.0.0", port = 8080)
 public interface SerializerEndpoint {
 	
@@ -70,7 +70,7 @@ public interface SerializerEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@PUT("/xml") @Serializer(XML)
+	@PUT("/xml") @Serialize(XML)
 	void serializeXml(@Entity User user);
 	
 	/**
@@ -82,7 +82,7 @@ public interface SerializerEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@PUT("/plain") @Serializer(PLAIN)
+	@PUT("/plain") @Serialize(PLAIN)
 	void plainString(@Entity User user);
 
 	
@@ -111,7 +111,7 @@ public interface SerializerEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@PUT("/custom") @Serializer(type = Redactor.class) 
+	@PUT("/custom") @Serialize(type = Redactor.class) 
 	void serializeCustom(@Entity User user);
 	
 	/**
@@ -122,7 +122,7 @@ public interface SerializerEndpoint {
 	 *
 	 * @since 1.2.4
 	 */
-	@PUT("/detach") @Detach(Serializer.class)
+	@PUT("/detach") @Detach(Serialize.class)
 	void detachSerializer(@Entity User user);
 	
 	
@@ -149,7 +149,7 @@ public interface SerializerEndpoint {
 	 * @since 1.2.4
 	 */
 	@PUT("/uninstantiableserializer") 
-	@Serializer(type = UninstantiableSerializer.class)
+	@Serialize(type = UninstantiableSerializer.class)
 	String uninstantiableSerializer(@Entity String entity);
 	
 	
@@ -176,6 +176,6 @@ public interface SerializerEndpoint {
 	 * @since 1.2.4
 	 */
 	@PUT("/illegalSerializerserializer") 
-	@Serializer(type = IllegalSerializer.class)
+	@Serialize(type = IllegalSerializer.class)
 	String illegalSerializer(@Entity String entity);
 }

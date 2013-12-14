@@ -31,7 +31,7 @@ import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Async;
 import com.lonepulse.robozombie.annotation.Detach;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>A collection of utility services for common conditional checks.</p>

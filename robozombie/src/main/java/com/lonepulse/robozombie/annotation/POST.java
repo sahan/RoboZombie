@@ -40,7 +40,7 @@ import com.lonepulse.robozombie.annotation.Request.RequestMethod;
  * <br>
  * <p>
  * <code>
- * <pre><b>@POST(path = "/gists")</b>&nbsp;&nbsp;@Serializer(JSON)
+ * <pre><b>@POST(path = "/gists")</b>&nbsp;&nbsp;@Serialize(JSON)
  *void createGist(@Entity Gist gist);</pre>
  * </code>
  * </p>

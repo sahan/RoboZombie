@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.lonepulse.robozombie.annotation.Entity.ContentType;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>Exposes all available {@link AbstractSerializer}s, resolves concrete instances of their serializer 

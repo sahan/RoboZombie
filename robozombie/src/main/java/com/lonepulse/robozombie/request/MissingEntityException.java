@@ -21,7 +21,7 @@ package com.lonepulse.robozombie.request;
  */
 
 import com.lonepulse.robozombie.annotation.Entity;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>This runtime exception is thrown when an @{@link Entity} annotation failed to be discovered on the 

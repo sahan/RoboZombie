@@ -22,8 +22,8 @@ package com.lonepulse.robozombie.executor;
 
 import org.apache.http.HttpResponse;
 
-import com.lonepulse.robozombie.inject.InvocationContext;
-import com.lonepulse.robozombie.inject.InvocationException;
+import com.lonepulse.robozombie.proxy.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationException;
 
 /**
  * <p>A minimal implementation of {@link ExecutionHandler} which executes requests <b>synchronously</b>.</p>

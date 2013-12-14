@@ -26,7 +26,7 @@ import static com.lonepulse.robozombie.annotation.Entity.ContentType.XML;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Entity;
 import com.lonepulse.robozombie.annotation.PUT;
-import com.lonepulse.robozombie.annotation.Serializer;
+import com.lonepulse.robozombie.annotation.Serialize;
 import com.lonepulse.robozombie.model.User;
 
 /**
@@ -52,7 +52,7 @@ public interface SerializerEndpoint {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	@Serializer(JSON) 
+	@Serialize(JSON) 
 	@PUT("/gsonunavailable")
 	String gsonUnavailable(@Entity User user);
 	
@@ -64,7 +64,7 @@ public interface SerializerEndpoint {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	@Serializer(XML) 
+	@Serialize(XML) 
 	@PUT("/simplexmlunavailable")
 	String simpleXmlUnavailable(@Entity User user);
 }

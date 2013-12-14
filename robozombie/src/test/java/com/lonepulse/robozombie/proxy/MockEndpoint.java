@@ -1,4 +1,4 @@
-package com.lonepulse.robozombie.inject;
+package com.lonepulse.robozombie.proxy;
 
 /*
  * #%L
@@ -20,27 +20,20 @@ package com.lonepulse.robozombie.inject;
  * #L%
  */
 
+import com.lonepulse.robozombie.annotation.Endpoint;
+import com.lonepulse.robozombie.annotation.Stateful;
+
 /**
- * <p>This contract specifies the services offered on a generic command which allows deferred invocations 
- * to be carried out for the purposes of parallel processing, prioritized queuing, cached reuse, etc.</p>
+ * <p>An endpoint to be injected into services.</p>
  * 
- * <p>This contract may be extended to support additional responsibilities such as invalidation.</p> 
- * 
- * @version 1.1.0
- * <br><br>
+ * @version 1.1.1
+ * <br><br> 
  * @since 1.2.4
- * <br><br>
+ * <br><br> 
+ * @category test
+ * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-interface Invocation {
-
-	
-	/**
-	 * <p><i>Initiates</i> the command and attempts to complete the duties defined in its implementation.</p>
-	 * 
-	 * @return the result of the invocation as defined by the implementation
-	 * <br><br>
-	 * @since 1.2.4
-	 */
-	Object invoke();
-}
+@Stateful
+@Endpoint(host = "0.0.0.0", port = 8080)
+public interface MockEndpoint {}

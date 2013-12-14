@@ -1,4 +1,4 @@
-package com.lonepulse.robozombie.inject;
+package com.lonepulse.robozombie.proxy;
 
 /*
  * #%L
@@ -20,28 +20,27 @@ package com.lonepulse.robozombie.inject;
  * #L%
  */
 
-import com.lonepulse.robozombie.annotation.Bite;
-
 /**
- * <p>Emulates a <b>sub-type</b> which requires endpoint injection.</p>
+ * <p>This contract specifies the services offered on a generic command which allows deferred invocations 
+ * to be carried out for the purposes of parallel processing, prioritized queuing, cached reuse, etc.</p>
+ * 
+ * <p>This contract may be extended to support additional responsibilities such as invalidation.</p> 
  * 
  * @version 1.1.0
  * <br><br>
  * @since 1.2.4
  * <br><br>
- * @category test
- * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class SubMockService extends SuperMockService {
+interface Invocation {
+
 	
-	
-	@Bite
-	private MockEndpoint subEndpoint; //super-type has taken care of infection
-	
-	
-	public MockEndpoint getSubEndpoint() {
-		
-		return subEndpoint;
-	}
+	/**
+	 * <p><i>Initiates</i> the command and attempts to complete the duties defined in its implementation.</p>
+	 * 
+	 * @return the result of the invocation as defined by the implementation
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	Object invoke();
 }

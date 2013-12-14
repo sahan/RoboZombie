@@ -25,7 +25,7 @@ import static com.lonepulse.robozombie.annotation.Entity.ContentType.JSON;
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Async;
-import com.lonepulse.robozombie.annotation.Deserializer;
+import com.lonepulse.robozombie.annotation.Deserialize;
 import com.lonepulse.robozombie.annotation.Detach;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.GET;
@@ -85,7 +85,7 @@ public interface AsyncEndpoint {
 	 * 
 	 * @since 1.3.4
 	 */
-	@Deserializer(JSON)
+	@Deserialize(JSON)
 	@GET("/asyncerror")
 	void asyncError(AsyncHandler<User> asyncHandler);
 	
@@ -131,7 +131,7 @@ public interface AsyncEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Deserializer(JSON)
+	@Deserialize(JSON)
 	@GET("/errorcallbackerror")
 	void asyncErrorCallbackError(AsyncHandler<User> asyncHandler);
 	

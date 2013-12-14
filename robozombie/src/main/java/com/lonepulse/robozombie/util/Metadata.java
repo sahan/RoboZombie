@@ -40,7 +40,7 @@ import com.lonepulse.robozombie.annotation.PUT;
 import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.annotation.Request.RequestMethod;
 import com.lonepulse.robozombie.annotation.TRACE;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>A collection of <b>generic</b> utility services which enables the discovery of metadata on endpoint 

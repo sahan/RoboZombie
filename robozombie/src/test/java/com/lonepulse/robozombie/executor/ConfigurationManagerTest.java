@@ -30,7 +30,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import com.lonepulse.robozombie.inject.MockEndpoint;
+import com.lonepulse.robozombie.proxy.MockEndpoint;
 
 /**
  * <p>Performs unit testing on the implementation of {@link ConfigurationManager}.</p>

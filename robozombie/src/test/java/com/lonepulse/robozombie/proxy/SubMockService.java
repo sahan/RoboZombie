@@ -1,4 +1,4 @@
-package com.lonepulse.robozombie.inject;
+package com.lonepulse.robozombie.proxy;
 
 /*
  * #%L
@@ -23,7 +23,7 @@ package com.lonepulse.robozombie.inject;
 import com.lonepulse.robozombie.annotation.Bite;
 
 /**
- * <p>Emulates an enum which requires endpoint injection.</p>
+ * <p>Emulates a <b>sub-type</b> which requires endpoint injection.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -33,30 +33,15 @@ import com.lonepulse.robozombie.annotation.Bite;
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public enum EnumMockService {
-	
-	
-	INSTANCE;
+public class SubMockService extends SuperMockService {
 	
 	
 	@Bite
-	private static MockEndpoint staticEndpoint;
-	
-	@Bite
-	private MockEndpoint endpoint;
-	
-	{
-		Zombie.infect(this);
-	}
+	private MockEndpoint subEndpoint; //super-type has taken care of infection
 	
 	
-	public MockEndpoint getEndpoint() {
+	public MockEndpoint getSubEndpoint() {
 		
-		return endpoint;
-	}
-	
-	public static MockEndpoint getStaticEndpoint() {
-		
-		return staticEndpoint;
+		return subEndpoint;
 	}
 }

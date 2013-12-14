@@ -45,9 +45,9 @@ import org.simpleframework.xml.core.Persister;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.gson.Gson;
 import com.lonepulse.robozombie.annotation.Bite;
-import com.lonepulse.robozombie.inject.InvocationException;
-import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.model.User;
+import com.lonepulse.robozombie.proxy.InvocationException;
+import com.lonepulse.robozombie.proxy.Zombie;
 import com.lonepulse.robozombie.response.AbstractDeserializer;
 import com.lonepulse.robozombie.response.Deserializers;
 

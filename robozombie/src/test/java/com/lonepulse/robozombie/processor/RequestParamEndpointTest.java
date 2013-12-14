@@ -68,9 +68,9 @@ import com.lonepulse.robozombie.annotation.FormParams;
 import com.lonepulse.robozombie.annotation.QueryParam;
 import com.lonepulse.robozombie.annotation.QueryParams;
 import com.lonepulse.robozombie.annotation.Request;
-import com.lonepulse.robozombie.inject.InvocationException;
-import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.model.User;
+import com.lonepulse.robozombie.proxy.InvocationException;
+import com.lonepulse.robozombie.proxy.Zombie;
 
 /**
  * <p>Performs unit testing on {@link RequestParamEndpoint}.</p>

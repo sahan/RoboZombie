@@ -32,7 +32,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import android.util.Log;
 
 import com.lonepulse.robozombie.annotation.Async;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>An extension of {@link BasicRequestExecutor} which is responsible for executing <b>asynchronous 

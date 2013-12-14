@@ -1,4 +1,4 @@
-package com.lonepulse.robozombie.inject;
+package com.lonepulse.robozombie.proxy;
 
 /*
  * #%L
@@ -20,20 +20,43 @@ package com.lonepulse.robozombie.inject;
  * #L%
  */
 
-import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.annotation.Stateful;
+import com.lonepulse.robozombie.annotation.Bite;
 
 /**
- * <p>An endpoint to be injected into services.</p>
+ * <p>Emulates an enum which requires endpoint injection.</p>
  * 
- * @version 1.1.1
- * <br><br> 
+ * @version 1.1.0
+ * <br><br>
  * @since 1.2.4
- * <br><br> 
+ * <br><br>
  * @category test
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Stateful
-@Endpoint(host = "0.0.0.0", port = 8080)
-public interface MockEndpoint {}
+public enum EnumMockService {
+	
+	
+	INSTANCE;
+	
+	
+	@Bite
+	private static MockEndpoint staticEndpoint;
+	
+	@Bite
+	private MockEndpoint endpoint;
+	
+	{
+		Zombie.infect(this);
+	}
+	
+	
+	public MockEndpoint getEndpoint() {
+		
+		return endpoint;
+	}
+	
+	public static MockEndpoint getStaticEndpoint() {
+		
+		return staticEndpoint;
+	}
+}

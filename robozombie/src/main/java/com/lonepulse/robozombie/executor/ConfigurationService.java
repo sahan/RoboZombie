@@ -34,7 +34,8 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 
-import com.lonepulse.robozombie.inject.Zombie.Configuration;
+import com.lonepulse.robozombie.proxy.Zombie;
+import com.lonepulse.robozombie.proxy.Zombie.Configuration;
 
 /**
  * <p>This is a concrete implementation of {@link ConfigurationManager} which manages request execution 

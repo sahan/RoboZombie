@@ -38,8 +38,8 @@ import org.robolectric.RobolectricTestRunner;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.lonepulse.robozombie.annotation.Bite;
-import com.lonepulse.robozombie.inject.InvocationContext;
-import com.lonepulse.robozombie.inject.Zombie;
+import com.lonepulse.robozombie.proxy.InvocationContext;
+import com.lonepulse.robozombie.proxy.Zombie;
 import com.lonepulse.robozombie.request.Interceptor;
 
 /**

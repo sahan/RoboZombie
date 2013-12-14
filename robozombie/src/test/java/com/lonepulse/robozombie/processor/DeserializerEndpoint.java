@@ -28,12 +28,12 @@ import org.apache.http.HttpResponse;
 import org.apache.http42.util.EntityUtils;
 
 import com.google.gson.Gson;
-import com.lonepulse.robozombie.annotation.Deserializer;
+import com.lonepulse.robozombie.annotation.Deserialize;
 import com.lonepulse.robozombie.annotation.Detach;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.GET;
-import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.model.User;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 import com.lonepulse.robozombie.response.AbstractDeserializer;
 
 /**
@@ -47,7 +47,7 @@ import com.lonepulse.robozombie.response.AbstractDeserializer;
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Deserializer(JSON)
+@Deserialize(JSON)
 @Endpoint(host = "0.0.0.0", port = 8080)
 public interface DeserializerEndpoint {
 	
@@ -59,7 +59,7 @@ public interface DeserializerEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Deserializer(PLAIN)
+	@Deserialize(PLAIN)
 	@GET("/responseerror")
 	String responseError();
 	
@@ -80,7 +80,7 @@ public interface DeserializerEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@GET("/xml") @Deserializer(XML)
+	@GET("/xml") @Deserialize(XML)
 	User deserializeXml();
 	
 	/**
@@ -91,7 +91,7 @@ public interface DeserializerEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@GET("/raw") @Deserializer(PLAIN)
+	@GET("/raw") @Deserialize(PLAIN)
 	String plain();
 	
 	
@@ -131,7 +131,7 @@ public interface DeserializerEndpoint {
 	 * @since 1.2.4
 	 */
 	@GET("/custom")
-	@Deserializer(type = Redactor.class) 
+	@Deserialize(type = Redactor.class) 
 	User deserializeCustom();
 	
 	/**
@@ -141,7 +141,7 @@ public interface DeserializerEndpoint {
 	 *
 	 * @since 1.2.4
 	 */
-	@GET("/detach") @Detach(Deserializer.class)
+	@GET("/detach") @Detach(Deserialize.class)
 	String detachDeserializer();
 	
 	
@@ -167,7 +167,7 @@ public interface DeserializerEndpoint {
 	 * @since 1.2.4
 	 */
 	@GET("/uninstantiabledeserializer")
-	@Deserializer(type = UninstantiableDeserializer.class)
+	@Deserialize(type = UninstantiableDeserializer.class)
 	String uninstantiableDeserializer();
 	
 	
@@ -194,6 +194,6 @@ public interface DeserializerEndpoint {
 	 * @since 1.2.4
 	 */
 	@GET("/illegaldeserializer")
-	@Deserializer(type = IllegalDeserializer.class)
+	@Deserialize(type = IllegalDeserializer.class)
 	User illegalDeserializer();
 }

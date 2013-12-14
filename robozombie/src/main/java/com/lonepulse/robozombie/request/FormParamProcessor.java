@@ -38,7 +38,7 @@ import org.apache.http42.entity.ContentType;
 import com.lonepulse.robozombie.annotation.FormParam;
 import com.lonepulse.robozombie.annotation.FormParams;
 import com.lonepulse.robozombie.annotation.Param;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 import com.lonepulse.robozombie.util.Metadata;
 /**
  * <p>This is a concrete implementation of {@link AbstractRequestProcessor} which discovers <b>form 

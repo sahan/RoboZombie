@@ -27,7 +27,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Detaches any inherited <b>@{@link Serializer}, @{@link Deserializer}, @{@link Async} and 
+ * <p>Detaches any inherited <b>@{@link Serialize}, @{@link Deserialize}, @{@link Async} and 
  * @{@link Intercept}</b> annotations.</p>
  * <br>
  * <br>

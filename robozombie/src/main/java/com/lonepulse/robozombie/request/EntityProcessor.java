@@ -35,8 +35,8 @@ import org.apache.http42.HttpHeaders;
 import org.apache.http42.entity.ContentType;
 
 import com.lonepulse.robozombie.annotation.Entity;
-import com.lonepulse.robozombie.annotation.Serializer;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.annotation.Serialize;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 import com.lonepulse.robozombie.util.Entities;
 import com.lonepulse.robozombie.util.EntityResolutionFailedException;
 import com.lonepulse.robozombie.util.Metadata;
@@ -72,7 +72,7 @@ class EntityProcessor extends AbstractRequestProcessor {
 	 * </ul>
 	 * 
 	 * <p>Parameter types are resolved to their {@link HttpEntity} as specified in 
-	 * {@link Entities#resolve(Object)}. If an attached @{@link Serializer} is discovered, the entity 
+	 * {@link Entities#resolve(Object)}. If an attached @{@link Serialize} is discovered, the entity 
 	 * will be serialized using the specified serializer before translation to an {@link HttpEntity}.</p>
 	 * 
 	 * <p>See {@link AbstractRequestProcessor#process(InvocationContext, HttpRequestBase)}.</p>
@@ -92,7 +92,7 @@ class EntityProcessor extends AbstractRequestProcessor {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	@Override @SuppressWarnings("unchecked") //welcomes a ClassCastException on misuse of @Serializer(Custom.class)
+	@Override @SuppressWarnings("unchecked") //welcomes a ClassCastException on misuse of @Serialize(Custom.class)
 	protected HttpRequestBase process(InvocationContext context, HttpRequestBase request) {
 
 		try {
@@ -113,13 +113,13 @@ class EntityProcessor extends AbstractRequestProcessor {
 				
 				Object entity = entities.get(0).getValue();
 				
-				Serializer metadata = (metadata = 
-					context.getRequest().getAnnotation(Serializer.class)) == null? 
-						context.getEndpoint().getAnnotation(Serializer.class) :metadata;
+				Serialize metadata = (metadata = 
+					context.getRequest().getAnnotation(Serialize.class)) == null? 
+						context.getEndpoint().getAnnotation(Serialize.class) :metadata;
 				
-				if(metadata != null && !detached(context, Serializer.class)) {
+				if(metadata != null && !detached(context, Serialize.class)) {
 					
-					@SuppressWarnings("rawtypes") //no restrictions on custom serializer types with @Serializer
+					@SuppressWarnings("rawtypes") //no restrictions on custom serializer types with @Serialize
 					AbstractSerializer serializer = (metadata.value() == UNDEFINED)? 
 						Serializers.resolve(metadata.type()) :Serializers.resolve(metadata.value());
 						

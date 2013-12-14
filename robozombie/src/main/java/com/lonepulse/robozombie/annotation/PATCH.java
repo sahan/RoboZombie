@@ -38,7 +38,7 @@ import com.lonepulse.robozombie.annotation.Request.RequestMethod;
  * <br>
  * <p>
  * <code>
- * <pre><b>@PATCH(path = "/gists/{id}")</b>&nbsp;&nbsp;@Serializer(JSON)
+ * <pre><b>@PATCH(path = "/gists/{id}")</b>&nbsp;&nbsp;@Serialize(JSON)
  *void editGist(@PathParam("id") String id, &#064;Entity Gist gist);</pre>
  * </code>
  * </p>

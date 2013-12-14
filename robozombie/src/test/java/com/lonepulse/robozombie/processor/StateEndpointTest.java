@@ -40,7 +40,7 @@ import org.robolectric.RobolectricTestRunner;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.lonepulse.robozombie.annotation.Bite;
 import com.lonepulse.robozombie.annotation.Stateful;
-import com.lonepulse.robozombie.inject.Zombie;
+import com.lonepulse.robozombie.proxy.Zombie;
 
 /**
  * <p>Performs unit testing on {@link StateEndpoint}.</p>

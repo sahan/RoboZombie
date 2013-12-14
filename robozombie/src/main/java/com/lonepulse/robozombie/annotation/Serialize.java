@@ -30,7 +30,7 @@ import com.lonepulse.robozombie.request.AbstractSerializer;
 import com.lonepulse.robozombie.request.PlainSerializer;
 
 /**
- * <p>Attaches a {@link Serializer} for converting models to the format consumed by the endpoint.</p>
+ * <p>Attaches a serializer for converting models to the format consumed by the endpoint.</p>
  * 
  * <b>Usage:</b>
  * <br>
@@ -40,14 +40,14 @@ import com.lonepulse.robozombie.request.PlainSerializer;
  * <p>At <b>type-level</b> on an endpoint <i>definition</i>; attaches this serializer for all requests.</p><br>
  * <code>
  * <pre>@Endpoint(scheme = "https", host = "api.github.com")<b>
- *&#064;Serializer(JSON)</b><br>public interface GitHubEndpoint {<br>&nbsp;...<br>}</b>
+ *&#064;Serialize(JSON)</b><br>public interface GitHubEndpoint {<br>&nbsp;...<br>}</b>
  * </pre>
  * </code>
  * </li>
  * <li>
  * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
  * <code>
- * <pre>@POST(path = "/gists")&nbsp;&nbsp;<b>@Serializer(JSON)</b>
+ * <pre>@POST(path = "/gists")&nbsp;&nbsp;<b>@Serialize(JSON)</b>
  *void createGist(<b>@Entity</b> Gist gist);</pre>
  * </code>
  * </li>
@@ -62,7 +62,7 @@ import com.lonepulse.robozombie.request.PlainSerializer;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-public @interface Serializer {
+public @interface Serialize {
 
 
 	/**
@@ -79,7 +79,7 @@ public @interface Serializer {
 	 * <p>The {@link Class} of a custom {@link AbstractSerializer} which should be attached.</p> 
 	 * 
 	 * <code>
-	 * <pre><b>@Serializer(type = GistSerializer.class)</b>&nbsp;&nbsp;@POST(path = "/gists")&nbsp;&nbsp;<b>@Serializer(JSON)</b>
+	 * <pre><b>@Serialize(type = GistSerializer.class)</b>&nbsp;&nbsp;@POST(path = "/gists")&nbsp;&nbsp;<b>@Serialize(JSON)</b>
 	 *void createGist(<b>@Entity</b> Gist gist);</pre>
 	 * </code>
 	 * 

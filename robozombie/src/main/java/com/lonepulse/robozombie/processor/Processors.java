@@ -29,8 +29,8 @@ import com.lonepulse.robozombie.annotation.Entity;
 import com.lonepulse.robozombie.annotation.FormParam;
 import com.lonepulse.robozombie.annotation.PathParam;
 import com.lonepulse.robozombie.annotation.QueryParam;
-import com.lonepulse.robozombie.inject.InvocationContext;
-import com.lonepulse.robozombie.inject.InvocationException;
+import com.lonepulse.robozombie.proxy.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationException;
 import com.lonepulse.robozombie.request.RequestProcessorChain;
 import com.lonepulse.robozombie.response.ResponseProcessorChain;
 

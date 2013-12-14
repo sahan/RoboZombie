@@ -25,7 +25,7 @@ import org.apache.http42.client.utils.URIBuilder;
 
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Request;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**

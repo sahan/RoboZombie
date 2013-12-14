@@ -34,7 +34,7 @@ import java.lang.annotation.Target;
  * <br>
  * <p>
  * <code>
- * <pre>@POST(path = "/gists")&nbsp;&nbsp;@Serializer(JSON)
+ * <pre>@POST(path = "/gists")&nbsp;&nbsp;@Serialize(JSON)
  *void createGist(<b>@Entity</b> Gist gist);</pre>
  * </code>
  * </p>
@@ -99,7 +99,7 @@ public @interface Entity {
 		/**
 		 * <p>Indicates the inapplicability of a standardized content type.</p>  
 		 * 
-		 * <p>When used with {@code @Serializer} or {@code @Deserializer}, it indicates the use of a custom 
+		 * <p>When used with {@code @Serialize} or {@code @Deserialize}, it indicates the use of a custom 
 		 * serializer or deserializer.</p>
 		 * 
 		 * @since 1.2.4

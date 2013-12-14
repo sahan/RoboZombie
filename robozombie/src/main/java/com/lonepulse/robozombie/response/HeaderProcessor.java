@@ -26,7 +26,7 @@ import java.util.Map;
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Header;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 import com.lonepulse.robozombie.util.Metadata;
 
 /**

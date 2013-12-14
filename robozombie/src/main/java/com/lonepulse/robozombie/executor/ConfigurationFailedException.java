@@ -21,7 +21,7 @@ package com.lonepulse.robozombie.executor;
  */
 
 import com.lonepulse.robozombie.RoboZombieRuntimeException;
-import com.lonepulse.robozombie.inject.Zombie;
+import com.lonepulse.robozombie.proxy.Zombie;
 
 /**
  * <p>This exception is thrown due to a failure in <b>managing</b> a {@link Zombie.Configuration}.</p>

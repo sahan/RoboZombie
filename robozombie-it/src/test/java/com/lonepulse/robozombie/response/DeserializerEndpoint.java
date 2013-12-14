@@ -23,7 +23,7 @@ package com.lonepulse.robozombie.response;
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.JSON;
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.XML;
 
-import com.lonepulse.robozombie.annotation.Deserializer;
+import com.lonepulse.robozombie.annotation.Deserialize;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.GET;
 import com.lonepulse.robozombie.model.User;
@@ -50,7 +50,7 @@ public interface DeserializerEndpoint {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	@Deserializer(JSON) 
+	@Deserialize(JSON) 
 	@GET("/gsonunavailable")
 	User gsonUnavailable();
 	
@@ -61,7 +61,7 @@ public interface DeserializerEndpoint {
 	 * <br><br>
 	 * @since 1.2.4
 	 */
-	@Deserializer(XML) 
+	@Deserialize(XML) 
 	@GET("/simplexmlunavailable")
 	User simpleXmlUnavailable();
 }

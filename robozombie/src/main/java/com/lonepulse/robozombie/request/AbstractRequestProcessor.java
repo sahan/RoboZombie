@@ -30,8 +30,8 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import com.lonepulse.robozombie.annotation.Request.RequestMethod;
-import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.processor.Processor;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>This is an abstract implementation of {@link Processor} which specifies a template for processing 

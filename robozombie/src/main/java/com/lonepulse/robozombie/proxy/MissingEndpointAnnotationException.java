@@ -1,4 +1,4 @@
-package com.lonepulse.robozombie.inject;
+package com.lonepulse.robozombie.proxy;
 
 /*
  * #%L
@@ -20,68 +20,74 @@ package com.lonepulse.robozombie.inject;
  * #L%
  */
 
+import com.lonepulse.robozombie.annotation.Endpoint;
+
 /**
- * <p>This runtime exception is thrown when the <b>hostname</b> is absent on an endpoint definition.</p>
+ * <p>This runtime exception is thrown when the @{@link Endpoint} annotation is missing on an 
+ * endpoint definition.</p>
  * 
- * @version 1.1.0
+ * @version 1.1.1
  * <br><br>
  * @since 1.2.4
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-class MissingEndpointHostException extends EndpointValidationFailedException {
+class MissingEndpointAnnotationException extends EndpointValidationFailedException {
 
 	
-	private static final long serialVersionUID = 223448727330932043L;
-	
+	private static final long serialVersionUID = 4087362624687849076L;
 
+	
 	/**
-	 * <p>Displays a detailed description using the endpoint interface {@link Class}.</p>
+	 * <p>Displays a detailed description with the endpoint definition and the missing annotation.</p>
 	 * 
 	 * @param endpoint
 	 * 			the {@link Class} of the endpoint definition interface
 	 * <br><br>
+	 * @param missingAnnotation
+	 * 			the required annotation which was not found on the endpoint definition
+	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public MissingEndpointHostException(Class<?> endpoint) {
+	public MissingEndpointAnnotationException(Class<?> endpoint, Class<?> missingAnnotation) {
 		
-		this(new StringBuilder("The endpoint <").append(endpoint.getName())
-			 .append("> should specify a host name using the @Endpoint annotation.").toString());
+		this(new StringBuilder("Missing annotation @").append(missingAnnotation.getName())
+			 .append( " on endpoint ").append(endpoint == null? "<null>" :endpoint.getName()).toString());
 	}
 	
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException()}.
-	 * 
+	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public MissingEndpointHostException() {}
+	public MissingEndpointAnnotationException() {}
 
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(String)}.
-	 * 
+	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public MissingEndpointHostException(String detailMessage) {
+	public MissingEndpointAnnotationException(String detailMessage) {
 		
 		super(detailMessage);
 	}
 
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(Throwable)}.
-	 * 
+	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public MissingEndpointHostException(Throwable throwable) {
+	public MissingEndpointAnnotationException(Throwable throwable) {
 		
 		super(throwable);
 	}
 
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(String, Throwable)}.
-	 * 
+	 * <br><br>
 	 * @since 1.2.4
 	 */
-	public MissingEndpointHostException(String detailMessage, Throwable throwable) {
+	public MissingEndpointAnnotationException(String detailMessage, Throwable throwable) {
 
 		super(detailMessage, throwable);
 	}

@@ -36,8 +36,8 @@ import org.junit.rules.ExpectedException;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.lonepulse.robozombie.annotation.Bite;
-import com.lonepulse.robozombie.inject.InvocationException;
-import com.lonepulse.robozombie.inject.Zombie;
+import com.lonepulse.robozombie.proxy.InvocationException;
+import com.lonepulse.robozombie.proxy.Zombie;
 
 /**
  * <p>Performs unit testing on {@link ConfigEndpoint}.</p>

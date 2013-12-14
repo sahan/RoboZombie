@@ -31,16 +31,16 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http42.util.EntityUtils;
 
-import com.lonepulse.robozombie.annotation.Deserializer;
+import com.lonepulse.robozombie.annotation.Deserialize;
 import com.lonepulse.robozombie.annotation.Entity.ContentType;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>This {@link AbstractResponseProcessor} retrieves the {@link HttpEntity} of an {@link HttpResponse} 
  * and deserializes its content using the defined deserializer. Deserializers are defined using 
- * @{@link Deserializer} either at the endpoint level or at the request level. All endpoint request 
+ * @{@link Deserialize} either at the endpoint level or at the request level. All endpoint request 
  * declarations which define a return type should be associated with a deserializer. Custom deserializers 
- * may be used by extending {@link AbstractDeserializer} and defining its type at {@link Deserializer#type()}.</p>
+ * may be used by extending {@link AbstractDeserializer} and defining its type at {@link Deserialize#type()}.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -54,7 +54,7 @@ class EntityProcessor extends AbstractResponseProcessor {
 	/**
 	 * <p>Accepts the {@link InvocationContext} along with the {@link HttpResponse} and retrieves the 
 	 * {@link HttpEntity} form the response. This is then converted to an instance of the required request 
-	 * return type by consulting the @{@link Deserializer} metadata on the endpoint definition.</p>
+	 * return type by consulting the @{@link Deserialize} metadata on the endpoint definition.</p>
 	 * 
 	 * <p>If the desired return type is {@link HttpResponse} or {@link HttpEntity} the response or entity 
 	 * is simply returned without any further processing.</p>
@@ -110,11 +110,11 @@ class EntityProcessor extends AbstractResponseProcessor {
 					Class<?> endpoint = context.getEndpoint();
 					AbstractDeserializer<?> deserializer = null;
 			
-					Deserializer metadata = (metadata = 
-						request.getAnnotation(Deserializer.class)) == null? 
-							endpoint.getAnnotation(Deserializer.class) :metadata;
+					Deserialize metadata = (metadata = 
+						request.getAnnotation(Deserialize.class)) == null? 
+							endpoint.getAnnotation(Deserialize.class) :metadata;
 					
-					if(metadata != null & !detached(context, Deserializer.class)) {
+					if(metadata != null & !detached(context, Deserialize.class)) {
 						
 						deserializer = (metadata.value() == ContentType.UNDEFINED)? 
 							Deserializers.resolve(metadata.type()) :Deserializers.resolve(metadata.value()); 

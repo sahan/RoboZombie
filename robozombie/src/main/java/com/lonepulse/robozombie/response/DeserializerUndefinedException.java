@@ -22,7 +22,7 @@ package com.lonepulse.robozombie.response;
 
 import java.lang.reflect.Method;
 
-import com.lonepulse.robozombie.annotation.Deserializer;
+import com.lonepulse.robozombie.annotation.Deserialize;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Request;
 
@@ -57,7 +57,7 @@ class DeserializerUndefinedException extends ResponseProcessorException {
 		
 		this(new StringBuilder("Deserialization failed for request ").append(method.getName())
 			 .append(" on endpoint ").append(endpoint.getName()).append(": a ").append(Deserializer.class.getName())
-			 .append(" has not been defined via the ").append(Deserializer.class.getName()).append(" annotation.").toString());
+			 .append(" has not been defined via the @").append(Deserialize.class.getName()).append(" annotation.").toString());
 	}
 
 	/**

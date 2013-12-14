@@ -20,7 +20,7 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>An {@link AbstractSerializer} which simply invokes {@code String#valueOf(...)} on a model.</p>

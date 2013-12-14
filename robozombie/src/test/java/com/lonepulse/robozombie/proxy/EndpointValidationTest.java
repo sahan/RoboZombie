@@ -1,4 +1,4 @@
-package com.lonepulse.robozombie.inject;
+package com.lonepulse.robozombie.proxy;
 
 /*
  * #%L
@@ -68,7 +68,7 @@ public class EndpointValidationTest {
 	public final void testMissingEndpointAnnotation() throws ClassNotFoundException {
 		
 		expectedException.expect(Is.isA((Class<Throwable>) 
-				Class.forName("com.lonepulse.robozombie.inject.MissingEndpointAnnotationException")));
+				Class.forName("com.lonepulse.robozombie.proxy.MissingEndpointAnnotationException")));
 		
 		Validators.ENDPOINT.validate(MissingEndpointAnnotationEndpoint.class);
 	}
@@ -82,7 +82,7 @@ public class EndpointValidationTest {
 	public final void testMissingEndpointHost() throws ClassNotFoundException {
 		
 		expectedException.expect(Is.isA((Class<Throwable>) 
-				Class.forName("com.lonepulse.robozombie.inject.MissingEndpointHostException")));
+				Class.forName("com.lonepulse.robozombie.proxy.MissingEndpointHostException")));
 		
 		Validators.ENDPOINT.validate(MissingEndpointHostEndpoint.class);
 	}
@@ -96,7 +96,7 @@ public class EndpointValidationTest {
 	public final void testStrayRequest() throws ClassNotFoundException {
 		
 		expectedException.expect(Is.isA((Class<Throwable>) 
-				Class.forName("com.lonepulse.robozombie.inject.StrayEndpointRequestException")));
+				Class.forName("com.lonepulse.robozombie.proxy.StrayEndpointRequestException")));
 		
 		Validators.ENDPOINT.validate(StrayEndpointRequestEndpoint.class);
 	}

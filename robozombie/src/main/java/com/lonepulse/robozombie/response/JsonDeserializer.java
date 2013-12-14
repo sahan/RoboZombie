@@ -29,7 +29,7 @@ import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
 
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>This is an extension of {@link AbstractDeserializer} which parses <b>JSON response content</b> 
@@ -50,7 +50,7 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
 	
 	private static final String ERROR_CONTEXT_UNAVAILABLE = new StringBuilder()
 	.append("\n\nGSON (gson-2.2.4.jar) was not detected on the classpath. ")
-	.append("To enable JSON deserialization with @Deserializer(ContentType.JSON) ")
+	.append("To enable JSON deserialization with @Deserialize(ContentType.JSON) ")
 	.append("add the following dependency to your build configuration.\n\n")
 	.append("Maven:\n")
 	.append("<dependency>\n")
@@ -66,7 +66,7 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
 	.append("http://code.google.com/p/google-gson/downloads/list \n\n").toString();
 	
 	private static final String ERROR_CONTEXT_INCOMPATIBLE = new StringBuilder()
-	.append("\n\nFailed to initialize JsonDeserializer; use of @Deserializer(ContentType.JSON) is disabled.\n")
+	.append("\n\nFailed to initialize JsonDeserializer; use of @Deserialize(ContentType.JSON) is disabled.\n")
 	.append("Please make sure that you are using version 2.2.4 of GSON.\n\n").toString();
 	
 	

@@ -22,7 +22,7 @@ package com.lonepulse.robozombie.response;
 
 import org.apache.http.HttpResponse;
 
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>This contract defines the policy for a <i>deserializer</i> which reads the response content of a 

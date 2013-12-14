@@ -20,8 +20,6 @@ package com.lonepulse.robozombie.response;
  * #L%
  */
 
-import com.lonepulse.robozombie.annotation.Deserializer;
-
 /**
  * <p>This runtime exception is thrown when the return type of a request method definition cannot be 
  * assigned to the designated {@link Deserializer}'s return type. 

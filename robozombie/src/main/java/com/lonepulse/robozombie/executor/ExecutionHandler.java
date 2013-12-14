@@ -22,7 +22,7 @@ package com.lonepulse.robozombie.executor;
 
 import org.apache.http.HttpResponse;
 
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>This contract defines the callbacks offered for customizing the stages in a request execution. 

@@ -24,8 +24,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.lonepulse.robozombie.inject.InvocationContext;
-import com.lonepulse.robozombie.inject.Zombie;
+import com.lonepulse.robozombie.proxy.InvocationContext;
+import com.lonepulse.robozombie.proxy.Zombie;
 
 /**
  * <p>This contract defines the services offered for executing requests which were created for an 

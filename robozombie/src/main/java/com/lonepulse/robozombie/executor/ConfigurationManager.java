@@ -20,8 +20,8 @@ package com.lonepulse.robozombie.executor;
  * #L%
  */
 
-import com.lonepulse.robozombie.inject.Zombie;
-import com.lonepulse.robozombie.inject.Zombie.Configuration;
+import com.lonepulse.robozombie.proxy.Zombie;
+import com.lonepulse.robozombie.proxy.Zombie.Configuration;
 
 /**
  * <p>This contract defines the services for managing <b>request execution configurations</b>. These may 

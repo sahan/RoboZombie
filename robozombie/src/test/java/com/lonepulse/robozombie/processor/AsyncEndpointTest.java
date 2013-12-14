@@ -45,9 +45,9 @@ import org.robolectric.RobolectricTestRunner;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.lonepulse.robozombie.annotation.Async;
 import com.lonepulse.robozombie.annotation.Bite;
-import com.lonepulse.robozombie.inject.InvocationException;
-import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.model.User;
+import com.lonepulse.robozombie.proxy.InvocationException;
+import com.lonepulse.robozombie.proxy.Zombie;
 import com.lonepulse.robozombie.response.AsyncHandler;
 
 /**

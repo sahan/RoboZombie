@@ -29,7 +29,8 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.protocol.HttpContext;
 
 import com.lonepulse.robozombie.annotation.Stateful;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationException;
 
 /**
  * <p>An implementation of {@link RequestExecutor} which isolates responsibilities that are common to 

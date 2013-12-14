@@ -25,7 +25,7 @@ import java.util.Arrays;
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.RoboZombieRuntimeException;
-import com.lonepulse.robozombie.inject.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
  * <p>This runtime exception is thrown when an {@link AbstractResponseProcessor} fails to execute 

@@ -30,7 +30,7 @@ import com.lonepulse.robozombie.response.AbstractDeserializer;
 import com.lonepulse.robozombie.response.PlainDeserializer;
 
 /**
- * <p>Attaches a {@link Deserializer} for converting response content of an identified {@link ContentType} 
+ * <p>Attaches a deserializer for converting response content of an identified {@link ContentType} 
  * into consumable models.</p>
  * <br>
  * <br>
@@ -42,14 +42,14 @@ import com.lonepulse.robozombie.response.PlainDeserializer;
  * <p>At <b>type-level</b> on an endpoint <i>definition</i>; attaches this deserializer for all requests.</p><br>
  * <code>
  * <pre>@Endpoint(scheme = "https", host = "api.github.com")<b>
- *&#064;Deserializer(JSON)</b><br>public interface GitHubEndpoint {<br>&nbsp;...<br>}</b>
+ *&#064;Deserialize(JSON)</b><br>public interface GitHubEndpoint {<br>&nbsp;...<br>}</b>
  * </pre>
  * </code>
  * </li>
  * <li>
  * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
  * <code>
- * <pre><b>@Deserializer(JSON)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")
+ * <pre><b>@Deserialize(JSON)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")
  *List&lt;Gist&gt; getGists(@PathParam("user") String user);</b></b></pre>
  * </code>
  * </li>
@@ -64,7 +64,7 @@ import com.lonepulse.robozombie.response.PlainDeserializer;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-public @interface Deserializer {
+public @interface Deserialize {
 
 
 	/**
@@ -81,7 +81,7 @@ public @interface Deserializer {
 	 * <p>The {@link Class} of a custom {@link AbstractDeserializer} which should be attached.</p> 
 	 * 
 	 * <code>
-	 * <pre><b>@Deserializer(type = RawGistDeserializer.class)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")<br>
+	 * <pre><b>@Deserialize(type = RawGistDeserializer.class)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")<br>
 	 *RawGist[] getRawGists(@PathParam("user") String user);</b></b></pre>
 	 * </code>
 	 * 

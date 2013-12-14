@@ -27,9 +27,9 @@ import org.apache.http.HttpResponse;
 import android.util.Log;
 
 import com.lonepulse.robozombie.annotation.Async;
-import com.lonepulse.robozombie.inject.InvocationContext;
-import com.lonepulse.robozombie.inject.InvocationException;
 import com.lonepulse.robozombie.processor.Processors;
+import com.lonepulse.robozombie.proxy.InvocationContext;
+import com.lonepulse.robozombie.proxy.InvocationException;
 import com.lonepulse.robozombie.response.AsyncHandler;
 
 /**
