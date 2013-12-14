@@ -23,27 +23,26 @@ package com.lonepulse.robozombie.processor;
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.JSON;
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.PLAIN;
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.XML;
-import static com.lonepulse.robozombie.annotation.Request.RequestMethod.PUT;
 
 import com.google.gson.Gson;
 import com.lonepulse.robozombie.annotation.Detach;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Entity;
-import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.annotation.PUT;
 import com.lonepulse.robozombie.annotation.Serializer;
 import com.lonepulse.robozombie.inject.InvocationContext;
 import com.lonepulse.robozombie.model.User;
 import com.lonepulse.robozombie.request.AbstractSerializer;
 
 /**
- * <p>An interface which represents a dummy endpoint with request method 
- * definitions that use various pre-fabricated and custom serializers.</p>
+ * <p>An interface which represents a dummy endpoint with request method definitions that 
+ * use various pre-fabricated and custom serializers.</p>
  * 
- * @category test
- * <br><br> 
  * @version 1.1.0
  * <br><br> 
  * @since 1.2.4
+ * <br><br> 
+ * @category test
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -60,7 +59,7 @@ public interface SerializerEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/json", method = PUT)
+	@PUT("/json")
 	void serializeJson(@Entity User user);
 	
 	/**
@@ -71,8 +70,7 @@ public interface SerializerEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Serializer(XML) 
-	@Request(path = "/xml", method = PUT)
+	@PUT("/xml") @Serializer(XML)
 	void serializeXml(@Entity User user);
 	
 	/**
@@ -84,8 +82,7 @@ public interface SerializerEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Serializer(PLAIN)
-	@Request(path = "/plain", method = PUT)
+	@PUT("/plain") @Serializer(PLAIN)
 	void plainString(@Entity User user);
 
 	
@@ -114,8 +111,7 @@ public interface SerializerEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/custom", method = PUT)
-	@Serializer(type = Redactor.class) 
+	@PUT("/custom") @Serializer(type = Redactor.class) 
 	void serializeCustom(@Entity User user);
 	
 	/**
@@ -126,8 +122,7 @@ public interface SerializerEndpoint {
 	 *
 	 * @since 1.2.4
 	 */
-	@Detach(Serializer.class)
-	@Request(path = "/detach", method = PUT)
+	@PUT("/detach") @Detach(Serializer.class)
 	void detachSerializer(@Entity User user);
 	
 	
@@ -153,7 +148,7 @@ public interface SerializerEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/uninstantiableserializer", method = PUT)
+	@PUT("/uninstantiableserializer") 
 	@Serializer(type = UninstantiableSerializer.class)
 	String uninstantiableSerializer(@Entity String entity);
 	
@@ -180,7 +175,7 @@ public interface SerializerEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/illegalSerializerserializer", method = PUT)
+	@PUT("/illegalSerializerserializer") 
 	@Serializer(type = IllegalSerializer.class)
 	String illegalSerializer(@Entity String entity);
 }

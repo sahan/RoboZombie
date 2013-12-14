@@ -20,9 +20,6 @@ package com.lonepulse.robozombie.processor;
  * #L%
  */
 
-import static com.lonepulse.robozombie.annotation.Request.RequestMethod.POST;
-import static com.lonepulse.robozombie.annotation.Request.RequestMethod.PUT;
-
 import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -39,29 +36,30 @@ import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Entity;
 import com.lonepulse.robozombie.annotation.FormParam;
 import com.lonepulse.robozombie.annotation.FormParams;
+import com.lonepulse.robozombie.annotation.GET;
+import com.lonepulse.robozombie.annotation.POST;
+import com.lonepulse.robozombie.annotation.PUT;
 import com.lonepulse.robozombie.annotation.Param;
 import com.lonepulse.robozombie.annotation.QueryParam;
 import com.lonepulse.robozombie.annotation.QueryParams;
-import com.lonepulse.robozombie.annotation.Request;
 import com.lonepulse.robozombie.model.User;
 
 /**
- * <p>An interface which represents a dummy endpoint with request method definitions 
- * that accept request parameters.
+ * <p>An endpoint with request definitions which accept request parameters.</p>
  * 
- * @category test
- * <br><br> 
  * @version 1.1.1
  * <br><br> 
  * @since 1.2.4
  * <br><br> 
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @category test
+ * <br><br> 
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Endpoint(host = "0.0.0.0", port = 8080)
 public interface RequestParamEndpoint {
 	
 	/**
-	 * <p>Sends a request with the given query parameters.
+	 * <p>Sends a request with the given query parameters.</p>
 	 * 
 	 * @param firstName
 	 * 			the first query param
@@ -71,12 +69,12 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/queryparams")
+	@GET("/queryparams")
 	public void queryParams(@QueryParam("firstName") String firstName, 
 							@QueryParam("lastName") String lastName);
 	
 	/**
-	 * <p>Sends a request with the given form parameters.
+	 * <p>Sends a request with the given form parameters.</p>
 	 * 
 	 * @param firstName
 	 * 			the first form param
@@ -86,7 +84,7 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/formparams", method = POST)
+	@POST("/formparams")
 	public void formParams(@FormParam("firstName") String firstName, 
 						   @FormParam("lastName") String lastName);
 	
@@ -98,7 +96,7 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/queryparamsfail")
+	@GET("/queryparamsfail")
 	public void queryParamsFail(@QueryParam("user") User user);
 	
 	/**
@@ -109,7 +107,7 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/formparamsfail", method = POST)
+	@POST("/formparamsfail")
 	public void formParamsFail(@FormParam("user") User user);
 	
 	/**
@@ -120,9 +118,9 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/queryparamsbatch")
+	@GET("/queryparamsbatch")
 	public void queryParamsBatch(@QueryParams Map<String, String> params);
-
+	
 	/**
 	 * <p>Sends a request with a set of form parameters provided as a batch.</p>
 	 * 
@@ -131,7 +129,7 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/formparamsbatch", method = POST)
+	@POST("/formparamsbatch")
 	public void formParamsBatch(@FormParams Map<String, String> params);
 	
 	/**
@@ -142,7 +140,7 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/queryparamsbatchtypefail")
+	@GET("/queryparamsbatchtypefail")
 	public void queryParamsBatchTypeFail(@QueryParams List<String> params);
 	
 	/**
@@ -153,7 +151,7 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/formparamsbatchtypefail", method = POST)
+	@POST("/formparamsbatchtypefail")
 	public void formParamsBatchTypeFail(@FormParams List<String> params);
 	
 	/**
@@ -164,7 +162,7 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/queryparamsbatchelementfail")
+	@GET("/queryparamsbatchelementfail")
 	public void queryParamsBatchElementFail(@QueryParams Map<String, User> params);
 	
 	/**
@@ -175,7 +173,7 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/formparamsbatchelementfail", method = POST)
+	@POST("/formparamsbatchelementfail")
 	public void formParamsBatchElementFail(@FormParams Map<String, User> params);
 	
 	/**
@@ -186,7 +184,7 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/queryparamsmultivalued")
+	@GET("/queryparamsmultivalued")
 	public void queryParamsMultivalued(@QueryParams Map<String, List<String>> params);
 	
 	/**
@@ -197,7 +195,7 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/formparamsmultivalued", method = POST)
+	@POST("/formparamsmultivalued")
 	public void formParamsMultivalued(@FormParams Map<String, List<String>> params);
 	
 	/**
@@ -208,7 +206,7 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/queryparamsmultivaluedfail")
+	@GET("/queryparamsmultivaluedfail")
 	public void queryParamsMultivaluedFail(@QueryParams Map<String, List<User>> params);
 	
 	/**
@@ -219,15 +217,15 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/formparamsmultivaluedfail", method = POST)
+	@POST( "/formparamsmultivaluedfail")
 	public void formParamsMultivaluedFail(@FormParams Map<String, List<User>> params);
 	
 	/**
-	 * <p>Sends a request with a set of constant query parameters.
+	 * <p>Sends a request with a set of constant query parameters.</p>
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/constantqueryparams")
+	@GET("/constantqueryparams")
 	@QueryParams({@Param(name = "firstName", value = "Doctor"),
 				  @Param(name = "lastName", value = "Who")})
 	public void constantQueryParams();
@@ -237,7 +235,7 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/inlineconstantqueryparams")
+	@GET("/inlineconstantqueryparams")
 	public void inlineConstantQueryParams(
 		@QueryParams({@Param(name = "class", value = "omega")}) Map<String, String> params);
 	
@@ -246,7 +244,7 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/constantformparams", method = POST)
+	@POST("/constantformparams")
 	@FormParams({@Param(name = "firstName", value = "Beta-Ray"),
 				 @Param(name = "lastName", value = "Bill")})
 	public void constantFormParams();
@@ -256,10 +254,10 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/inlineconstantformparams", method = POST)
+	@POST("/inlineconstantformparams")
 	public void inlineConstantFormParams(
 		@FormParams({@Param(name = "class", value = "omega")}) Map<String, String> params);
-
+	
 	/**
 	 * <p>Sends a request with a {@code byte[]} which should be resolved to an 
 	 * instance of {@link ByteArrayEntity}.
@@ -269,60 +267,60 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/primitivebytearrayentity", method = PUT)
+	@PUT("/primitivebytearrayentity")
 	public void primitiveByteArrayEntity(@Entity byte[] entity);
 	
 	/**
-	 * <p>Sends a request with a {@code Byte}[] which should be resolved to an 
-	 * instance of {@link ByteArrayEntity}.
+	 * <p>Sends a request with a {@code Byte}[] which should be resolved to an instance 
+	 * of {@link ByteArrayEntity}.</p>
 	 * 
 	 * @param entity
 	 * 			the {@code Byte}[] to be converted to a {@link ByteArrayEntity}
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/wrapperbytearrayentity", method = PUT)
+	@PUT("/wrapperbytearrayentity")
 	public void wrapperByteArrayEntity(@Entity Byte[] entity);
 	
 	/**
-	 * <p>Sends a request with a {@link File} which should be resolved to an 
-	 * instance of {@link FileEntity}.
+	 * <p>Sends a request with a {@link File} which should be resolved to an instance 
+	 * of {@link FileEntity}.</p>
 	 * 
 	 * @param entity
 	 * 			the {@link File} to be converted to a {@link FileEntity}
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/fileentity", method = PUT)
+	@PUT("/fileentity")
 	public void fileEntity(@Entity File entity);
 	
 	/**
-	 * <p>Sends a request with an {@link InputStream} which should be resolved 
-	 * to an instance of {@link BufferedHttpEntity}.
+	 * <p>Sends a request with an {@link InputStream} which should be resolved to an 
+	 * instance of {@link BufferedHttpEntity}.</p>
 	 * 
 	 * @param entity
 	 * 			the {@link InputStream} to be converted to a {@link BufferedHttpEntity}
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/bufferedhttpentity", method = PUT)
+	@PUT("/bufferedhttpentity")
 	public void bufferedHttpEntity(@Entity InputStream entity);
 	
 	/**
-	 * <p>Sends a request with a {@link String} which should be resolved to an 
-	 * instance of {@link StringEntity}.
+	 * <p>Sends a request with a {@link String} which should be resolved to an instance 
+	 * of {@link StringEntity}.</p>
 	 * 
 	 * @param entity
 	 * 			the {@link String} to be converted to a {@link StringEntity}
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/stringentity", method = PUT)
+	@PUT("/stringentity")
 	public void stringEntity(@Entity String entity);
 	
 	/**
-	 * <p>Sends a request with a {@link Serializable} which should be resolved to 
-	 * an instance of {@link SerializableEntity}.
+	 * <p>Sends a request with a {@link Serializable} which should be resolved to an 
+	 * instance of {@link SerializableEntity}.</p>
 	 * 
 	 * @param entity
 	 * 			the {@link Serializable} instance of {@link User} to be converted 
@@ -330,21 +328,21 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/serializableentity", method = PUT)
+	@PUT("/serializableentity")
 	public void serializableEntity(@Entity User entity);
 	
 	/**
 	 * <p>Sends a PUT request without an entity. This should generate an exception 
-	 * which signifies a violation of the HTTP 1.1 specification.
+	 * which signifies a violation of the HTTP 1.1 specification.</p>
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/missingentity", method = PUT)
+	@PUT("/missingentity")
 	public void missingEntity();
 	
 	/**
 	 * <p>Sends a PUT request with multiple entities. This should generate an exception 
-	 * which signifies a violation of the HTTP 1.1 specification.
+	 * which signifies a violation of the HTTP 1.1 specification.</p>
 	 * 
 	 * @param entity1
 	 * 			the first entity which is designated to be sent
@@ -354,19 +352,18 @@ public interface RequestParamEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/multipleentity", method = PUT)
+	@PUT("/multipleentity")
 	public void multipleEntity(@Entity String entity1, @Entity String entity2);
 	
 	/**
-	 * <p>Sends a PUT request with an argument which cannot be resolved to an entity. 
-	 * This should generate an exception which signifies a violation of the HTTP 1.1 
-	 * specification.
+	 * <p>Sends a PUT request with an argument which cannot be resolved to an entity. This 
+	 * should generate an exception which signifies a violation of the HTTP 1.1 specification.</p>
 	 * 
 	 * @param unresolvableEntity
 	 * 			an generic object which cannot be resolved to an entity 
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/resolutionfailedentity", method = PUT)
+	@PUT("/resolutionfailedentity")
 	public void resolutionFailedEntity(@Entity Object unresolvableEntity);
 }

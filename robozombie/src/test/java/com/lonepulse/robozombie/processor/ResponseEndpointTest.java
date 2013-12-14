@@ -57,13 +57,13 @@ import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.model.User;
 
 /**
- * <p>Performs <b>Unit Testing</b> on the proxy of {@link ResponseEndpoint}.
+ * <p>Performs unit testing on {@link ResponseEndpoint}.</p>
  * 
- * @category test
- * <br><br>
  * @version 1.1.0
  * <br><br>
  * @since 1.2.4
+ * <br><br>
+ * @category test
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -165,7 +165,7 @@ public class ResponseEndpointTest {
 		
 		verify(getRequestedFor(urlEqualTo(subpath)));
 	}
-	
+
 	/**
 	 * <p>Test for a request which expects the raw {@link HttpResponse}.</p>
 	 *

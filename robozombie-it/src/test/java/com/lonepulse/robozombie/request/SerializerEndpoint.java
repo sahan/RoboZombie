@@ -20,14 +20,12 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
-
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.JSON;
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.XML;
-import static com.lonepulse.robozombie.annotation.Request.RequestMethod.PUT;
 
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Entity;
-import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.annotation.PUT;
 import com.lonepulse.robozombie.annotation.Serializer;
 import com.lonepulse.robozombie.model.User;
 
@@ -35,11 +33,11 @@ import com.lonepulse.robozombie.model.User;
  * <p>An interface which represents a dummy endpoint with request method definitions which tests 
  * integration with <b>Gson</b> and <b>Simple XML</b>.</p>
  * 
- * @category test
- * <br><br> 
  * @version 1.1.0
  * <br><br> 
  * @since 1.2.4
+ * <br><br> 
+ * @category test
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -55,7 +53,7 @@ public interface SerializerEndpoint {
 	 * @since 1.2.4
 	 */
 	@Serializer(JSON) 
-	@Request(path = "/gsonunavailable", method = PUT)
+	@PUT("/gsonunavailable")
 	String gsonUnavailable(@Entity User user);
 	
 	/**
@@ -67,6 +65,6 @@ public interface SerializerEndpoint {
 	 * @since 1.2.4
 	 */
 	@Serializer(XML) 
-	@Request(path = "/simplexmlunavailable", method = PUT)
+	@PUT("/simplexmlunavailable")
 	String simpleXmlUnavailable(@Entity User user);
 }

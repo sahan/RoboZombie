@@ -40,13 +40,13 @@ import com.lonepulse.robozombie.inject.InvocationException;
 import com.lonepulse.robozombie.inject.Zombie;
 
 /**
- * <p>Performs <b>Unit Testing</b> on the proxy of {@link ConfigEndpoint}.
+ * <p>Performs unit testing on {@link ConfigEndpoint}.</p>
  * 
- * @category test
- * <br><br>
  * @version 1.1.1
  * <br><br>
  * @since 1.2.4
+ * <br><br>
+ * @category test
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -63,12 +63,6 @@ public class ConfigEndpointTest {
 	private ConfigEndpoint configEndpoint;
 	
 	
-	/**
-	 * <p>Sets up the test case by performing endpoint injection on {@link #configEndpoint}.
-	 * 
-	 * @throws java.lang.Exception
-	 * 			if the test case setup or endpoint injection failed
-	 */
 	@Before
 	public void setUp() throws Exception {
 		

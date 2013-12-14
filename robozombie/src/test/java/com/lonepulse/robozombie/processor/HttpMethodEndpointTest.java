@@ -60,13 +60,13 @@ import com.lonepulse.robozombie.annotation.Bite;
 import com.lonepulse.robozombie.inject.Zombie;
 
 /**
- * <p>Performs <b>Unit Testing</b> on the proxy of {@link HttpMethodEndpoint}.
+ * <p>Performs unit testing on {@link HttpMethodEndpoint}.</p>
  * 
- * @category test
- * <br><br>
  * @version 1.1.1
  * <br><br>
  * @since 1.2.4
+ * <br><br>
+ * @category test
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -91,7 +91,7 @@ public class HttpMethodEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for the request method GET.
+	 * <p>Test for the request method GET.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -118,7 +118,7 @@ public class HttpMethodEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for the request method POST.
+	 * <p>Test for the request method POST.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -151,7 +151,7 @@ public class HttpMethodEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for the request method PUT.
+	 * <p>Test for the request method PUT.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -182,7 +182,7 @@ public class HttpMethodEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for the request method PATCH.
+	 * <p>Test for the request method PATCH.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -201,7 +201,7 @@ public class HttpMethodEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for the request method DELETE.
+	 * <p>Test for the request method DELETE.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -221,7 +221,7 @@ public class HttpMethodEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for the request method HEAD.
+	 * <p>Test for the request method HEAD.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -250,7 +250,7 @@ public class HttpMethodEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for the request method TRACE.
+	 * <p>Test for the request method TRACE.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -276,7 +276,7 @@ public class HttpMethodEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for the request method OPTIONS.
+	 * <p>Test for the request method OPTIONS.</p>
 	 * 
 	 * @since 1.2.4
 	 */

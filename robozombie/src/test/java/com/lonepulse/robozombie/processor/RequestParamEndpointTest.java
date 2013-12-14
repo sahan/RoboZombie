@@ -73,13 +73,13 @@ import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.model.User;
 
 /**
- * <p>Performs <b>Unit Testing</b> on the proxy of {@link RequestParamEndpoint}.
+ * <p>Performs unit testing on {@link RequestParamEndpoint}.</p>
  * 
- * @category test
- * <br><br>
  * @version 1.1.1
  * <br><br>
  * @since 1.2.4
+ * <br><br>
+ * @category test
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -97,12 +97,6 @@ public class RequestParamEndpointTest {
 	private RequestParamEndpoint requestEndpoint;
 	
 	
-	/**
-	 * <p>Sets up the test case by performing endpoint injection on {@link #requestEndpoint}.
-	 * 
-	 * @throws java.lang.Exception
-	 * 			if the test case setup or endpoint injection failed
-	 */
 	@Before
 	public void setUp() throws Exception {
 		
@@ -110,7 +104,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} having {@link QueryParam}s.
+	 * <p>Test for a {@link Request} having {@link QueryParam}s.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -133,7 +127,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} having {@link FormParam}s.
+	 * <p>Test for a {@link Request} having {@link FormParam}s.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -157,7 +151,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} having illegal {@link QueryParam}s.
+	 * <p>Test for a {@link Request} having illegal {@link QueryParam}s.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -178,7 +172,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} having illegal {@link FormParam}s.
+	 * <p>Test for a {@link Request} having illegal {@link FormParam}s.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -257,7 +251,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} having illegal batch {@link QueryParams}.
+	 * <p>Test for a {@link Request} having illegal batch {@link QueryParams}.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -278,7 +272,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} having illegal batch {@link FormParams}.
+	 * <p>Test for a {@link Request} having illegal batch {@link FormParams}.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -299,7 +293,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} having illegal batch {@link QueryParams} elements.
+	 * <p>Test for a {@link Request} having illegal batch {@link QueryParams} elements.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -323,7 +317,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} having illegal batch {@link FormParams} elements.
+	 * <p>Test for a {@link Request} having illegal batch {@link FormParams} elements.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -411,7 +405,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} having illegal multivalued query parameters.
+	 * <p>Test for a {@link Request} having illegal multivalued query parameters.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -440,7 +434,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} having illegal multivalued query parameters.
+	 * <p>Test for a {@link Request} having illegal multivalued query parameters.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -572,7 +566,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} with a {@code byte[]} entity.
+	 * <p>Test for a {@link Request} with a {@code byte[]} entity.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -596,7 +590,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} with a {@code Byte}[] entity.
+	 * <p>Test for a {@link Request} with a {@code Byte}[] entity.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -620,7 +614,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} with a {@link File} entity.
+	 * <p>Test for a {@link Request} with a {@link File} entity.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -646,7 +640,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} with a <b>buffered</b> entity.
+	 * <p>Test for a {@link Request} with a <b>buffered</b> entity.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -674,7 +668,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} with a {@link String} entity.
+	 * <p>Test for a {@link Request} with a {@link String} entity.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -698,7 +692,7 @@ public class RequestParamEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for a {@link Request} with a {@link Serializable} entity.
+	 * <p>Test for a {@link Request} with a {@link Serializable} entity.</p>
 	 * 
 	 * @since 1.2.4
 	 */

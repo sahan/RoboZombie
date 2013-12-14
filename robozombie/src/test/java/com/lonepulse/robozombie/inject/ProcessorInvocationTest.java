@@ -32,24 +32,25 @@ import com.lonepulse.robozombie.processor.ProcessorChainLink;
 import com.lonepulse.robozombie.processor.Processors;
 
 /**
- * <p>Performs unit testing for <i>illegal invocation</i> of <b>processor chains</b>.
+ * <p>Performs unit testing for <i>illegal invocation</i> of <b>processor chains</b>.</p>
  * 
- * @category test
- * <br><br>
  * @version 1.1.1
  * <br><br>
  * @since 1.2.4
  * <br><br>
+ * @category test
+ * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public class ProcessorInvocationTest {
-
+	
+	
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
 	
 	
 	/**
-	 * <p>Tests {@link Processors#REQUEST} invocation with an inadequate argument count.
+	 * <p>Tests {@link Processors#REQUEST} invocation with an inadequate argument count.</p>
 	 *  
 	 * @since 1.2.4
 	 */
@@ -61,7 +62,7 @@ public class ProcessorInvocationTest {
 	}
 	
 	/**
-	 * <p>Tests {@link Processors#REQUEST} invocation with an illegal {@link InvocationContext} type.
+	 * <p>Tests {@link Processors#REQUEST} invocation with an illegal {@link InvocationContext} type.</p>
 	 *  
 	 * @since 1.2.4
 	 */
@@ -73,7 +74,7 @@ public class ProcessorInvocationTest {
 	}
 	
 	/**
-	 * <p>Tests {@link Processors#RESPONSE} invocation with an inadequate argument count.
+	 * <p>Tests {@link Processors#RESPONSE} invocation with an inadequate argument count.</p>
 	 *  
 	 * @since 1.2.4
 	 */
@@ -85,7 +86,7 @@ public class ProcessorInvocationTest {
 	}
 	
 	/**
-	 * <p>Tests {@link Processors#RESPONSE} invocation with an illegal {@link InvocationContext} type.
+	 * <p>Tests {@link Processors#RESPONSE} invocation with an illegal {@link InvocationContext} type.</p>
 	 *  
 	 * @since 1.2.4
 	 */
@@ -97,8 +98,8 @@ public class ProcessorInvocationTest {
 	}
 	
 	/**
-	 * <p>Tests processor-chain construction using a {@link ProcessorChainFactory} by supplying 
-	 * a {@code null} {@link ProcessorChainLink} root. 
+	 * <p>Tests processor-chain construction using a {@link ProcessorChainFactory} by supplying a 
+	 * {@code null} {@link ProcessorChainLink} root.</p>
 	 *  
 	 * @since 1.2.4
 	 */
@@ -111,7 +112,7 @@ public class ProcessorInvocationTest {
 	
 	/**
 	 * <p><p>Tests processor-chain construction using a {@link ProcessorChainFactory} by supplying 
-	 * a {@code null} {@link ProcessorChainLink} successor. 
+	 * a {@code null} {@link ProcessorChainLink} successor.</p>
 	 *  
 	 * @since 1.2.4
 	 */

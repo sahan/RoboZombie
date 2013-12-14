@@ -51,13 +51,13 @@ import com.lonepulse.robozombie.model.User;
 import com.lonepulse.robozombie.response.AsyncHandler;
 
 /**
- * <p>Performs <b>Unit Testing</b> on the proxy of {@link AsyncEndpoint}.
+ * <p>Performs unit testing on the proxy of {@link AsyncEndpoint}.</p>
  * 
- * @category test
- * <br><br>
  * @version 1.2.0
  * <br><br>
  * @since 1.2.4
+ * <br><br>
+ * @category test
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -72,12 +72,6 @@ public class AsyncEndpointTest {
 	private AsyncEndpoint asyncEndpoint;
 	
 	
-	/**
-	 * <p>Sets up the test case by performing endpoint injection on {@link #asyncEndpoint}.
-	 * 
-	 * @throws java.lang.Exception
-	 * 			if the test case setup or endpoint injection failed
-	 */
 	@Before
 	public void setUp() throws Exception {
 		
@@ -86,7 +80,7 @@ public class AsyncEndpointTest {
 	
 	/**
 	 * <p>Tests asynchronous request execution with @{@link Async} and 
-	 * {@link AsyncHandler#onSuccess(HttpResponse, Object)}.
+	 * {@link AsyncHandler#onSuccess(HttpResponse, Object)}.</p>
 	 *  
 	 * @since 1.2.4
 	 */
@@ -99,7 +93,7 @@ public class AsyncEndpointTest {
 	}
 	
 	/**
-	 * <p>See {@link #testAsyncSuccess()}. 
+	 * <p>See {@link #testAsyncSuccess()}.</p>
 	 */
 	private void successScenario() throws InterruptedException {
 		
@@ -145,7 +139,7 @@ public class AsyncEndpointTest {
 	
 	/**
 	 * <p>Tests asynchronous request execution with @{@link Async} and 
-	 * {@link AsyncHandler#onFailure(HttpResponse)}.
+	 * {@link AsyncHandler#onFailure(HttpResponse)}.</p>
 	 *  
 	 * @since 1.2.4
 	 */
@@ -194,7 +188,7 @@ public class AsyncEndpointTest {
 	
 	/**
 	 * <p>Tests asynchronous request execution with @{@link Async} and 
-	 * {@link AsyncHandler#onError(Exception)}.
+	 * {@link AsyncHandler#onError(Exception)}.</p>
 	 *  
 	 * @since 1.2.4
 	 */
@@ -243,8 +237,8 @@ public class AsyncEndpointTest {
 	}
 	
 	/**
-	 * <p>Tests an asynchronous request execution with @{@link Async} which does 
-	 * not expect the response to be handled. 
+	 * <p>Tests an asynchronous request execution with @{@link Async} which does not expect the 
+	 * response to be handled.</p> 
 	 *  
 	 * @since 1.2.4
 	 */
@@ -269,7 +263,7 @@ public class AsyncEndpointTest {
 	
 	/**
 	 * <p>Tests a successful asynchronous request where the implementation of the 
-	 * {@link AsyncHandler#onSuccess(HttpResponse, Object)} callback throws an exception. 
+	 * {@link AsyncHandler#onSuccess(HttpResponse, Object)} callback throws an exception.</p> 
 	 *  
 	 * @since 1.2.4
 	 */
@@ -316,7 +310,7 @@ public class AsyncEndpointTest {
 	
 	/**
 	 * <p>Tests a failed asynchronous request where the implementation of the 
-	 * {@link AsyncHandler#onFailure(HttpResponse)} callback throws an exception. 
+	 * {@link AsyncHandler#onFailure(HttpResponse)} callback throws an exception.</p>
 	 *  
 	 * @since 1.2.4
 	 */
@@ -366,7 +360,7 @@ public class AsyncEndpointTest {
 	
 	/**
 	 * <p>Tests an erroneous asynchronous request where the implementation of the 
-	 * {@link AsyncHandler#onError(Exception)} callback throws an exception. 
+	 * {@link AsyncHandler#onError(Exception)} callback throws an exception.</p>
 	 *  
 	 * @since 1.2.4
 	 */

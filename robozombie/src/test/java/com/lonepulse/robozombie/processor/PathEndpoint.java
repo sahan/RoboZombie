@@ -21,35 +21,35 @@ package com.lonepulse.robozombie.processor;
  */
 
 import com.lonepulse.robozombie.annotation.Endpoint;
+import com.lonepulse.robozombie.annotation.GET;
 import com.lonepulse.robozombie.annotation.PathParam;
-import com.lonepulse.robozombie.annotation.Request;
 
 /**
- * <p>An interface which represents a dummy endpoint with request definition using mock paths.
+ * <p>An endpoint which uses a combination of root-paths and sub-paths.</p>
  * 
- * @category test
- * <br><br> 
  * @version 1.1.1
  * <br><br> 
  * @since 1.2.4
  * <br><br> 
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @category test
+ * <br><br> 
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Endpoint(host = "0.0.0.0", port = 8080)
 public interface PathEndpoint {
 	
 	/**
-	 * <p>Sends a request with a subpath.
+	 * <p>Sends a request with a subpath.</p>
 	 * 
 	 * @return a response for the request with a subpath
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/subpath")
+	@GET("/subpath")
 	public String subpath();
 	
 	/**
-	 * <p>Sends a request for a RESTful subpath with a path parameter.
+	 * <p>Sends a request for a RESTful subpath with a path parameter.</p>
 	 * 
 	 * @param id
 	 * 			the restful path parameter
@@ -58,12 +58,11 @@ public interface PathEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/restfulsubpathwithparam/{id}")
+	@GET("/restfulsubpathwithparam/{id}")
 	public String restfulSubpathWithParam(@PathParam("id") String id);
 	
 	/**
-	 * <p>Sends a request for a RESTful subpath with a path parameter 
-	 * of an illegal type.
+	 * <p>Sends a request for a RESTful subpath with a path parameter of an illegal type.</p>
 	 * 
 	 * @param id
 	 * 			the restful path parameter of the illegal type {@link Long}
@@ -72,6 +71,6 @@ public interface PathEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/restfulsubpathwithillegalparamtype/{id}")
+	@GET("/restfulsubpathwithillegalparamtype/{id}")
 	public String restfulSubpathWithIllegalParamType(@PathParam("id") Long id);
 }

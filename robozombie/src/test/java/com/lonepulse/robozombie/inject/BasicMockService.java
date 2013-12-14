@@ -25,20 +25,21 @@ import com.lonepulse.robozombie.annotation.Bite;
 /**
  * <p>Emulates a service which works with an {@link MockEndpoint}.</p>
  * 
- * <p>Contains several {@link MockEndpoint} members with various accessibility qualifiers to test the 
- * {@link Zombie}'s property injection capabilities.</p>
+ * <p>Contains several {@link MockEndpoint} members with various accessibility qualifiers to test 
+ * the {@link Zombie}'s property injection capabilities. Also contains a mutator to test setter 
+ * and constructor injection</p>
  * 
- * <p>Also contains a mutator and a parameterized constructor to test setter and constructor injection.</p>
- * 
+ * @version 1.1.0
+ * <br><br>
+ * @since 1.2.4
+ * <br><br> 
  * @category test
  * <br><br> 
- * @version 1.0.0
- * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public class BasicMockService {
 	
-	
+
 	@Bite
 	private static MockEndpoint staticMockEndpoint;
 	

@@ -34,8 +34,8 @@ import org.apache.http.params.HttpParams;
 import com.lonepulse.robozombie.inject.Zombie;
 
 /**
- * <p>An implementation of {@link Zombie.Configuration} which conifgures a custom {@link HttpClient} 
- * which is to be used for executing requests for {@link ConfigEndpoint}.</p> 
+ * <p>An implementation of {@link Zombie.Configuration} which configures a custom {@link HttpClient} 
+ * to be used for executing requests with {@link ConfigEndpoint}.</p> 
  * 
  * @version 1.1.0
  * <br><br>

@@ -22,11 +22,11 @@ package com.lonepulse.robozombie.executor;
 
 import com.lonepulse.robozombie.annotation.Config;
 import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.annotation.GET;
 import com.lonepulse.robozombie.inject.Zombie;
 
 /**
- * <p>An interface which represents a dummy endpoint that uses a custom {@link Zombie.Configuration}.
+ * <p>An endpoint which uses a custom {@link Zombie.Configuration}.</p>
  * 
  * @version 1.1.1
  * <br><br> 
@@ -41,6 +41,6 @@ import com.lonepulse.robozombie.inject.Zombie;
 public interface ConfigEndpoint {
 	
 	
-	@Request(path = "/timeout")
+	@GET("/timeout")
 	public void timeout();
 }

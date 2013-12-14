@@ -24,15 +24,15 @@ import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.Stateful;
 
 /**
- * <p>An interface which represents a dummy endpoint which is to be injected into services.
+ * <p>An endpoint to be injected into services.</p>
  * 
- * @category test
- * <br><br> 
  * @version 1.1.1
  * <br><br> 
  * @since 1.2.4
  * <br><br> 
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @category test
+ * <br><br> 
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Stateful
 @Endpoint(host = "0.0.0.0", port = 8080)

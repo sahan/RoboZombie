@@ -49,13 +49,13 @@ import com.lonepulse.robozombie.inject.InvocationException;
 import com.lonepulse.robozombie.inject.Zombie;
 
 /**
- * <p>Performs <b>Unit Testing</b> on the proxy of {@link HeaderEndpoint}.
+ * <p>Performs unit testing on {@link HeaderEndpoint}.</p>
  * 
- * @category test
- * <br><br>
  * @version 1.1.1
  * <br><br>
  * @since 1.2.4
+ * <br><br>
+ * @category test
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -73,12 +73,6 @@ public class HeaderEndpointTest {
 	private HeaderEndpoint headerEndpoint;
 	
 	
-	/**
-	 * <p>Sets up the test case by performing endpoint injection on {@link #headerEndpoint}.</p>
-	 * 
-	 * @throws java.lang.Exception
-	 * 			if the test case setup or endpoint injection failed
-	 */
 	@Before
 	public void setUp() throws Exception {
 		

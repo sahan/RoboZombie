@@ -38,22 +38,21 @@ import com.lonepulse.robozombie.annotation.QueryParam;
 import com.lonepulse.robozombie.annotation.TRACE;
 
 /**
- * <p>An interface which represents a dummy endpoint with request method definitions which 
- * represent the supported HTTP method types.
+ * <p>An endpoint with request definitions which use all the supported HTTP method types.</p>
  * 
- * @category test
- * <br><br> 
  * @version 1.1.1
  * <br><br> 
  * @since 1.2.4
  * <br><br> 
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @category test
+ * <br><br> 
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Endpoint(host = "0.0.0.0", port = 8080)
 public interface HttpMethodEndpoint {
 	
 	/**
-	 * <p>A mock request which uses the HTTP method GET.
+	 * <p>A mock request which uses the HTTP method GET.</p>
 	 * 
 	 * @param name
 	 * 			the first request parameter
@@ -74,7 +73,7 @@ public interface HttpMethodEndpoint {
 							 @QueryParam("location") String location);
 	
 	/**
-	 * <p>A mock request which uses the HTTP method POST.
+	 * <p>A mock request which uses the HTTP method POST.</p>
 	 * 
 	 * @param name
 	 * 			the first request parameter
@@ -95,7 +94,7 @@ public interface HttpMethodEndpoint {
 							  @FormParam("location") String location);
 	
 	/**
-	 * <p>A mock request which uses the HTTP method PUT.
+	 * <p>A mock request which uses the HTTP method PUT.</p>
 	 * 
 	 * @param user
 	 * 			the JSON string which represents the entity 
@@ -108,7 +107,7 @@ public interface HttpMethodEndpoint {
 	public String putRequest(@Entity String user);
 	
 	/**
-	 * <p>A mock request which uses the HTTP method DELETE.
+	 * <p>A mock request which uses the HTTP method DELETE.</p>
 	 * 
 	 * @param id
 	 * 			the id of the entity to delete 
@@ -121,7 +120,7 @@ public interface HttpMethodEndpoint {
 	public String deleteRequest(@PathParam("id") String id);
 	
 	/**
-	 * <p>A mock request which uses the HTTP method HEAD.
+	 * <p>A mock request which uses the HTTP method HEAD.</p>
 	 * 
 	 * @param proxyAuthenticate
 	 * 			retrieves meta-information about any required authentication 
@@ -132,7 +131,7 @@ public interface HttpMethodEndpoint {
 	public void headRequest(@Header("Proxy-Authenticate") StringBuilder proxyAuthenticate);
 	
 	/**
-	 * <p>A mock request which uses the HTTP method HEAD.
+	 * <p>A mock request which uses the HTTP method HEAD.</p>
 	 * 
 	 * @since 1.2.4
 	 */
@@ -142,7 +141,7 @@ public interface HttpMethodEndpoint {
 	public void traceRequest();
 	
 	/**
-	 * <p>A mock request which uses the HTTP method OPTIONS.
+	 * <p>A mock request which uses the HTTP method OPTIONS.</p>
 	 * 
 	 * @param contentType
 	 * 			queries the content type for an enclosed entity 

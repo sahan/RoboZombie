@@ -20,31 +20,29 @@ package com.lonepulse.robozombie.processor;
  * #L%
  */
 
-
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Endpoint;
+import com.lonepulse.robozombie.annotation.GET;
 import com.lonepulse.robozombie.annotation.Header;
 import com.lonepulse.robozombie.annotation.Headers;
-import com.lonepulse.robozombie.annotation.Request;
 
 /**
- * <p>An interface which represents a dummy endpoint with mock endpoint method definitions 
- * which process request and response headers.
+ * <p>An endpoint with mock which processes request and response headers.</p>
  * 
- * @category test
- * <br><br> 
  * @version 1.1.1
  * <br><br> 
  * @since 1.2.4
  * <br><br> 
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @category test
+ * <br><br> 
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Endpoint(host = "0.0.0.0", port = 8080)
 public interface HeaderEndpoint {
 	
 	/**
-	 * <p>A mock request which inserts a request header.
+	 * <p>A mock request which inserts a request header.</p>
 	 * 
 	 * @param userAgent
 	 * 			a variable header - <i>User-Agent</i> in this case
@@ -53,11 +51,11 @@ public interface HeaderEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/requestheader")
+	@GET("/requestheader")
 	public String requestHeader(@Header("User-Agent") String userAgent);
 	
 	/**
-	 * <p>Retrieves a response header from a request using {@link Header}.
+	 *<p>Retrieves a response header from a request using {@link Header}.</p>
 	 * 
 	 * @param server
 	 * 			the {@link StringBuilder} which is annotated with {@code @Header} 
@@ -67,7 +65,7 @@ public interface HeaderEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/responseheader")
+	@GET("/responseheader")
 	public String responseHeader(@Header("Server") StringBuilder server);
 	
 	/**
@@ -81,7 +79,7 @@ public interface HeaderEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/requestheaderskip")
+	@GET("/requestheaderskip")
 	public String requestHeaderSkip(@Header("From") String email);
 	
 	/**
@@ -96,12 +94,12 @@ public interface HeaderEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/responseheaderskip")
+	@GET("/responseheaderskip")
 	public String responseHeaderSkip(@Header("Expires") String expires);
 	
 	/**
 	 * <p>A mock request which inserts a header that of an illegal type. This invocation 
-	 * should be unsuccessful and should result in an error. </p>
+	 * should be unsuccessful and should result in an error.</p>
 	 * 
 	 * @param contentLength
 	 * 			a variable header of the illegal type {@code int} 
@@ -110,7 +108,7 @@ public interface HeaderEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/requestheadertypeerror")
+	@GET("/requestheadertypeerror")
 	public String requestHeaderTypeError(@Header("Content-Length") int contentLength);
 	
 	/**
@@ -120,8 +118,8 @@ public interface HeaderEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/headerset")
+	@GET("/headerset")
 	@Headers({@Headers.Header(name = "Accept", value = "application/json"),
-				@Headers.Header(name = "Accept-Charset", value = "utf-8")})
+			  @Headers.Header(name = "Accept-Charset", value = "utf-8")})
 	public String headerSet();
 }

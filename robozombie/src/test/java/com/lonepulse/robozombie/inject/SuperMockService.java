@@ -20,16 +20,17 @@ package com.lonepulse.robozombie.inject;
  * #L%
  */
 
-
 import com.lonepulse.robozombie.annotation.Bite;
 
 /**
- * <p>Emulates a super-type which requires an endpoint injection.</p>
+ * <p>Emulates a super-type which requires endpoint injection.</p>
  * 
- * @category test
- * <br><br> 
  * @version 1.1.0
  * <br><br>
+ * @since 1.2.4
+ * <br><br>
+ * @category test
+ * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public class SuperMockService {

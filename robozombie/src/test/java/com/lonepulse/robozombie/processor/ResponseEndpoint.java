@@ -24,17 +24,17 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.annotation.Request;
+import com.lonepulse.robozombie.annotation.GET;
 import com.lonepulse.robozombie.model.User;
 
 /**
- * <p>A dummy endpoint with request method definitions to test generic response handling.</p>
+ * <p>An endpoint with request definitions to test generic response handling.</p>
  * 
- * @category test
- * <br><br> 
  * @version 1.1.0
  * <br><br> 
  * @since 1.2.4
+ * <br><br> 
+ * @category test
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -46,7 +46,7 @@ public interface ResponseEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/failure")
+	@GET("/failure")
 	public String failure();
 	
 	/**
@@ -54,7 +54,7 @@ public interface ResponseEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/nocontent")
+	@GET("/nocontent")
 	public String noContent();
 	
 	/**
@@ -62,7 +62,7 @@ public interface ResponseEndpoint {
 	 * 
 	 * @since 1.2.4
 	 */
-	@Request(path = "/resetcontent")
+	@GET("/resetcontent")
 	public String resetContent();
 	
 	/**
@@ -70,7 +70,7 @@ public interface ResponseEndpoint {
 	 *
 	 * @since 1.2.4
 	 */
-	@Request(path = "/rawresponse")
+	@GET("/rawresponse")
 	public HttpResponse rawResponse();
 	
 	/**
@@ -78,7 +78,7 @@ public interface ResponseEndpoint {
 	 *
 	 * @since 1.2.4
 	 */
-	@Request(path = "/rawentity")
+	@GET("/rawentity")
 	public HttpEntity rawEntity();
 	
 	/**
@@ -86,6 +86,6 @@ public interface ResponseEndpoint {
 	 *
 	 * @since 1.2.4
 	 */
-	@Request(path = "/nodeserializer")
+	@GET("/nodeserializer")
 	public User noDeserializer();
 }

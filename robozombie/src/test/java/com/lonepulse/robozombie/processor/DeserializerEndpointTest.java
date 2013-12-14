@@ -52,13 +52,13 @@ import com.lonepulse.robozombie.response.AbstractDeserializer;
 import com.lonepulse.robozombie.response.Deserializers;
 
 /**
- * <p>Performs <b>Unit Testing</b> on the proxy of {@link DeserializerEndpoint}.
+ * <p>Performs unit testing on {@link DeserializerEndpoint}.</p>
  * 
- * @category test
- * <br><br>
  * @version 1.1.1
  * <br><br>
  * @since 1.2.4
+ * <br><br>
+ * @category test
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -76,12 +76,6 @@ public class DeserializerEndpointTest {
 	private DeserializerEndpoint deserializerEndpoint;
 	
 	
-	/**
-	 * <p>Sets up the test case by performing endpoint injection on {@link #deserializerEndpoint}.
-	 * 
-	 * @throws java.lang.Exception
-	 * 			if the test case setup or endpoint injection failed
-	 */
 	@Before
 	public void setUp() throws Exception {
 		
@@ -89,7 +83,7 @@ public class DeserializerEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for {@link DeserializerEndpoint#responseError()}
+	 * <p>Test for {@link DeserializerEndpoint#responseError()}.</p>
 	 *
 	 * @since 1.2.4
 	 */
@@ -180,12 +174,12 @@ public class DeserializerEndpointTest {
 	}
 	
 	/**
-	 * <p>Test for {@link DeserializerEndpoint#raw()}.
+	 * <p>Test for {@link DeserializerEndpoint#plain()}.
 	 *
 	 * @since 1.2.4
 	 */
 	@Test  
-	public final void testRaw() {
+	public final void testPlain() {
 		
 		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
 		
@@ -195,7 +189,7 @@ public class DeserializerEndpointTest {
 				.willReturn(aResponse()
 				.withBody(body)));
 		
-		String responseContent = deserializerEndpoint.raw();
+		String responseContent = deserializerEndpoint.plain();
 		
 		verify(getRequestedFor(urlEqualTo(subpath)));
 		assertEquals(body, responseContent);

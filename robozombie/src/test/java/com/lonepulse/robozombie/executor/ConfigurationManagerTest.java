@@ -33,13 +33,13 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.lonepulse.robozombie.inject.MockEndpoint;
 
 /**
- * <p>Performs <b>Unit Testing</b> on the implementation of {@link ConfigurationManager}.</p>
+ * <p>Performs unit testing on the implementation of {@link ConfigurationManager}.</p>
  * 
- * @category test
- * <br><br>
  * @version 1.1.0
  * <br><br>
  * @since 1.2.4
+ * <br><br>
+ * @category test
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -52,9 +52,6 @@ public class ConfigurationManagerTest {
 	private ConfigurationManager configurationManager;
 	
 	
-	/**
-	 * <p>Sets up the test case by instantiating three instances of the default {@link HttpClient} configuration</p>. 
-	 */
 	@Before
 	public void setUp() {
 	
@@ -74,7 +71,7 @@ public class ConfigurationManagerTest {
 	}
 	
 	/**
-	 * <p>Test for endpoints that use a custom {@link HttpClient}.</p>
+	 * <p>Test for endpoints that uses a custom {@link HttpClient}.</p>
 	 *  
 	 * @since 1.2.4
 	 */

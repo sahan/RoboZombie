@@ -29,11 +29,11 @@ import com.lonepulse.robozombie.annotation.PATCH;
 /**
  * <p>An endpoint which defines selected services from <a href="httpbin.org">HttpBin.org</a>.</p>
  * 
- * @category test
- * <br><br> 
  * @version 1.1.0
  * <br><br> 
  * @since 1.2.4
+ * <br><br> 
+ * @category test
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -42,7 +42,7 @@ public interface HttpBinEndpoint {
 	
 
 	/**
-	 * <p>A request which uses the HTTP method PATCH.
+	 * <p>A request which uses the HTTP method PATCH.</p>
 	 * 
 	 * @param user
 	 * 			the JSON string which represents the entity 

@@ -43,13 +43,13 @@ import com.lonepulse.robozombie.inject.Zombie;
 import com.lonepulse.robozombie.model.User;
 
 /**
- * <p>Performs <b>Unit Testing</b> on the proxy of {@link DeserializerEndpoint}.</p>
+ * <p>Performs unit testing on {@link DeserializerEndpoint}.</p>
  * 
- * @category test
- * <br><br>
  * @version 1.1.1
  * <br><br>
  * @since 1.2.4
+ * <br><br>
+ * @category test
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */

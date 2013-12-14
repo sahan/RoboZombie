@@ -36,14 +36,13 @@ import com.lonepulse.robozombie.processor.InterceptorEndpoint.EndpointIntercepto
 import com.lonepulse.robozombie.request.Interceptor;
 
 /**
- * <p>An interface which represents a dummy endpoint with request method 
- * definitions that use various pre-fabricated and custom serializers.</p>
+ * <p>An endpoint which uses {@link Interceptor}s defined at multiple levels.</p>
  * 
- * @category test
- * <br><br> 
  * @version 1.1.0
  * <br><br> 
  * @since 1.2.4
+ * <br><br> 
+ * @category test
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
