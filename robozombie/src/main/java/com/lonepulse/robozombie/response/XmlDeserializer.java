@@ -40,7 +40,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -102,7 +102,7 @@ final class XmlDeserializer extends AbstractDeserializer<Object> {
 	 * <p>Creates a new {@link XmlDeserializer} and register the generic type {@link Object} as the entity 
 	 * which results from its deserialization operation.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public XmlDeserializer() {
 		
@@ -131,7 +131,7 @@ final class XmlDeserializer extends AbstractDeserializer<Object> {
 	 * @throws DeserializerException
 	 * 			if XML deserialization failed for the given entity using the Simple-XML library 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	protected Object deserialize(InvocationContext context, HttpResponse response) {

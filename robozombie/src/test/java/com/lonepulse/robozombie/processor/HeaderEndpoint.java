@@ -32,7 +32,7 @@ import com.lonepulse.robozombie.annotation.Headers;
  * 
  * @version 1.1.1
  * <br><br> 
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br> 
  * @category test
  * <br><br> 
@@ -49,7 +49,7 @@ public interface HeaderEndpoint {
 	 * 
 	 * @return the textual content of the {@link HttpResponse} body
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/requestheader")
 	public String requestHeader(@Header("User-Agent") String userAgent);
@@ -63,7 +63,7 @@ public interface HeaderEndpoint {
 	 * 
 	 * @return a response whose header was retrieved 
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/responseheader")
 	public String responseHeader(@Header("Server") StringBuilder server);
@@ -77,7 +77,7 @@ public interface HeaderEndpoint {
 	 * 
 	 * @return the textual content of the {@link HttpResponse} body
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/requestheaderskip")
 	public String requestHeaderSkip(@Header("From") String email);
@@ -92,7 +92,7 @@ public interface HeaderEndpoint {
 	 * 
 	 * @return a response whose header was expected to be retrieved 
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/responseheaderskip")
 	public String responseHeaderSkip(@Header("Expires") String expires);
@@ -106,7 +106,7 @@ public interface HeaderEndpoint {
 	 * 
 	 * @return the deserialized response content, which in this case should not be available
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/requestheadertypeerror")
 	public String requestHeaderTypeError(@Header("Content-Length") int contentLength);
@@ -116,7 +116,7 @@ public interface HeaderEndpoint {
 	 * 
 	 * @return the textual content of the {@link HttpResponse} body
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/headerset")
 	@Headers({@Headers.Header(name = "Accept", value = "application/json"),

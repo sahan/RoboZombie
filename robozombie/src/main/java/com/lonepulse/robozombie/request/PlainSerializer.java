@@ -27,7 +27,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -38,7 +38,7 @@ public class PlainSerializer extends AbstractSerializer<Object, String> {
 	 * <p>Creates a new {@link PlainSerializer} and registers {@code Class<String>} as the output 
 	 * content-type which results from serialization.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public PlainSerializer() {
 	
@@ -58,7 +58,7 @@ public class PlainSerializer extends AbstractSerializer<Object, String> {
 	 * @return the {@link String} which represents the provided input model, else an empty string if the 
 	 * 		   provided input was {@code null}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public String serialize(InvocationContext context, Object input) {

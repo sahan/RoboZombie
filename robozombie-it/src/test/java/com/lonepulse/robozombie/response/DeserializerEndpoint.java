@@ -34,7 +34,7 @@ import com.lonepulse.robozombie.model.User;
  * 
  * @version 1.1.0
  * <br><br> 
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br> 
  * @category test
  * <br><br> 
@@ -48,7 +48,7 @@ public interface DeserializerEndpoint {
 	 * 
 	 * @return the deserialized model based on the returned response content
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Deserialize(JSON) 
 	@GET("/gsonunavailable")
@@ -59,7 +59,7 @@ public interface DeserializerEndpoint {
 	 * 
 	 * @return the deserialized model based on the returned response content
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Deserialize(XML) 
 	@GET("/simplexmlunavailable")

@@ -26,7 +26,7 @@ package com.lonepulse.robozombie.processor;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -39,14 +39,14 @@ class ChainCreationException extends ProcessorChainException {
 	/**
 	 * See {@link ProcessorChainException#ProcessorChainException()}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ChainCreationException() {}
 
 	/**
 	 * See {@link ProcessorChainException#ProcessorChainException(String)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ChainCreationException(String detailMessage) {
 		
@@ -56,7 +56,7 @@ class ChainCreationException extends ProcessorChainException {
 	/**
 	 * See {@link ProcessorChainException#ProcessorChainException(Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ChainCreationException(Throwable throwable) {
 		
@@ -66,7 +66,7 @@ class ChainCreationException extends ProcessorChainException {
 	/**
 	 * See {@link ProcessorChainException#ProcessorChainException(String, Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ChainCreationException(String detailMessage, Throwable throwable) {
 

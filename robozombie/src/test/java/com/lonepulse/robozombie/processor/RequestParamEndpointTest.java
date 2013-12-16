@@ -77,7 +77,7 @@ import com.lonepulse.robozombie.proxy.Zombie;
  * 
  * @version 1.1.1
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category test
  * <br><br>
@@ -106,7 +106,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having {@link QueryParam}s.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test 
 	public final void testQueryParams() {
@@ -129,7 +129,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having {@link FormParam}s.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test 
 	public final void testFormParams() {
@@ -153,7 +153,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having illegal {@link QueryParam}s.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testQueryParamsFail() {
@@ -174,7 +174,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having illegal {@link FormParam}s.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testFormParamsFail() {
@@ -195,7 +195,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having batch {@link QueryParams}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testQueryParamsBatch() {
@@ -223,7 +223,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having batch {@link QueryParams}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testFormParamsBatch() {
@@ -253,7 +253,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having illegal batch {@link QueryParams}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testQueryParamsBatchTypeFail() {
@@ -274,7 +274,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having illegal batch {@link FormParams}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testFormParamsBatchTypeFail() {
@@ -295,7 +295,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having illegal batch {@link QueryParams} elements.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testQueryParamsBatchElementFail() {
@@ -319,7 +319,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having illegal batch {@link FormParams} elements.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testFormParamsBatchElementFail() {
@@ -343,7 +343,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a request which sends a multivalued query parameter.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testQueryParamsMultivalued() {
@@ -375,7 +375,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a request which send a multivalued query parameter.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testFormParamsMultivalued() {
@@ -407,7 +407,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having illegal multivalued query parameters.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testQueryParamsMultivaluedFail() {
@@ -436,7 +436,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having illegal multivalued query parameters.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testFormParamsMultivaluedFail() {
@@ -465,7 +465,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having constant query parameters.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testConstantQueryParams() {
@@ -488,7 +488,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having constant inline {@link QueryParams}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testInlineConstantQueryParams() {
@@ -515,7 +515,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having constant form parameters.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testConstantFormParams() {
@@ -540,7 +540,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} having constant inline {@link FormParams}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testInlineConstantFormParams() {
@@ -568,7 +568,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} with a {@code byte[]} entity.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testPrimitiveByteArrayEntity() throws ParseException, IOException {
@@ -592,7 +592,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} with a {@code Byte}[] entity.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testWrapperByteArrayEntity() throws ParseException, IOException {
@@ -616,7 +616,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} with a {@link File} entity.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testFileEntity() throws ParseException, IOException, URISyntaxException {
@@ -642,7 +642,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} with a <b>buffered</b> entity.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testBufferedHttpEntity() throws ParseException, IOException {
@@ -670,7 +670,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} with a {@link String} entity.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testStringEntity() throws ParseException, IOException {
@@ -694,7 +694,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} with a {@link Serializable} entity.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testSerializableEntity() throws ParseException, IOException {
@@ -718,7 +718,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a non-POST entity-enclosing request without a supplied entity.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testMissingEntity() {
@@ -733,7 +733,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for a multiple entities in an entity-enclosing request.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testMultipleEntity() {
@@ -748,7 +748,7 @@ public class RequestParamEndpointTest {
 	/**
 	 * <p>Test for an unresolvable entity in an entity-enclosing request.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testResolutionFailedEntity() {

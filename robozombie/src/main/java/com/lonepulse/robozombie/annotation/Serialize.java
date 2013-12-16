@@ -56,7 +56,7 @@ import com.lonepulse.robozombie.request.PlainSerializer;
  * 
  * @version 1.1.2
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -71,7 +71,7 @@ public @interface Serialize {
 	 * 
 	 * @return the {@link ContentType} which identifies an out-of-the-box serializer
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	ContentType value() default ContentType.UNDEFINED;
 	
@@ -85,7 +85,7 @@ public @interface Serialize {
 	 * 
 	 * @return the {@link Class} of the custom {@link AbstractSerializer} to be used
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	Class<? extends AbstractSerializer<?,?>> type() default PlainSerializer.class;
 }

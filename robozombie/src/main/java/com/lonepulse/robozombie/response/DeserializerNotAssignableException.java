@@ -22,11 +22,11 @@ package com.lonepulse.robozombie.response;
 
 /**
  * <p>This runtime exception is thrown when the return type of a request method definition cannot be 
- * assigned to the designated {@link Deserializer}'s return type. 
+ * assigned to the designated {@link Deserializer}'s return type.</p>
  * 
  * @version 1.1.1
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -46,25 +46,25 @@ class DeserializerNotAssignableException extends DeserializerException {
 	 * @param requestReturnType
 	 * 			the return type of the requuest definition which was found to be incompatible
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public DeserializerNotAssignableException(Class<?> deserializerOutputType, Class<?> requestReturnType) {
 		
-		this(new StringBuilder("Cannot assign the deserializer's response of type ").append(deserializerOutputType.getName())
-			 .append(" to an instance of the request return type ").append(requestReturnType.getName()).toString());
+		this(new StringBuilder("Cannot assign the deserializer's response of type <").append(deserializerOutputType.getName())
+			 .append("> to an instance of the request return type <").append(requestReturnType.getName()).append(">").toString());
 	}
 	
 	/**
 	 * See {@link DeserializerException#DeserializerException()}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public DeserializerNotAssignableException() {}
 
 	/**
 	 * See {@link DeserializerException#DeserializerException(String)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public DeserializerNotAssignableException(String detailMessage) {
 		
@@ -74,7 +74,7 @@ class DeserializerNotAssignableException extends DeserializerException {
 	/**
 	 * See {@link DeserializerException#DeserializerException(Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public DeserializerNotAssignableException(Throwable throwable) {
 		

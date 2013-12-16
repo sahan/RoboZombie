@@ -40,7 +40,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -86,7 +86,7 @@ class AsyncRequestExecutor extends BasicRequestExecutor {
 	 * @param executionHandler
 	 * 			the instance of {@link ExecutionHandler} which will be invoked during request execution
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	AsyncRequestExecutor(ExecutionHandler executionHandler) {
 		
@@ -108,11 +108,7 @@ class AsyncRequestExecutor extends BasicRequestExecutor {
 	 * <br><br>
 	 * @return {@code null} for all intents and purposes and returns control immediately
 	 * <br><br>
-	 * @throws RequestExecutionException
-	 * 			if request execution failed or if the request responded with a failure status code and 
-	 * 			the subsequent handling via any callback yielded an error
-	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public HttpResponse execute(final InvocationContext context, final HttpRequestBase request) {

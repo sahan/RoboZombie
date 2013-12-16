@@ -31,7 +31,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -42,7 +42,7 @@ public class PlainDeserializer extends AbstractDeserializer<CharSequence> {
 	 * <p>Creates a new {@link PlainDeserializer} and register the type {@link CharSequence} as the entity 
 	 * which results from its deserialization operation.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public PlainDeserializer() {
 	

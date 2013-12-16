@@ -39,7 +39,7 @@ import com.lonepulse.robozombie.AbstractGenericFactory;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -67,7 +67,7 @@ extends AbstractGenericFactory <Processor<RESULT, FAILURE>, ProcessorChainLink<R
 	 * @throws ChainCreationException
 	 * 			if the chain failed to be created using the given {@link Processor}s
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public ProcessorChainLink<RESULT, FAILURE> newInstance(

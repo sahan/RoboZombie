@@ -49,7 +49,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -83,7 +83,7 @@ abstract class AbstractRequestProcessor implements Processor<HttpRequestBase, Re
 	 * 			if {@link #process(InvocationContext, HttpRequestBase)} failed for the {@link InvocationContext} 
 	 * 			and {@link HttpRequestBase}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public HttpRequestBase run(Object... args) {
@@ -121,7 +121,7 @@ abstract class AbstractRequestProcessor implements Processor<HttpRequestBase, Re
 	 * 			if the processor finds an {@link HttpRequestBase} <i>which it should act upon</i> and yet 
 	 * 			fails to perform the necessary processing 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	protected abstract HttpRequestBase process(InvocationContext context, HttpRequestBase request);
 }

@@ -36,7 +36,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -53,7 +53,7 @@ public abstract class AbstractDeserializer<OUTPUT> implements Deserializer<OUTPU
 	 * @param outputType
 	 * 			the {@link Class} type of the entity which is produced by this deserializer
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public AbstractDeserializer(Class<OUTPUT> outputType) {
 		

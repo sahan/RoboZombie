@@ -40,7 +40,7 @@ import com.lonepulse.robozombie.util.EntityResolutionFailedException;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -58,7 +58,7 @@ public abstract class AbstractSerializer<INPUT, OUTPUT> implements Serializer<IN
 	 * 			if the ouput type of this {@link Serializer} cannot be translated to an 
 	 * 			{@link HttpEntity} type specified on {@link Entities#resolve(Class)} 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public AbstractSerializer(Class<OUTPUT> outputType) {
 		
@@ -107,7 +107,7 @@ public abstract class AbstractSerializer<INPUT, OUTPUT> implements Serializer<IN
 	 * <br><br>
 	 * @return the serialized <i>output</i> which will be translated to an {@link HttpEntity}   
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	protected abstract OUTPUT serialize(InvocationContext context, INPUT input);
 }

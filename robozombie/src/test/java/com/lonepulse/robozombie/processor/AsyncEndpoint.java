@@ -37,7 +37,7 @@ import com.lonepulse.robozombie.response.AsyncHandler;
  * 
  * @version 1.2.0
  * <br><br> 
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br> 
  * @category test
  * <br><br> 
@@ -55,7 +55,7 @@ public interface AsyncEndpoint {
 	 * 
 	 * @return {@code null}, since the request is processed asynchronously
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/asyncsuccess")
 	String asyncSuccess(AsyncHandler<String> asyncHandler);
@@ -68,7 +68,7 @@ public interface AsyncEndpoint {
 	 * @param asyncHandler
 	 * 			the {@link AsyncHandler} which handles the results of the asynchronous request
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/asyncfailure")
 	void asyncFailure(AsyncHandler<String> asyncHandler);
@@ -93,7 +93,7 @@ public interface AsyncEndpoint {
 	 * <p>Sends a request asynchronously using @{@link Async} but does not expect the response to be 
 	 * handled using an {@link AsyncHandler}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/asyncnohandling")
 	void asyncNoHandling();
@@ -105,7 +105,7 @@ public interface AsyncEndpoint {
 	 * @param asyncHandler
 	 * 			the {@link AsyncHandler} which is expected to throw an exception in <i>onSuccess</i>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/successcallbackerror")
 	void asyncSuccessCallbackError(AsyncHandler<String> asyncHandler);
@@ -117,7 +117,7 @@ public interface AsyncEndpoint {
 	 * @param asyncHandler
 	 * 			the {@link AsyncHandler} which is expected to throw an exception in <i>onFailure</i>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/failurecallbackerror")
 	void asyncFailureCallbackError(AsyncHandler<String> asyncHandler);
@@ -129,7 +129,7 @@ public interface AsyncEndpoint {
 	 * @param asyncHandler
 	 * 			the {@link AsyncHandler} which is expected to throw an exception in <i>onError</i>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Deserialize(JSON)
 	@GET("/errorcallbackerror")
@@ -140,7 +140,7 @@ public interface AsyncEndpoint {
 	 * 
 	 * @return the response string which indicated a synchronous request
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Detach(Async.class) 
 	@GET("/asyncdetached")

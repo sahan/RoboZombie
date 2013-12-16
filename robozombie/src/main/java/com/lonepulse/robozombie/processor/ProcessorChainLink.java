@@ -30,7 +30,7 @@ import static com.lonepulse.robozombie.util.Assert.assertNotNull;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -60,7 +60,7 @@ public final class ProcessorChainLink<RESULT, FAILURE extends Throwable> {
 	 * 			if the given {@link Processor} is {@code null}; a {@link ProcessorChainLink} must always 
 	 * 			enclose a {@link Processor} which is invoked when the execution reaches this link in a chain
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static <RESULT, FAILURE extends Throwable> 
 	ProcessorChainLink<RESULT, FAILURE> from(Processor<RESULT, FAILURE> processor) {
@@ -84,7 +84,7 @@ public final class ProcessorChainLink<RESULT, FAILURE extends Throwable> {
 	 * <br><br>
 	 * @return the same {@link Processor} which was provided as the <b>successor</b> 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ProcessorChainLink<RESULT, FAILURE> setSuccessor(ProcessorChainLink<RESULT, FAILURE> successor) {
 		
@@ -100,7 +100,7 @@ public final class ProcessorChainLink<RESULT, FAILURE extends Throwable> {
 	 * 
 	 * @return the {@link ProcessorChainLink} designated as the <b>successor</b> to this link
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ProcessorChainLink<RESULT, FAILURE> getSuccessor() {
 		
@@ -113,7 +113,7 @@ public final class ProcessorChainLink<RESULT, FAILURE extends Throwable> {
 	 *
 	 * @return {@code true} if this is indeed the terminal link
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public boolean isTerminalLink() {
 		
@@ -125,7 +125,7 @@ public final class ProcessorChainLink<RESULT, FAILURE extends Throwable> {
 	 *
 	 * @return the {@link Processor} which is wrapped by this instance of {@link ProcessorChainLink}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Processor<RESULT, FAILURE> getProcessor() {
 		

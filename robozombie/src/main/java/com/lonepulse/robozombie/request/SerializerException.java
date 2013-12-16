@@ -26,7 +26,7 @@ package com.lonepulse.robozombie.request;
  * 
  * @version 1.1.1
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -39,14 +39,14 @@ class SerializerException extends RequestProcessorException {
 	/**
 	 * See {@link RequestProcessorException#RequestProcessorException()}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public SerializerException() {}
 
 	/**
 	 * See {@link RequestProcessorException#RequestProcessorException(String)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public SerializerException(String detailMessage) {
 		
@@ -56,7 +56,7 @@ class SerializerException extends RequestProcessorException {
 	/**
 	 * See {@link RequestProcessorException#RequestProcessorException(Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public SerializerException(Throwable throwable) {
 		
@@ -66,7 +66,7 @@ class SerializerException extends RequestProcessorException {
 	/**
 	 * See {@link RequestProcessorException#RequestProcessorException(String, Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public SerializerException(String detailMessage, Throwable throwable) {
 

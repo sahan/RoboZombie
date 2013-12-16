@@ -29,7 +29,7 @@ import com.lonepulse.robozombie.ValidationFailedException;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -49,25 +49,25 @@ class EndpointValidationFailedException extends ValidationFailedException {
 	 * @param rootCause
 	 * 			the root {@link Throwable} cause which caused the invalidation
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public EndpointValidationFailedException(Class<?> endpoint, Throwable rootCause) {
 		
-		this(new StringBuilder("Failed to validate endpoint ")
-			 .append( endpoint == null? "<null>" :endpoint.getName()).toString(), rootCause);
+		this(new StringBuilder("Failed to validate endpoint <")
+		 .append(endpoint.getName()).append(">").toString(), rootCause);
 	}
 	
 	/**
 	 * See {@link ValidationFailedException#ValidationFailedException()}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public EndpointValidationFailedException() {}
 
 	/**
 	 * See {@link ValidationFailedException#ValidationFailedException(String)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public EndpointValidationFailedException(String detailMessage) {
 		
@@ -77,7 +77,7 @@ class EndpointValidationFailedException extends ValidationFailedException {
 	/**
 	 * See {@link ValidationFailedException#ValidationFailedException(Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public EndpointValidationFailedException(Throwable throwable) {
 		
@@ -87,7 +87,7 @@ class EndpointValidationFailedException extends ValidationFailedException {
 	/**
 	 * See {@link ValidationFailedException#ValidationFailedException(String, Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public EndpointValidationFailedException(String detailMessage, Throwable throwable) {
 

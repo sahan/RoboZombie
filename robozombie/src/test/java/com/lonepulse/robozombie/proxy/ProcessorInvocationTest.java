@@ -36,7 +36,7 @@ import com.lonepulse.robozombie.processor.Processors;
  * 
  * @version 1.1.1
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category test
  * <br><br>
@@ -52,7 +52,7 @@ public class ProcessorInvocationTest {
 	/**
 	 * <p>Tests {@link Processors#REQUEST} invocation with an inadequate argument count.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testRequestArgumentType() {
@@ -64,7 +64,7 @@ public class ProcessorInvocationTest {
 	/**
 	 * <p>Tests {@link Processors#REQUEST} invocation with an illegal {@link InvocationContext} type.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testRequestArgumentContextType() {
@@ -76,7 +76,7 @@ public class ProcessorInvocationTest {
 	/**
 	 * <p>Tests {@link Processors#RESPONSE} invocation with an inadequate argument count.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testResponseArgumentCount() {
@@ -88,7 +88,7 @@ public class ProcessorInvocationTest {
 	/**
 	 * <p>Tests {@link Processors#RESPONSE} invocation with an illegal {@link InvocationContext} type.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testResponseArgumentContextType() {
@@ -101,7 +101,7 @@ public class ProcessorInvocationTest {
 	 * <p>Tests processor-chain construction using a {@link ProcessorChainFactory} by supplying a 
 	 * {@code null} {@link ProcessorChainLink} root.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test @SuppressWarnings("unchecked") //an intentional array of NULLs
 	public final void testProcessorChainFactoryRoot() {
@@ -114,7 +114,7 @@ public class ProcessorInvocationTest {
 	 * <p><p>Tests processor-chain construction using a {@link ProcessorChainFactory} by supplying 
 	 * a {@code null} {@link ProcessorChainLink} successor.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test @SuppressWarnings("unchecked") //an intentional array of NULLs
 	public final void testProcessorChainFactorySuccessor() throws ClassNotFoundException {

@@ -25,7 +25,7 @@ package com.lonepulse.robozombie.proxy;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -41,7 +41,7 @@ class MissingEndpointHostException extends EndpointValidationFailedException {
 	 * @param endpoint
 	 * 			the {@link Class} of the endpoint definition interface
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEndpointHostException(Class<?> endpoint) {
 		
@@ -52,14 +52,14 @@ class MissingEndpointHostException extends EndpointValidationFailedException {
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException()}.
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEndpointHostException() {}
 
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(String)}.
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEndpointHostException(String detailMessage) {
 		
@@ -69,7 +69,7 @@ class MissingEndpointHostException extends EndpointValidationFailedException {
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(Throwable)}.
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEndpointHostException(Throwable throwable) {
 		
@@ -79,7 +79,7 @@ class MissingEndpointHostException extends EndpointValidationFailedException {
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(String, Throwable)}.
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEndpointHostException(String detailMessage, Throwable throwable) {
 

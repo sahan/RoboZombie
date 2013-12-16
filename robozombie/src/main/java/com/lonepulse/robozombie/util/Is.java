@@ -38,7 +38,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category utility
  * <br><br>
@@ -58,7 +58,7 @@ public final class Is {
 	 * <br><br>
 	 * @return {@code true} if the {@link HttpResponse} signifies a successful request execution 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static boolean successful(HttpResponse response) {
 		
@@ -80,7 +80,7 @@ public final class Is {
 	 * <br><br>
 	 * @return {@code true} if the {@link HttpResponse}'s status matches <b>any</b> of the given codes
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static boolean status(HttpResponse response, int code, int... codes) {
 		
@@ -119,7 +119,7 @@ public final class Is {
 	 * <br><br>
 	 * @return {@code true} if the given {@link Annotation} type has been detached from the request
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static boolean detached(InvocationContext context, Class<? extends Annotation> type) {
 		
@@ -137,7 +137,7 @@ public final class Is {
 	 * <br><br>
 	 * @return {@code true} if the proxy invocation should be handled asynchronously
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static boolean async(InvocationContext context) {
 		

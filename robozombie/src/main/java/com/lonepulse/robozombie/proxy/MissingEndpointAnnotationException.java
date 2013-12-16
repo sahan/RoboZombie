@@ -28,7 +28,7 @@ import com.lonepulse.robozombie.annotation.Endpoint;
  * 
  * @version 1.1.1
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -47,25 +47,25 @@ class MissingEndpointAnnotationException extends EndpointValidationFailedExcepti
 	 * @param missingAnnotation
 	 * 			the required annotation which was not found on the endpoint definition
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEndpointAnnotationException(Class<?> endpoint, Class<?> missingAnnotation) {
 		
 		this(new StringBuilder("Missing annotation @").append(missingAnnotation.getName())
-			 .append( " on endpoint ").append(endpoint == null? "<null>" :endpoint.getName()).toString());
+			 .append( " on endpoint <").append(endpoint.getName()).append(">").toString());
 	}
 	
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException()}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEndpointAnnotationException() {}
 
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(String)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEndpointAnnotationException(String detailMessage) {
 		
@@ -75,7 +75,7 @@ class MissingEndpointAnnotationException extends EndpointValidationFailedExcepti
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEndpointAnnotationException(Throwable throwable) {
 		
@@ -85,7 +85,7 @@ class MissingEndpointAnnotationException extends EndpointValidationFailedExcepti
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(String, Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEndpointAnnotationException(String detailMessage, Throwable throwable) {
 

@@ -39,7 +39,7 @@ import com.lonepulse.robozombie.util.Metadata;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -74,7 +74,7 @@ final class HeaderProcessor extends AbstractRequestProcessor {
 	 * @throws RequestProcessorException
 	 * 			if the request-header discovery or population failed due to an unrecoverable error
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	protected HttpRequestBase process(InvocationContext context, HttpRequestBase request) {

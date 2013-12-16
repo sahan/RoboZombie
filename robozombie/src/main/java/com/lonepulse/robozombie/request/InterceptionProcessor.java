@@ -48,7 +48,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -76,7 +76,7 @@ class InterceptionProcessor extends AbstractRequestProcessor {
 	 * @throws RequestProcessorException
 	 * 			if any of the {@link Interceptor}s failed to process the {@link HttpRequestBase}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	protected HttpRequestBase process(InvocationContext context, HttpRequestBase request) {

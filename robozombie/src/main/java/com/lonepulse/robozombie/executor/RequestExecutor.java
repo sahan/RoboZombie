@@ -50,9 +50,6 @@ public interface RequestExecutor {
 	 * <br><br>
 	 * @return the {@link HttpResponse} which result from successful execution of the request 
 	 * <br><br>
-	 * @throws RequestExecutionException
-	 * 			if the request failed to be executed successfully using the configured {@link HttpClient}
-	 * <br><br>
 	 * @since 1.1.0
 	 */
 	HttpResponse execute(InvocationContext context, HttpRequestBase request);

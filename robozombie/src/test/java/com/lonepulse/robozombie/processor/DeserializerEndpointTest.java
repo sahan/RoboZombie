@@ -56,7 +56,7 @@ import com.lonepulse.robozombie.response.Deserializers;
  * 
  * @version 1.1.1
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category test
  * <br><br>
@@ -85,7 +85,7 @@ public class DeserializerEndpointTest {
 	/**
 	 * <p>Test for {@link DeserializerEndpoint#responseError()}.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test 
 	public final void testResponseError() {
@@ -110,7 +110,7 @@ public class DeserializerEndpointTest {
 	/**
 	 * <p>Test for {@link Deserializers#JSON}.
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testParseJson() {
@@ -143,7 +143,7 @@ public class DeserializerEndpointTest {
 	 * @throws Exception
 	 * 			if the test terminated with an error
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testParseXml() throws Exception {
@@ -176,7 +176,7 @@ public class DeserializerEndpointTest {
 	/**
 	 * <p>Test for {@link DeserializerEndpoint#plain()}.
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test  
 	public final void testPlain() {
@@ -198,7 +198,7 @@ public class DeserializerEndpointTest {
 	/**
 	 * <p>Test for custom {@link AbstractDeserializer}s.
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testParseCustom() {
@@ -228,7 +228,7 @@ public class DeserializerEndpointTest {
 	/**
 	 * <p>Test for detachment of the inherited deserializer.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test  
 	public final void testDetachDeserializer() {
@@ -261,7 +261,7 @@ public class DeserializerEndpointTest {
 	/**
 	 * <p>Test for a custom deserializer that cannot be instantiated.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test 
 	public final void testUninstantiableDeserializer() {
@@ -284,7 +284,7 @@ public class DeserializerEndpointTest {
 	/**
 	 * <p>Test for a custom serializer that cannot be instantiated.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test 
 	public final void testIllegalDeserializer() {

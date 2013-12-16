@@ -73,7 +73,7 @@ public @interface Deserialize {
 	 * 
 	 * @return the {@link ContentType} which identifies an out-of-the-box deserializer
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	ContentType value() default ContentType.UNDEFINED;
 	

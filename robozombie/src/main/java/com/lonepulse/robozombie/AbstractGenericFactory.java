@@ -29,7 +29,7 @@ import java.util.Map;
  *  
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -42,7 +42,7 @@ implements GenericFactory <INPUT, OUTPUT, FAILURE> {
 	 * 
 	 * <p>See {@link GenericFactory#newInstance()}</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public OUTPUT newInstance() throws FAILURE {
@@ -59,7 +59,7 @@ implements GenericFactory <INPUT, OUTPUT, FAILURE> {
 	 * 
 	 * <p>See {@link GenericFactory#newInstance(Map)}</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public OUTPUT newInstance(Map<String, INPUT> inputMap) throws FAILURE {
@@ -76,7 +76,7 @@ implements GenericFactory <INPUT, OUTPUT, FAILURE> {
 	 * 
 	 * <p>See {@link GenericFactory#newInstance(Object, Object...)}</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public OUTPUT newInstance(INPUT input, INPUT... inputs) throws FAILURE {

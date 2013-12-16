@@ -58,7 +58,7 @@ import com.lonepulse.robozombie.request.Serializers;
  * 
  * @version 1.1.1
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category test
  * <br><br>
@@ -87,7 +87,7 @@ public class SerializerEndpointTest {
 	/**
 	 * <p>Test for {@link Serializers#JSON}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testSerializeJson() throws ParseException, IOException {
@@ -111,7 +111,7 @@ public class SerializerEndpointTest {
 	/**
 	 * <p>Test for {@link Serializers#XML}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testSerializeXml() throws Exception {
@@ -138,7 +138,7 @@ public class SerializerEndpointTest {
 	/**
 	 * <p>Test for {@link Serializers#PLAIN}.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test  
 	public final void testPlain() {
@@ -162,7 +162,7 @@ public class SerializerEndpointTest {
 	/**
 	 * <p>Test for custom {@link AbstractSerializer}s.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testSerializeCustom() {
@@ -187,7 +187,7 @@ public class SerializerEndpointTest {
 	/**
 	 * <p>Test for detachment of the inherited serializer.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test  
 	public final void testDetachSerializer() throws ParseException, IOException {
@@ -211,7 +211,7 @@ public class SerializerEndpointTest {
 	/**
 	 * <p>Test for a custom serializer that cannot be instantiated.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testUninstantiableSerializer() {
@@ -232,7 +232,7 @@ public class SerializerEndpointTest {
 	/**
 	 * <p>Test for a custom serializer that cannot be instantiated.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test 
 	public final void testIllegalSerializer() {

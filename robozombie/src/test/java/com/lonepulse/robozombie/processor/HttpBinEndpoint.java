@@ -31,7 +31,7 @@ import com.lonepulse.robozombie.annotation.PATCH;
  * 
  * @version 1.1.0
  * <br><br> 
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br> 
  * @category test
  * <br><br> 
@@ -49,7 +49,7 @@ public interface HttpBinEndpoint {
 	 * 
 	 * @return the textual content of the {@link HttpResponse} body
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PATCH("/patch")
 	public String patchRequest(@Entity String user);

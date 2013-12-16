@@ -32,7 +32,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -48,13 +48,13 @@ class MissingEntityException extends RequestProcessorException {
 	 * @param context
 	 * 			the {@link InvocationContext} for which an @{@link Entity} failed to be discovered
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEntityException(InvocationContext context) {
 	
 		this(new StringBuilder("An entity annotated with @").append(Entity.class.getSimpleName()) 
-			 .append(" was not found on the request named [").append(context.getRequest().getName())
-			 .append("]").toString());
+			 .append(" was not found on the request <").append(context.getRequest().getName())
+			 .append(">").toString());
 	}
 	
 	/**
@@ -66,26 +66,26 @@ class MissingEntityException extends RequestProcessorException {
 	 * @param rootCause
 	 * 			the root cause which resulted in a failure to discover an entity
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEntityException(InvocationContext context, Throwable rootCause) {
 		
 		this(new StringBuilder("An entity annotated with @").append(Entity.class.getSimpleName()) 
-			 .append(" was not found on the request named [").append(context.getRequest().getName())
-			 .append("]").toString(), rootCause);
+			 .append(" was not found on the request <").append(context.getRequest().getName())
+			 .append(">").toString(), rootCause);
 	}
 	
 	/**
 	 * See {@link RequestProcessorException#RequestProcessorException()}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEntityException() {}
 
 	/**
 	 * See {@link RequestProcessorException#RequestProcessorException(String)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEntityException(String detailMessage) {
 		
@@ -95,7 +95,7 @@ class MissingEntityException extends RequestProcessorException {
 	/**
 	 * See {@link RequestProcessorException#RequestProcessorException(Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEntityException(Throwable throwable) {
 		
@@ -105,7 +105,7 @@ class MissingEntityException extends RequestProcessorException {
 	/**
 	 * See {@link RequestProcessorException#RequestProcessorException(String, Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MissingEntityException(String detailMessage, Throwable throwable) {
 

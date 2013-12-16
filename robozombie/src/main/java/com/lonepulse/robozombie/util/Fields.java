@@ -42,7 +42,7 @@ import java.util.Set;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -58,7 +58,7 @@ public final class Fields implements Iterable<Field> {
 	 * 
 	 * @version 1.1.0
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 * <br><br>
 	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
@@ -97,7 +97,7 @@ public final class Fields implements Iterable<Field> {
 	 * <br><br>
 	 * @return a new instance of {@link Fields} for the {@link Field}s on the given object
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static Fields in(Object target) {
 		
@@ -115,7 +115,7 @@ public final class Fields implements Iterable<Field> {
 	 * <br><br>
 	 * @return a new instance of {@link Fields} for the {@link Field}s on the given {@link Class}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static Fields in(Class<? extends Object> target) {
 		
@@ -143,7 +143,7 @@ public final class Fields implements Iterable<Field> {
 	 * <br><br>
 	 * @return a <b>new instance</b> of {@link Fields} which wraps the filtered {@link Field}s
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Fields annotatedWith(final Class<? extends Annotation> annotation) {
 		
@@ -168,7 +168,7 @@ public final class Fields implements Iterable<Field> {
 	 * <br><br>
 	 * @return a <b>new instance</b> of {@link Fields} which wraps the filtered {@link Field}s
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Fields annotatedWithAll(final Class<? extends Annotation>... annotations) {
 		
@@ -204,7 +204,7 @@ public final class Fields implements Iterable<Field> {
 	 * <br><br>
 	 * @return a <b>new instance</b> of {@link Fields} which wraps the filtered {@link Field}s
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Fields annotatedWithAny(final Class<? extends Annotation>... annotations) {
 		
@@ -237,7 +237,7 @@ public final class Fields implements Iterable<Field> {
 	 * <br><br>
 	 * @return a <b>new instance</b> of {@link Fields} which wraps the filtered {@link Field}s
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Fields named(final String fieldName) {
 		
@@ -262,7 +262,7 @@ public final class Fields implements Iterable<Field> {
 	 * <br><br>
 	 * @return a <b>new instance</b> of {@link Fields} which wraps the filtered {@link Field}s
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Fields strictlyNamed(final String fieldName) {
 		
@@ -287,7 +287,7 @@ public final class Fields implements Iterable<Field> {
 	 * <br><br>
 	 * @return a <b>new instance</b> of {@link Fields} which wraps the filtered {@link Field}s
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Fields ofType(final Class<?> type) {
 		
@@ -312,7 +312,7 @@ public final class Fields implements Iterable<Field> {
 	 * <br><br>
 	 * @return a <b>new instance</b> of {@link Fields} which wraps the filtered {@link Field}s
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Fields strictlyOfType(final Class<?> type) {
 		
@@ -350,7 +350,7 @@ public final class Fields implements Iterable<Field> {
 	 * @return a new instance of {@link Fields} which wraps only the only those {@link Field}s which 
 	 * 		   are unique to this instance
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Fields difference(Fields fields) {
 		
@@ -385,7 +385,7 @@ public final class Fields implements Iterable<Field> {
 	 * @return a new instance of {@link Fields} which wraps all the unique {@link Field}s in this 
 	 * 		   instance and the given instance
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Fields union(Fields fields) {
 		
@@ -419,7 +419,7 @@ public final class Fields implements Iterable<Field> {
 	 * @return a new instance of {@link Fields} which wraps only the only those {@link Field}s which 
 	 * 		   are common between this instance and the passed instance
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Fields intersection(Fields fields) {
 		
@@ -440,7 +440,7 @@ public final class Fields implements Iterable<Field> {
 	 * <br><br>
 	 * @return a <b>new instance</b> of {@link Fields} which wraps the filtered {@link Field}s
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Fields matching(Criterion criterion) {
 		
@@ -457,7 +457,7 @@ public final class Fields implements Iterable<Field> {
 	 *
 	 * @return the iterator which allows the enclosed {@link Field}s to traversed sequentially
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public Iterator<Field> iterator() {

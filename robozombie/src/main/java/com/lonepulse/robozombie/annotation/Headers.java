@@ -56,7 +56,7 @@ public @interface Headers {
 	 * 
 	 * @version 1.1.1
 	 * <br><br>
-	 * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
 	public static @interface Header {
 		

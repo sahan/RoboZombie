@@ -32,7 +32,7 @@ import com.lonepulse.robozombie.annotation.Stateful;
  * 
  * @version 1.1.1
  * <br><br> 
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br> 
  * @category test
  * <br><br> 
@@ -50,7 +50,7 @@ public interface StateEndpoint {
 	 * 
 	 * @return the textual content of the {@link HttpResponse} body
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/stateful")
 	public String stateful(@Header("Set-Cookie") StringBuilder cookieHeader);

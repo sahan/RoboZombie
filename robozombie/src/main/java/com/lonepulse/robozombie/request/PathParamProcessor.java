@@ -48,7 +48,7 @@ import com.lonepulse.robozombie.util.Metadata;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -72,7 +72,7 @@ class PathParamProcessor extends AbstractRequestProcessor {
 	 * @throws RequestProcessorException
 	 * 			if an unrecoverable error occurred when recreating the URI using path parameters
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	protected HttpRequestBase process(InvocationContext context, HttpRequestBase request) {

@@ -37,7 +37,7 @@ import com.lonepulse.robozombie.proxy.MockEndpoint;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category test
  * <br><br>
@@ -61,7 +61,7 @@ public class ConfigurationManagerTest {
 	/**
 	 * <p>Test for endpoints that do not use a custom configured {@link HttpClient}.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testDefaultClient() {
@@ -73,7 +73,7 @@ public class ConfigurationManagerTest {
 	/**
 	 * <p>Test for endpoints that uses a custom {@link HttpClient}.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testCustomClient() {

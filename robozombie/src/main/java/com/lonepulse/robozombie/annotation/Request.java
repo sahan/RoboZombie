@@ -35,10 +35,9 @@ import org.apache.http.client.methods.HttpTrace;
 import org.apache.http42.client.methods.HttpPatch;
 
 /**
- * <p>This annotation is used to mark a method which initiates an HTTP request. It can be used 
- * as a meta-annotation to identify the HTTP method for custom annotations along the lines of 
- * <code>@GET</code> or <code>@PUT</code>. For such custom annotations, be sure to include the 
- * property {@code String value() default "";} for accepting the request path.</p>
+ * <p>This annotation is used to identify a method which initiates an HTTP request. It's also used 
+ * as a meta-annotation to identify the HTTP method when using the likes of <code>@GET</code> or 
+ * <code>@PUT</code>.</p>
  * <br>
  * <br>
  * <b>Usage:</b>
@@ -70,7 +69,7 @@ public @interface Request {
 	 * 
 	 * @version 1.1.0
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 * <br><br>
 	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
@@ -79,56 +78,56 @@ public @interface Request {
 		/**
 		 * <p>Identifies an {@link HttpGet} request.</p>
 		 * 
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		GET,
 		
 		/**
 		 * <p>Identifies an {@link HttpPost} request.</p>
 		 * 
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		POST,
 		
 		/**
 		 * <p>Identifies an {@link HttpPut} request.</p>
 		 * 
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		PUT,
 		
 		/**
 		 * <p>Identifies an {@link HttpPatch} request.</p>
 		 * 
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		PATCH,
 		
 		/**
 		 * <p>Identifies an {@link HttpDelete} request.</p>
 		 * 
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		DELETE,
 		
 		/**
 		 * <p>Identifies an {@link HttpHead} request.</p>
 		 * 
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		HEAD,
 		
 		/**
 		 * <p>Identifies an {@link HttpTrace} request.</p>
 		 * 
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		TRACE,
 		
 		/**
 		 * <p>Identifies an {@link HttpOptions} request.</p>
 		 * 
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		OPTIONS;
 	}
@@ -146,7 +145,7 @@ public @interface Request {
 	
 	/**
 	 * <p>A sub-path which which continues from the root hierarchy of the URI. If no sub path is given, 
-	 * the resource is assumed to be found at the root path given on the endpoint.</p>    
+	 * the resource is assumed to be found at the root path given on the endpoint.</p> 
 	 * 
 	 * @return the sub-path on which the resource is located 
 	 * <br><br>

@@ -51,7 +51,7 @@ import com.lonepulse.robozombie.proxy.Zombie;
  * 
  * @version 1.1.1
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category test
  * <br><br>
@@ -80,7 +80,7 @@ public class PathEndpointTest {
 	/**
 	 * <p>Test for a {@link Request} with a subpath.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testSubpath() {
@@ -101,7 +101,7 @@ public class PathEndpointTest {
 	/**
 	 * <p>Test for a RESTful {@link Request} with a subpath having {@link PathParam}s.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testRestfulSubpathWithParams() {
@@ -123,7 +123,7 @@ public class PathEndpointTest {
 	/**
 	 * <p>Test for {@link PathEndpoint#restfulSubpathWithIllegalParamType(Long)}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testRestfulSubpathWithIllegalParamType() {

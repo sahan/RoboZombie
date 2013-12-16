@@ -35,7 +35,7 @@ import com.lonepulse.robozombie.Validator;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -63,7 +63,7 @@ public final class Assert {
 	 * @throws ClassCastException
 	 * 			if the supplied argument does not conform to the specified type
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static <T extends Object> T assertAssignable(Object arg, Class<T> type) {
 		
@@ -94,7 +94,7 @@ public final class Assert {
 	 * @throws NullPointerException
 	 * 			if the supplied argument was found to be {@code null}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static <T extends Object> T assertNotNull(T arg) {
 		
@@ -121,7 +121,7 @@ public final class Assert {
 	 * @throws NullPointerException
 	 * 			if the supplied argument was found to be {@code null}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static <T extends Object> T assertNotNull(T arg, String message) {
 		
@@ -149,7 +149,7 @@ public final class Assert {
 	 * @throws NullPointerException
 	 * 			if the supplied argument was found to be {@code null}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static <T extends Object> T assertNotNull(T arg, Class<T> type) {
 		
@@ -184,7 +184,7 @@ public final class Assert {
 	 * @throws IllegalArgumentException
 	 * 			if the supplied argument was found to be {@code empty}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static <T extends Object> T assertNotEmpty(T arg) {
 		
@@ -238,7 +238,7 @@ public final class Assert {
 	 * @throws IllegalArgumentException
 	 * 			if the supplied argument did not contain the required number of arguments
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static <T extends Object> T assertLength(T arg, long length, long... optional) {
 		
@@ -290,7 +290,7 @@ public final class Assert {
 	 * <br><br>
 	 * @return the given context which was asserted to be valid
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static <T> T assertValid(T context, Validator<T> validator) {
 	

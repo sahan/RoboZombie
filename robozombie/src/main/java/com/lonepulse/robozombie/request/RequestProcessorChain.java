@@ -61,7 +61,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -82,7 +82,7 @@ public final class RequestProcessorChain extends AbstractProcessorChain<HttpRequ
 	 *  <li>{@link InterceptionProcessor} - runs hooks for custom request processing just before execution</li>
 	 * <ol>
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@SuppressWarnings("unchecked") //safe generic array of Processor<Void, RequestProcessorException> for varargs (see http://tinyurl.com/coc4om)
 	public RequestProcessorChain() {

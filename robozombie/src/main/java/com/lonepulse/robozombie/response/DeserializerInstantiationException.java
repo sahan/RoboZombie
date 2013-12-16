@@ -26,7 +26,7 @@ package com.lonepulse.robozombie.response;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -43,7 +43,7 @@ class DeserializerInstantiationException extends DeserializerException {
 	 * @param deserializerType
 	 * 			the {@link Class} of the deserializer which failed to be instantiated
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public DeserializerInstantiationException(Class<? extends Deserializer<?>> deserializerType) {
 		
@@ -62,7 +62,7 @@ class DeserializerInstantiationException extends DeserializerException {
 	 * @param rootCause
 	 * 			the root {@link Throwable} cause which led to instantiation failure
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public DeserializerInstantiationException(Class<? extends Deserializer<?>> deserializerType, Throwable rootCause) {
 		

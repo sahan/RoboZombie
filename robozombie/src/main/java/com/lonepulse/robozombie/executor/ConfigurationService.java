@@ -43,7 +43,7 @@ import com.lonepulse.robozombie.proxy.Zombie.Configuration;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -78,7 +78,7 @@ final class ConfigurationService implements ConfigurationManager {
 	 * </ul>
 	 * @return the instance of {@link HttpClient} which will be used for request execution
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public Configuration getDefault() {

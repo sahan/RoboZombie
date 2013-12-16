@@ -32,7 +32,7 @@ import com.lonepulse.robozombie.model.User;
  * 
  * @version 1.1.0
  * <br><br> 
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br> 
  * @category test
  * <br><br> 
@@ -44,7 +44,7 @@ public interface ResponseEndpoint {
 	/**
 	 * <p>A mock request which receives a response with a failure code.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/failure")
 	public String failure();
@@ -52,7 +52,7 @@ public interface ResponseEndpoint {
 	/**
 	 * <p>A mock request which receives a 204 response code.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/nocontent")
 	public String noContent();
@@ -60,7 +60,7 @@ public interface ResponseEndpoint {
 	/**
 	 * <p>A mock request which receives a 205 response code.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/resetcontent")
 	public String resetContent();
@@ -68,7 +68,7 @@ public interface ResponseEndpoint {
 	/**
 	 * <p>A mock request expects the raw {@link HttpResponse}.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/rawresponse")
 	public HttpResponse rawResponse();
@@ -76,7 +76,7 @@ public interface ResponseEndpoint {
 	/**
 	 * <p>A mock request expects the raw {@link HttpEntity}.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/rawentity")
 	public HttpEntity rawEntity();
@@ -84,7 +84,7 @@ public interface ResponseEndpoint {
 	/**
 	 * <p>A mock request without an attached serializer.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/nodeserializer")
 	public User noDeserializer();

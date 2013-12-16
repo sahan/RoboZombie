@@ -30,7 +30,7 @@ import com.lonepulse.robozombie.proxy.InvocationException;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -42,7 +42,7 @@ public final class BasicExecutionHandler implements ExecutionHandler {
 	 * 
 	 * <p>See {@link ExecutionHandler#onSuccess(InvocationContext, HttpResponse)}</p>
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public void onSuccess(InvocationContext context, HttpResponse response) {}
@@ -58,7 +58,7 @@ public final class BasicExecutionHandler implements ExecutionHandler {
 	 * @param response
 	 * 			the resulting {@link HttpResponse} with a failed status code
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public void onFailure(InvocationContext context, HttpResponse response) {
@@ -77,7 +77,7 @@ public final class BasicExecutionHandler implements ExecutionHandler {
 	 * @param error
 	 * 			the root {@link Exception} which resulted in a request execution error 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public void onError(InvocationContext context, Exception error) {

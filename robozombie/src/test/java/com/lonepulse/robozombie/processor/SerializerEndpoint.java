@@ -40,7 +40,7 @@ import com.lonepulse.robozombie.request.AbstractSerializer;
  * 
  * @version 1.1.0
  * <br><br> 
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br> 
  * @category test
  * <br><br> 
@@ -57,7 +57,7 @@ public interface SerializerEndpoint {
 	 * @param user
 	 * 			the {@link User} model to be serialized to a JSON string
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/json")
 	void serializeJson(@Entity User user);
@@ -68,7 +68,7 @@ public interface SerializerEndpoint {
 	 * @param user
 	 * 			the {@link User} model to be serialized to an XML string
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/xml") @Serialize(XML)
 	void serializeXml(@Entity User user);
@@ -80,7 +80,7 @@ public interface SerializerEndpoint {
 	 * @param user
 	 * 			the {@link User} model to be serialized to a simple string
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/plain") @Serialize(PLAIN)
 	void plainString(@Entity User user);
@@ -109,7 +109,7 @@ public interface SerializerEndpoint {
 	 * @param user
 	 * 			the model which should be serialized using a custom serializer
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/custom") @Serialize(type = Redactor.class) 
 	void serializeCustom(@Entity User user);
@@ -120,7 +120,7 @@ public interface SerializerEndpoint {
 	 * @param user
 	 * 			the model which should not be processed by a serializer
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/detach") @Detach(Serialize.class)
 	void detachSerializer(@Entity User user);
@@ -146,7 +146,7 @@ public interface SerializerEndpoint {
 	 * @param user
 	 * 			the model which should be serialized using a custom serializer
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/uninstantiableserializer") 
 	@Serialize(type = UninstantiableSerializer.class)
@@ -173,7 +173,7 @@ public interface SerializerEndpoint {
 	 * @param user
 	 * 			the model which should be serialized using a custom serializer
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/illegalSerializerserializer") 
 	@Serialize(type = IllegalSerializer.class)

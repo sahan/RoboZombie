@@ -32,7 +32,7 @@ import com.lonepulse.robozombie.annotation.Endpoint;
  * 
  * @version 1.1.1
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category test
  * <br><br>
@@ -62,7 +62,7 @@ public class EndpointValidationTest {
 	/**
 	 * <p>Tests endpoint validation for a missing @{@link Endpoint} annotation.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test @SuppressWarnings("unchecked") //safe case to Class<Throwable> from a known exception
 	public final void testMissingEndpointAnnotation() throws ClassNotFoundException {
@@ -76,7 +76,7 @@ public class EndpointValidationTest {
 	/**
 	 * <p>Tests endpoint validation for a missing host in an @{@link Endpoint} annotation.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test @SuppressWarnings("unchecked") //safe case to Class<Throwable> from a known exception
 	public final void testMissingEndpointHost() throws ClassNotFoundException {
@@ -90,7 +90,7 @@ public class EndpointValidationTest {
 	/**
 	 * <p>Tests endpoint validation for missing request metadata on methods.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test @SuppressWarnings("unchecked") //safe case to Class<Throwable> from a known exception
 	public final void testStrayRequest() throws ClassNotFoundException {

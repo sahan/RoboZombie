@@ -28,11 +28,11 @@ import com.lonepulse.robozombie.annotation.Request;
 
 /**
  * <p>This runtime exception is thrown when a {@link Deserializer} to be used for a particular 
- * {@link Endpoint} or {@link Request} has not been declared using @{@link Deserializer}.
+ * {@link Endpoint} or {@link Request} has not been declared using @{@link Deserialize}.</p>
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -51,19 +51,20 @@ class DeserializerUndefinedException extends ResponseProcessorException {
 	 * @param method
 	 * 			the {@link Method} which defines the invoked request
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public DeserializerUndefinedException(Class<?> endpoint, Method method) {
 		
-		this(new StringBuilder("Deserialization failed for request ").append(method.getName())
-			 .append(" on endpoint ").append(endpoint.getName()).append(": a ").append(Deserializer.class.getName())
-			 .append(" has not been defined via the @").append(Deserialize.class.getName()).append(" annotation.").toString());
+		this(new StringBuilder("Deserialization failed for request <").append(method.getName())
+			 .append("> on endpoint <").append(endpoint.getName()).append(">: a deserializer")
+			 .append(" has not been attached via the @").append(Deserialize.class.getSimpleName())
+			 .append(" annotation.").toString());
 	}
 
 	/**
 	 * <p>See {@link ResponseProcessorException#ResponseProcessorException(String)}.</p>
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public DeserializerUndefinedException(String detailMessage) {
 		
@@ -73,7 +74,7 @@ class DeserializerUndefinedException extends ResponseProcessorException {
 	/**
 	 * <p>See {@link ResponseProcessorException#ResponseProcessorException(Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public DeserializerUndefinedException(Throwable throwable) {
 		
@@ -83,7 +84,7 @@ class DeserializerUndefinedException extends ResponseProcessorException {
 	/**
 	 * <p>See {@link ResponseProcessorException#ResponseProcessorException(String, Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public DeserializerUndefinedException(String detailMessage, Throwable throwable) {
 

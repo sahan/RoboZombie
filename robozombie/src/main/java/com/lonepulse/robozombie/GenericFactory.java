@@ -34,7 +34,7 @@ import java.util.Map;
  * 
  * @version 1.2.0
  * <br><br>
- * @version 1.2.4
+ * @version 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -49,7 +49,7 @@ public interface GenericFactory<INPUT extends Object, OUTPUT extends Object, FAI
 	 * <br><br>
 	 * @throws the type of <b>FAILURE</b> to expect from a manufacturing error 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	OUTPUT newInstance() throws FAILURE;
 	
@@ -65,7 +65,7 @@ public interface GenericFactory<INPUT extends Object, OUTPUT extends Object, FAI
 	 * <br><br>
 	 * @throws the type of <b>FAILURE</b> to expect from a manufacturing error
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	OUTPUT newInstance(Map<String, INPUT> inputMap) throws FAILURE;
 	
@@ -87,7 +87,7 @@ public interface GenericFactory<INPUT extends Object, OUTPUT extends Object, FAI
 	 * <br><br>
 	 * @throws the type of <b>FAILURE</b> to expect from a manufacturing error
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	OUTPUT newInstance(INPUT input, INPUT... inputs) throws FAILURE;
 }

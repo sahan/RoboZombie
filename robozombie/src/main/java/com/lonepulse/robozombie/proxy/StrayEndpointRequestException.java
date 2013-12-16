@@ -31,7 +31,7 @@ import com.lonepulse.robozombie.annotation.Request;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -59,26 +59,27 @@ class StrayEndpointRequestException extends EndpointValidationFailedException {
 	 * @param strayRequests
 	 * 			the list of request {@link Method} definitions with missing metadata
 	 * <br><br> 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public StrayEndpointRequestException(List<Method> strayRequests) {
 		
-		this(new StringBuilder("All endpoint request definitions require an @")
-			 .append(Request.class.getName()).append(" annotation. Please add @Request on the request method(s)")
-			 .append(StrayEndpointRequestException.concatenate(strayRequests)).append(".").toString());
+		this(new StringBuilder("All endpoint request definitions require an annotation which identifies the")
+		     .append(" HTTP method; namely @GET, @POST, @PUT, @PATCH, @DELETE, @HEAD, @TRACE or @OPTIONS. ")
+		     .append("Add such an annotation to the request method(s)")
+		     .append(StrayEndpointRequestException.concatenate(strayRequests)).append(".").toString());
 	}
 	
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException()}.
 	 * <br><br> 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public StrayEndpointRequestException() {}
 
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(String)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public StrayEndpointRequestException(String detailMessage) {
 		
@@ -88,7 +89,7 @@ class StrayEndpointRequestException extends EndpointValidationFailedException {
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public StrayEndpointRequestException(Throwable throwable) {
 		
@@ -98,7 +99,7 @@ class StrayEndpointRequestException extends EndpointValidationFailedException {
 	/**
 	 * See {@link EndpointValidationFailedException#EndpointValidationFailedException(String, Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public StrayEndpointRequestException(String detailMessage, Throwable rootCause) {
 

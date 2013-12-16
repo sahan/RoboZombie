@@ -31,7 +31,7 @@ import com.lonepulse.robozombie.util.EntityResolutionFailedException;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -48,7 +48,7 @@ class SerializerInstantiationException extends SerializerException {
 	 * @param serializerType
 	 * 			the {@link Class} of the {@link Serializer} which failed to be instantiated
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public SerializerInstantiationException(Class<? extends Serializer<?,?>> serializerType) {
 		
@@ -70,13 +70,13 @@ class SerializerInstantiationException extends SerializerException {
 	 * 			the {@link EntityResolutionFailedException} which served as the root cause 
 	 * 			for {@link Serializer} instantiation failure
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public <INPUT, OUTPUT> SerializerInstantiationException(
 		@SuppressWarnings("rawtypes") Class<? extends Serializer> serializerType, EntityResolutionFailedException erfe) {
 		
 		super(new StringBuilder("Serializers of type ").append(serializerType.getName())
-			  .append(" produce an [output] which cannot be translated to an ")
+			  .append(" produce an output which cannot be translated to an ")
 			  .append(HttpEntity.class.getName())
 			  .append(". \nPlease verify that the output type complies with those specified on ")
 			  .append(Entities.class.getName()).append("#resolve(Class<?>) or at the very least ")
@@ -93,7 +93,7 @@ class SerializerInstantiationException extends SerializerException {
 	 * @param rootCause
 	 * 			the root {@link Throwable} cause which led to instantiation failure
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public SerializerInstantiationException(
 		Class<? extends Serializer<?,?>> serializerType, Throwable rootCause) {

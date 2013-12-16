@@ -32,7 +32,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -51,7 +51,7 @@ interface ExecutionHandler {
 	 * @param response
 	 * 			the resulting {@link HttpResponse} with a successful status code
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	void onSuccess(InvocationContext context, HttpResponse response);
 	
@@ -65,7 +65,7 @@ interface ExecutionHandler {
 	 * @param response
 	 * 			the resulting {@link HttpResponse} with a failed status code
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	void onFailure(InvocationContext context, HttpResponse response);
 	
@@ -81,7 +81,7 @@ interface ExecutionHandler {
 	 * @param error
 	 * 			the exception which resulted in a request execution failure 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	void onError(InvocationContext context, Exception error);
 }

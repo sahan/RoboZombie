@@ -55,7 +55,7 @@ import com.lonepulse.robozombie.util.Metadata;
  * 
  * @version 1.3.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -86,7 +86,7 @@ class FormParamProcessor extends AbstractRequestProcessor {
 	 * @throws RequestProcessorException
 	 * 			if a form parameters failed to be created and inserted into the request body
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	protected HttpRequestBase process(InvocationContext context, HttpRequestBase request) {

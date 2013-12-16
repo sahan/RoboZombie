@@ -39,7 +39,7 @@ import com.lonepulse.robozombie.RoboZombieRuntimeException;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -50,7 +50,7 @@ enum HttpContextDirectory implements Directory<Class<?>, HttpContext> {
 	 * <p>The {@link HttpContextDirectory} which caches the {@link HttpContext}s which can be bound 
 	 * and looked up using their endpoints.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	INSTANCE;
 
@@ -93,7 +93,7 @@ enum HttpContextDirectory implements Directory<Class<?>, HttpContext> {
 	 * <br><br>
 	 * @return the {@link HttpContext} which was bound under the specified endpoint definition 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public synchronized HttpContext bind(Class<?> endpoint, HttpContext httpContext) {
@@ -117,7 +117,7 @@ enum HttpContextDirectory implements Directory<Class<?>, HttpContext> {
 	 * <br><br>
 	 * @return the bound {@link HttpContext} or a new {@link HttpContext} if no instance was bound
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public synchronized HttpContext lookup(Class<?> endpoint) {

@@ -32,7 +32,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -41,21 +41,21 @@ public enum Serializers implements Serializer<Object, Object> {
 	/**
 	 * See {@link PlainSerializer}.
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	PLAIN(new PlainSerializer()),
 	
 	/**
 	 * See {@link JsonSerializer}.
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	JSON(new JsonSerializer()),
 	
 	/**
 	 * See {@link XmlSerializer}.
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	XML(new XmlSerializer());
 	
@@ -88,7 +88,7 @@ public enum Serializers implements Serializer<Object, Object> {
 	 * <br><br>
 	 * @return the implementation of {@link AbstractSerializer} which serves the given {@link ContentType}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static final AbstractSerializer<?,?> resolve(ContentType contentType) {
 		
@@ -116,7 +116,7 @@ public enum Serializers implements Serializer<Object, Object> {
 	 * @throws SerializerInstantiationException
 	 * 			if a custom serializer failed to be instantiated using its <b>default constructor</b> 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static final AbstractSerializer<?,?> resolve(Class<? extends AbstractSerializer<?,?>> serializerType) {
 		

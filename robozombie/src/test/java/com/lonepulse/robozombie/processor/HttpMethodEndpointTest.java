@@ -64,7 +64,7 @@ import com.lonepulse.robozombie.proxy.Zombie;
  * 
  * @version 1.1.1
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category test
  * <br><br>
@@ -93,7 +93,7 @@ public class HttpMethodEndpointTest {
 	/**
 	 * <p>Test for the request method GET.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testGetMethod() {
@@ -120,7 +120,7 @@ public class HttpMethodEndpointTest {
 	/**
 	 * <p>Test for the request method POST.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testPostMethod() {
@@ -153,7 +153,7 @@ public class HttpMethodEndpointTest {
 	/**
 	 * <p>Test for the request method PUT.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testPutMethod() {
@@ -184,7 +184,7 @@ public class HttpMethodEndpointTest {
 	/**
 	 * <p>Test for the request method PATCH.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testPatchMethod() {
@@ -203,7 +203,7 @@ public class HttpMethodEndpointTest {
 	/**
 	 * <p>Test for the request method DELETE.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testDeleteMethod() {
@@ -223,7 +223,7 @@ public class HttpMethodEndpointTest {
 	/**
 	 * <p>Test for the request method HEAD.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testHeadMethod() {
@@ -252,7 +252,7 @@ public class HttpMethodEndpointTest {
 	/**
 	 * <p>Test for the request method TRACE.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testTraceMethod() {
@@ -278,7 +278,7 @@ public class HttpMethodEndpointTest {
 	/**
 	 * <p>Test for the request method OPTIONS.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testOptionsMethod() {

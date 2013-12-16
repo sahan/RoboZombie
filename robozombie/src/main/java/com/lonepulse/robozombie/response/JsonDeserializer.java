@@ -41,7 +41,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -112,7 +112,7 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
 	 * <p>Creates a new instance of {@link JsonDeserializer} and register the generic type {@link Object} 
 	 * as the entity which results from its deserialization operation.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public JsonDeserializer() {
 		
@@ -141,7 +141,7 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
 	 * @throws DeserializerException
 	 * 			if JSON deserialization failed for the given entity using the Gson library 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	protected Object deserialize(InvocationContext context, HttpResponse response) {

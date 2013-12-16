@@ -63,7 +63,7 @@ import com.lonepulse.robozombie.request.Interceptor;
  * 
  * @version 1.1.2
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -78,7 +78,7 @@ public @interface Intercept {
 	 * 
 	 * @return the {@link Class}es which identify the {@link Interceptor}s to be used
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	Class<? extends Interceptor>[] value();
 }

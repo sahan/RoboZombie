@@ -44,7 +44,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -73,7 +73,7 @@ class EntityProcessor extends AbstractResponseProcessor {
 	 * @throws ResponseProcessorException
 	 * 			if deserializer instantiation or execution failed for the response entity
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	protected Object process(InvocationContext context, HttpResponse response, Object content) {

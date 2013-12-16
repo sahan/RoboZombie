@@ -32,7 +32,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -48,26 +48,26 @@ class MultipleEntityException extends RequestProcessorException {
 	 * @param context
 	 * 			the {@link InvocationContext} where multiple @{@link Entity} annotations were discovered
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MultipleEntityException(InvocationContext context) {
 	
 		this(new StringBuilder("Multiple entities annotated with @").append(Entity.class.getSimpleName())
-			 .append(" was not found on the request named [").append(context.getRequest().getName())
-			 .append("]. Only a single entity may be annotated and enclosed this request. ").toString());
+			 .append(" was found on the request <").append(context.getRequest().getName())
+			 .append(">. Only a single entity may be annotated and enclosed within this request. ").toString());
 	}
 	
 	/**
 	 * See {@link RequestProcessorException#RequestPopulatorException()}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MultipleEntityException() {}
 
 	/**
 	 * See {@link RequestProcessorException#RequestPopulatorException(String)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MultipleEntityException(String detailMessage) {
 		
@@ -77,7 +77,7 @@ class MultipleEntityException extends RequestProcessorException {
 	/**
 	 * See {@link RequestProcessorException#RequestPopulatorException(Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MultipleEntityException(Throwable throwable) {
 		
@@ -87,7 +87,7 @@ class MultipleEntityException extends RequestProcessorException {
 	/**
 	 * See {@link RequestProcessorException#RequestPopulatorException(String, Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public MultipleEntityException(String detailMessage, Throwable throwable) {
 

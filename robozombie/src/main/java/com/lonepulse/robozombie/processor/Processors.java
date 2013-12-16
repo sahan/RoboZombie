@@ -44,7 +44,7 @@ import com.lonepulse.robozombie.response.ResponseProcessorChain;
  *  
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -77,7 +77,7 @@ public enum Processors {
 	 * 
 	 * @version 1.2.0
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	REQUEST(new RequestProcessorChain()),
 	
@@ -102,7 +102,7 @@ public enum Processors {
 	 * 
 	 * @version 1.1.0
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	RESPONSE(new ResponseProcessorChain());
 	
@@ -138,7 +138,7 @@ public enum Processors {
 	 * @throws InvocationException
 	 * 			if a chain-wide failure occurred in either the request or response processor chains 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Object run(Object... args) {
 		

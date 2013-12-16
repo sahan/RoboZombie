@@ -41,7 +41,7 @@ import java.lang.annotation.Target;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
@@ -57,7 +57,7 @@ public @interface Entity {
 	 * 
 	 * @version 1.1.0
 	 * <br><br> 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 * <br><br> 
 	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
@@ -68,7 +68,7 @@ public @interface Entity {
 		 * <p>Identifies <b>raw textual content</b> <i>("text/plain")</i>, which is already assumed to be 
 		 * in its serialized format.</p>
 		 * 
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		PLAIN,
 		
@@ -80,7 +80,7 @@ public @interface Entity {
 		 * the classpath. If GSON is not detected, both the serializer and deserializer will be disabled and 
 		 * any attempt to use them will result in an {@link IllegalStateException}.</p>
 		 * 
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		JSON,
 		
@@ -92,7 +92,7 @@ public @interface Entity {
 		 * the classpath. If Simple-XML is not detected, both the serializer and deserializer will be disabled 
 		 * and any attempt to use them will result in an {@link IllegalStateException}.</p>
 		 * 
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		XML,
 		
@@ -102,7 +102,7 @@ public @interface Entity {
 		 * <p>When used with {@code @Serialize} or {@code @Deserialize}, it indicates the use of a custom 
 		 * serializer or deserializer.</p>
 		 * 
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		UNDEFINED;
 	};

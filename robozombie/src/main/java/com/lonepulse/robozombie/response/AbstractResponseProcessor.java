@@ -46,7 +46,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -81,7 +81,7 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 * @throws RequestProcessorException
 	 * 			if response processing failed for the given {@link InvocationContext} and {@link HttpResponse}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public Object run(Object... args) {
@@ -121,7 +121,7 @@ abstract class AbstractResponseProcessor implements Processor<Object, ResponsePr
 	 * 			if the processor finds an {@link HttpResponse} <i>which it should act upon</i> and yet fails 
 	 * 			to perform the necessary processing
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	protected abstract Object process(InvocationContext context, HttpResponse response, Object deserializedResponse);
 }

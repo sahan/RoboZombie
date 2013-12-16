@@ -41,7 +41,7 @@ import com.lonepulse.robozombie.response.AbstractDeserializer;
  * 
  * @version 1.1.1
  * <br><br> 
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br> 
  * @category test
  * <br><br> 
@@ -57,7 +57,7 @@ public interface DeserializerEndpoint {
 	 *
 	 * @return the deserialized response content, which in this case should not be available
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Deserialize(PLAIN)
 	@GET("/responseerror")
@@ -68,7 +68,7 @@ public interface DeserializerEndpoint {
 	 * 
 	 * @return the deserialized response entity
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/json")
 	User deserializeJson();
@@ -78,7 +78,7 @@ public interface DeserializerEndpoint {
 	 * 
 	 * @return the deserialized response entity
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/xml") @Deserialize(XML)
 	User deserializeXml();
@@ -89,7 +89,7 @@ public interface DeserializerEndpoint {
 	 *
 	 * @return the deserializer <b>raw</b> response content
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/raw") @Deserialize(PLAIN)
 	String plain();
@@ -128,7 +128,7 @@ public interface DeserializerEndpoint {
 	 * 
 	 * @return the deserialized response entity
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/custom")
 	@Deserialize(type = Redactor.class) 
@@ -139,7 +139,7 @@ public interface DeserializerEndpoint {
 	 *
 	 * @return the response which should not be processed by a deserializer
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/detach") @Detach(Deserialize.class)
 	String detachDeserializer();
@@ -164,7 +164,7 @@ public interface DeserializerEndpoint {
 	 * 
 	 * @return mock content which will never be available due to a deserialization failure
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/uninstantiabledeserializer")
 	@Deserialize(type = UninstantiableDeserializer.class)
@@ -191,7 +191,7 @@ public interface DeserializerEndpoint {
 	 * @param user
 	 * 			the model which should be serialized using a custom serializer
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/illegaldeserializer")
 	@Deserialize(type = IllegalDeserializer.class)

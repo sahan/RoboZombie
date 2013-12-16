@@ -26,7 +26,7 @@ package com.lonepulse.robozombie;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -39,14 +39,14 @@ public class ValidationFailedException extends RoboZombieRuntimeException {
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException()}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ValidationFailedException() {}
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ValidationFailedException(String detailMessage) {
 		
@@ -56,7 +56,7 @@ public class ValidationFailedException extends RoboZombieRuntimeException {
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ValidationFailedException(Throwable throwable) {
 		
@@ -66,7 +66,7 @@ public class ValidationFailedException extends RoboZombieRuntimeException {
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String, Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ValidationFailedException(String detailMessage, Throwable throwable) {
 

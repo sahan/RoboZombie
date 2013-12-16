@@ -36,7 +36,7 @@ import com.lonepulse.robozombie.RoboZombieRuntimeException;
  *
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category API
  * <br><br>
@@ -62,7 +62,7 @@ public final class InvocationException extends RoboZombieRuntimeException {
 	 * @param response
 	 * 			the {@link HttpResponse} which contains the failure status code 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static InvocationException newInstance(InvocationContext context, HttpResponse response) {
 		
@@ -84,7 +84,7 @@ public final class InvocationException extends RoboZombieRuntimeException {
 	 * @param rootCause
 	 * 			the root {@link Throwable} which resulted in an execution failure 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static InvocationException newInstance(InvocationContext context, HttpResponse response, Throwable rootCause) {
 		
@@ -107,7 +107,7 @@ public final class InvocationException extends RoboZombieRuntimeException {
 	 * @param rootCause
 	 * 			the root {@link Throwable} which resulted in an execution failure 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static InvocationException newInstance(InvocationContext context, Throwable rootCause) {
 		
@@ -158,7 +158,7 @@ public final class InvocationException extends RoboZombieRuntimeException {
 	 * @return the {@link HttpResponse} for the failed request, else {@code null} if this instance 
 	 * 		   signals an <b>error</b> which occurred before or during request execution
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public HttpResponse getResponse() {
 		
@@ -173,7 +173,7 @@ public final class InvocationException extends RoboZombieRuntimeException {
 	 * 		   {@link HttpResponse} is available, else {@code false} if it represents an <b>execution 
 	 * 		   error</b> and {@link #getResponse()} returns {@code null} 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public boolean hasResponse() {
 		
@@ -185,7 +185,7 @@ public final class InvocationException extends RoboZombieRuntimeException {
 	 *
 	 * @return the {@link InvocationContext} for the failed request
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public InvocationContext getContext() {
 		

@@ -60,7 +60,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category API
  * <br><br>
@@ -78,7 +78,7 @@ public interface Interceptor {
 	 * @param request
 	 * 			the {@link HttpRequestBase} which was intercepted just before execution
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	void intercept(InvocationContext context, HttpRequestBase request);
 }

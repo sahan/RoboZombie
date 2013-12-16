@@ -83,7 +83,7 @@ public enum RequestExecutors implements RequestExecutor {
 	 * @return {@link RequestExecutors#ASYNC} if the request method or endpoint is annotated with 
 	 * 		   {@link Async}, else {@link RequestExecutors#BASIC}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static final RequestExecutor resolve(InvocationContext context) {
 		
@@ -97,7 +97,7 @@ public enum RequestExecutors implements RequestExecutor {
 	 *  
 	 * <p>See {@link ConfigurationManager}</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static final ConfigurationManager CONFIGURATION = new ConfigurationService();
 }

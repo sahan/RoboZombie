@@ -28,7 +28,7 @@ import com.lonepulse.robozombie.RoboZombieRuntimeException;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -41,14 +41,14 @@ class ProcessorChainException extends RoboZombieRuntimeException {
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException()}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ProcessorChainException() {}
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ProcessorChainException(String detailMessage) {
 		
@@ -58,7 +58,7 @@ class ProcessorChainException extends RoboZombieRuntimeException {
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ProcessorChainException(Throwable throwable) {
 		
@@ -68,7 +68,7 @@ class ProcessorChainException extends RoboZombieRuntimeException {
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String, Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ProcessorChainException(String detailMessage, Throwable throwable) {
 

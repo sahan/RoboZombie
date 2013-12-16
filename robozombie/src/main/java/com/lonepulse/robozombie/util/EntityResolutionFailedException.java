@@ -30,7 +30,7 @@ import com.lonepulse.robozombie.RoboZombieRuntimeException;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -49,7 +49,7 @@ public class EntityResolutionFailedException extends RoboZombieRuntimeException 
 	 * @param genericEntity
 	 * 			the generic object which failed to be translated to an {@link HttpEntity}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public EntityResolutionFailedException(Object genericEntity) {
 	
@@ -63,7 +63,7 @@ public class EntityResolutionFailedException extends RoboZombieRuntimeException 
 	 * @param genericType
 	 * 			the {@link Class} type which failed to be translated to an {@link HttpEntity}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public EntityResolutionFailedException(Class<?> genericType) {
 		
@@ -80,7 +80,7 @@ public class EntityResolutionFailedException extends RoboZombieRuntimeException 
 	 * @param rootCause
 	 * 			the root cause which resulted in this resolution failure
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public EntityResolutionFailedException(Object genericEntity, Throwable rootCause) {
 		
@@ -91,14 +91,14 @@ public class EntityResolutionFailedException extends RoboZombieRuntimeException 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException()}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public EntityResolutionFailedException() {}
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public EntityResolutionFailedException(String detailMessage) {
 		
@@ -108,7 +108,7 @@ public class EntityResolutionFailedException extends RoboZombieRuntimeException 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public EntityResolutionFailedException(Throwable throwable) {
 		
@@ -118,7 +118,7 @@ public class EntityResolutionFailedException extends RoboZombieRuntimeException 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String, Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public EntityResolutionFailedException(String detailMessage, Throwable throwable) {
 

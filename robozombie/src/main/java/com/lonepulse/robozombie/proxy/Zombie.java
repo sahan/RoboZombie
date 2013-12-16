@@ -73,7 +73,7 @@ public final class Zombie {
 	 *  
 	 * @version 1.2.0
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 * <br><br>
 	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
@@ -108,7 +108,7 @@ public final class Zombie {
 		 * @throws ConfigurationFailedException
 		 * 			if the default configuration for the {@link HttpClient} failed to be instantiated
 		 * <br><br>
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 * <br><br>
 		 * @see <a href="http://hc.apache.org/httpcomponents-client-4.2.x/tutorial/html/index.html">Apache HC Tutorial</a>
 		 */
@@ -164,7 +164,7 @@ public final class Zombie {
 	 * @throws NullPointerException
 	 * 			if the object supplied for endpoint injection is {@code null} 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static void infect(Object victim, Object... moreVictims) {
 		

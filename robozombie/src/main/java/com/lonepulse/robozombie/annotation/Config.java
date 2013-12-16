@@ -43,7 +43,7 @@ import com.lonepulse.robozombie.proxy.Zombie;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -58,7 +58,7 @@ public @interface Config {
 	 *
 	 * @return the {@link Class} of the custom {@link Zombie.Configuration} extension
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	Class<? extends Zombie.Configuration> value();
 }

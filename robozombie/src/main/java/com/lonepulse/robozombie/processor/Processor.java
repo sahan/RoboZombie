@@ -29,7 +29,7 @@ package com.lonepulse.robozombie.processor;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -55,7 +55,7 @@ public interface Processor<RESULT, FAILURE extends Throwable> {
 	 * 			{@link Processor}s which are recoverable should <b>not</b> define a {@link RuntimeException} 
 	 * 			for the generic FAILURE type
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	RESULT run(Object... args) throws FAILURE;
 }

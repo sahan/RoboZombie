@@ -35,7 +35,7 @@ import com.lonepulse.robozombie.model.User;
  * 
  * @version 1.1.0
  * <br><br> 
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br> 
  * @category test
  * <br><br> 
@@ -50,7 +50,7 @@ public interface SerializerEndpoint {
 	 * @param user
 	 * 			the model which should be serialized using a custom serializer
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Serialize(JSON) 
 	@PUT("/gsonunavailable")
@@ -62,7 +62,7 @@ public interface SerializerEndpoint {
 	 * @param user
 	 * 			the model which should be serialized using a custom serializer
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Serialize(XML) 
 	@PUT("/simplexmlunavailable")

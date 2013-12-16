@@ -40,7 +40,7 @@ import com.lonepulse.robozombie.request.Interceptor;
  * 
  * @version 1.1.0
  * <br><br> 
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br> 
  * @category test
  * <br><br> 
@@ -79,7 +79,7 @@ public interface InterceptorEndpoint {
 	/**
 	 * <p>A mock request which uses an interceptor defined at the endpoint-level.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/endpoint")
 	void endpointInterceptor();
@@ -87,7 +87,7 @@ public interface InterceptorEndpoint {
 	/**
 	 * <p>A mock request which uses custom metadata on the request definition.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/metadata")
 	@XHeader("X-Value") 
@@ -96,7 +96,7 @@ public interface InterceptorEndpoint {
 	/**
 	 * <p>A mock request which uses interceptors defined at both endpoint and request levels.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/request")
 	@Intercept(RequestInterceptor.class)
@@ -108,7 +108,7 @@ public interface InterceptorEndpoint {
 	 * @param interceptor
 	 * 			the interceptor instance which is passed along with the parameters for execution
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/param")
 	@Intercept(RequestInterceptor.class)
@@ -117,7 +117,7 @@ public interface InterceptorEndpoint {
 	/**
 	 * <p>A mock request which detaches the interceptor defined at the endpoint level.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/detach") 
 	@Detach(Intercept.class)

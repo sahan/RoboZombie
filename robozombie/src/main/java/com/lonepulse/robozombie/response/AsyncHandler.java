@@ -91,7 +91,7 @@ public abstract class AsyncHandler<RESPONSE> {
 	 * @param errorContext
 	 * 			the {@link InvocationException} with information on the failed request execution
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public void onError(InvocationException errorContext){}
 }

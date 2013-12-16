@@ -54,7 +54,7 @@ import com.lonepulse.robozombie.util.Metadata;
  * 
  * @version 1.3.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -80,7 +80,7 @@ class QueryParamProcessor extends AbstractRequestProcessor {
 	 * @throws RequestProcessorException
 	 * 			if the creation of a query string failed due to an unrecoverable errorS
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	protected HttpRequestBase process(InvocationContext context, HttpRequestBase request) {

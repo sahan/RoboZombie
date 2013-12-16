@@ -34,7 +34,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -44,21 +44,21 @@ public enum Deserializers implements Deserializer<Object> {
 	/**
 	 * <p>See {@link PlainDeserializer}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	RAW(new PlainDeserializer()),
 	
 	/**
 	 * <p>See {@link JsonDeserializer}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	JSON(new JsonDeserializer()),
 	
 	/**
 	 * <p>See {@link XmlDeserializer}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	XML(new XmlDeserializer());
 	
@@ -91,7 +91,7 @@ public enum Deserializers implements Deserializer<Object> {
 	 * <br><br>
 	 * @return the implementation of {@link AbstractDeserializer} which serves the given {@link ContentType}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static final AbstractDeserializer<?> resolve(ContentType deserializerType) {
 		
@@ -119,7 +119,7 @@ public enum Deserializers implements Deserializer<Object> {
 	 * @throws DeserializerInstantiationException
 	 * 			if a custom deserializer failed to be instantiated using its <b>default constructor</b> 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static final AbstractDeserializer<?> resolve(Class<? extends AbstractDeserializer<?>> deserializerType) {
 		

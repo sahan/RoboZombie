@@ -33,7 +33,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -52,17 +52,17 @@ class ResponseProcessorException extends RoboZombieRuntimeException {
 	 * @param responseProcessorClass
 	 * 			the {@link Class} of the {@link AbstractResponseProcessor} implementation which failed
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ResponseProcessorException(Class<?> responseProcessorClass, 
 									  InvocationContext context) {
 	
 		this(new StringBuilder(responseProcessorClass.getName())
-			 .append(" failed to process the response for the request [")
-			 .append(context.getRequest().getName())
-			 .append("] with arguments ")
-			 .append(Arrays.toString(context.getArguments().toArray())).toString());
-	}
+		 	 .append(" failed to process the response for request <")
+		 	 .append(context.getRequest().getName())
+		 	 .append("> with arguments ")
+		 	 .append(Arrays.toString(context.getArguments().toArray())).toString());
+}
 	
 	/**
 	 * <p>Displays a detailed description with information on the failed processor and content, while 
@@ -77,7 +77,7 @@ class ResponseProcessorException extends RoboZombieRuntimeException {
 	 * @param rootCause
 	 * 			the parent exception which caused the {@link AbstractResponseProcessor} to fail
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ResponseProcessorException(Class<?> responseProcessorClass, 
 									  InvocationContext config, 
@@ -93,14 +93,14 @@ class ResponseProcessorException extends RoboZombieRuntimeException {
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException()}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ResponseProcessorException() {}
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ResponseProcessorException(String detailMessage) {
 		
@@ -110,7 +110,7 @@ class ResponseProcessorException extends RoboZombieRuntimeException {
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ResponseProcessorException(Throwable throwable) {
 		
@@ -120,7 +120,7 @@ class ResponseProcessorException extends RoboZombieRuntimeException {
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String, Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ResponseProcessorException(String detailMessage, Throwable throwable) {
 

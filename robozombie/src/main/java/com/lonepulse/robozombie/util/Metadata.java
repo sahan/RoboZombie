@@ -48,7 +48,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category utility
  * <br><br>
@@ -74,7 +74,7 @@ public final class Metadata {
 	 * 		   the and the runtime argument as the <i>value</i>; <b>note</b> that the implementation of 
 	 * 		   {@link Map.Entry#setValue(Object)} throws an {@link UnsupportedOperationException} 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static <T extends Annotation> List<Entry<T, Object>> onParams(final Class<T> type, InvocationContext context) {
 		 
@@ -135,7 +135,7 @@ public final class Metadata {
 	 * @return the {@link RequestMethod} for the given request definition; else {@code null} if no 
 	 * 		   {@link RequestMethod} metadata can be found
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static RequestMethod findMethod(Method definition) {
 		
@@ -169,7 +169,7 @@ public final class Metadata {
 	 * @return the sub-path for the given request definition; else <b>an empty String</p> if no sub-path 
 	 * 		   metadata can be found
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static String findPath(Method definition) {
 		

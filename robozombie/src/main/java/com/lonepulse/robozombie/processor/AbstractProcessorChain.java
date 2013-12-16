@@ -45,7 +45,7 @@ import static com.lonepulse.robozombie.util.Assert.assertNotNull;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -67,7 +67,7 @@ implements Processor<LINK_RESULT, LINK_FAILURE> {
 	 * @throws NullPointerException
 	 * 			if the given {@link ProcessorChainLink} is {@code null}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public AbstractProcessorChain(ProcessorChainLink<LINK_RESULT, LINK_FAILURE> root) {
 	
@@ -96,7 +96,7 @@ implements Processor<LINK_RESULT, LINK_FAILURE> {
 	 * 			links may be handled in {@link #onInitiate(ProcessorChainLink, Object...)} and 
 	 * 			{@link #onTraverse(Object, ProcessorChainLink, Object...)}   
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public LINK_RESULT run(Object... args) {
@@ -136,7 +136,7 @@ implements Processor<LINK_RESULT, LINK_FAILURE> {
 	 * <br><br>
 	 * @return the <i>RESULT</i> which is produced by executing the first {@link ProcessorChainLink}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	protected abstract LINK_RESULT onInitiate(
 		ProcessorChainLink<LINK_RESULT, LINK_FAILURE> root, Object... args); 
@@ -180,7 +180,7 @@ implements Processor<LINK_RESULT, LINK_FAILURE> {
 	 * <br><br>
 	 * @return the <i>RESULT</i> which was produced by executing the successor {@link ProcessorChainLink}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	protected abstract LINK_RESULT onTraverse(
 		LINK_RESULT result, ProcessorChainLink<LINK_RESULT, LINK_FAILURE> successor, Object... args);
@@ -195,7 +195,7 @@ implements Processor<LINK_RESULT, LINK_FAILURE> {
 	 * @param args
 	 * 			the arguments which were passed down from the preceding {@link ProcessorChainLink}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	protected abstract void onTerminate(LINK_RESULT result, Object... args); 
 }

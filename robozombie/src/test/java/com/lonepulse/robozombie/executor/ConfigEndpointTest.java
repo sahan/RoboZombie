@@ -44,7 +44,7 @@ import com.lonepulse.robozombie.proxy.Zombie;
  * 
  * @version 1.1.1
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category test
  * <br><br>
@@ -72,7 +72,7 @@ public class ConfigEndpointTest {
 	/**
 	 * <p>Tests the custom configuration which uses a socket timeout of <b>2 seconds</b>.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testTimeout() {

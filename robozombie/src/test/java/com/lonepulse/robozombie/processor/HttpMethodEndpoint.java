@@ -42,7 +42,7 @@ import com.lonepulse.robozombie.annotation.TRACE;
  * 
  * @version 1.1.1
  * <br><br> 
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br> 
  * @category test
  * <br><br> 
@@ -65,7 +65,7 @@ public interface HttpMethodEndpoint {
 	 * 
 	 * @return the textual content of the {@link HttpResponse} body
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/getrequest")
 	public String getRequest(@QueryParam("name") String name, 
@@ -86,7 +86,7 @@ public interface HttpMethodEndpoint {
 	 * 
 	 * @return the textual content of the {@link HttpResponse} body
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@POST("/postrequest")
 	public String postRequest(@FormParam("name") String name, 
@@ -101,7 +101,7 @@ public interface HttpMethodEndpoint {
 	 * 
 	 * @return the textual content of the {@link HttpResponse} body
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/putrequest")
 	public String putRequest(@Entity String user);
@@ -114,7 +114,7 @@ public interface HttpMethodEndpoint {
 	 * 
 	 * @return the textual content of the {@link HttpResponse} body
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@DELETE("/deleterequest/{id}")
 	public String deleteRequest(@PathParam("id") String id);
@@ -125,7 +125,7 @@ public interface HttpMethodEndpoint {
 	 * @param proxyAuthenticate
 	 * 			retrieves meta-information about any required authentication 
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@HEAD("/headrequest")
 	public void headRequest(@Header("Proxy-Authenticate") StringBuilder proxyAuthenticate);
@@ -133,7 +133,7 @@ public interface HttpMethodEndpoint {
 	/**
 	 * <p>A mock request which uses the HTTP method HEAD.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@TRACE("/tracerequest")
 	@Headers({@Headers.Header(name = "Via", value = "1.0 example1.com, 1.1 example2.com"),
@@ -146,7 +146,7 @@ public interface HttpMethodEndpoint {
 	 * @param contentType
 	 * 			queries the content type for an enclosed entity 
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@OPTIONS("/optionsrequest")
 	public void optionsRequest(@Header("Content-Type") StringBuilder contentType);

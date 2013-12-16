@@ -36,7 +36,7 @@ import com.lonepulse.robozombie.proxy.Zombie;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -47,7 +47,7 @@ enum HttpClientDirectory implements Directory<Class<?>, HttpClient> {
 	 * <p>The {@link HttpClientDirectory} which caches {@link HttpClient}s that are uniquely configured 
 	 * for each endpoint. An {@link HttpClient} is stored or accessed using an endpoint's {@link Class}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	INSTANCE;
 	
@@ -56,7 +56,7 @@ enum HttpClientDirectory implements Directory<Class<?>, HttpClient> {
 	 * <p>The default configuration for an {@link HttpClient} which will be used to execute endpoint 
 	 * requests if no specialized configuration is provided.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static final HttpClient DEFAULT;
 	
@@ -109,7 +109,7 @@ enum HttpClientDirectory implements Directory<Class<?>, HttpClient> {
 	 * <br><br>
 	 * @return the {@link HttpClient} which was registered under the given endpoint definition
 	 * <br><br> 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public synchronized HttpClient bind(Class<?> endpoint, HttpClient httpClient) {
@@ -142,7 +142,7 @@ enum HttpClientDirectory implements Directory<Class<?>, HttpClient> {
 	 * @return the {@link HttpClient} which was registered under the given endpoint, else the pre-configured 
 	 * 		   {@link #DEFAULT} instance if no existing {@link HttpClient} was found
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public synchronized HttpClient lookup(Class<?> endpointClass) {

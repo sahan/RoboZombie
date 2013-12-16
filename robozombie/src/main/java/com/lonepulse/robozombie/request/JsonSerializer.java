@@ -36,7 +36,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -109,7 +109,7 @@ final class JsonSerializer extends AbstractSerializer<Object, String> {
 	 * <p>Creates a new instance of {@link JsonSerializer} and registers the output {@link String} class as 
 	 * the content-type which results from serialization.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public JsonSerializer() {
 		
@@ -137,7 +137,7 @@ final class JsonSerializer extends AbstractSerializer<Object, String> {
 	 * @throws SerializerException
 	 * 			if JSON serialization failed for the given entity using the Gson library 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	protected String serialize(InvocationContext context, Object input) {

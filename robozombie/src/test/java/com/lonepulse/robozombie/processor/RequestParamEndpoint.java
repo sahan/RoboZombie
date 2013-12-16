@@ -49,7 +49,7 @@ import com.lonepulse.robozombie.model.User;
  * 
  * @version 1.1.1
  * <br><br> 
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br> 
  * @category test
  * <br><br> 
@@ -67,7 +67,7 @@ public interface RequestParamEndpoint {
 	 * @param lastName
 	 * 			the second query param
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/queryparams")
 	public void queryParams(@QueryParam("firstName") String firstName, 
@@ -82,7 +82,7 @@ public interface RequestParamEndpoint {
 	 * @param lastName
 	 * 			the second form param
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@POST("/formparams")
 	public void formParams(@FormParam("firstName") String firstName, 
@@ -94,7 +94,7 @@ public interface RequestParamEndpoint {
 	 * @param user
 	 * 			an illegal query parameter of type {@link User}
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/queryparamsfail")
 	public void queryParamsFail(@QueryParam("user") User user);
@@ -105,7 +105,7 @@ public interface RequestParamEndpoint {
 	 * @param user
 	 * 			an illegal form parameter of type {@link User}
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@POST("/formparamsfail")
 	public void formParamsFail(@FormParam("user") User user);
@@ -116,7 +116,7 @@ public interface RequestParamEndpoint {
 	 * @param params
 	 * 			the map of basic name and value pairs 
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/queryparamsbatch")
 	public void queryParamsBatch(@QueryParams Map<String, String> params);
@@ -127,7 +127,7 @@ public interface RequestParamEndpoint {
 	 * @param params
 	 * 			the map of basic name and value pairs 
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@POST("/formparamsbatch")
 	public void formParamsBatch(@FormParams Map<String, String> params);
@@ -138,7 +138,7 @@ public interface RequestParamEndpoint {
 	 * @param params
 	 * 			an illegal batch query parameter of type {@link List}
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/queryparamsbatchtypefail")
 	public void queryParamsBatchTypeFail(@QueryParams List<String> params);
@@ -149,7 +149,7 @@ public interface RequestParamEndpoint {
 	 * @param params
 	 * 			an illegal batch form parameter of type {@link List}
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@POST("/formparamsbatchtypefail")
 	public void formParamsBatchTypeFail(@FormParams List<String> params);
@@ -160,7 +160,7 @@ public interface RequestParamEndpoint {
 	 * @param params
 	 * 			an illegal query parameter element of type {@link User}
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/queryparamsbatchelementfail")
 	public void queryParamsBatchElementFail(@QueryParams Map<String, User> params);
@@ -171,7 +171,7 @@ public interface RequestParamEndpoint {
 	 * @param params
 	 * 			an illegal form parameter element of type {@link User}
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@POST("/formparamsbatchelementfail")
 	public void formParamsBatchElementFail(@FormParams Map<String, User> params);
@@ -182,7 +182,7 @@ public interface RequestParamEndpoint {
 	 * @param params
 	 * 			the map of with an entry for a multivalued query parameter
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/queryparamsmultivalued")
 	public void queryParamsMultivalued(@QueryParams Map<String, List<String>> params);
@@ -193,7 +193,7 @@ public interface RequestParamEndpoint {
 	 * @param params
 	 * 			the map of with an entry for a multivalued form parameter
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@POST("/formparamsmultivalued")
 	public void formParamsMultivalued(@FormParams Map<String, List<String>> params);
@@ -204,7 +204,7 @@ public interface RequestParamEndpoint {
 	 * @param params
 	 * 			the map with an illegal multivalued query parameter of type {@link User}
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/queryparamsmultivaluedfail")
 	public void queryParamsMultivaluedFail(@QueryParams Map<String, List<User>> params);
@@ -215,7 +215,7 @@ public interface RequestParamEndpoint {
 	 * @param params
 	 * 			the map with an illegal multivalued form parameter of type {@link User}
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@POST( "/formparamsmultivaluedfail")
 	public void formParamsMultivaluedFail(@FormParams Map<String, List<User>> params);
@@ -223,7 +223,7 @@ public interface RequestParamEndpoint {
 	/**
 	 * <p>Sends a request with a set of constant query parameters.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/constantqueryparams")
 	@QueryParams({@Param(name = "firstName", value = "Doctor"),
@@ -233,7 +233,7 @@ public interface RequestParamEndpoint {
 	/**
 	 * <p>Sends a request with a set of constant query parameters defined inline.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/inlineconstantqueryparams")
 	public void inlineConstantQueryParams(
@@ -242,7 +242,7 @@ public interface RequestParamEndpoint {
 	/**
 	 * <p>Sends a request with a set of constant form parameters.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@POST("/constantformparams")
 	@FormParams({@Param(name = "firstName", value = "Beta-Ray"),
@@ -252,7 +252,7 @@ public interface RequestParamEndpoint {
 	/**
 	 * <p>Sends a request with a set of constant form parameters defined inline.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@POST("/inlineconstantformparams")
 	public void inlineConstantFormParams(
@@ -265,7 +265,7 @@ public interface RequestParamEndpoint {
 	 * @param entity
 	 * 			the {@code byte[]} to be converted to a {@link ByteArrayEntity}
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/primitivebytearrayentity")
 	public void primitiveByteArrayEntity(@Entity byte[] entity);
@@ -277,7 +277,7 @@ public interface RequestParamEndpoint {
 	 * @param entity
 	 * 			the {@code Byte}[] to be converted to a {@link ByteArrayEntity}
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/wrapperbytearrayentity")
 	public void wrapperByteArrayEntity(@Entity Byte[] entity);
@@ -289,7 +289,7 @@ public interface RequestParamEndpoint {
 	 * @param entity
 	 * 			the {@link File} to be converted to a {@link FileEntity}
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/fileentity")
 	public void fileEntity(@Entity File entity);
@@ -301,7 +301,7 @@ public interface RequestParamEndpoint {
 	 * @param entity
 	 * 			the {@link InputStream} to be converted to a {@link BufferedHttpEntity}
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/bufferedhttpentity")
 	public void bufferedHttpEntity(@Entity InputStream entity);
@@ -313,7 +313,7 @@ public interface RequestParamEndpoint {
 	 * @param entity
 	 * 			the {@link String} to be converted to a {@link StringEntity}
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/stringentity")
 	public void stringEntity(@Entity String entity);
@@ -326,7 +326,7 @@ public interface RequestParamEndpoint {
 	 * 			the {@link Serializable} instance of {@link User} to be converted 
 	 * 			to a {@link SerializableEntity}
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/serializableentity")
 	public void serializableEntity(@Entity User entity);
@@ -335,7 +335,7 @@ public interface RequestParamEndpoint {
 	 * <p>Sends a PUT request without an entity. This should generate an exception 
 	 * which signifies a violation of the HTTP 1.1 specification.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/missingentity")
 	public void missingEntity();
@@ -350,7 +350,7 @@ public interface RequestParamEndpoint {
 	 * @param entity2
 	 * 			the second entity which is designated to be sent
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/multipleentity")
 	public void multipleEntity(@Entity String entity1, @Entity String entity2);
@@ -362,7 +362,7 @@ public interface RequestParamEndpoint {
 	 * @param unresolvableEntity
 	 * 			an generic object which cannot be resolved to an entity 
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@PUT("/resolutionfailedentity")
 	public void resolutionFailedEntity(@Entity Object unresolvableEntity);

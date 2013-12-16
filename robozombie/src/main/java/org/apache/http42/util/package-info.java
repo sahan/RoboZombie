@@ -2,7 +2,7 @@
  * <p>Contains a <i>verbatim cpoy</i> of the <b>EntityUtils</b> class which 
  * exists in API version 4.2 of <a href="http://hc.apache.org">Apache HTTP Components</a>.</p>
  * 
- * @since 1.2.4
+ * @since 1.3.0
  */
 package org.apache.http42.util;
 

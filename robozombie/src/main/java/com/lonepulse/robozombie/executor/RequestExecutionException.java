@@ -29,7 +29,7 @@ import com.lonepulse.robozombie.RoboZombieRuntimeException;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -55,7 +55,7 @@ class RequestExecutionException extends RoboZombieRuntimeException {
 	 * <br><br>
 	 * @return the wrapped instance of {@link RequestExecutionException}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static final RequestExecutionException wrap(Method request, Class<?> endpoint, Exception e) {
 		
@@ -76,18 +76,18 @@ class RequestExecutionException extends RoboZombieRuntimeException {
 	 * @param rootCause
 	 * 			the parent cause which resulted in the request execution failure 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public RequestExecutionException(Method request, Class<?> endpoint, Throwable rootCause) {
 		
-		super(new StringBuilder("Failed to execute request ").append(request.getName())
-			  .append(" on ").append(endpoint.getSimpleName()).toString(), rootCause);
+		super(new StringBuilder("Failed to execute request <").append(request.getName())
+			  .append("> on <").append(endpoint.getSimpleName()).append(">").toString(), rootCause);
 	}
 	
 	/**
 	 * <p>See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String, Throwable)}.</p>
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public RequestExecutionException(String detailMessage, Throwable throwable) {
 
@@ -97,7 +97,7 @@ class RequestExecutionException extends RoboZombieRuntimeException {
 	/**
 	 * <p>See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String)}.</p>
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public RequestExecutionException(String detailMessage) {
 		

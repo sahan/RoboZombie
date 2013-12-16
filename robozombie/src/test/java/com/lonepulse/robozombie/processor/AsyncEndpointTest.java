@@ -55,7 +55,7 @@ import com.lonepulse.robozombie.response.AsyncHandler;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category test
  * <br><br>
@@ -82,7 +82,7 @@ public class AsyncEndpointTest {
 	 * <p>Tests asynchronous request execution with @{@link Async} and 
 	 * {@link AsyncHandler#onSuccess(HttpResponse, Object)}.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testAsyncSuccess() throws InterruptedException {
@@ -141,7 +141,7 @@ public class AsyncEndpointTest {
 	 * <p>Tests asynchronous request execution with @{@link Async} and 
 	 * {@link AsyncHandler#onFailure(HttpResponse)}.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testAsyncFailure() throws InterruptedException {
@@ -190,7 +190,7 @@ public class AsyncEndpointTest {
 	 * <p>Tests asynchronous request execution with @{@link Async} and 
 	 * {@link AsyncHandler#onError(Exception)}.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testAsyncError() throws InterruptedException {
@@ -240,7 +240,7 @@ public class AsyncEndpointTest {
 	 * <p>Tests an asynchronous request execution with @{@link Async} which does not expect the 
 	 * response to be handled.</p> 
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testAsyncNoHandling() throws InterruptedException {
@@ -265,7 +265,7 @@ public class AsyncEndpointTest {
 	 * <p>Tests a successful asynchronous request where the implementation of the 
 	 * {@link AsyncHandler#onSuccess(HttpResponse, Object)} callback throws an exception.</p> 
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testAsyncSuccessCallbackError() throws InterruptedException {
@@ -312,7 +312,7 @@ public class AsyncEndpointTest {
 	 * <p>Tests a failed asynchronous request where the implementation of the 
 	 * {@link AsyncHandler#onFailure(HttpResponse)} callback throws an exception.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testAsyncFailureCallbackError() throws InterruptedException {
@@ -362,7 +362,7 @@ public class AsyncEndpointTest {
 	 * <p>Tests an erroneous asynchronous request where the implementation of the 
 	 * {@link AsyncHandler#onError(Exception)} callback throws an exception.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testAsyncErrorCallbackError() throws InterruptedException {
@@ -412,7 +412,7 @@ public class AsyncEndpointTest {
 	/**
 	 * <p>Tests a synchronous request which has detached the inherited {@link Async} annotation.</p>
 	 *  
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testAsyncDetached() {

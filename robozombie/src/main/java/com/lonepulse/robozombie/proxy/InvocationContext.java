@@ -42,7 +42,7 @@ import java.util.List;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -54,7 +54,7 @@ public final class InvocationContext {
 	 * 
 	 * @version 1.1.0
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 * <br><br>
 	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
@@ -68,7 +68,7 @@ public final class InvocationContext {
 		 * <br><br>
 		 * @return the current instance of the {@link Builder} with the endpoint assigned
 		 * <br><br>
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		Builder setEndpoint(Class<?> endpoint);
 
@@ -80,7 +80,7 @@ public final class InvocationContext {
 		 * <br><br>
 		 * @return the current instance of the {@link Builder} with the proxy assigned
 		 * <br><br>
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		Builder setProxy(Object proxy);
 
@@ -92,7 +92,7 @@ public final class InvocationContext {
 		 * <br><br>
 		 * @return the current instance of the {@link Builder} with the request assigned
 		 * <br><br>
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		Builder setRequest(Method request);
 
@@ -104,7 +104,7 @@ public final class InvocationContext {
 		 * <br><br>
 		 * @return the current instance of the {@link Builder} with the request assigned
 		 * <br><br>
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		Builder setArguments(Object[] arguments);
 		
@@ -113,7 +113,7 @@ public final class InvocationContext {
 		 *  
 		 * @return a new instance of {@link InvocationContext} containing the supplied information
 		 * <br><br>
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		InvocationContext build();
 	}
@@ -168,7 +168,7 @@ public final class InvocationContext {
 	 * 
 	 * @return a new instance of {@link Builder} for constructing an {@link InvocationContext}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	static Builder newBuilder() {
 		
@@ -197,7 +197,7 @@ public final class InvocationContext {
 	 * 
 	 * @return the {@link Class} of the request endpoint
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Class<? extends Object> getEndpoint() {
 		
@@ -211,7 +211,7 @@ public final class InvocationContext {
 	 * 
 	 * @return the endpoint proxy on which the request was invoked
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Object getProxy() {
 		
@@ -225,7 +225,7 @@ public final class InvocationContext {
 	 * 
 	 * @return the definition for the invoked request
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public Method getRequest() {
 		
@@ -239,7 +239,7 @@ public final class InvocationContext {
 	 * 
 	 * @return the arguments with which the request was invoked
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public List<Object> getArguments() {
 		

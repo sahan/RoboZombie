@@ -37,7 +37,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -101,7 +101,7 @@ final class XmlSerializer extends AbstractSerializer<Object, String> {
 	 * <p>Creates a new instance of {@link XmlSerializer} and registers the output {@link String} class as 
 	 * the content-type which results from serialization.</p>
 	 *
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public XmlSerializer() {
 		
@@ -130,7 +130,7 @@ final class XmlSerializer extends AbstractSerializer<Object, String> {
 	 * @throws SerializerException
 	 * 			if JSON serialization failed for the given entity using the Simple-XML library 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	protected String serialize(InvocationContext context, Object input) {

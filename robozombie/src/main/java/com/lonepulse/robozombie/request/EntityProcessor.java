@@ -50,7 +50,7 @@ import com.lonepulse.robozombie.util.Metadata;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -90,7 +90,7 @@ class EntityProcessor extends AbstractRequestProcessor {
 	 * 			if an {@link HttpEntityEnclosingRequestBase} was discovered and yet the entity failed to 
 	 * 			be resolved and inserted into the request body
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override @SuppressWarnings("unchecked") //welcomes a ClassCastException on misuse of @Serialize(Custom.class)
 	protected HttpRequestBase process(InvocationContext context, HttpRequestBase request) {

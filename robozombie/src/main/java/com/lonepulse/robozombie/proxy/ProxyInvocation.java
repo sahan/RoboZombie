@@ -40,7 +40,7 @@ import com.lonepulse.robozombie.processor.Processors;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -60,7 +60,7 @@ final class ProxyInvocation implements Invocation {
 	 * 
 	 * @version 1.2.0
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 * <br><br>
 	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
@@ -86,7 +86,7 @@ final class ProxyInvocation implements Invocation {
 		 * @throws EndpointValidationFailedException
 		 * 			if the given endpoint failed to be validated against the set of predetermined rules
 		 * <br><br>
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		public Template(Class<?> endpoint) {
 			
@@ -104,7 +104,7 @@ final class ProxyInvocation implements Invocation {
 		 * @return an <b>extension</b> of {@link HttpRequestBase} which is grown to conform with the metadata 
 		 * 		   found on the given {@link InvocationContext} 
 		 * <br><br>
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		protected HttpRequestBase buildRequest(InvocationContext context) {
 			
@@ -124,7 +124,7 @@ final class ProxyInvocation implements Invocation {
 		 * @return the {@link HttpResponse} which resulted from the request execution; else {@code null} 
 		 * 		   if the execution did not produce any response 
 		 * <br><br>
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		protected HttpResponse executeRequest(InvocationContext context, HttpRequestBase request) {
 			
@@ -143,7 +143,7 @@ final class ProxyInvocation implements Invocation {
 		 * <br><br>
 		 * @return the processed response content in the form of a generic object
 		 * <br><br>
-		 * @since 1.2.4
+		 * @since 1.3.0
 		 */
 		protected Object handleResponse(InvocationContext context, HttpResponse response) {
 			
@@ -174,7 +174,7 @@ final class ProxyInvocation implements Invocation {
 	 * <br><br>
 	 * @return an instance of {@link ProxyInvocation} which can be used to perform the request execution
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public static ProxyInvocation newInstance(
 		ProxyInvocation.Template template, Object proxy, Method method, Object[] args) {
@@ -202,7 +202,7 @@ final class ProxyInvocation implements Invocation {
 	 * @throws RoboZombieRuntimeException
 	 * 			(or any extension therein) if the request invocation failed on the proxy instance
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Override
 	public Object invoke() {

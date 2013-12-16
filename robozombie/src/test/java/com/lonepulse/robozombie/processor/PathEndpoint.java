@@ -29,7 +29,7 @@ import com.lonepulse.robozombie.annotation.PathParam;
  * 
  * @version 1.1.1
  * <br><br> 
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br> 
  * @category test
  * <br><br> 
@@ -43,7 +43,7 @@ public interface PathEndpoint {
 	 * 
 	 * @return a response for the request with a subpath
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/subpath")
 	public String subpath();
@@ -56,7 +56,7 @@ public interface PathEndpoint {
 	 * 
 	 * @return the response for the RESTful request
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/restfulsubpathwithparam/{id}")
 	public String restfulSubpathWithParam(@PathParam("id") String id);
@@ -69,7 +69,7 @@ public interface PathEndpoint {
 	 * 
 	 * @return the deserialized response content, which in this case should not be available
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@GET("/restfulsubpathwithillegalparamtype/{id}")
 	public String restfulSubpathWithIllegalParamType(@PathParam("id") Long id);

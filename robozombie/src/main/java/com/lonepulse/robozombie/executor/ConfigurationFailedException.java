@@ -28,7 +28,7 @@ import com.lonepulse.robozombie.proxy.Zombie;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -47,25 +47,25 @@ public class ConfigurationFailedException extends RoboZombieRuntimeException {
 	 * @param rootCause
 	 * 			the root {@link Throwable} cause which resulted in a failure to manage the configuration
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ConfigurationFailedException(Class<?> endpointClass, Throwable rootCause) {
 		
-		this(new StringBuilder("Failed to manage the configuration for endpoint ")
-			 .append(endpointClass.getName()).toString(), rootCause);
+		this(new StringBuilder("Failed to manage the configuration for endpoint <")
+		 .append(endpointClass.getName()).append(">").toString(), rootCause);
 	}
 	
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException()}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ConfigurationFailedException() {}
 
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ConfigurationFailedException(String detailMessage) {
 		
@@ -75,7 +75,7 @@ public class ConfigurationFailedException extends RoboZombieRuntimeException {
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ConfigurationFailedException(Throwable throwable) {
 		
@@ -85,7 +85,7 @@ public class ConfigurationFailedException extends RoboZombieRuntimeException {
 	/**
 	 * See {@link RoboZombieRuntimeException#RoboZombieRuntimeException(String, Throwable)}.
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	public ConfigurationFailedException(String detailMessage, Throwable throwable) {
 

@@ -53,7 +53,7 @@ import com.lonepulse.robozombie.proxy.Zombie;
  * 
  * @version 1.1.1
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @category test
  * <br><br>
@@ -82,7 +82,7 @@ public class HeaderEndpointTest {
 	/**
 	 * <p>Test for a request {@link Header}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testRequestHeader() {
@@ -104,7 +104,7 @@ public class HeaderEndpointTest {
 	/**
 	 * <p>Test for {@link HeaderEndpoint#requestHeader(String)} with a <i>skipped header</i>.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testRequestHeaderSkip() {
@@ -125,7 +125,7 @@ public class HeaderEndpointTest {
 	/**
 	 * <p>Test for {@link HeaderEndpoint#requestHeaderTypeError(int)}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testRequestHeaderTypeError() {
@@ -147,7 +147,7 @@ public class HeaderEndpointTest {
 	/**
 	 * <p>Tests response header retrieval with {@link Header}.</p> 
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testResponseHeader() {
@@ -175,7 +175,7 @@ public class HeaderEndpointTest {
 	/**
 	 * <p>Test for {@link HeaderEndpoint#requestHeader(String)} with a <i>skipped header</i>.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testResponseHeaderSkip() {
@@ -199,7 +199,7 @@ public class HeaderEndpointTest {
 	/**
 	 * <p>Test for {@link Headers} and {@link Headers.Header}.</p>
 	 * 
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	@Test
 	public final void testHeaderSet() {

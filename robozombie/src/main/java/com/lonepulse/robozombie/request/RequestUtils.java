@@ -53,7 +53,7 @@ import com.lonepulse.robozombie.util.Metadata;
  * 
  * @version 1.2.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -77,7 +77,7 @@ final class RequestUtils {
 	 * @throws NullPointerException
 	 * 			if the supplied {@link InvocationContext} was {@code null}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	 static List<Param> findStaticQueryParams(InvocationContext context) {
 		
@@ -104,7 +104,7 @@ final class RequestUtils {
 	  * @throws NullPointerException
 	  * 			if the supplied {@link InvocationContext} was {@code null}
 	  * <br><br>
-	  * @since 1.2.4
+	  * @since 1.3.0
 	  */
 	 static List<Param> findStaticFormParams(InvocationContext context) {
 		 
@@ -138,7 +138,7 @@ final class RequestUtils {
 	 * @throws NullPointerException
 	 * 			if the supplied {@link InvocationContext} was {@code null}
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	static List<Map.Entry<String, Object>> findStaticHeaders(InvocationContext context) {
 		
@@ -191,7 +191,7 @@ final class RequestUtils {
 	 * @throws NullPointerException
 	 * 			if the supplied {@link InvocationContext} was {@code null} 
 	 * <br><br>
-	 * @since 1.2.4
+	 * @since 1.3.0
 	 */
 	static HttpRequestBase translateRequestMethod(InvocationContext context) {
 		

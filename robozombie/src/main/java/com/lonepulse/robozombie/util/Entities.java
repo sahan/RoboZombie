@@ -39,7 +39,7 @@ import org.apache.http.entity.StringEntity;
  * 
  * @version 1.1.0
  * <br><br>
- * @since 1.2.4
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
@@ -73,7 +73,7 @@ public final class Entities {
 	  * @throws EntityResolutionFailedException
 	  * 			if the given generic instance failed to be translated to an {@link HttpEntity} 
 	  * <br><br>
-	  * @since 1.2.4
+	  * @since 1.3.0
 	  */
 	 public static final HttpEntity resolve(Object genericEntity) {
 		
@@ -156,7 +156,7 @@ public final class Entities {
 	  * @throws EntityResolutionFailedException
 	  * 			if the given generic {@link Class} failed to be translated to an {@link HttpEntity} type 
 	  * <br><br>
-	  * @since 1.2.4
+	  * @since 1.3.0
 	  */
 	 public static final Class<?> resolve(Class<?> genericType) {
 		 
