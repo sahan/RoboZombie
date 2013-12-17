@@ -30,7 +30,7 @@ package com.lonepulse.robozombie;
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public interface Validator<CONTEXT extends Object> {
+public interface Validator<CONTEXT> {
 
 	/**
 	 * <p>Accepts a given context and validates the contained information using predetermined rules. 

@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -27,23 +28,26 @@ import java.lang.annotation.Target;
 
 /**
  * <p>Identifies a header which should be sent with the request. If this annotation is placed on an 
- * instance of {@link StringBuilder}, its content will be replaced by any available response header 
- * with the same name.</p>
- * <br>
+ * instance of {@link StringBuilder}, its content will be replaced by any available <b>response</b> 
+ * header with the same name.</p>
  * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
- * <code>@GET(/repos/{user}/{repo}/git/blobs/{sha}")
- * <pre>Blob getBlob(<b>@Header</b>("Accept") String mediaType, ... );</pre>
+ * <code>
+ * <pre>@GET(/repos/{user}/{repo}/git/blobs/{sha}")
+ *Blob getBlob(<b>@Header</b>("Accept") String mediaType, ... );</pre>
  * </code>
  * </p>
- * 
+ * <br>
  * @version 1.1.1
+ * <br><br>
+ * @since 1.1.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Header {

@@ -27,7 +27,15 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * into a content-type suitable for network transmission.</p>  
  * 
  * <p><b>Note</b> that, ideally, the serialized content should capture all information on the model.</p>
- *  
+ * <br>
+ * <br>
+ * @param <INPUT>
+ * 			the type to be serialized by this implementation
+ * <br><br>
+ * @param <OUTPUT>
+ * 			the type which is taken up by the serialized content 
+ * <br>
+ * <br>
  * @version 1.1.0
  * <br><br>
  * @since 1.3.0

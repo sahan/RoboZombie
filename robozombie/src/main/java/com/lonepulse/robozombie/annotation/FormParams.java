@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -35,25 +36,25 @@ import java.util.Map;
  * well as on a request parameter of type {@link Map}&lt;String, String&gt; to identify a set of 
  * dynamic form parameters.</p> 
  * <br>
- * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
  * <code>
  * <pre>@POST(path = "/emails/send")<b>
- *&#064;FormParams</b>({@Param(name = "from", value = "someone@example.com"),
- *            &#064;Param(name = "to", value = "support@example.com")})
+ *&#064;FormParams</b>(&#123;@Param(name = "from", value = "someone@example.com"),
+ *             &#064;Param(name = "to", value = "support@example.com")&#125;)
  *void contactSupport(<b>@FormParams</b> Map&lt;String, String&gt; subjectAndBody);</pre>
  * </code>
  * </p>
- * 
+ * <br>
  * @version 1.1.0
  * <br><br>
  * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.PARAMETER})
 public @interface FormParams {

@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -34,23 +35,23 @@ import java.util.Map;
  * as well as on a request parameter of type {@link Map}&lt;String, String&gt; to identify a set 
  * of dynamic query parameters.</p> 
  * <br>
- * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
  * <code><pre>@GET("/users/{user}/repos")
- *<b>@QueryParams</b>({@Param(name = "per_page", value = "5")})
- *List&lt;Repo&gt; getReposPaginated(@PathParam("user") String user, <b>@QueryParams</b> Map&lt;String, String&gt; pageParams);
+ *<b>@QueryParams</b>(&#123;@Param(name = "per_page", value = "5")&#125;)
+ *List&lt;Repo&gt; getReposPaginated(<b>@QueryParams</b> Map&lt;String, String&gt; pageParams, ...);
  * </code></pre>
  * </p>
- * 
+ * <br>
  * @version 1.1.0
  * <br><br>
  * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.PARAMETER})
 public @interface QueryParams {

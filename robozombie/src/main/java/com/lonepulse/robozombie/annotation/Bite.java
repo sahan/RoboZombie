@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -31,7 +32,6 @@ import com.lonepulse.robozombie.proxy.Zombie;
  * <p>Identifies an endpoint definition whose thread-safe proxy should be created and injected. Endpoint 
  * injection is performed with {@link Zombie#infect(Object, Object...)}.</p>
  * <br>
- * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
@@ -40,11 +40,14 @@ import com.lonepulse.robozombie.proxy.Zombie;
  * <pre><b>@Bite</b><br>private GitHubEndpoint gitHubEndpoint;</pre>
  * </code>
  * </p>
- * 
+ * <br>
  * @version 1.1.0
+ * <br><br>
+ * @since 1.1.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.CONSTRUCTOR})
 public @interface Bite {}

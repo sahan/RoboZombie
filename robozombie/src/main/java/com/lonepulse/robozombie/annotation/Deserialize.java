@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -33,35 +34,36 @@ import com.lonepulse.robozombie.response.PlainDeserializer;
  * <p>Attaches a deserializer for converting response content of an identified {@link ContentType} 
  * into consumable models.</p>
  * <br>
- * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <ol>
  * <li>
- * <p>At <b>type-level</b> on an endpoint <i>definition</i>; attaches this deserializer for all requests.</p><br>
+ * <p>At <b>type-level</b> on an endpoint; attaches this deserializer for all requests.</p>
  * <code>
- * <pre>@Endpoint(scheme = "https", host = "api.github.com")<b>
- *&#064;Deserialize(JSON)</b><br>public interface GitHubEndpoint {<br>&nbsp;...<br>}</b>
+ * <pre><b>@Deserialize(JSON)</b>
+ *&#064;Endpoint(scheme = "https", host = "api.github.com")
+ *public interface GitHubEndpoint {<br>&nbsp;&nbsp;...<br>}</b>
  * </pre>
  * </code>
  * </li>
  * <li>
- * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
+ * <p>At <b>method-level</b> on a request.</p>
  * <code>
  * <pre><b>@Deserialize(JSON)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")
- *List&lt;Gist&gt; getGists(@PathParam("user") String user);</b></b></pre>
+ *List&lt;Gist&gt; getGists(@PathParam("user") String user);</pre>
  * </code>
  * </li>
  * </ol>
  * </p>
- * 
+ * <br>
  * @version 1.1.2
  * <br><br>
  * @since 1.1.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Deserialize {
@@ -81,8 +83,9 @@ public @interface Deserialize {
 	 * <p>The {@link Class} of a custom {@link AbstractDeserializer} which should be attached.</p> 
 	 * 
 	 * <code>
-	 * <pre><b>@Deserialize(type = RawGistDeserializer.class)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")<br>
-	 *RawGist[] getRawGists(@PathParam("user") String user);</b></b></pre>
+	 * <pre>@GET("/users/{user}/gists")
+	 *<b>@Deserialize(type = RawGistDeserializer.class)</b>
+	 *List&lt;RawGist&gt; getRawGists(@PathParam("user") String user);</pre>
 	 * </code>
 	 * 
 	 * @return the {@link Class} of the custom {@link AbstractDeserializer} to be used

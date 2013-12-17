@@ -39,7 +39,6 @@ import android.util.Log;
 import com.lonepulse.robozombie.annotation.Bite;
 import com.lonepulse.robozombie.annotation.Config;
 import com.lonepulse.robozombie.annotation.Endpoint;
-import com.lonepulse.robozombie.executor.ConfigurationFailedException;
 import com.lonepulse.robozombie.executor.RequestExecutors;
 import com.lonepulse.robozombie.util.Fields;
 

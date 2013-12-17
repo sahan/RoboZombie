@@ -33,14 +33,12 @@ import com.lonepulse.robozombie.proxy.InvocationException;
  * <ul>
  * 	<li>{@link #onSuccess(HttpResponse, Object)} - handle a successful execution</li>
  * 	<li>{@link #onFailure(HttpResponse)} - handle a failed response</li>
- * 	<li>{@link #onError(Exception)} - handle an erroneous execution</li>
+ * 	<li>{@link #onError(InvocationException)} - handle an erroneous execution</li>
  * </ul>
  * 
  * @version 1.2.0
  * <br><br>
  * @since 1.1.0
- * <br><br>
- * @category API
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */

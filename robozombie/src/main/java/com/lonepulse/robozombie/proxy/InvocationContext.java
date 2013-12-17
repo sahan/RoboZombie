@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * <p>Represents a single <b>request invocation</b> on an endpoint proxy. The context comprises 
- * of both runtime information and request/endpoint metadata, as well as a reference to the proxy 
+ * of both runtime information and request or endpoint metadata, as well as a reference to the proxy 
  * instance on which the request was invoked.</p>
  * 
  * <p>{@link InvocationContext}s can be created using a new {@link InvocationContext.Builder} supplied 

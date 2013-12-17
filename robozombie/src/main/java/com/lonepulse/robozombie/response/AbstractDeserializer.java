@@ -33,7 +33,12 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * 
  * <p><b>Note</b> that all implementations are expected to be <b>stateless</b>. If a state is 
  * incurred, proper {@link ThreadLocal} management should be performed.</p>
- * 
+ * <br>
+ * <br>
+ * @param <OUTPUT>
+ * 			the type which is taken up by the deserialized content
+ * <br>
+ * <br>
  * @version 1.1.0
  * <br><br>
  * @since 1.3.0

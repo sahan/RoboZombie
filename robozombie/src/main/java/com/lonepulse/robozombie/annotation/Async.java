@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -28,31 +29,33 @@ import java.lang.annotation.Target;
 /**
  * <p>Identifies requests which should be executed <b>asynchronously</b>.</p>
  * <br>
- * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <ol>
  * <li>
- * <p>At <b>type-level</b> on an endpoint <i>definition</i>; marks all requests as asynchronous.<br>
+ * At <b>type-level</b> on an endpoint; marks all requests as asynchronous.<br>
  * <code>
- * <pre><b>@Async</b>&nbsp;&nbsp;@Endpoint(scheme = "https", host = "api.github.com")<br>public interface GithubEndpoint {<br>&nbsp;...<br>}</pre>
+ * <pre><b>@Async</b>&nbsp;@Endpoint(scheme = "https", host = "api.github.com")<br>public interface GithubEndpoint {<br>&nbsp;&nbsp;...<br>}</pre>
  * </code>
  * </li>
  *  
  * <li>
- * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
+ * At <b>method-level</b> on a request.<br>
  * <code>
- * <pre><b>@Async</b>&nbsp;&nbsp;@GET("/users/{user}/repos")<br>Set&lt;Repo&gt; getRepos(@PathParam("user") String user);</pre>
+ * <pre><b>@Async</b>&nbsp;@GET("/users/{user}/repos")<br>Set&lt;Repo&gt; getRepos(@PathParam("user") String user);</pre>
  * </code>
  * </li>
  * </ol>
  * </p>
- * 
+ * <br>
  * @version 1.1.0
+ * <br><br>
+ * @since 1.1.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Async {}

@@ -27,7 +27,12 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
 /**
  * <p>This contract defines the policy for a <i>deserializer</i> which reads the response content of a 
  * successful request execution and converts it to a desired entity type which can be processed in memory.</p>
- * 
+ * <br>
+ * <br>
+ * @param <OUTPUT>
+ * 			the type which is taken up by the deserialized content
+ * <br>
+ * <br>
  * @version 1.1.0
  * <br><br>
  * @since 1.3.0

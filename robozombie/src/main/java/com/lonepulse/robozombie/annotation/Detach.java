@@ -21,33 +21,34 @@ package com.lonepulse.robozombie.annotation;
  */
 
 import java.lang.annotation.Annotation;
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Detaches any inherited <b>@{@link Serialize}, @{@link Deserialize}, @{@link Async} and 
- * @{@link Intercept}</b> annotations.</p>
+ * <p>Detaches any inherited &#064;{@link Serialize}, &#064;{@link Deserialize}, &#064;{@link Async} and 
+ * &#064;{@link Intercept} annotations.</p>
  * <br>
- * <br>
- * <b>Usage (assuming the endpoint is asynchronous and a type-level interceptor is attached):</b>
+ * <b>Usage</b> (assuming the endpoint is asynchronous and a type-level interceptor is attached):
  * <br>
  * <br>
  * <p>
  * <code>
- * <pre>@GET("/meta")&nbsp;&nbsp;<b>@Detach({Async.class, Intercept.class})</b>
+ * <pre>@GET("/meta")
+ *<b>@Detach({Async.class, Intercept.class})</b>
  *Meta getMetaInfo();
  * </pre>
  * </code>
  * </p>
- * 
  * @version 1.1.0
  * <br><br>
  * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Detach {

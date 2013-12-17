@@ -38,8 +38,6 @@ import com.lonepulse.robozombie.RoboZombieRuntimeException;
  * <br><br>
  * @since 1.3.0
  * <br><br>
- * @category API
- * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public final class InvocationException extends RoboZombieRuntimeException {

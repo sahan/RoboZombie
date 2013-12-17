@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -29,8 +30,6 @@ import java.lang.annotation.Target;
  * <p>Identifies an interface to be an endpoint definition and accepts key information such as the 
  * endpoint's host or the scheme and port to be used for communication. A bare minimum declaration 
  * would be <code>@Endpoint("example.com")</code> which is {@code http} on port {@code 80}.</p>
- * </p>
- * <br>
  * <br>
  * <b>Usage:</b>
  * <br>
@@ -38,14 +37,17 @@ import java.lang.annotation.Target;
  * <p>
  * <code>
  * <pre><b>@Endpoint(scheme = "https", host = "api.github.com")</b>
- *public interface GitHubEndpoint {<br>&nbsp;...<br>}</pre>
+ *public interface GitHubEndpoint {<br>&nbsp;&nbsp;...<br>}</pre>
  * </code>
  * </p>
- * 
+ * <br>
  * @version 1.1.2
+ * <br><br>
+ * @since 1.1.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Endpoint {
@@ -84,7 +86,7 @@ public @interface Endpoint {
 	String host() default "";
 	
 	/**
-	 * <p>The <b>port</b> through which a channel is opened for communication with the endpoint.</p> 
+	 * <p>The port through which a channel is opened for communication with the endpoint.</p> 
 	 * 
 	 * <p>The default ports are assumed to be <code>80</code> for <code>HTTP</code> and port 
 	 * <code>443</code> for <code>HTTPS</code>.</p>  

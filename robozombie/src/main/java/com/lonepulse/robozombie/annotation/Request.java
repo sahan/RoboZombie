@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -39,7 +40,6 @@ import org.apache.http42.client.methods.HttpPatch;
  * as a meta-annotation to identify the HTTP method when using the likes of <code>@GET</code> or 
  * <code>@PUT</code>.</p>
  * <br>
- * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
@@ -51,13 +51,14 @@ import org.apache.http42.client.methods.HttpPatch;
  * </pre>
  * </code>
  * </p>
- * 
+ * <br>
  * @version 1.2.0
  * <br><br>
  * @since 1.1.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 public @interface Request {

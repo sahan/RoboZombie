@@ -27,42 +27,41 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
 /**
  * <p>This contract defines the policy for <b>intercepting</b> a request and processing it just before 
  * it's submitted for execution.</p>
- * 
+ * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <ol>
  * <li>
- * <p>At <b>type-level</b> on an endpoint <i>interface</i>; attaches this interceptor for all requests.</p><br>
+ * <p>At <b>type-level</b> on an endpoint; attaches the interceptor(s) for all requests.</p>
  * <code>
  * <pre>@Endpoint(scheme = "https", host = "api.github.com")<b>
- *&#064;Intercept(RequestInterceptor.class)</b><br>public interface GitHubEndpoint {<br>}</b>
+ *&#064;Intercept({CommonInterceptor1.class, CommonInterceptor2.class})</b><br>public interface GitHubEndpoint {<br>&nbsp;...<br>}</b>
  * </pre>
  * </code>
  * </li>
  * <li>
- * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
+ * <p>At <b>method-level</b> on a request.</p>
  * <code>
- * <pre>@Request("/users/{id}")<br><b>@Intercept(RequestInterceptor.class)</b>
- *public abstract GitHubUser getUser(@PathParam("id") String id);</b></b></pre>
+ * <pre>@Deserialize(JSON)
+ *&#064;GET("/users/{user}/gists")
+ *<b>@Intercept(SpecificInterceptor.class)</b>
+ *List&lt;Gist&gt; getGists(@PathParam("user") String user);</pre>
+ * </code>
+ * </li>
+ * <li>
+ * <p>As a <b>request parameter</b>.</p>
+ * <code>
+ * <pre>@Deserialize(JSON)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")
+ *List&lt;Gist&gt; getGists(@PathParam("user") String user, <b>Interceptor</b> interceptor);</b></b></pre>
  * </code>
  * </li>
  * </ol>
  * </p>
- * <p>As a <b>request parameter</b>.</p><br>
- * <code>
- * <pre>@Request("/users/{id}")<br>
- *public abstract GitHubUser getUser(@PathParam("id") String id, Interceptor requestInterceptor);</b></b></pre>
- * </code>
- * </li>
- * </ol>
- * </p>
- * 
+ * <br>
  * @version 1.1.0
  * <br><br>
  * @since 1.3.0
- * <br><br>
- * @category API
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */

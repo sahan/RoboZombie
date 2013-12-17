@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -29,7 +30,6 @@ import java.lang.annotation.Target;
  * <p>This annotation marks a RESTful path parameter which should replace a placeholder on the request 
  * path with the same name.</p> 
  * <br>
- * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
@@ -37,16 +37,19 @@ import java.lang.annotation.Target;
  * <br>
  * <p>
  * <code>
- * <pre>@GET("<b>/repos/{user}/{repo}/events</b>")
+ * <pre>@GET("/repos/<b>{user}</b>/<b>{repo}</b>/events")
  *List&lt;Event&gt; getRepoEvents(<b>@PathParam("user") String user, &#064;PathParam("repo") String repo</b>);
  * </pre>
  * </code>
  * </p>
- * 
+ * <br>
  * @version 1.1.1
+ * <br><br>
+ * @since 1.1.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PathParam {

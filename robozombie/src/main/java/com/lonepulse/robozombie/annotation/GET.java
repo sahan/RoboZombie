@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -33,7 +34,6 @@ import com.lonepulse.robozombie.annotation.Request.RequestMethod;
  * <p>See <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">section 9</a> 
  * of the HTTP/1.1 specification.</p> 
  * <br>
- * <br>
  * <p>
  * <b>Usage:</b>
  * <br>
@@ -45,13 +45,14 @@ import com.lonepulse.robozombie.annotation.Request.RequestMethod;
  * </pre>
  * </code>
  * </p>
- * 
+ * <br>
  * @version 1.1.0
  * <br><br>
  * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Request(method = RequestMethod.GET)

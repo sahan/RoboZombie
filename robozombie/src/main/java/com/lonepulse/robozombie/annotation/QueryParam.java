@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -29,22 +30,23 @@ import java.lang.annotation.Target;
  * <p>Identifies a <b>query parameter</b> to be included in a 
  * <a href="http://en.wikipedia.org/wiki/Query_string">query string</a>. 
  * <br>
- * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
- * <code>@GET("/repos/{user}/{repo}/issues")
- * <pre>List&lt;Issue&gt; getIssues(<b>@QueryParam("state") String state</b>, ... );</pre>
+ * <code>
+ * <pre>@GET("/repos/{user}/{repo}/issues")
+ *List&lt;Issue&gt; getIssues(<b>@QueryParam("state") String state</b>, ... );</pre>
  * </code>
  * </p>
- * 
+ * <br>
  * @version 1.1.0
  * <br><br>
  * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface QueryParam {

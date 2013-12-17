@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -30,13 +31,12 @@ import com.lonepulse.robozombie.request.Interceptor;
 /**
  * <p>Identifies an {@link Interceptor} which will be used to process a request just before it's executed.</p>
  * <br>
- * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <ol>
  * <li>
- * <p>At <b>type-level</b> on an endpoint <i>definition</i>; attaches this interceptor for all requests.</p><br>
+ * <p>At <b>type-level</b> on an endpoint; attaches the interceptor(s) for all requests.</p>
  * <code>
  * <pre>@Endpoint(scheme = "https", host = "api.github.com")<b>
  *&#064;Intercept({CommonInterceptor1.class, CommonInterceptor2.class})</b><br>public interface GitHubEndpoint {<br>&nbsp;...<br>}</b>
@@ -44,15 +44,16 @@ import com.lonepulse.robozombie.request.Interceptor;
  * </code>
  * </li>
  * <li>
- * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p><br>
+ * <p>At <b>method-level</b> on a request.</p>
  * <code>
- * <pre><b>@Intercept(SpecificInterceptor.class)</b>
- *&#064;Deserialize(JSON)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")
- *List&lt;Gist&gt; getGists(@PathParam("user") String user);</b></b></pre>
+ * <pre>@Deserialize(JSON)
+ *&#064;GET("/users/{user}/gists")
+ *<b>@Intercept(SpecificInterceptor.class)</b>
+ *List&lt;Gist&gt; getGists(@PathParam("user") String user);</pre>
  * </code>
  * </li>
  * <li>
- * <p>As a <b>request parameter</b>.</p><br>
+ * <p>As a <b>request parameter</b>.</p>
  * <code>
  * <pre>@Deserialize(JSON)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")
  *List&lt;Gist&gt; getGists(@PathParam("user") String user, <b>Interceptor</b> interceptor);</b></b></pre>
@@ -60,13 +61,14 @@ import com.lonepulse.robozombie.request.Interceptor;
  * </li>
  * </ol>
  * </p>
- * 
+ * <br>
  * @version 1.1.2
  * <br><br>
  * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Intercept {

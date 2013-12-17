@@ -27,6 +27,8 @@ import java.util.Map;
  * for the factory methods. All default implementations throw an {@link UnsupportedOperationException}. 
  * Concrete factories are expected to override the methods they offer.</p>
  *  
+ * <p>See {@link GenericFactory}</p>
+ *  
  * @version 1.1.0
  * <br><br>
  * @since 1.3.0

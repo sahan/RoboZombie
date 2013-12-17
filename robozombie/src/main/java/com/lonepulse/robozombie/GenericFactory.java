@@ -34,7 +34,7 @@ import java.util.Map;
  * 
  * @version 1.2.0
  * <br><br>
- * @version 1.3.0
+ * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */

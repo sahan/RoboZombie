@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -30,23 +31,23 @@ import com.lonepulse.robozombie.proxy.Zombie;
 /**
  * <p>Identifies an alternate {@link Zombie.Configuration} which should be used on an endpoint for 
  * executing requests. Extend {@link Zombie.Configuration}, override the template methods to provide 
- * a custom configuration and indicate that this configuration be used using its {@link Class}.</p> 
- * <br>
+ * a custom configuration and indicate that this configuration be used using its {@link Class}.</p>
  * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <code>
- * <pre><b>@Config(GitHubConfig.class)</b><br>@Endpoint(scheme = "https", host = "api.github.com")<br>
- *public interface GitHubEndpoint {<br>&nbsp;...<br>}</pre>
+ * <pre><b>@Config(GitHubConfig.class)</b><br>@Endpoint(scheme = "https", host = "api.github.com")
+ *public interface GitHubEndpoint {<br>&nbsp;&nbsp;...<br>}</pre>
  * </code>
- * 
+ * <br>
  * @version 1.1.0
  * <br><br>
  * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Config {

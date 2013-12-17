@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -29,24 +30,24 @@ import java.lang.annotation.Target;
  * <p>Identifies a parameter to be sent as a <a href="http://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms">
  * form-urlencoded</a> list of <b>name-value</b> pairs.
  * <br>
- * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
  * <code><pre>
- * @POST(path = "/emails/send")
+ *&#064;POST(path = "/emails/send")
  *void sendEmail(<b>@FormParam("from")</b> String from, <b>@FormParam("to")</b> String to, 
  *               <b>@FormParam("subject")</b> String subject, <b>@FormParam("body")</b> String body);</pre>
  * </code>
  * </p>
- * 
+ * <br>
  * @version 1.1.0
  * <br><br>
  * @since 1.3.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FormParam {

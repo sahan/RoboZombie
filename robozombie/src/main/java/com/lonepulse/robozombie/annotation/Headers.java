@@ -20,6 +20,7 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -28,31 +29,33 @@ import java.lang.annotation.Target;
 /**
  * <p>Identifies a constant set of headers which should be sent with every request.</p>
  * <br>
- * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
  * <code>
  * <pre>@GET("/feeds")
- *<b>@Headers({@Headers.Header(name = "</b>Accept<b>", value = "</b>application/json<b>"),
- *          &#064;Headers.Header(name = "</b>Accept-Charset<b>", value = "</b>utf-8<b>")})</b>
+ *<b>@Headers(&#123;@Headers.Header(name = "</b>Accept<b>", value = "</b>application/json<b>"),
+ *          &#064;Headers.Header(name = "</b>Accept-Charset<b>", value = "</b>utf-8<b>")&#125;)</b>
  *Feeds getFeeds();
  * </pre>
  * </code>
  * </p>
- * 
+ * <br>
  * @version 1.1.1
+ * <br><br>
+ * @since 1.1.0
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
+@Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Headers {
 
 	
 	/**
-	 * <p>Marks a <b>constant</b> header parameter for a particular request.</p> 
+	 * <p>Identifies a <b>constant</b> header parameter for a particular request.</p> 
 	 * 
 	 * @version 1.1.1
 	 * <br><br>
