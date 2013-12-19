@@ -8,80 +8,79 @@ which simplifies network communication. **2** An endpoint proxy generator for we
 <br>
 ##About
 
-**RoboZombie** allows easy integration with remote services by allowing you to replicate an endpoint 
-contract and generate a proxy to access it.
-
-* Contracts can be very flexible in terms of the resources they access. These could be vary from static 
-*html* content or an *RRS* feed, to a RESTful web service endpoint.   
-<br>
-* Each endpoint contract is specified on a single interface using annotations to provide the communication 
-metadata. It is then wired into your code via an annotation, where it'll be created, cached and injected at 
-runtime.   
+**RoboZombie** makes Android networking a breeze by simply accepting an interface which describes the remote 
+service and giving you an implementation of it in return.   
 <br>
 
 ##Overview   
 <br>
-Here's your Model   
+Here's your model.   
 
 ```java
-public class Conversion {
+public class Repo {
 
-    private String lhs;
-    private String rhs;
-    private String error;
-    private boolean icc;
-
-    /* Accessors, Mutators, hashCode(), 
-     * equals() and toString() omitted */
+    private String id;
+    private String name;
+    private boolean fork;
+    private int stargazers_count;
+    
+    ...
 }
-```
+```   
+> Follow the same variable names as the JSON response.   
+
 <br>
-Define the Endpoint Interface   
+Define the endpoint.   
 
 ```java
-@Endpoint("www.google.com")
-@Parser(PARSER_TYPE.JSON)
-public interface ConverterEndpoint {
+@Deserialize(JSON)
+@Endpoint(scheme = "https", host = "api.github.com")
+public interface GitHubEndpoint {
 
-    @Request(path = "/ig/calculator")
-    Conversion convert(@Param("q") String query);
+    @GET("/users/{user}/repos")
+    List<Repo> getRepos(@PathParam("user") String user);
 }
-```
+```   
+> Looks for [Gson](http://code.google.com/p/google-gson) on your build path.   
+
 <br>
-Inject and Invoke   
+Inject and invoke.   
 
 ```java
 @Bite
-private ConverterEndpoint endpoint;
+private GitHubEndpoint endpoint;   
+
 {
     Zombie.infect(this);
 }
 
 ...
 
-Conversion rate = endpoint.convert("1USD=?AUD");
+List<Repo> repos = endpoint.getRepos("sahan");
 ```
 <br>
 Create as many endpoints as you want...   
 
 ```java
-@Endpoint("s3.amazonaws.com/archive.travis-ci.org")
-public interface AmazonS3Endpoint {
+@Endpoint("example.com")
+public interface ExampleEndpoint {
 
-    @Parser(PARSER_TYPE.STRING)	
-    @Rest(path = "/jobs/:job_id/log.txt")
-    String getBuildLog(@PathParam("job_id") String jobId);
+    @Serialize(XML)	
+    @PUT("/content")
+    void putContent(@Entity Content content);
 }
-```
+```   
+> Looks for [Simple-XML](http://simple.sourceforge.net) on your build path.
+
 <br>
 ...and inject 'em all.   
 
 ```java
 @Bite
-private ConverterEndpoint ccEndpoint;
+private GitHubEndpoint gitHubEndpoint;
 
 @Bite
-private AmazonS3Endpoint s3Endpoint;
+private ExampleEndpoint exampleEndpoint;
 
 {
     Zombie.infect(this);
@@ -93,34 +92,53 @@ RoboZombie requires the **INTERNET** manifest permission for network communicati
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 ```
-> ...and be sure to invoke all endpoint calls from a worker thread.
+> ...and be sure to invoke all synchronous requests from a worker thread.
 
 <br>
 ##Setup
 
-### 1. For Maven Based Android Projects
+### 1. For Maven based projects.   
 
-Add the following dependency in your project's pom.xml.
+Add the following dependency to project's pom.xml file.
 
 ```xml
 <dependency>
    <groupId>com.lonepulse</groupId>
    <artifactId>robozombie</artifactId>
-   <version>1.2.3</version>
-   <type>jar</type>
+   <version>1.3.0</version>
 </dependency>
-```
+```   
 
-For information on building Android projects using Maven here's [Chapter 14](http://www.sonatype.com/books/mvnref-book/reference/android-dev.html) of `Maven: The Complete Reference`.   
 <br>   
+### 2. For Gradle based projects.   
 
-### 2. For Standard Android Projects
+Add the following repository and dependency to your project's build.gradle file.
 
-Download the [RoboZombie](http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.2.3/robozombie-1.2.3.jar) + [Gson](http://repo1.maven.org/maven2/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar) 
-jars and add them to your **libs** folder.
-<br><br>
+```groovy
+repositories {
 
-##Wiki
+    mavenCentral()
+}
+
+dependencies {
+
+    compile 'com.lonepulse:robozombie:1.3.0'
+}
+```   
+
+<br>   
+### 3. Add the JAR to your build path manually.   
+
+Download the [RoboZombie-1.3.0.jar](http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.3.0/robozombie-1.3.0.jar) 
+and add it to your **libs** folder.   
+<br>
+
+> Note that [Gson](http://search.maven.org/remotecontent?filepath=com/google/code/gson/gson/2.2.4/gson-2.2.4.jar) 
+is required for JSON (de)serialization and [Simple-XML](http://search.maven.org/remotecontent?filepath=org/simpleframework/simple-xml/2.7.1/simple-xml-2.7.1.jar) 
+is required for XML (de)serialization.   
+
+<br>
+##Wiki <font color = "#F78181">(OBSOLETE)</font>
 
 Coding with RoboZombie is a breeze. It follows a simple annotation based coding style and adheres to a *minimal intrusion* policy. 
 Kickoff with the [quickstart](https://github.com/sahan/RoboZombie/wiki/Quickstart) and follow the rest of the wiki pages. 
