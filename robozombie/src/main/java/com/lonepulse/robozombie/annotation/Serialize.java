@@ -40,7 +40,7 @@ import com.lonepulse.robozombie.request.PlainSerializer;
  * <p>At <b>type-level</b> on an endpoint <i>definition</i>; attaches this serializer for all requests.</p>
  * <code>
  * <pre><b>@Serialize(JSON)</b>
- *&#064;Endpoint(scheme = "https", host = "api.github.com")
+ *&#064;Endpoint("https://api.github.com")
  *public interface GitHubEndpoint {<br>&nbsp;&nbsp;...<br>}</b>
  * </pre>
  * </code>

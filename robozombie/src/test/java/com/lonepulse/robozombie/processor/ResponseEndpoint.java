@@ -38,7 +38,7 @@ import com.lonepulse.robozombie.model.User;
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Endpoint(host = "0.0.0.0", port = 8080)
+@Endpoint("http://0.0.0.0:8080")
 public interface ResponseEndpoint {
 	
 	/**

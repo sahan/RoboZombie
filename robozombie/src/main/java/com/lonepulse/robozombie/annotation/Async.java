@@ -36,7 +36,7 @@ import java.lang.annotation.Target;
  * <li>
  * At <b>type-level</b> on an endpoint; marks all requests as asynchronous.<br>
  * <code>
- * <pre><b>@Async</b>&nbsp;@Endpoint(scheme = "https", host = "api.github.com")<br>public interface GithubEndpoint {<br>&nbsp;&nbsp;...<br>}</pre>
+ * <pre><b>@Async</b>&nbsp;@Endpoint("https://api.github.com")<br>public interface GithubEndpoint {<br>&nbsp;&nbsp;...<br>}</pre>
  * </code>
  * </li>
  *  

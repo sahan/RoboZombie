@@ -38,7 +38,7 @@ import com.lonepulse.robozombie.request.Interceptor;
  * <li>
  * <p>At <b>type-level</b> on an endpoint; attaches the interceptor(s) for all requests.</p>
  * <code>
- * <pre>@Endpoint(scheme = "https", host = "api.github.com")<b>
+ * <pre>@Endpoint("https://api.github.com")<b>
  *&#064;Intercept({CommonInterceptor1.class, CommonInterceptor2.class})</b><br>public interface GitHubEndpoint {<br>&nbsp;...<br>}</b>
  * </pre>
  * </code>

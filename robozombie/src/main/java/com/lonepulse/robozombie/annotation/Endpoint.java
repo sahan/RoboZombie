@@ -27,21 +27,23 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Identifies an interface to be an endpoint definition and accepts key information such as the 
- * endpoint's host or the scheme and port to be used for communication. A bare minimum declaration 
- * would be <code>@Endpoint("example.com")</code> which is {@code http} on port {@code 80}.</p>
+ * <p>Identifies an interface as an endpoint definition and accepts the URI which can be used to reach 
+ * the services offered by the endpoint.</p>
+ * 
+ * <p><b>Note</b> that the given URI may be <i>parameterized</i> to accept @{@link PathParam}s and all 
+ * subpaths are directly appended to this root URI.</p>
  * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
  * <code>
- * <pre><b>@Endpoint(scheme = "https", host = "api.github.com")</b>
+ * <pre><b>@Endpoint("https://api.github.com")</b>
  *public interface GitHubEndpoint {<br>&nbsp;&nbsp;...<br>}</pre>
  * </code>
  * </p>
  * <br>
- * @version 1.1.2
+ * @version 1.2.0
  * <br><br>
  * @since 1.1.0
  * <br><br>
@@ -52,57 +54,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Endpoint {
 	
-
 	/**
-	 * <p>The scheme of the protocol used for communication. The default value for the scheme 
-	 * is <code>http</code>.</p>
+	 * <p>The endpoint <a href="http://en.wikipedia.org/wiki/Uniform_resource_identifier">URI</a> which 
+	 * requires a minimum of <i>scheme</i>://<i>domain</i></p>
 	 * 
-	 * @return the protocol scheme
+	 * @return the endpoint URI
 	 * <br><br>
 	 * @since 1.1.2
 	 */
-	String scheme() default "http";
-	
-	/**
-	 * <p>The hostname of the endpoint.</p>
-	 * 
-	 * <p>Synonymous to {@link #host()}.</p>
-	 * 
-	 * @return the endpoint's hostname
-	 * <br><br>
-	 * @since 1.1.2
-	 */
-	String value() default "";
-	
-	/**
-	 * <p>The hostname of the endpoint.</p> 
-	 * 
-	 * <p>Synonymous to {@link #value()} which could be used as <code>@Endpoint("example.com")</code>.</p>
-	 * 
-	 * @return the endpoint's hostname
-	 * <br><br>
-	 * @since 1.1.2
-	 */
-	String host() default "";
-	
-	/**
-	 * <p>The port through which a channel is opened for communication with the endpoint.</p> 
-	 * 
-	 * <p>The default ports are assumed to be <code>80</code> for <code>HTTP</code> and port 
-	 * <code>443</code> for <code>HTTPS</code>.</p>  
-	 * 
-	 * @return the port used for communication
-	 * <br><br>
-	 * @since 1.1.2
-	 */
-	int port() default -1;
-
-	/**
-	 * <p>The root path to be immediately appended to the hostname.</p>    
-	 * 
-	 * @return the root path which extends immediately after the hostname
-	 * <br><br>
-	 * @since 1.1.2
-	 */
-	String path() default "";
+	String value();
 }

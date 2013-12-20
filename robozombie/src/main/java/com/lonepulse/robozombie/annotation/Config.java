@@ -37,7 +37,7 @@ import com.lonepulse.robozombie.proxy.Zombie;
  * <br>
  * <br>
  * <code>
- * <pre><b>@Config(GitHubConfig.class)</b><br>@Endpoint(scheme = "https", host = "api.github.com")
+ * <pre><b>@Config(GitHubConfig.class)</b><br>@Endpoint("https://api.github.com")
  *public interface GitHubEndpoint {<br>&nbsp;&nbsp;...<br>}</pre>
  * </code>
  * <br>

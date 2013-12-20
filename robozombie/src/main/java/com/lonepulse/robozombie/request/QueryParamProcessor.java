@@ -49,7 +49,7 @@ import com.lonepulse.robozombie.util.Metadata;
  * 
  * <p>Processor Dependencies:</p>
  * <ul>
- * 	<li>{@link PathParamProcessor}</li>
+ * 	<li>{@link UriProcessor}</li>
  * </ul>
  * 
  * @version 1.3.0

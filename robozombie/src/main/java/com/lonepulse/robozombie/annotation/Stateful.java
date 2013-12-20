@@ -37,7 +37,7 @@ import org.apache.http.cookie.Cookie;
  * <br>
  * <code>
  * <pre><b>@Stateful</b>
- *&#064;Endpoint(scheme = "https", host = "api.github.com")
+ *&#064;Endpoint("https://api.github.com")
  *public interface GitHubEndpoint {<br>&nbsp;&nbsp;...<br>}</b>
  * </pre>
  * </code>

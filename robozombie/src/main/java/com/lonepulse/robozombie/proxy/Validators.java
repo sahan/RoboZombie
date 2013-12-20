@@ -58,7 +58,6 @@ final class Validators {
 	 * <ol>
 	 * 	<li>Mandates interfaces for expressing endpoint definitions ({@link EndpointValidationFailedException})</li>
 	 * 	<li>Checks the existence of an @{@link Endpoint} annotation ({@link MissingEndpointAnnotationException})</li>
-	 * 	<li>Confirms the minimum requirement of a <b>host name</b> ({@link MissingEndpointHostException})</li>
 	 * 	<li>Ensures that all method definitions are invokable requests ({@link StrayRequestException})</li>
 	 * </ol>
 	 * 
@@ -88,16 +87,6 @@ final class Validators {
 				if(!endpointDefinition.isAnnotationPresent(Endpoint.class)) {
 					
 					throw new MissingEndpointAnnotationException(endpointDefinition, Endpoint.class);
-				}
-				
-				Endpoint endpoint = endpointDefinition.getAnnotation(Endpoint.class); 
-				
-				String value = endpoint.value();
-				String host = (value == null || value.isEmpty())? endpoint.host() :value;
-				
-				if(host == null || host.isEmpty()) {
-					
-					throw new MissingEndpointHostException(endpointDefinition);
 				}
 				
 				Method[] requestDefinitions = endpointDefinition.getMethods();

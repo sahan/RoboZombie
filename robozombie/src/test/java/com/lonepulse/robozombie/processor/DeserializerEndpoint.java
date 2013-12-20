@@ -48,7 +48,7 @@ import com.lonepulse.robozombie.response.AbstractDeserializer;
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 @Deserialize(JSON)
-@Endpoint(host = "0.0.0.0", port = 8080)
+@Endpoint("http://0.0.0.0:8080")
 public interface DeserializerEndpoint {
 	
 	/**

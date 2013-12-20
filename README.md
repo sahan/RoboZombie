@@ -12,8 +12,8 @@ which simplifies network communication. **2** An endpoint proxy generator for we
 service and giving you an implementation of it in return.   
 <br>
 
-##Overview   
-<br>
+##Overview
+
 Here's your model.   
 
 ```java
@@ -138,7 +138,7 @@ is required for JSON (de)serialization and [Simple-XML](http://search.maven.org/
 is required for XML (de)serialization.   
 
 <br>
-##Wiki <font color = "#F78181">(OBSOLETE)</font>
+##Wiki <pre><font color = "#F78181">(OBSOLETE)</font></pre>
 
 Coding with RoboZombie is a breeze. It follows a simple annotation based coding style and adheres to a *minimal intrusion* policy. 
 Kickoff with the [quickstart](https://github.com/sahan/RoboZombie/wiki/Quickstart) and follow the rest of the wiki pages. 

@@ -44,12 +44,8 @@ public class EndpointValidationTest {
 	//represents an invalid endpoint definition with a missing @{@link Endpoint} annotation.
 	private interface MissingEndpointAnnotationEndpoint {}
 	
-	//represents an invalid endpoint definition with missing host information.
-	@Endpoint
-	private interface MissingEndpointHostEndpoint {}
-	
 	//represents an invalid endpoint definition with a missing request metadata.
-	@Endpoint("example.com")
+	@Endpoint("http://example.com")
 	private interface StrayEndpointRequestEndpoint {
 		
 		void strayRequest();
@@ -71,20 +67,6 @@ public class EndpointValidationTest {
 				Class.forName("com.lonepulse.robozombie.proxy.MissingEndpointAnnotationException")));
 		
 		Validators.ENDPOINT.validate(MissingEndpointAnnotationEndpoint.class);
-	}
-	
-	/**
-	 * <p>Tests endpoint validation for a missing host in an @{@link Endpoint} annotation.</p>
-	 *  
-	 * @since 1.3.0
-	 */
-	@Test @SuppressWarnings("unchecked") //safe case to Class<Throwable> from a known exception
-	public final void testMissingEndpointHost() throws ClassNotFoundException {
-		
-		expectedException.expect(Is.isA((Class<Throwable>) 
-				Class.forName("com.lonepulse.robozombie.proxy.MissingEndpointHostException")));
-		
-		Validators.ENDPOINT.validate(MissingEndpointHostEndpoint.class);
 	}
 	
 	/**

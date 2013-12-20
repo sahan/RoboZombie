@@ -43,9 +43,8 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * <p>This chain consists of the {@link AbstractRequestProcessor}s listed below in the given order:</p>  
  * 
  * <ol>
- * 	<li>{@link UriProcessor} - builds the complete URI from the root-path and the sub-path</li>
+ * 	<li>{@link UriProcessor} - builds the URI from the endpoint and sub-path and fills @{@link PathParam}s</li>
  * 	<li>{@link HeaderProcessor} - populates all static and dynamic HTTP headers</li>
- *  <li>{@link PathParamProcessor} - populates path parameters placeholders in the URI for any @{@link PathParam}s</li>
  *  <li>{@link QueryParamProcessor} - appends a query-string formulated for any @{@link QueryParam}s</li>
  *  <li>{@link FormParamProcessor} - inserts a form-url-encoded query-string for any @{@link FormParam}s</li>
  *  <li>{@link EntityProcessor} - inserts the {@link HttpEntity} identified using @{@link Entity}</li>
@@ -73,9 +72,8 @@ public final class RequestProcessorChain extends AbstractProcessorChain<HttpRequ
 	 * linked in the following sequence:</p>
 	 * 
 	 * <ol>
-	 * 	<li>{@link UriProcessor} - builds the complete URI from the root-path and the sub-path</li>
+	 * 	<li>{@link UriProcessor} - builds the URI from the endpoint and sub-path and fills @{@link PathParam}s</li>
 	 *  <li>{@link HeaderProcessor} - populates all static and dynamic HTTP headers</li>
-	 *  <li>{@link PathParamProcessor} - populates path parameters placeholders in the URI for any @{@link PathParam}s</li>
 	 *  <li>{@link QueryParamProcessor} - appends a query-string formulated for any @{@link QueryParam}s</li>
 	 *  <li>{@link FormParamProcessor} - inserts a form-url-encoded query-string for any @{@link FormParam}s</li>
 	 *  <li>{@link EntityProcessor} - inserts the {@link HttpEntity} identified using @{@link Entity}</li>
@@ -90,7 +88,6 @@ public final class RequestProcessorChain extends AbstractProcessorChain<HttpRequ
 		super(new ProcessorChainFactory<HttpRequestBase, RequestProcessorException>().newInstance(
 			  new UriProcessor(), 
 			  new HeaderProcessor(),
-			  new PathParamProcessor(), 
 			  new QueryParamProcessor(), 
 			  new FormParamProcessor(), 
 			  new EntityProcessor(),

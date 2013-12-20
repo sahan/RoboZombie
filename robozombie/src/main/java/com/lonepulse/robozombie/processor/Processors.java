@@ -59,9 +59,8 @@ public enum Processors {
 	 * <p>This chain consists of the <b>request processors</b> listed below in the given order:  
 	 * 
 	 * <ol>
-	 * 	<li>{@link UriProcessor} - builds the complete URI from the root-path and the sub-path</li>
+	 * 	<li>{@link UriProcessor} - builds the URI from the endpoint and sub-path and fills @{@link PathParam}s</li>
 	 * 	<li>{@link HeaderProcessor} - populates all static and dynamic HTTP headers</li>
-	 *  <li>{@link PathParamProcessor} - replaces path parameter placeholders in the URI with any @{@link PathParam}s</li>
 	 *  <li>{@link QueryParamProcessor} - appends a query-string formulated for any @{@link QueryParam}s</li>
 	 *  <li>{@link FormParamProcessor} - inserts a form-url-encoded query-string for any @{@link FormParam}s</li>
 	 *  <li>{@link EntityProcessor} - inserts the {@link HttpEntity} identified using @{@link Entity}</li>
@@ -75,7 +74,7 @@ public enum Processors {
 	 * <b>RequestProcessorException</b> and may be thrown from any arbitrary {@link ProcessorChainLink}. 
 	 * Any changes made on the arguments to the chain are <b>NOT rolled back</b>.</p> 
 	 * 
-	 * @version 1.2.0
+	 * @version 1.3.0
 	 * <br><br>
 	 * @since 1.3.0
 	 */
