@@ -31,7 +31,9 @@ import com.lonepulse.robozombie.annotation.Detach;
 import com.lonepulse.robozombie.annotation.Endpoint;
 import com.lonepulse.robozombie.annotation.GET;
 import com.lonepulse.robozombie.annotation.Intercept;
-import com.lonepulse.robozombie.processor.InterceptorEndpoint.EndpointInterceptor;
+import com.lonepulse.robozombie.annotation.Skip;
+import com.lonepulse.robozombie.processor.InterceptorEndpoint.CommonInterceptor;
+import com.lonepulse.robozombie.processor.InterceptorEndpoint.CustomInterceptor;
 import com.lonepulse.robozombie.proxy.InvocationContext;
 import com.lonepulse.robozombie.request.Interceptor;
 
@@ -46,8 +48,8 @@ import com.lonepulse.robozombie.request.Interceptor;
  * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-@Intercept(EndpointInterceptor.class)
 @Endpoint("http://0.0.0.0:8080")
+@Intercept({CustomInterceptor.class, CommonInterceptor.class})
 public interface InterceptorEndpoint {
 	
 	
@@ -58,8 +60,9 @@ public interface InterceptorEndpoint {
 		String value();
 	}
 
-	class EndpointInterceptor implements Interceptor {
+	class CustomInterceptor implements Interceptor {
 
+		@Override
 		public void intercept(InvocationContext context, HttpRequestBase request) {
 			
 			XHeader xHeader = context.getRequest().getAnnotation(XHeader.class);
@@ -67,8 +70,18 @@ public interface InterceptorEndpoint {
 		}
 	}
 	
+	class CommonInterceptor implements Interceptor {
+		
+		@Override
+		public void intercept(InvocationContext context, HttpRequestBase request) {
+			
+			request.addHeader("Accept-Charset", "utf-8");
+		}
+	}
+	
 	class RequestInterceptor implements Interceptor {
 		
+		@Override
 		public void intercept(InvocationContext context, HttpRequestBase request) {
 			
 			request.addHeader("X-Header", "request");
@@ -115,11 +128,20 @@ public interface InterceptorEndpoint {
 	void paramInterceptor(Interceptor interceptor);
 	
 	/**
-	 * <p>A mock request which detaches the interceptor defined at the endpoint level.</p>
+	 * <p>A mock request which detaches the interceptors defined at the endpoint level.</p>
 	 *
 	 * @since 1.3.0
 	 */
 	@GET("/detach") 
 	@Detach(Intercept.class)
 	void detachInterceptor();
+	
+	/**
+	 * <p>A mock request which skips a single interceptor defined at the endpoint level.</p>
+	 *
+	 * @since 1.3.0
+	 */
+	@GET("/skip") 
+	@Skip(CustomInterceptor.class)
+	void skipInterceptor();
 }

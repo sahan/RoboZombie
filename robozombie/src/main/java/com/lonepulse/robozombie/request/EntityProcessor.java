@@ -21,7 +21,7 @@ package com.lonepulse.robozombie.request;
  */
 
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.UNDEFINED;
-import static com.lonepulse.robozombie.util.Is.detached;
+import static com.lonepulse.robozombie.util.Components.isDetached;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -117,7 +117,7 @@ class EntityProcessor extends AbstractRequestProcessor {
 					context.getRequest().getAnnotation(Serialize.class)) == null? 
 						context.getEndpoint().getAnnotation(Serialize.class) :metadata;
 				
-				if(metadata != null && !detached(context, Serialize.class)) {
+				if(metadata != null && !isDetached(context, Serialize.class)) {
 					
 					@SuppressWarnings("rawtypes") //no restrictions on custom serializer types with @Serialize
 					AbstractSerializer serializer = (metadata.value() == UNDEFINED)? 

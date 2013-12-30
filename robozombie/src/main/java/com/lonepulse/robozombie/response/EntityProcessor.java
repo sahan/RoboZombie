@@ -20,8 +20,8 @@ package com.lonepulse.robozombie.response;
  * #L%
  */
 
+import static com.lonepulse.robozombie.util.Components.isDetached;
 import static com.lonepulse.robozombie.util.Is.async;
-import static com.lonepulse.robozombie.util.Is.detached;
 import static com.lonepulse.robozombie.util.Is.status;
 import static com.lonepulse.robozombie.util.Is.successful;
 
@@ -114,7 +114,7 @@ class EntityProcessor extends AbstractResponseProcessor {
 						request.getAnnotation(Deserialize.class)) == null? 
 							endpoint.getAnnotation(Deserialize.class) :metadata;
 					
-					if(metadata != null & !detached(context, Deserialize.class)) {
+					if(metadata != null & !isDetached(context, Deserialize.class)) {
 						
 						deserializer = (metadata.value() == ContentType.UNDEFINED)? 
 							Deserializers.resolve(metadata.type()) :Deserializers.resolve(metadata.value()); 

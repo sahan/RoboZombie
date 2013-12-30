@@ -20,7 +20,6 @@ package com.lonepulse.robozombie.annotation;
  * #L%
  */
 
-import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -28,16 +27,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Detaches any inherited &#064;{@link Serialize}, &#064;{@link Deserialize}, &#064;{@link Async} and 
- * &#064;{@link Intercept} annotations.</p>
+ * <p>Skips any inherited components which are defined on the endpoint.</p>
  * <br>
- * <b>Usage</b> (assuming the endpoint is asynchronous and a type-level interceptor is attached):
+ * <b>Usage</b> (assuming type-level interceptors are attached):
  * <br>
  * <br>
  * <p>
  * <code>
  * <pre>@GET("/meta")
- *<b>@Detach({Async.class, Intercept.class})</b>
+ *<b>@Skip({HeaderInterceptor.class, 
+ *       AuthInterceptor.class})</b>
  *Meta getMetaInfo();
  * </pre>
  * </code>
@@ -51,16 +50,15 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Detach {
+public @interface Skip {
 	
 	
 	/**
-	 * <p>The {@link Class}es which identify the inherited directives (annotations) to be detached 
-	 * from the request.</p> 
+	 * <p>The {@link Class}es which identify the inherited components to be skipped from the request.</p> 
 	 * 
-	 * @return the {@link Class}es for the directives (annotations) to be detached
+	 * @return the {@link Class}es for the components to be skipped
 	 * <br><br>
 	 * @since 1.3.0
 	 */
-	Class<? extends Annotation>[] value();
+	Class<?>[] value();
 }

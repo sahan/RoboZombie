@@ -20,17 +20,12 @@ package com.lonepulse.robozombie.util;
  * #L%
  */
 
-
 import static com.lonepulse.robozombie.util.Assert.assertNotNull;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.Arrays;
+import static com.lonepulse.robozombie.util.Components.isDetached;
 
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Async;
-import com.lonepulse.robozombie.annotation.Detach;
 import com.lonepulse.robozombie.proxy.InvocationContext;
 
 /**
@@ -106,30 +101,6 @@ public final class Is {
 	}
 	
 	/**
-	 * <p>Determines whether the request definition has <i>detached</i> the given {@link Annotation} type. 
-	 * This will mute any annotations of the given type which are defined on the endpoint.</p>
-	 *
-	 * <p>See {@link Detach}.</p>
-	 *
-	 * @param context
-	 * 			the {@link InvocationContext} which provides the request definition
-	 * <br><br>
-	 * @param type
-	 * 			the {@link Annotation} type whose detachment is to be determined
-	 * <br><br>
-	 * @return {@code true} if the given {@link Annotation} type has been detached from the request
-	 * <br><br>
-	 * @since 1.3.0
-	 */
-	public static boolean detached(InvocationContext context, Class<? extends Annotation> type) {
-		
-		Method request = context.getRequest();
-		
-		return request.isAnnotationPresent(Detach.class) && 
-			   Arrays.asList(request.getAnnotation(Detach.class).value()).contains(type);
-	}
-	
-	/**
 	 * <p>Determines if a proxy invocation should be handled <b>asynchronously</b>.</p>
 	 *
 	 * @param context
@@ -141,7 +112,7 @@ public final class Is {
 	 */
 	public static boolean async(InvocationContext context) {
 		
-		return !detached(context, Async.class) && 
+		return !isDetached(context, Async.class) && 
 			   (context.getRequest().isAnnotationPresent(Async.class) || 
 			   (context.getEndpoint().isAnnotationPresent(Async.class)));
 	}

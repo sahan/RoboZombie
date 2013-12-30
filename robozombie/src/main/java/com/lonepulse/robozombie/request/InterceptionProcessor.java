@@ -20,7 +20,8 @@ package com.lonepulse.robozombie.request;
  * #L%
  */
 
-import static com.lonepulse.robozombie.util.Is.detached;
+import static com.lonepulse.robozombie.util.Components.filterSkipped;
+import static com.lonepulse.robozombie.util.Components.isDetached;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,11 +87,16 @@ class InterceptionProcessor extends AbstractRequestProcessor {
 			List<Class<? extends Interceptor>> interceptors = new ArrayList<Class<? extends Interceptor>>();
 			
 			Intercept endpointMetadata = context.getEndpoint().getAnnotation(Intercept.class);
-			Intercept requestMetadata = context.getRequest().getAnnotation(Intercept.class); 
+			Intercept requestMetadata = context.getRequest().getAnnotation(Intercept.class);
 			
-			if(endpointMetadata != null && !detached(context, Intercept.class)) {
+			if(isDetached(context, Intercept.class)) {
+			
+				return request;
+			}
+			
+			if(endpointMetadata != null) {
 				
-				interceptors.addAll(Arrays.asList(endpointMetadata.value()));
+				interceptors.addAll(filterSkipped(context, Arrays.asList(endpointMetadata.value())));
 			}
 				
 			if(requestMetadata != null) {
