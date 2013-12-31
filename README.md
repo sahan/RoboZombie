@@ -7,7 +7,7 @@
 <blockquote>
 <b>RoboZombie</b> &nbsp;&nbsp;/rō-bō'zŏm'bē/ &nbsp;&nbsp;<em>noun.</em> 
 <br><br>
-Makes Android networking a breeze. Accepts an interface which describes the remote service and gives you an implementation of it in return.
+Makes Android networking a breeze. Accepts an interface which describes the remote service and gives you an implementation of it.
 <br><br>
 <a href="https://travis-ci.org/sahan/RoboZombie"><img alt="Build Status" src="https://travis-ci.org/sahan/RoboZombie.png?branch=master"></a>&nbsp;&nbsp;
 <a href="https://coveralls.io/r/sahan/RoboZombie?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/sahan/RoboZombie/badge.png?branch=master"></a>
