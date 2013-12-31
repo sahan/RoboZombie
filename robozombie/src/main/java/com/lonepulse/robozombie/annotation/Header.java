@@ -34,11 +34,25 @@ import java.lang.annotation.Target;
  * <b>Usage:</b>
  * <br>
  * <br>
- * <p>
+ * <ol>
+ * <li>
+ * <h5>Request Headers</h5>
  * <code>
- * <pre>@GET(/repos/{user}/{repo}/git/blobs/{sha}")
- *Blob getBlob(<b>@Header</b>("Accept") String mediaType, ... );</pre>
+ * <pre>
+ *&#064;GET("/repos/{user}/{repo}/git/blobs/{sha}")
+ *Blob getBlob(<b>@Header</b>("Accept") String mediaType, ... );
+ * </pre>
  * </code>
+ * </li>
+ * <li>
+ * <h5>Response Headers</h5>
+ * <code>
+ * <pre>
+ *&#064;GET("/users/{user}/repos")
+ *List&lt;Repo&gt; getRepos(<b>@Header</b>("X-RateLimit-Remaining") <b>StringBuilder</b> rateLimitRemaining, ... );</pre>
+ * </code>
+ * </li>
+ * </ol>
  * </p>
  * <br>
  * @version 1.1.1

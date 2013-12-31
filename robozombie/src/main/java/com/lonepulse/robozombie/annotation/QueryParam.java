@@ -36,7 +36,7 @@ import java.lang.annotation.Target;
  * <p>
  * <code>
  * <pre>@GET("/repos/{user}/{repo}/issues")
- *List&lt;Issue&gt; getIssues(<b>@QueryParam("state") String state</b>, ... );</pre>
+ *List&lt;Issue&gt; getIssues(<b>@QueryParam("state")</b> String state, ... );</pre>
  * </code>
  * </p>
  * <br>

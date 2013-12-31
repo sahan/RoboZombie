@@ -40,7 +40,7 @@ import com.lonepulse.robozombie.annotation.Request.RequestMethod;
  * <br>
  * <p>
  * <code>
- * <pre><b>@PUT(path = "/gists/{id}/star")</b>
+ * <pre><b>@PUT("/gists/{id}/star")</b>
  *void starGist(@PathParam("id") String id);</pre>
  * </code>
  * </p>

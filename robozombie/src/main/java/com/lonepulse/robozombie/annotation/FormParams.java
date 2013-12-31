@@ -41,7 +41,7 @@ import java.util.Map;
  * <br>
  * <p>
  * <code>
- * <pre>@POST(path = "/emails/send")<b>
+ * <pre>@POST("/emails/send")<b>
  *&#064;FormParams</b>(&#123;@Param(name = "from", value = "someone@example.com"),
  *             &#064;Param(name = "to", value = "support@example.com")&#125;)
  *void contactSupport(<b>@FormParams</b> Map&lt;String, String&gt; subjectAndBody);</pre>

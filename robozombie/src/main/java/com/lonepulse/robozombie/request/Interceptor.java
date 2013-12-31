@@ -46,7 +46,8 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * <pre>@Deserialize(JSON)
  *&#064;GET("/users/{user}/gists")
  *<b>@Intercept(SpecificInterceptor.class)</b>
- *List&lt;Gist&gt; getGists(@PathParam("user") String user);</pre>
+ *List&lt;Gist&gt; getGists(@PathParam("user") String user);
+ * </pre>
  * </code>
  * </li>
  * <li>

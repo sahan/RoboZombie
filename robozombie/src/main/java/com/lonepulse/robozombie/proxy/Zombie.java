@@ -39,13 +39,14 @@ import android.util.Log;
 import com.lonepulse.robozombie.annotation.Bite;
 import com.lonepulse.robozombie.annotation.Config;
 import com.lonepulse.robozombie.annotation.Endpoint;
+import com.lonepulse.robozombie.executor.ConfigurationFailedException;
 import com.lonepulse.robozombie.executor.RequestExecutors;
 import com.lonepulse.robozombie.util.Fields;
 
 /**
  * <p>An animated corpse which spreads the {@link Endpoint} infection via a {@link Bite}. Used for 
  * <b>injecting</b> concrete implementations of endpoint interface definitions. Place an @{@link Bite} 
- * annotation on all instance properties which are endpoints and invoke {@link Zombie#infect(Object)}.</p> 
+ * annotation on all instance properties which are endpoints and invoke {@link Zombie#infect(Object, Object...)}.</p> 
  *  
  * @version 1.3.0
  * <br><br>
@@ -130,8 +131,8 @@ public final class Zombie {
 	 * <li>
 	 * <h5>Property Injection</h5>
 	 * <pre>
-	 * <code>@Bite
-	 * TwitterEndpoint twitterEndpoint;
+	 * <code><b>@Bite</b>
+	 * private GitHubEndpoint gitHubEndpoint;
 	 * {
 	 * &nbsp; &nbsp; Zombie.infect(this);
 	 * }
@@ -141,13 +142,16 @@ public final class Zombie {
 	 * <li>
 	 * <h5>Setter Injection</h5>
 	 * <pre>
-	 * <code>
-	 * private TwitterEndpoint twitterEndpoint;
+	 * <code><b>@Bite</b>
+	 * private GitHubEndpoint gitHubEndpoint;
+	 * {
+	 * &nbsp; &nbsp; Zombie.infect(this);
+	 * }
 	 * </code>
-	 * <code>@Bite
-	 * public void setTwitterEndpoint(TwitterEndpoint twitterEndpoint) {
+	 * <code>
+	 * public void setGitHubEndpoint(GitHubEndpoint gitHubEndpoint) {
 	 * 
-	 * &nbsp; &nbsp; this.twitterEndpoint = twitterEndpoint;
+	 * &nbsp; &nbsp; this.gitHubEndpoint = gitHubEndpoint;
 	 * }
 	 * </code>
 	 * </pre>

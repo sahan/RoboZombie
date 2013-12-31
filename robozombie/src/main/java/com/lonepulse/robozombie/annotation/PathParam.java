@@ -27,18 +27,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>This annotation marks a RESTful path parameter which should replace a placeholder on the request 
- * path with the same name.</p> 
+ * <p>This annotation identifies an argument which supplies a value to a URI parameter with the same name.</p> 
  * <br>
  * <b>Usage:</b>
- * <br>
- * <br>
  * <br>
  * <br>
  * <p>
  * <code>
  * <pre>@GET("/repos/<b>{user}</b>/<b>{repo}</b>/events")
- *List&lt;Event&gt; getRepoEvents(<b>@PathParam("user") String user, &#064;PathParam("repo") String repo</b>);
+ *List&lt;Event&gt; getRepoEvents(<b>@PathParam("user")</b> String user, <b>&#064;PathParam("repo")</b> String repo);
  * </pre>
  * </code>
  * </p>

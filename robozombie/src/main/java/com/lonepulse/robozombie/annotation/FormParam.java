@@ -28,14 +28,14 @@ import java.lang.annotation.Target;
 
 /**
  * <p>Identifies a parameter to be sent as a <a href="http://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms">
- * form-urlencoded</a> list of <b>name-value</b> pairs.
+ * form-urlencoded</a> list of <b>name-value</b> pairs.</p>
  * <br>
  * <b>Usage:</b>
  * <br>
  * <br>
  * <p>
  * <code><pre>
- *&#064;POST(path = "/emails/send")
+ *&#064;POST("/emails/send")
  *void sendEmail(<b>@FormParam("from")</b> String from, <b>@FormParam("to")</b> String to, 
  *               <b>@FormParam("subject")</b> String subject, <b>@FormParam("body")</b> String body);</pre>
  * </code>

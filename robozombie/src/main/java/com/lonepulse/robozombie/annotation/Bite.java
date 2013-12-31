@@ -33,13 +33,37 @@ import com.lonepulse.robozombie.proxy.Zombie;
  * injection is performed with {@link Zombie#infect(Object, Object...)}.</p>
  * <br>
  * <b>Usage:</b>
- * <br>
- * <br>
- * <p>
- * <code>
- * <pre><b>@Bite</b><br>private GitHubEndpoint gitHubEndpoint;</pre>
+ * <br><br>
+ * <ul>
+ * <li>
+ * <h5>Property Injection</h5>
+ * <pre>
+ * <code><b>@Bite</b>
+ * private GitHubEndpoint gitHubEndpoint;
+ * {
+ * &nbsp; &nbsp; Zombie.infect(this);
+ * }
  * </code>
- * </p>
+ * </pre>
+ * </li>
+ * <li>
+ * <h5>Setter Injection</h5>
+ * <pre>
+ * <code><b>@Bite</b>
+ * private GitHubEndpoint gitHubEndpoint;
+ * {
+ * &nbsp; &nbsp; Zombie.infect(this);
+ * }
+ * </code>
+ * <code>
+ * public void setGitHubEndpoint(GitHubEndpoint gitHubEndpoint) {
+ * 
+ * &nbsp; &nbsp; this.gitHubEndpoint = gitHubEndpoint;
+ * }
+ * </code>
+ * </pre>
+ * </li>
+ * </ul>
  * <br>
  * @version 1.1.0
  * <br><br>

@@ -35,6 +35,7 @@ import com.lonepulse.robozombie.request.PlainSerializer;
  * <br>
  * <b>Usage:</b>
  * <br>
+ * <br>
  * <ol>
  * <li>
  * <p>At <b>type-level</b> on an endpoint <i>definition</i>; attaches this serializer for all requests.</p>
@@ -49,7 +50,7 @@ import com.lonepulse.robozombie.request.PlainSerializer;
  * <p>At <b>method-level</b> on an endpoint <i>request</i>.</p>
  * <code>
  * <pre><b>@Serialize(JSON)</b>
- *&#064;POST(path = "/gists")
+ *&#064;POST("/gists")
  *void createGist(<b>@Entity</b> Gist gist);</pre>
  * </code>
  * </li>

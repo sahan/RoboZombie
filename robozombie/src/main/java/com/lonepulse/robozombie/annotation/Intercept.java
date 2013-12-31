@@ -49,14 +49,15 @@ import com.lonepulse.robozombie.request.Interceptor;
  * <pre>@Deserialize(JSON)
  *&#064;GET("/users/{user}/gists")
  *<b>@Intercept(SpecificInterceptor.class)</b>
- *List&lt;Gist&gt; getGists(@PathParam("user") String user);</pre>
+ *List&lt;Gist&gt; getGists(@PathParam("user") String user);
+ * </pre>
  * </code>
  * </li>
  * <li>
  * <p>As a <b>request parameter</b>.</p>
  * <code>
  * <pre>@Deserialize(JSON)</b>&nbsp;&nbsp;@GET("/users/{user}/gists")
- *List&lt;Gist&gt; getGists(@PathParam("user") String user, <b>Interceptor</b> interceptor);</b></b></pre>
+ *List&lt;Gist&gt; getGists(@PathParam("user") String user, <b>Interceptor</b> interceptor);</pre>
  * </code>
  * </li>
  * </ol>

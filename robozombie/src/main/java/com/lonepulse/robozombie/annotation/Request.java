@@ -45,7 +45,6 @@ import org.apache.http42.client.methods.HttpPatch;
  * <br>
  * <p>
  * <code>
- * <code>
  * <pre><b>@Request(path = "/repos/{user}/{repo}/events")</b>
  *List&lt;Event&gt; getRepoEvents(@PathParam("user") String user, &#064;PathParam("repo") String repo);
  * </pre>
@@ -65,7 +64,8 @@ public @interface Request {
 	
 	
 	/**
-	 * <p>Identifies the <i>method</i> of a request as specified in <a href="">Section 9</a> 
+	 * <p>Identifies the <i>method</i> of a request as specified in 
+	 * <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">Section 9</a> 
 	 * of the HTTP 1.1 RFC.</p>
 	 * 
 	 * @version 1.1.0

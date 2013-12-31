@@ -29,9 +29,7 @@ import java.lang.annotation.Target;
 import com.lonepulse.robozombie.annotation.Request.RequestMethod;
 
 /**
- * <p>This annotation identifies an <b>HTTP PATCH</b> request.</p>
- * 
- * <p>See <a href="http://tools.ietf.org/html/rfc5789">HTTP PATCH</a>.</p> 
+ * <p>This annotation identifies an <a href="http://tools.ietf.org/html/rfc5789">HTTP PATCH</a> request.</p>
  * <br>
  * <b>Usage:</b>
  * <br>
@@ -39,7 +37,7 @@ import com.lonepulse.robozombie.annotation.Request.RequestMethod;
  * <p>
  * <code>
  * <pre>@Serialize(JSON)
- *<b>@PATCH(path = "/gists/{id}")</b>
+ *<b>@PATCH("/gists/{id}")</b>
  *void editGist(@PathParam("id") String id, &#064;Entity Gist gist);</pre>
  * </code>
  * </p>

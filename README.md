@@ -34,7 +34,7 @@ Define the endpoint.
 
 ```java
 @Deserialize(JSON)
-@Endpoint(scheme = "https", host = "api.github.com")
+@Endpoint("https://api.github.com")
 public interface GitHubEndpoint {
 
     @GET("/users/{user}/repos")
@@ -62,7 +62,7 @@ List<Repo> repos = endpoint.getRepos("sahan");
 Create as many endpoints as you want...   
 
 ```java
-@Endpoint("example.com")
+@Endpoint("http://example.com")
 public interface ExampleEndpoint {
 
     @Serialize(XML)	
@@ -105,7 +105,7 @@ Add the following dependency to project's pom.xml file.
 <dependency>
    <groupId>com.lonepulse</groupId>
    <artifactId>robozombie</artifactId>
-   <version>1.3.0</version>
+   <version>1.3.1</version>
 </dependency>
 ```   
 
@@ -116,20 +116,18 @@ Add the following repository and dependency to your project's build.gradle file.
 
 ```groovy
 repositories {
-
     mavenCentral()
 }
 
 dependencies {
-
-    compile 'com.lonepulse:robozombie:1.3.0'
+    compile 'com.lonepulse:robozombie:1.3.1'
 }
 ```   
 
 <br>   
 ### 3. Add the JAR to your build path manually.   
 
-Download the [RoboZombie-1.3.0.jar](http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.3.0/robozombie-1.3.0.jar) 
+Download the [RoboZombie-1.3.1.jar](http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.3.1/robozombie-1.3.1.jar) 
 and add it to your **libs** folder.   
 <br>
 

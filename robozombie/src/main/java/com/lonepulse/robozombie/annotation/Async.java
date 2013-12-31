@@ -36,14 +36,15 @@ import java.lang.annotation.Target;
  * <li>
  * At <b>type-level</b> on an endpoint; marks all requests as asynchronous.<br>
  * <code>
- * <pre><b>@Async</b>&nbsp;@Endpoint("https://api.github.com")<br>public interface GithubEndpoint {<br>&nbsp;&nbsp;...<br>}</pre>
+ * <pre><b>@Async</b>&nbsp;@Endpoint("https://api.github.com")<br>public interface GithubEndpoint {<br>&nbsp;&nbsp;...<br>}
+ * </pre>
  * </code>
  * </li>
  *  
  * <li>
  * At <b>method-level</b> on a request.<br>
  * <code>
- * <pre><b>@Async</b>&nbsp;@GET("/users/{user}/repos")<br>Set&lt;Repo&gt; getRepos(@PathParam("user") String user);</pre>
+ * <pre><b>@Async</b>&nbsp;@GET("/users/{user}/repos")<br>List&lt;Repo&gt; getRepos(@PathParam("user") String user);</pre>
  * </code>
  * </li>
  * </ol>

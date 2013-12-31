@@ -27,7 +27,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Identifies an entity/content to be included in the body of a request.</p>
+ * <p>Identifies content to be included in the body of a request.</p>
  * <br>
  * <b>Usage:</b>
  * <br>
@@ -35,7 +35,7 @@ import java.lang.annotation.Target;
  * <p>
  * <code>
  * <pre>@Serialize(JSON)
- *&#064;POST(path = "/gists")
+ *&#064;POST("/gists")
  *void createGist(<b>@Entity</b> Gist gist);</pre>
  * </code>
  * </p>
