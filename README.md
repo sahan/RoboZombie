@@ -1,17 +1,21 @@
-![RoboZombie](https://raw.github.com/sahan/RoboZombie/master/logo.png)
-
-> **RoboZombie** /rō-bō'zŏm'bē/ <em>noun.</em> **1** A lightweight HTTP facade 
-which simplifies network communication. **2** An endpoint proxy generator for web services. 
-[![Build Status](https://travis-ci.org/sahan/RoboZombie.png?branch=master)](https://travis-ci.org/sahan/RoboZombie) 
+<table border="0">
+<tr>
+<td>
+<img src="https://raw.github.com/sahan/RoboZombie/master/logo.png"/>
+</td>
+<td>
+<blockquote>
+<b>RoboZombie</b> &nbsp;&nbsp;/rō-bō'zŏm'bē/ &nbsp;&nbsp;<em>noun.</em> 
+<br><br>
+Makes Android networking a breeze. Accepts an interface which describes the remote service and gives you an implementation of it in return.
+</blockquote>
+</td>
+</tr>
+</table>
+[![Build Status](https://travis-ci.org/sahan/RoboZombie.png?branch=master)](https://travis-ci.org/sahan/RoboZombie)&nbsp;
 [![Coverage Status](https://coveralls.io/repos/sahan/RoboZombie/badge.png?branch=master)](https://coveralls.io/r/sahan/RoboZombie?branch=master)
 
 <br>
-##About
-
-**RoboZombie** makes Android networking a breeze by simply accepting an interface which describes the remote 
-service and giving you an implementation of it in return.   
-<br>
-
 ##Overview
 
 Here's your model.   
@@ -26,7 +30,7 @@ public class Repo {
     
     ...
 }
-```   
+```
 > Follow the same variable names as the JSON response.   
 
 <br>
@@ -40,7 +44,7 @@ public interface GitHubEndpoint {
     @GET("/users/{user}/repos")
     List<Repo> getRepos(@PathParam("user") String user);
 }
-```   
+```
 > Looks for [Gson](http://code.google.com/p/google-gson) on your build path.   
 
 <br>
@@ -69,7 +73,7 @@ public interface ExampleEndpoint {
     @PUT("/content")
     void putContent(@Entity Content content);
 }
-```   
+```
 > Looks for [Simple-XML](http://simple.sourceforge.net) on your build path.
 
 <br>
@@ -107,7 +111,7 @@ Add the following dependency to project's pom.xml file.
    <artifactId>robozombie</artifactId>
    <version>1.3.1</version>
 </dependency>
-```   
+```
 
 <br>   
 ### 2. For Gradle based projects.   
@@ -122,7 +126,7 @@ repositories {
 dependencies {
     compile 'com.lonepulse:robozombie:1.3.1'
 }
-```   
+```
 
 <br>   
 ### 3. Add the JAR to your build path manually.   
