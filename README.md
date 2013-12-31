@@ -1,19 +1,25 @@
-<table border="0">
+<table>
 <tr>
 <td>
-<img src="https://raw.github.com/sahan/RoboZombie/master/logo.png"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raw.github.com/sahan/RoboZombie/master/logo.png"/>
 </td>
-<td>
+<td rowspan="3">
 <blockquote>
 <b>RoboZombie</b> &nbsp;&nbsp;/rō-bō'zŏm'bē/ &nbsp;&nbsp;<em>noun.</em> 
 <br><br>
 Makes Android networking a breeze. Accepts an interface which describes the remote service and gives you an implementation of it in return.
+<br><br>
+<a href="https://travis-ci.org/sahan/RoboZombie"><img alt="Build Status" src="https://travis-ci.org/sahan/RoboZombie.png?branch=master"></a>&nbsp;&nbsp;
+<a href="https://coveralls.io/r/sahan/RoboZombie?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/sahan/RoboZombie/badge.png?branch=master"></a>
 </blockquote>
 </td>
 </tr>
+<tr>
+<td>
+<a href="http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.3.1/robozombie-1.3.1.jar"><pre>robozombie-1.3.1.jar</pre></a>
+</td>
+</tr>
 </table>
-[![Build Status](https://travis-ci.org/sahan/RoboZombie.png?branch=master)](https://travis-ci.org/sahan/RoboZombie)&nbsp;
-[![Coverage Status](https://coveralls.io/repos/sahan/RoboZombie/badge.png?branch=master)](https://coveralls.io/r/sahan/RoboZombie?branch=master)
 
 <br>
 ##Overview
