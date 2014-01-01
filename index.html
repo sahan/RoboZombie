@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>RoboZombie for Android</title>
+    <title>RoboZombie by sahan</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -12,164 +12,215 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
-  <body id="top">
-
-	<a href="https://github.com/sahan/RoboZombie" target="blank"><img
-		style="position: fixed; top: 0; left: 0; border: 0;"
-		src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"
-		alt="Fork me on GitHub"></a>
-		
-	<div class="wrapper">
+  <body>
+    <div class="wrapper">
       <header>
-        <h1>RoboZombie <small style="color: silver;">&nbsp;for Android</small></h1>
-        <p>/rō-bō'zŏm'bē/ noun.</p> 
-        <p><b>1.</b> &nbsp;A lightweight HTTP facade which simplifies network communication.</p>
-        <p><b>2.</b> &nbsp;An endpoint proxy generator for RESTful web services.</p>
-        <br>
-        <div></div>
-        <a href="#top">Usage</a>
-		<hr>
-        <a href="#setup">Setup</a>
-		<hr>
-        <a href="#wiki">Wiki</a>
-		<hr>
-        <a href="#license">License</a>
-		<hr>
+        <h1>RoboZombie</h1>
+        <p>/rō-bō'zŏm'bē/ noun. 1. Makes Android networking a breeze. 2. Accepts an interface which describes the remote service and gives you an implementation of it.</p>
+
+        <p class="view"><a href="https://github.com/sahan/RoboZombie">View the Project on GitHub <small>sahan/RoboZombie</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/sahan/RoboZombie/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/sahan/RoboZombie/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/sahan/RoboZombie">View On <strong>GitHub</strong></a></li>
+        </ul>
       </header>
       <section>
-        <h2>"Effortless networking for your Android application"</h2>
-		<p>Mirror an endpoint API by annotating an interface and inject the generated proxy.</p>
+        <h2>
+<a name="effortless-networking-for-your-android-application" class="anchor" href="#effortless-networking-for-your-android-application"><span class="octicon octicon-link"></span></a>"Effortless networking for your Android application"</h2>
+
+<p>Mirror an endpoint API by annotating an interface and inject the generated proxy.</p>
 
 <p><br></p>
 
-<h3>Usage</h3>
+<h2>
+<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
 
-<hr><p>Here's your Model</p>
+<p>Here's your model.   </p>
 
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Conversion</span> <span class="o">{</span>
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Repo</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">lhs</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">rhs</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">error</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">icc</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">fork</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">stargazers_count</span><span class="o">;</span>
 
-    <span class="cm">/* Accessors, Mutators, hashCode(), </span>
-<span class="cm">     * equals() and toString() omitted */</span>
+    <span class="o">...</span>
 <span class="o">}</span>
 </pre></div>
 
 <p><br>
-Define the Endpoint Interface</p>
+Define the endpoint.   </p>
 
-<div class="highlight"><pre><span class="nd">@Endpoint</span><span class="o">(</span><span class="s">"www.google.com"</span><span class="o">)</span>
-<span class="nd">@Parser</span><span class="o">(</span><span class="na">PARSER_TYPE</span><span class="o">.</span><span class="na">JSON</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ConverterEndpoint</span> <span class="o">{</span>
+<div class="highlight highlight-java"><pre><span class="nd">@Deserialize</span><span class="o">(</span><span class="n">JSON</span><span class="o">)</span>
+<span class="nd">@Endpoint</span><span class="o">(</span><span class="s">"https://api.github.com"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">GitHubEndpoint</span> <span class="o">{</span>
 
-    <span class="nd">@Request</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/ig/calculator"</span><span class="o">)</span>
-    <span class="n">Conversion</span> <span class="nf">convert</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"q"</span><span class="o">)</span> <span class="n">String</span> <span class="n">query</span><span class="o">);</span>
+    <span class="nd">@GET</span><span class="o">(</span><span class="s">"/users/{user}/repos"</span><span class="o">)</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Repo</span><span class="o">&gt;</span> <span class="nf">getRepos</span><span class="o">(</span><span class="nd">@PathParam</span><span class="o">(</span><span class="s">"user"</span><span class="o">)</span> <span class="n">String</span> <span class="n">user</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 
-<p><br>
-Inject and Invoke</p>
+<blockquote>
+<p>Looks for <a href="http://code.google.com/p/google-gson">Gson</a> on your build path.   </p>
+</blockquote>
 
-<div class="highlight"><pre><span class="nd">@Bite</span>
-<span class="kd">private</span> <span class="n">ConverterEndpoint</span> <span class="n">endpoint</span><span class="o">;</span>
+<p><br>
+Inject and invoke.   </p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Bite</span>
+<span class="kd">private</span> <span class="n">GitHubEndpoint</span> <span class="n">endpoint</span><span class="o">;</span>   
+
 <span class="o">{</span>
     <span class="n">Zombie</span><span class="o">.</span><span class="na">infect</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
 <span class="o">}</span>
 
 <span class="o">...</span>
 
-<span class="n">Conversion</span> <span class="n">rate</span> <span class="o">=</span> <span class="n">endpoint</span><span class="o">.</span><span class="na">convert</span><span class="o">(</span><span class="s">"1USD=?AUD"</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Repo</span><span class="o">&gt;</span> <span class="n">repos</span> <span class="o">=</span> <span class="n">endpoint</span><span class="o">.</span><span class="na">getRepos</span><span class="o">(</span><span class="s">"sahan"</span><span class="o">);</span>
 </pre></div>
 
 <p><br>
-Create as many endpoints as you want...</p>
+Create as many endpoints as you want...   </p>
 
-<div class="highlight"><pre><span class="nd">@Endpoint</span><span class="o">(</span><span class="s">"s3.amazonaws.com/archive.travis-ci.org"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AmazonS3Endpoint</span> <span class="o">{</span>
+<div class="highlight highlight-java"><pre><span class="nd">@Endpoint</span><span class="o">(</span><span class="s">"http://example.com"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ExampleEndpoint</span> <span class="o">{</span>
 
-    <span class="nd">@Parser</span><span class="o">(</span><span class="na">PARSER_TYPE</span><span class="o">.</span><span class="na">STRING</span><span class="o">)</span>	
-    <span class="nd">@Rest</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/jobs/:job_id/log.txt"</span><span class="o">)</span>
-    <span class="n">String</span> <span class="nf">getBuildLog</span><span class="o">(</span><span class="nd">@PathParam</span><span class="o">(</span><span class="s">"job_id"</span><span class="o">)</span> <span class="n">String</span> <span class="n">jobId</span><span class="o">);</span>
+    <span class="nd">@Serialize</span><span class="o">(</span><span class="n">XML</span><span class="o">)</span> 
+    <span class="nd">@PUT</span><span class="o">(</span><span class="s">"/content"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">putContent</span><span class="o">(</span><span class="nd">@Entity</span> <span class="n">Content</span> <span class="n">content</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 
-<p><br>
-...and inject 'em all.</p>
+<blockquote>
+<p>Looks for <a href="http://simple.sourceforge.net">Simple-XML</a> on your build path.</p>
+</blockquote>
 
-<div class="highlight"><pre><span class="nd">@Bite</span>
-<span class="kd">private</span> <span class="n">ConverterEndpoint</span> <span class="n">ccEndpoint</span><span class="o">;</span>
+<p><br>
+...and inject 'em all.   </p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Bite</span>
+<span class="kd">private</span> <span class="n">GitHubEndpoint</span> <span class="n">gitHubEndpoint</span><span class="o">;</span>
 
 <span class="nd">@Bite</span>
-<span class="kd">private</span> <span class="n">AmazonS3Endpoint</span> <span class="n">s3Endpoint</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">ExampleEndpoint</span> <span class="n">exampleEndpoint</span><span class="o">;</span>
 
 <span class="o">{</span>
     <span class="n">Zombie</span><span class="o">.</span><span class="na">infect</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 
-<p id="setup"><br></p>
+<p><br>
+RoboZombie requires the <strong>INTERNET</strong> manifest permission for network communication.   </p>
 
-<h3>Setup</h3>
-
-<hr><p>For maven based Android projects add the following dependency in your <code>pom.xml</code>.</p>
-
-<div class="highlight"><pre><span class="nt">&lt;dependency&gt;</span>
-   <span class="nt">&lt;groupId&gt;</span>com.lonepulse<span class="nt">&lt;/groupId&gt;</span>
-   <span class="nt">&lt;artifactId&gt;</span>robozombie<span class="nt">&lt;/artifactId&gt;</span>
-   <span class="nt">&lt;version&gt;</span>1.2.3<span class="nt">&lt;/version&gt;</span>
-   <span class="nt">&lt;type&gt;</span>jar<span class="nt">&lt;/type&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.INTERNET"</span> <span class="nt">/&gt;</span>
 </pre></div>
 
-<p><br> For standard Android projects, download the <a href="http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.2.3/robozombie-1.2.3.jar">RoboZombie</a> 
-+ <a href="http://repo1.maven.org/maven2/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar">Gson</a> jars and add them to your <b>libs</b> folder. </p>
-
-<p id="wiki"><br></p>
-
-<h3>Wiki</h3>
-
-<hr><p>Refer the wiki for more information on custom parsers and RESTful endpoints.</p>
-
-<ol>
-<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Quickstart">Quickstart</a></p></li>
-<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Defining-Endpoint-Contracts">Defining Endpoint Contracts</a></p></li>
-<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Working-With-Response-Parsers">Working With Response Parsers</a></p></li>
-<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Injecting-Endpoint-Proxies">Injecting Endpoint Proxies</a></p></li>
-<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Accessing-RESTful-Services">Accessing RESTful Services</a>   </p></li>
-<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Executing-Requests-Asynchronously">Executing Requests Asynchronously</a></p></li>
-</ol>
+<blockquote>
+<p>...and be sure to invoke all synchronous requests from a worker thread.</p>
+</blockquote>
 
 <p><br></p>
 
-<h3 id="license">License</h3>
+<h2>
+<a name="setup" class="anchor" href="#setup"><span class="octicon octicon-link"></span></a>Setup</h2>
 
-<hr><p>This library is licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
+<blockquote>
+<p>If you opt to use the out-of-the-box JSON (de)serializer add the <a href="http://code.google.com/p/google-gson">Gson</a> dependency; like wise add the <a href="http://simple.sourceforge.net">Simple-XML</a> dependency for the XML (de)serializer.    </p>
+</blockquote>
+
+<p><br></p>
+
+<h3>
+<a name="1-for-maven-based-projects" class="anchor" href="#1-for-maven-based-projects"><span class="octicon octicon-link"></span></a>1. For Maven based projects.</h3>
+
+<p>Add the following dependency to project's pom.xml file.</p>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;dependency&gt;</span>
+   <span class="nt">&lt;groupId&gt;</span>com.lonepulse<span class="nt">&lt;/groupId&gt;</span>
+   <span class="nt">&lt;artifactId&gt;</span>robozombie<span class="nt">&lt;/artifactId&gt;</span>
+   <span class="nt">&lt;version&gt;</span>1.3.1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+
+<p><br></p>
+
+<h3>
+<a name="2-for-gradle-based-projects" class="anchor" href="#2-for-gradle-based-projects"><span class="octicon octicon-link"></span></a>2. For Gradle based projects.</h3>
+
+<p>Add the following repository and dependency to your project's build.gradle file.</p>
+
+<div class="highlight highlight-groovy"><pre><span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">mavenCentral</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">compile</span> <span class="s1">'com.lonepulse:robozombie:1.3.1'</span>
+<span class="o">}</span>
+</pre></div>
+
+<p><br></p>
+
+<h3>
+<a name="3-add-the-jar-to-your-build-path-manually" class="anchor" href="#3-add-the-jar-to-your-build-path-manually"><span class="octicon octicon-link"></span></a>3. Add the JAR to your build path manually.</h3>
+
+<p>Download the <a href="http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.3.1/robozombie-1.3.1.jar">RoboZombie-1.3.1.jar</a> 
+and add it to your <strong>libs</strong> folder.   </p>
+
+<blockquote>
+<p>Note that <a href="http://search.maven.org/remotecontent?filepath=com/google/code/gson/gson/2.2.4/gson-2.2.4.jar">Gson</a> 
+is required for JSON (de)serialization and <a href="http://search.maven.org/remotecontent?filepath=org/simpleframework/simple-xml/2.7.1/simple-xml-2.7.1.jar">Simple-XML</a> 
+is required for XML (de)serialization.   </p>
+</blockquote>
+
+<p><br></p>
+
+<h2>
+<a name="wiki" class="anchor" href="#wiki"><span class="octicon octicon-link"></span></a>Wiki</h2>
+
+<p>Coding with RoboZombie is a breeze. It follows a simple annotation based coding style and adheres to a <em>minimal intrusion</em> policy. 
+Kickoff with the <a href="https://github.com/sahan/RoboZombie/wiki/Quickstart">quickstart</a> and follow the rest of the wiki pages. </p>
+
+<ol>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Quickstart">Quickstart</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Defining,-Injecting-and-Invoking">Defining, Injecting and Invoking</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Identifying-HTTP-Methods">Identifying HTTP Methods</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Sending-Query-and-Form-Parameters">Sending Query and Form Parameters</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Sending-a-Request-Body">Sending a Request Body</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Serializing-Request-Content">Serializing Request Content</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Receiving-a-Response-Body">Receiving a Response Body</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Deserializing-Response-Content">Deserializing Response Content</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Sending-and-Receiving-Headers">Sending and Receiving Headers</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Executing-Requests-Asynchronously">Executing Requests Asynchronously</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Creating-Stateful-Endpoints">Creating Stateful Endpoints</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Intercepting-Requests">Intercepting Requests</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Overriding,-Detaching-and-Skipping-Components">Overriding, Detaching and Skipping Components</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Wiring-and-Injecting-Endpoints">Wiring and Injecting Endpoints</a></p></li>
+<li><p><a href="https://github.com/sahan/RoboZombie/wiki/Configuring-RoboZombie">Configuring RoboZombie</a>
+<br><br></p></li>
+</ol><h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>This library is licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
       </section>
       <footer>
-      
-      <iframe
-		src="http://ghbtns.com/github-btn.html?user=sahan&repo=RoboZombie&type=watch&count=true"
-		allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
-      
-      <a class="addthis_counter addthis_pill_style"></a>
-      <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-519b842662e503b6"></script>
-      
-      <p style="margin-top: 20px;">This library is authored by <a href="https://github.com/sahan">@sahan</a>.</p>
+        <p>This project is maintained by <a href="https://github.com/sahan">sahan</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-    <script type="text/javascript">
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    <script type="text/javascript">
-        try {
-        	var pageTracker = _gat._getTracker("UA-40937518-1");
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-40937518-1");
             pageTracker._trackPageview();
-        } catch(err) {}
-	</script>
-</body>
+            } catch(err) {}
+          </script>
+
+  </body>
 </html>
