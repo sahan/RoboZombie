@@ -4,14 +4,14 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raw.github.com/sahan/RoboZombie/master/logo.png"/>
 </td>
 <td rowspan="3">
-<blockquote>
-<b>RoboZombie</b> &nbsp;&nbsp;/rō-bō'zŏm'bē/ &nbsp;&nbsp;<em>noun.</em> 
+<font color="#1C1C1C"><b>RoboZombie</b> &nbsp;&nbsp;/rō-bō'zŏm'bē/ &nbsp;&nbsp;<em>noun.</em></font> 
 <br><br>
-Makes Android networking a breeze. Accepts an interface which describes the remote service and gives you an implementation of it.
+<font color="#424242">
+<b>1.</b> Makes Android networking a breeze. &nbsp; <b>2.</b> Accepts an interface which describes the remote service and gives you an implementation of it.
+</font>
 <br><br>
 <a href="https://travis-ci.org/sahan/RoboZombie"><img alt="Build Status" src="https://travis-ci.org/sahan/RoboZombie.png?branch=master"></a>&nbsp;&nbsp;
 <a href="https://coveralls.io/r/sahan/RoboZombie?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/sahan/RoboZombie/badge.png?branch=master"></a>
-</blockquote>
 </td>
 </tr>
 <tr>
@@ -37,7 +37,6 @@ public class Repo {
     ...
 }
 ```
-> Follow the same variable names as the JSON response.   
 
 <br>
 Define the endpoint.   
@@ -106,7 +105,9 @@ RoboZombie requires the **INTERNET** manifest permission for network communicati
 
 <br>
 ##Setup
+> If you opt to use the out-of-the-box JSON (de)serializer add the [Gson](http://code.google.com/p/google-gson) dependency; like wise add the [Simple-XML](http://simple.sourceforge.net) dependency for the XML (de)serializer.    
 
+<br>
 ### 1. For Maven based projects.   
 
 Add the following dependency to project's pom.xml file.
@@ -139,29 +140,45 @@ dependencies {
 
 Download the [RoboZombie-1.3.1.jar](http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.3.1/robozombie-1.3.1.jar) 
 and add it to your **libs** folder.   
-<br>
-
 > Note that [Gson](http://search.maven.org/remotecontent?filepath=com/google/code/gson/gson/2.2.4/gson-2.2.4.jar) 
 is required for JSON (de)serialization and [Simple-XML](http://search.maven.org/remotecontent?filepath=org/simpleframework/simple-xml/2.7.1/simple-xml-2.7.1.jar) 
 is required for XML (de)serialization.   
 
 <br>
-##Wiki <pre><font color = "#F78181">(OBSOLETE)</font></pre>
+##Wiki
 
 Coding with RoboZombie is a breeze. It follows a simple annotation based coding style and adheres to a *minimal intrusion* policy. 
 Kickoff with the [quickstart](https://github.com/sahan/RoboZombie/wiki/Quickstart) and follow the rest of the wiki pages. 
 
 1. [Quickstart](https://github.com/sahan/RoboZombie/wiki/Quickstart)
 
-2. [Defining Endpoint Contracts](https://github.com/sahan/RoboZombie/wiki/Defining-Endpoint-Contracts)
+2. [Defining, Injecting and Invoking](https://github.com/sahan/RoboZombie/wiki/Defining,-Injecting-and-Invoking)
 
-3. [Working With Response Parsers](https://github.com/sahan/RoboZombie/wiki/Working-With-Response-Parsers)
+3. [Identifying HTTP Methods](https://github.com/sahan/RoboZombie/wiki/Identifying-HTTP-Methods)
 
-4. [Injecting Endpoint Proxies](https://github.com/sahan/RoboZombie/wiki/Injecting-Endpoint-Proxies)
+4. [Sending Query and Form Parameters](https://github.com/sahan/RoboZombie/wiki/Sending-Query-and-Form-Parameters)
 
-5. [Accessing RESTful Services](https://github.com/sahan/RoboZombie/wiki/Accessing-RESTful-Services)   
+5. [Sending a Request Body](https://github.com/sahan/RoboZombie/wiki/Sending-a-Request-Body)
 
-6. [Executing Requests Asynchronously](https://github.com/sahan/RoboZombie/wiki/Executing-Requests-Asynchronously)
+6. [Serializing Request Content](https://github.com/sahan/RoboZombie/wiki/Serializing-Request-Content)
+
+7. [Receiving a Response Body](https://github.com/sahan/RoboZombie/wiki/Receiving-a-Response-Body)
+
+8. [Deserializing Response Content](https://github.com/sahan/RoboZombie/wiki/Deserializing-Response-Content)
+
+7. [Sending and Receiving Headers](https://github.com/sahan/RoboZombie/wiki/Sending-and-Receiving-Headers)
+
+8. [Executing Requests Asynchronously](https://github.com/sahan/RoboZombie/wiki/Executing-Requests-Asynchronously)
+
+9. [Creating Stateful Endpoints](https://github.com/sahan/RoboZombie/wiki/Creating-Stateful-Endpoints)
+
+10. [Intercepting Requests](https://github.com/sahan/RoboZombie/wiki/Intercepting-Requests)
+
+11. [Overriding, Detaching and Skipping Components](https://github.com/sahan/RoboZombie/wiki/Overriding,-Detaching-and-Skipping-Components)
+
+12. [Wiring and Injecting Endpoints](https://github.com/sahan/RoboZombie/wiki/Wiring-and-Injecting-Endpoints)
+
+13. [Configuring RoboZombie](https://github.com/sahan/RoboZombie/wiki/Configuring-RoboZombie)
 <br><br>   
 
 ##License
