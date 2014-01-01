@@ -39,7 +39,7 @@ import com.lonepulse.robozombie.model.User;
  * <br><br> 
  * @category test
  * <br><br> 
- * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="http://sahan.me">Lahiru Sahan Jayasinghe</a>
  */
 @Endpoint("http://0.0.0.0:8080")
 public interface SerializerEndpoint {

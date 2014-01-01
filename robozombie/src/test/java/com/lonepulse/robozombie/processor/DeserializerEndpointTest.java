@@ -60,7 +60,7 @@ import com.lonepulse.robozombie.response.Deserializers;
  * <br><br>
  * @category test
  * <br><br>
- * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="http://sahan.me">Lahiru Sahan Jayasinghe</a>
  */
 @RunWith(RobolectricTestRunner.class)
 public class DeserializerEndpointTest {

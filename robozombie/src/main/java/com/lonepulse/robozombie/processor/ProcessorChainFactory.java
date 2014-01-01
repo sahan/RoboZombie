@@ -41,7 +41,7 @@ import com.lonepulse.robozombie.AbstractGenericFactory;
  * <br><br>
  * @since 1.3.0
  * <br><br>
- * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="http://sahan.me">Lahiru Sahan Jayasinghe</a>
  */
 public class ProcessorChainFactory<RESULT, FAILURE extends Throwable> 
 extends AbstractGenericFactory <Processor<RESULT, FAILURE>, ProcessorChainLink<RESULT, FAILURE>, ChainCreationException> {

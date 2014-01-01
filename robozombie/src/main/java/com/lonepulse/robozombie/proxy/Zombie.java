@@ -52,7 +52,7 @@ import com.lonepulse.robozombie.util.Fields;
  * <br><br>
  * @since 1.1.0
  * <br><br>
- * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="http://sahan.me">Lahiru Sahan Jayasinghe</a>
  */
 public final class Zombie {
 	
@@ -75,7 +75,7 @@ public final class Zombie {
 	 * <br><br>
 	 * @since 1.3.0
 	 * <br><br>
-	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+	 * @author <a href="http://sahan.me">Lahiru Sahan Jayasinghe</a>
 	 */
 	public abstract static class Configuration {
 		

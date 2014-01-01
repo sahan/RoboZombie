@@ -30,7 +30,7 @@ package com.lonepulse.robozombie.proxy;
  * <br><br>
  * @since 1.3.0
  * <br><br>
- * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="http://sahan.me">Lahiru Sahan Jayasinghe</a>
  */
 interface Invocation {
 

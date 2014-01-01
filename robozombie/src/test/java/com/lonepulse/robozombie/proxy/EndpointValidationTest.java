@@ -36,7 +36,7 @@ import com.lonepulse.robozombie.annotation.Endpoint;
  * <br><br>
  * @category test
  * <br><br>
- * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="http://sahan.me">Lahiru Sahan Jayasinghe</a>
  */
 public class EndpointValidationTest {
 	

@@ -55,7 +55,7 @@ import org.apache.http42.client.methods.HttpPatch;
  * <br><br>
  * @since 1.1.0
  * <br><br>
- * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="http://sahan.me">Lahiru Sahan Jayasinghe</a>
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
@@ -72,7 +72,7 @@ public @interface Request {
 	 * <br><br>
 	 * @since 1.3.0
 	 * <br><br>
-	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+	 * @author <a href="http://sahan.me">Lahiru Sahan Jayasinghe</a>
 	 */
 	public static enum RequestMethod {
 

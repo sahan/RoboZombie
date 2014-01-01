@@ -45,7 +45,7 @@ import com.lonepulse.robozombie.response.AbstractDeserializer;
  * <br><br> 
  * @category test
  * <br><br> 
- * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="http://sahan.me">Lahiru Sahan Jayasinghe</a>
  */
 @Deserialize(JSON)
 @Endpoint("http://0.0.0.0:8080")

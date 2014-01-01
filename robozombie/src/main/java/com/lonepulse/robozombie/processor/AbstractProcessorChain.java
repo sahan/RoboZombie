@@ -47,7 +47,7 @@ import static com.lonepulse.robozombie.util.Assert.assertNotNull;
  * <br><br>
  * @since 1.3.0
  * <br><br>
- * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="http://sahan.me">Lahiru Sahan Jayasinghe</a>
  */
 public abstract class AbstractProcessorChain<LINK_RESULT, LINK_FAILURE extends Throwable> 
 implements Processor<LINK_RESULT, LINK_FAILURE> {

@@ -52,7 +52,7 @@ import com.lonepulse.robozombie.proxy.InvocationContext;
  * <br><br>
  * @category utility
  * <br><br>
- * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="http://sahan.me">Lahiru Sahan Jayasinghe</a>
  */
 public final class Metadata {
 	
