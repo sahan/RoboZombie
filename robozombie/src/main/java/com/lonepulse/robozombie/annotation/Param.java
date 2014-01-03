@@ -6,7 +6,7 @@ import java.lang.annotation.Documented;
  * #%L
  * RoboZombie
  * %%
- * Copyright (C) 2013 Lonepulse
+ * Copyright (C) 2013 - 2014 Lonepulse
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
