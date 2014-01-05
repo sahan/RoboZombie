@@ -23,6 +23,8 @@ package com.lonepulse.robozombie.util;
 import static com.lonepulse.robozombie.util.Assert.assertNotNull;
 import static com.lonepulse.robozombie.util.Components.isDetached;
 
+import java.util.List;
+
 import org.apache.http.HttpResponse;
 
 import com.lonepulse.robozombie.annotation.Async;
@@ -115,5 +117,51 @@ public final class Is {
 		return !isDetached(context, Async.class) && 
 			   (context.getRequest().isAnnotationPresent(Async.class) || 
 			   (context.getEndpoint().isAnnotationPresent(Async.class)));
+	}
+	
+	/**
+	 * <p>Determines if the given type terminates an endpoint lookup along an inheritance hierarchy.</p>
+	 * 
+	 * <p>This evaluation is performed using a basic conditional check which will return {@code true} if 
+	 * the given type is in the specified packages list. If a package list is not provided, the hierarchy 
+	 * is deemed to have terminated if the given type is ina a package whose name starts with <b>"android."</b>, 
+	 * <b>"java."</b>, <b>"javax."</b> or <b>"junit."</b>.</p>
+	 * 
+	 * <p>Will be rendered obsolete if a future enhancement allows isolation of packages to scan for 
+	 * endpoint injection.</p>
+	 *
+	 * @param type
+	 * 			the {@link Class} of the type to be checked for hierarchy termination 
+	 * <br><br>
+	 * @param packagePrefixes
+	 * 			the packages prefixes to restrict the inheritance hierarchy to; else {@code null} 
+	 * 			or {@code empty} to specify the <b>restriction packages</b> as "android.", "java.", 
+	 * 			"javax." or "junit."
+	 * <br><br>
+	 * @return {@code true} if this type represents a termination in the hierarchy 
+	 * <br><br>
+	 * @since 1.2.4
+	 */
+	public static boolean hierarchyTerminal(Class<?> type, List<String> packagePrefixes) {
+		
+		String name = type.getName();
+		
+		if(packagePrefixes != null && !packagePrefixes.isEmpty()) {
+			
+			for (String packagePrefix : packagePrefixes) {
+				
+				if(name.startsWith(packagePrefix)) {
+					
+					return false;
+				}
+			}
+			
+			return true;
+		}
+		
+		return name.startsWith("android.") ||
+			   name.startsWith("java.") ||
+			   name.startsWith("javax.") ||
+			   name.startsWith("junit.");
 	}
 }

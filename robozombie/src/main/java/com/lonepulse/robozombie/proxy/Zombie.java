@@ -21,6 +21,7 @@ package com.lonepulse.robozombie.proxy;
  */
 
 import static com.lonepulse.robozombie.util.Assert.assertNotNull;
+import static com.lonepulse.robozombie.util.Is.hierarchyTerminal;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -46,9 +47,13 @@ import com.lonepulse.robozombie.util.Fields;
 /**
  * <p>An animated corpse which spreads the {@link Endpoint} infection via a {@link Bite}. Used for 
  * <b>injecting</b> concrete implementations of endpoint interface definitions. Place an @{@link Bite} 
- * annotation on all instance properties which are endpoints and invoke {@link Zombie#infect(Object, Object...)}.</p> 
+ * annotation on all instance properties which are endpoints and invoke {@link Zombie#infect(Object, Object...)}.</p>
+ * 
+ * <p>To avoid unnecessary traversal up an inheritance hierarchy, specify the prefixes of the packages to 
+ * search for injection targets using {@link #infect(String, Object, Object...)} and 
+ * {@link #infect(List, Object, Object...)}.</p>
  *  
- * @version 1.3.0
+ * @version 1.4.0
  * <br><br>
  * @since 1.1.0
  * <br><br>
@@ -124,6 +129,9 @@ public final class Zombie {
 	/**
 	 * <p>Accepts an object and scans it for {@link Bite} annotations. If found, a <b>thread-safe proxy</b> 
 	 * for the endpoint interface will be injected.</p>
+	 * 
+	 * <p>Injection targets will be searched up an inheritance hierarchy until a type is found which is in 
+	 * a package whose name starts with <b>"android."</b>, <b>"java."</b>, <b>"javax."</b> or <b>"junit."</b>.</p>
 	 * <br>
 	 * <b>Usage:</b>
 	 * <br><br>
@@ -170,6 +178,133 @@ public final class Zombie {
 	 * @since 1.3.0
 	 */
 	public static void infect(Object victim, Object... moreVictims) {
+		
+		Zombie.infect(new ArrayList<String>(), victim, moreVictims);
+	}
+	
+	/**
+	 * <p>Accepts an object and scans it for {@link Bite} annotations. If found, a <b>thread-safe proxy</b> 
+	 * for the endpoint interface will be injected.</p>
+	 * 
+	 * <p>Injection targets will be searched up an inheritance hierarchy until a type is found which is 
+	 * <b>not</b> in a package whose name starts with the given package prefix.</p>
+	 * <br>
+	 * <b>Usage:</b>
+	 * <br><br>
+	 * <ul>
+	 * <li>
+	 * <h5>Property Injection</h5>
+	 * <pre>
+	 * <code><b>@Bite</b>
+	 * private GitHubEndpoint gitHubEndpoint;
+	 * {
+	 * &nbsp; &nbsp; Zombie.infect("com.example", this);
+	 * }
+	 * </code>
+	 * </pre>
+	 * </li>
+	 * <li>
+	 * <h5>Setter Injection</h5>
+	 * <pre>
+	 * <code><b>@Bite</b>
+	 * private GitHubEndpoint gitHubEndpoint;
+	 * {
+	 * &nbsp; &nbsp; Zombie.infect("com.example", this);
+	 * }
+	 * </code>
+	 * <code>
+	 * public void setGitHubEndpoint(GitHubEndpoint gitHubEndpoint) {
+	 * 
+	 * &nbsp; &nbsp; this.gitHubEndpoint = gitHubEndpoint;
+	 * }
+	 * </code>
+	 * </pre>
+	 * </li>
+	 * </ul>
+	 * 
+	 * @param packagePrefix
+	 * 			the prefix of the package to restrict hierarchical lookup of injection targets; if {@code null} 
+	 * 			or {@code ""}, {@link #infect(Object, Object...)} will be used
+	 * <br><br>
+	 * @param victim
+	 * 			an object with endpoint references marked to be <i>bitten</i> and infected 
+	 * <br><br>
+	 * @param moreVictims
+	 * 			more unsuspecting objects with endpoint references to be infected
+	 * <br><br>
+	 * @throws NullPointerException
+	 * 			if the object supplied for endpoint injection is {@code null} 
+	 * <br><br>
+	 * @since 1.3.0
+	 */
+	public static void infect(String packagePrefix, Object victim, Object... moreVictims) {
+	
+		if(packagePrefix != null && !packagePrefix.isEmpty()) {
+			
+			Zombie.infect(Arrays.asList(packagePrefix), victim, moreVictims);
+		}
+		else {
+			
+			Zombie.infect(new ArrayList<String>(), victim, moreVictims);
+		}
+	}
+	
+	/**
+	 * <p>Accepts an object and scans it for {@link Bite} annotations. If found, a <b>thread-safe proxy</b> 
+	 * for the endpoint interface will be injected.</p>
+	 * 
+	 * <p>Injection targets will be searched up an inheritance hierarchy until a type is found which is 
+	 * <b>not</b> in a package whose name starts with the given package prefixes.</p>
+	 * <br>
+	 * <b>Usage:</b>
+	 * <br><br>
+	 * <ul>
+	 * <li>
+	 * <h5>Property Injection</h5>
+	 * <pre>
+	 * <code><b>@Bite</b>
+	 * private GitHubEndpoint gitHubEndpoint;
+	 * {
+	 * &nbsp; &nbsp; Zombie.infect(Arrays.asList("com.example.service", "com.example.manager"), this);
+	 * }
+	 * </code>
+	 * </pre>
+	 * </li>
+	 * <li>
+	 * <h5>Setter Injection</h5>
+	 * <pre>
+	 * <code><b>@Bite</b>
+	 * private GitHubEndpoint gitHubEndpoint;
+	 * {
+	 * &nbsp; &nbsp; Zombie.infect(Arrays.asList("com.example.service", "com.example.manager"), this);
+	 * }
+	 * </code>
+	 * <code>
+	 * public void setGitHubEndpoint(GitHubEndpoint gitHubEndpoint) {
+	 * 
+	 * &nbsp; &nbsp; this.gitHubEndpoint = gitHubEndpoint;
+	 * }
+	 * </code>
+	 * </pre>
+	 * </li>
+	 * </ul>
+	 * 
+	 * @param packagePrefixes
+	 * 			the prefixes of packages to restrict hierarchical lookup of injection targets; if {@code null} 
+	 * 			or {@code empty}, {@link #infect(Object, Object...)} will be used
+	 * <br><br>
+	 * @param victim
+	 * 			an object with endpoint references marked to be <i>bitten</i> and infected 
+	 * <br><br>
+	 * @param moreVictims
+	 * 			more unsuspecting objects with endpoint references to be infected
+	 * <br><br>
+	 * @throws NullPointerException
+	 * 			if the object supplied for endpoint injection is {@code null} 
+	 * <br><br>
+	 * @since 1.3.0
+	 */
+	public static void infect(List<String> packagePrefixes, Object victim, Object... moreVictims) {
 		
 		assertNotNull(victim);
 		
@@ -232,7 +367,7 @@ public final class Zombie {
 				
 				type = type.getSuperclass();
 			}
-			while(!type.equals(Object.class));
+			while(!hierarchyTerminal(type, packagePrefixes));
 		}
 	}
 }
