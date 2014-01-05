@@ -1,0 +1,14 @@
+com.lonepulse.robozombie
+com.lonepulse.robozombie.annotation
+com.lonepulse.robozombie.executor
+com.lonepulse.robozombie.processor
+com.lonepulse.robozombie.proxy
+com.lonepulse.robozombie.request
+com.lonepulse.robozombie.response
+com.lonepulse.robozombie.util
+org.apache.http42
+org.apache.http42.client.methods
+org.apache.http42.client.utils
+org.apache.http42.entity
+org.apache.http42.protocol
+org.apache.http42.util

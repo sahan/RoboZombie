@@ -37,9 +37,9 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="#">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="documentation.html">Documentation</a></li>
-            <li><a href="setup.html">Setup</a></li>
+            <li class="active"><a href="#">Setup</a></li>
             <li><a href="api/index.html" target="_blank">API</a></li>
           </ul>
         </div>
@@ -56,7 +56,7 @@
         <br>
         <div>
           <a class="btn btn-trans btn-lg" role="button" href="https://github.com/sahan/RoboZombie"><i class="fa fa-github"></i> &nbsp;&nbsp;Fork me on GitHub</a>
-          &nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-trans btn-lg" role="button" href="http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.3.1/robozombie-1.3.1.jar"><i class="fa fa-download"></i> &nbsp;&nbsp;robozombie-1.3.1.jar</a>
+          &nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-trans btn-lg" role="button" href="http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.3.2/robozombie-1.3.2.jar"><i class="fa fa-download"></i> &nbsp;&nbsp;robozombie-1.3.2.jar</a>
         </div>
       </div>
     </div>
@@ -64,44 +64,36 @@
     <div class="container">
 
       <div class="row">
-        <div class="col-md-3">
-          <h2>1. Create a model.</h2>
-
-          <div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Repo</span> <span class="o">{</span>
-
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">id</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">fork</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">forks_count</span><span class="o">;</span>
-
-    <span class="o">...</span>
-<span class="o">}</span></pre></div>
-        </div>
-        <div class="col-md-5">
-          <h2>2. Define the endpoint.</h2>
-<div class="highlight highlight-java"><pre><span class="nd">@Deserialize</span><span class="o">(</span><span class="n">JSON</span><span class="o">)</span>
-<span class="nd">@Endpoint</span><span class="o">(</span><span class="s">"https://api.github.com"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">GitHubEndpoint</span> <span class="o">{</span>
-
-    <span class="nd">@GET</span><span class="o">(</span><span class="s">"/users/{id}/repos"</span><span class="o">)</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">Repo</span><span class="o">&gt;</span> <span class="nf">getRepos</span><span class="o">(</span><span class="nd">@PathParam</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="n">String</span> <span class="n">id</span><span class="o">);</span>
-<span class="o">}</span>
-</pre></div>
-       </div>
-        <div class="col-md-4">
-          <h2>3. Inject and invoke.</h2>
-<div class="highlight highlight-java"><pre><span class="nd">@Bite</span>
-<span class="kd">private</span> <span class="n">GitHubEndpoint</span> <span class="n">gh</span><span class="o">;</span>   
-<span class="o">{</span>
-    <span class="n">Zombie</span><span class="o">.</span><span class="na">infect</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-<span class="o">}</span>
-
-<span class="o">...</span>
-
-<span class="n">List</span><span class="o">&lt;</span><span class="n">Repo</span><span class="o">&gt;</span> <span class="n">repos</span> <span class="o">=</span> <span class="n">gh</span><span class="o">.</span><span class="na">getRepos</span><span class="o">(</span><span class="s">"sahan"</span><span class="o">);</span>
-</pre></div>
+        <div class="col-md-12">
+        <blockquote>If you opt to use the out-of-the-box JSON (de)serializer add the <a href="http://code.google.com/p/google-gson">Gson</a> dependency; likewise add the <a href="http://simple.sourceforge.net">Simple-XML</a> dependency for the XML (de)serializer. Or simply download the <a href="http://search.maven.org/remotecontent?filepath=com/google/code/gson/gson/2.2.4/gson-2.2.4.jar">Gson</a> and <a href="http://search.maven.org/remotecontent?filepath=org/simpleframework/simple-xml/2.7.1/simple-xml-2.7.1.jar">Simple-XML</a> JARs and add them to your libs folder.</blockquote>
         </div>
       </div>
+      <br>
+
+      <div class="row">
+      <div class="col-md-6">
+      <h3>1. For Maven based projects.</h3><br>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.lonepulse<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>robozombie<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.3.2<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span></pre></div>
+    </div>
+
+      <div class="col-md-6">
+      <h3>2. For Gradle based projects.</h3><br>
+
+<div class="highlight highlight-groovy"><pre><span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">mavenCentral</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">compile</span> <span class="s1">'com.lonepulse:robozombie:1.3.2'</span>
+<span class="o">}</span>
+</pre></div>
+    </div>
+    </div>
       <br>
       <br>
       <hr>
