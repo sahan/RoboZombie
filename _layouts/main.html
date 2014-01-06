@@ -36,10 +36,24 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="documentation.html">Documentation</a></li>
+            {% if page.tag == 'home' %}
+			<li class="active"><a href="#">Home</a></li>
+            {% else %}
+            <li><a href="index.html">Home</a></li>
+            {% endif %}
+
+            {% if page.tag == 'docs' %}
+            <li class="active"><a href="#">Documentation</a></li>
+            {% else %}
+            <li><a href="docs.html">Documentation</a></li>
+            {% endif %}
+
+            {% if page.tag == 'setup' %} 
+			<li class="active"><a href="#">Setup</a></li>
+            {% else %}
             <li><a href="setup.html">Setup</a></li>
-            <li><a href="api/index.html" target="_blank">API</a></li>
+            {% endif %}
+			<li><a href="api/index.html" target="_blank">API</a></li>
           </ul>
         </div>
       </div>
