@@ -1,0 +1,79 @@
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+  font:15px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight:300;
+}
+
+h2, h3 {
+  color:#0489B1;
+}
+
+code, pre {
+  color:#333;
+  font-size:13px;
+}
+
+pre {
+  padding:8px 15px;
+  background: #f8f8f8;  
+  border-radius:5px;
+  border:1px solid #e5e5e5;
+  overflow-x: auto;
+}
+
+.slogan {
+  font-size: 50px;
+  font-style: bold;
+  color: #FFFFFF;
+  text-shadow: 3px 3px 5px #020202;
+  margin-bottom: 20px;
+}
+
+.subtext {
+  font-size: 18px;
+  color: #E6E6E6;
+  margin-left: 22px;
+}
+
+.jumbotron {
+  background-image: url('../images/jumbotron.png');
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+.jumbotron div, footer p, h2, .license, .thumbnail {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.thumbnail:hover, .thumbnail:hover, .thumbnail:visited, .thumbnail:link, .thumbnail:active {
+  text-decoration: none;
+}
+
+.btn-trans { 
+  color: #FFFFFF;
+  background-color: none;
+  border-color: #FFFFFF;
+  border-radius: 8px;
+  border-width: 2px;
+  text-shadow: 1px 1px 2px #020202;
+  box-shadow: 1px 1px 2px #020202;
+}
+
+.btn-trans:hover, .btn-trans:focus { 
+  color: #000000;
+  background-color: #FFFFFF;
+  text-shadow: none;
+}
+
+.definition {
+  width: 715px;
+  text-shadow: 1px 1px 2px #020202;
+}
+
+.definition h4, .definition b {
+  color: #00BFFF;
+}

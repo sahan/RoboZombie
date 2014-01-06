@@ -1,137 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+---
+layout: main
+title: "RoboZombie | Docs"
+---
 
-    <title>RoboZombie</title>
-
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-    <link rel="stylesheet" href="stylesheets/main.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body>
-
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="https://github.com/sahan/RoboZombie"><b><img src="images/logo.png"/> ROBOZOMBIE</b></a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="index.html">Home</a></li>
-            <li class="active"><a href="#">Documentation</a></li>
-            <li><a href="setup.html">Setup</a></li>
-            <li><a href="api/index.html" target="_blank">API</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="jumbotron">
-      <div class="container">
-        <p class="slogan">"Effortless Android Networking"</p>
-        <div class="definition">
-        <h4><b>robozombie &nbsp;&nbsp;/rō-bō'zŏm'bē/ &nbsp;&nbsp;noun.</b></h4>
-        <p class="subtext"><b>1.</b> Accepts an annotated interface which describes a remote service to give you a proxy implementation of it. &nbsp;&nbsp;<b>2.</b> Invoke the methods on the proxy to make network calls.</p>
-        </div>
-        <br>
-        <div>
-          <a class="btn btn-trans btn-lg" role="button" href="https://github.com/sahan/RoboZombie"><i class="fa fa-github"></i> &nbsp;&nbsp;Fork me on GitHub</a>
-          &nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-trans btn-lg" role="button" href="http://repo1.maven.org/maven2/com/lonepulse/robozombie/1.3.2/robozombie-1.3.2.jar"><i class="fa fa-download"></i> &nbsp;&nbsp;robozombie-1.3.2.jar</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-
-      <h4>&nbsp;&nbsp;&nbsp;&nbsp;The API follows a simple annotation based coding style and adheres to a minimal intrusion policy. All documentation is hosted on GitHub.</h4>
-      <br>
-      <h4>
-      <div class="row">
-        <div class="col-md-4">
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Quickstart" target="_blank">1. Quickstart</a>
-        </div>
-        <div class="col-md-4">
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Defining,-Injecting-and-Invoking" target="_blank">2. Defining, Injecting and Invoking</a>
-        </div>
-        <div class="col-md-4">
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Identifying-HTTP-Methods" target="_blank">3. Identifying HTTP Methods</a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Sending-Query-and-Form-Parameters" target="_blank">4. Sending Query and Form Parameters</a>
-        </div>
-        <div class="col-md-4">
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Sending-a-Request-Body" target="_blank">5. Sending a Request Body</a>
-        </div>
-        <div class="col-md-4">
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Serializing-Request-Content" target="_blank">6. Serializing Request Content</a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Receiving-a-Response-Body" target="_blank">7. Receiving a Response Body</a>
-        </div>
-        <div class="col-md-4">      
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Deserializing-Response-Content" target="_blank">8. Deserializing Response Content</a>
-        </div>
-        <div class="col-md-4">      
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Sending-and-Receiving-Headers" target="_blank">9. Sending and Receiving Headers</a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">      
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Executing-Requests-Asynchronously" target="_blank">10. Executing Requests Asynchronously</a>
-        </div>
-        <div class="col-md-4">
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Creating-Stateful-Endpoints" target="_blank">11. Creating Stateful Endpoints</a>
-        </div>
-        <div class="col-md-4">
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Intercepting-Requests" target="_blank">12. Intercepting Requests</a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Overriding,-Detaching-and-Skipping-Components" target="_blank">13. Overriding, Detaching and Skipping</a>
-        </div>
-        <div class="col-md-4">
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Wiring-and-Injecting-Endpoints" target="_blank">14. Wiring and Injecting Endpoints</a>
-        </div>
-        <div class="col-md-4">
-          <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Configuring-RoboZombie" target="_blank">15. Configuring RoboZombie</a>
-        </div>
-      </div>
-      </h4>
-      <br>
-      <br>
-      <hr>
-      <footer>
-        <p class="license">This library is licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank">Apache License, Version 2.0</a>. &nbsp;For Android&trade; license information visit <a href="http://developer.android.com/license.html" target="_blank">android.com</a>.</p>
-        <p>&copy; 2013 - 2014 Lonepulse. All rights reserved.</p>
-      </footer>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-  </body>
-</html>
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;The API follows a simple annotation based coding style and adheres to a minimal intrusion policy. All documentation is hosted on GitHub.</h4>
+<br>
+<h4>
+<div class="row">
+  <div class="col-md-4">
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Quickstart" target="_blank">1. Quickstart</a>
+  </div>
+  <div class="col-md-4">
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Defining,-Injecting-and-Invoking" target="_blank">2. Defining, Injecting and Invoking</a>
+  </div>
+  <div class="col-md-4">
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Identifying-HTTP-Methods" target="_blank">3. Identifying HTTP Methods</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Sending-Query-and-Form-Parameters" target="_blank">4. Sending Query and Form Parameters</a>
+  </div>
+  <div class="col-md-4">
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Sending-a-Request-Body" target="_blank">5. Sending a Request Body</a>
+  </div>
+  <div class="col-md-4">
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Serializing-Request-Content" target="_blank">6. Serializing Request Content</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Receiving-a-Response-Body" target="_blank">7. Receiving a Response Body</a>
+  </div>
+  <div class="col-md-4">      
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Deserializing-Response-Content" target="_blank">8. Deserializing Response Content</a>
+  </div>
+  <div class="col-md-4">      
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Sending-and-Receiving-Headers" target="_blank">9. Sending and Receiving Headers</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">      
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Executing-Requests-Asynchronously" target="_blank">10. Executing Requests Asynchronously</a>
+  </div>
+  <div class="col-md-4">
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Creating-Stateful-Endpoints" target="_blank">11. Creating Stateful Endpoints</a>
+  </div>
+  <div class="col-md-4">
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Intercepting-Requests" target="_blank">12. Intercepting Requests</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Overriding,-Detaching-and-Skipping-Components" target="_blank">13. Overriding, Detaching and Skipping</a>
+  </div>
+  <div class="col-md-4">
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Wiring-and-Injecting-Endpoints" target="_blank">14. Wiring and Injecting Endpoints</a>
+  </div>
+  <div class="col-md-4">
+    <a class="thumbnail" href="https://github.com/sahan/RoboZombie/wiki/Configuring-RoboZombie" target="_blank">15. Configuring RoboZombie</a>
+  </div>
+</div>
+</h4>
