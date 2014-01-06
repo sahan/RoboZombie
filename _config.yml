@@ -4,7 +4,7 @@ auto: true
 rdiscount:
   extensions: [smart]
 title : RoboZombie
-production_url : http://sahan.me
+production_url : http://sahan.me/RoboZombie
 description: "Effortless Android Networking."
 analytics: UA-40937518-1
 author :
