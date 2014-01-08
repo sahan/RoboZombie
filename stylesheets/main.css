@@ -5,7 +5,7 @@ body {
   font-weight:300;
 }
 
-h2, h3 {
+h2, h3, h4 {
   color:#0489B1;
 }
 
@@ -76,4 +76,28 @@ pre {
 
 .definition h4, .definition b {
   color: #00BFFF;
+}
+
+.page {
+  float: right;
+  padding-left: 50px;
+}
+
+.contents {
+  float: left;
+}
+
+.nav-pills.affix {
+  top: 80px;
+  bottom: auto;
+}
+
+.nav-pills.affix-bottom {
+  top:auto;
+  bottom:80px;
+  position:absolute;
+}
+
+blockquote > p {
+  font-size: 15px;
 }
