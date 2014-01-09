@@ -5,8 +5,7 @@ rdiscount:
   extensions: [smart]
 title : RoboZombie
 production_url : http://sahan.me/RoboZombie
-description: "Effortless Android Networking."
-analytics: UA-46926000-1
+description: Effortless Android Networking
 author :
   name : Sahan Jayasinghe
   github : sahan
