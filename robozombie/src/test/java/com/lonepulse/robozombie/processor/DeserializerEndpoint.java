@@ -24,6 +24,8 @@ import static com.lonepulse.robozombie.annotation.Entity.ContentType.JSON;
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.PLAIN;
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.XML;
 
+import java.util.List;
+
 import org.apache.http.HttpResponse;
 import org.apache.http42.util.EntityUtils;
 
@@ -72,6 +74,16 @@ public interface DeserializerEndpoint {
 	 */
 	@GET("/json")
 	User deserializeJson();
+	
+	/**
+	 * <p>A mock request which receives a JSON array response that is deserialized to a generic type.</p>
+	 * 
+	 * @return the deserialized response entity list
+	 * 
+	 * @since 1.3.3
+	 */
+	@GET("/jsonarray")
+	List<User> deserializeJsonToGenericType();
 	
 	/**
 	 * <p>A mock request which receives an XML response that is deserialized to its model.</p>

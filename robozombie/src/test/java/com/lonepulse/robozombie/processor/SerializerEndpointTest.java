@@ -30,6 +30,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.http.ParseException;
 import org.apache.http.entity.SerializableEntity;
@@ -106,6 +108,33 @@ public class SerializerEndpointTest {
 		
 		verify(putRequestedFor(urlEqualTo(subpath))
 			  .withRequestBody(equalTo(new Gson().toJson(user))));
+	}
+	
+	/**
+	 * <p>Test for {@link Serializers#JSON} with a generic type.</p>
+	 * 
+	 * @since 1.3.0
+	 */
+	@Test
+	public final void testSerializeGenericTypeToJson() throws ParseException, IOException {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/jsonarray";
+		
+		User user1 = new User(0, "Tenzen0", "Yakushiji0", 300, true);
+		User user2 = new User(1, "Tenzen1", "Yakushiji1", 300, true);
+		
+		stubFor(put(urlEqualTo(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)));
+		
+		serializerEndpoint.serializeGenericTypeToJson(Arrays.asList(user1, user2));
+		
+		List<User> users = Arrays.asList(user1, user2);
+		
+		verify(putRequestedFor(urlEqualTo(subpath))
+				.withRequestBody(equalTo(new Gson().toJson(users, users.getClass()))));
 	}
 	
 	/**

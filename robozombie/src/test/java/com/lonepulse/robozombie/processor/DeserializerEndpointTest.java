@@ -31,6 +31,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
+import java.util.List;
 
 import org.hamcrest.core.Is;
 import org.junit.Before;
@@ -135,6 +137,42 @@ public class DeserializerEndpointTest {
 		assertEquals(user.getLastName(), deserializedUser.getLastName());
 		assertEquals(user.getAge(), deserializedUser.getAge());
 		assertEquals(user.isImmortal(), deserializedUser.isImmortal());
+	}
+	
+	/**
+	 * <p>Test for {@link Deserializers#JSON} with a generic type.</p>
+	 * 
+	 * @since 1.3.3
+	 */
+	@Test
+	public final void testDeserializeJsonToGenericType() {
+		
+		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+		
+		String subpath = "/jsonarray";
+		
+		User user1 = new User(0, "Tenzen0", "Yakushiji0", 300, true);
+		User user2 = new User(1, "Tenzen1", "Yakushiji1", 300, true);
+		
+		stubFor(get(urlEqualTo(subpath))
+				.willReturn(aResponse()
+				.withStatus(200)
+				.withBody(new Gson().toJson(Arrays.asList(user1, user2)))));
+		
+		List<User> deserializedUsers = deserializerEndpoint.deserializeJsonToGenericType();
+		
+		verify(getRequestedFor(urlEqualTo(subpath)));
+
+		for (int i = 0; i < deserializedUsers.size(); i++) {
+			
+			User user = deserializedUsers.get(i);
+			
+			assertEquals(i, user.getId());
+			assertEquals("Tenzen" + String.valueOf(i), user.getFirstName());
+			assertEquals("Yakushiji" + String.valueOf(i), user.getLastName());
+			assertEquals(300, user.getAge());
+			assertEquals(true, user.isImmortal());
+		}
 	}
 	
 	/**

@@ -90,7 +90,7 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
 			Gson_fromJson = Gson.getDeclaredMethod("fromJson", String.class, Type.class);
 			
 			TypeToken = Class.forName("com.google.gson.reflect.TypeToken");
-			TypeToken_GET = TypeToken.getDeclaredMethod("get", Class.class);
+			TypeToken_GET = TypeToken.getDeclaredMethod("get", java.lang.reflect.Type.class);
 			TypeToken_getType = TypeToken.getDeclaredMethod("getType");
 			
 			gson = Gson.newInstance();
@@ -156,7 +156,7 @@ final class JsonDeserializer extends AbstractDeserializer<Object> {
 		try {
 			
 			return entity == null? null :Gson_fromJson.invoke(gson, EntityUtils.toString(entity), 
-					TypeToken_getType.invoke(TypeToken_GET.invoke(null, context.getRequest().getReturnType())));
+					TypeToken_getType.invoke(TypeToken_GET.invoke(null, context.getRequest().getGenericReturnType())));
 		} 
 		catch(Exception e) {
 			

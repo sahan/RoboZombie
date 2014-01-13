@@ -24,6 +24,8 @@ import static com.lonepulse.robozombie.annotation.Entity.ContentType.JSON;
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.PLAIN;
 import static com.lonepulse.robozombie.annotation.Entity.ContentType.XML;
 
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.lonepulse.robozombie.annotation.Detach;
 import com.lonepulse.robozombie.annotation.Endpoint;
@@ -61,6 +63,17 @@ public interface SerializerEndpoint {
 	 */
 	@PUT("/json")
 	void serializeJson(@Entity User user);
+	
+	/**
+	 * <p>A mock request which receives a generic type that is serialized to a JSON array.</p>
+	 * 
+	 * @param users
+	 * 			the list of {@link User}s to be serialized to a JSON array
+	 * 
+	 * @since 1.3.3
+	 */
+	@PUT("/jsonarray")
+	void serializeGenericTypeToJson(@Entity List<User> users);
 	
 	/**
 	 * <p>A mock request which sends an XML serialized model.</p>

@@ -34,6 +34,7 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 
+import com.lonepulse.robozombie.annotation.Config;
 import com.lonepulse.robozombie.proxy.Zombie;
 import com.lonepulse.robozombie.proxy.Zombie.Configuration;
 
@@ -121,10 +122,9 @@ final class ConfigurationService implements ConfigurationManager {
 		
 		try {
 			
-			if(endpointClass.isAnnotationPresent(com.lonepulse.robozombie.annotation.Config.class)) {
+			if(endpointClass.isAnnotationPresent(Config.class)) {
 				
-				Configuration configuration = endpointClass.getAnnotation(
-					com.lonepulse.robozombie.annotation.Config.class).value().newInstance();
+				Configuration configuration = endpointClass.getAnnotation(Config.class).value().newInstance();
 				
 				HttpClient httpClient = configuration.httpClient();
 				HttpClientDirectory.INSTANCE.bind(endpointClass, httpClient); //currently the only configurable property

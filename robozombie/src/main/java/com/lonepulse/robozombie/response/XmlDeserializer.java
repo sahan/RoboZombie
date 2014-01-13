@@ -7,7 +7,7 @@ package com.lonepulse.robozombie.response;
  * Copyright (C) 2013 Lonepulse
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with th	e License.
+ * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
  *      http://www.apache.org/licenses/LICENSE-2.0
@@ -146,7 +146,7 @@ final class XmlDeserializer extends AbstractDeserializer<Object> {
 			HttpEntity entity = response.getEntity();
 			
 			return entity == null? null :Persister_read.invoke(persister, 
-					context.getRequest().getReturnType(), EntityUtils.toString(entity));
+					context.getRequest().getGenericReturnType(), EntityUtils.toString(entity));
 		} 
 		catch(Exception e) {
 			
