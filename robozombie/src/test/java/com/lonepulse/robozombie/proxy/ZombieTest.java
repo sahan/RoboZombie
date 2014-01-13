@@ -21,11 +21,16 @@ package com.lonepulse.robozombie.proxy;
  */
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+
+import com.lonepulse.robozombie.mock.ExtendedMockService;
 
 
 /**
@@ -49,8 +54,10 @@ public class ZombieTest {
 	private BasicMockService service2;
 	private BasicMockService service3;
 	
-	private static SubMockService subMockService;
+	private SubMockService subMockService;
 	
+	private ExtendedMockService extendedMockService;
+	private LocalMockService localMockService;
 
 	@Before
 	public void setUp() throws Exception {
@@ -66,6 +73,13 @@ public class ZombieTest {
 		Zombie.infect(service1, service2, service3);
 		
 		subMockService = new SubMockService();
+		
+		extendedMockService = new ExtendedMockService();
+		Zombie.infect("com.lonepulse.robozombie.mock", extendedMockService);
+		
+		localMockService = new LocalMockService();
+		Zombie.infect(Arrays.asList(
+			"com.lonepulse.robozombie.mock", "com.lonepulse.robozombie.proxy"), localMockService);
 	}
 	
 	/**
@@ -101,6 +115,27 @@ public class ZombieTest {
 		
 		assertNotNull(subMockService.getSubEndpoint());
 		assertNotNull(subMockService.getSuperEndpoint());
+	}
+	
+	/**
+	 * <p>Test method for proper termination of a hierarchical search during endpoint injection.</p>
+	 */
+	@Test
+	public final void testHierarchicalExclusion() {
+		
+		assertNotNull(extendedMockService.getExtendedEndpoint());
+		assertNull(extendedMockService.getThirdPartyEndpoint());
+	}
+	
+	/**
+	 * <p>Test method for proper termination of a hierarchical search during endpoint injection.</p>
+	 */
+	@Test
+	public final void testMultipleHierarchicalExclusion() {
+		
+		assertNotNull(localMockService.getLocalEndpoint());
+		assertNotNull(localMockService.getExtendedEndpoint());
+		assertNull(localMockService.getThirdPartyEndpoint());
 	}
 	
 	/**
