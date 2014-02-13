@@ -124,7 +124,7 @@ class InterceptionProcessor extends AbstractRequestProcessor {
 			
 				for (Object arg : requestArgs) {
 					
-					if(arg instanceof Interceptor) {
+					if(arg instanceof Interceptor && arg != null) {
 						
 						((Interceptor)arg).intercept(context, request);
 					}
