@@ -91,7 +91,12 @@ public final class Metadata {
 		for (int i = 0; i < annotationsForAllParams.length; i++) {
 			
 			final Object value = paramValues.get(i);
-			 
+			
+			if(value == null) {
+				
+				continue;
+			}
+			
 			for (final Annotation annotation : annotationsForAllParams[i]) {
 				
 				if(type.isAssignableFrom(annotation.getClass())) {

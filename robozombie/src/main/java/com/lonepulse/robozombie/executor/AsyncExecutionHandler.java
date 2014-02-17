@@ -57,7 +57,7 @@ public final class AsyncExecutionHandler implements ExecutionHandler {
 		
 			for (Object object : requestArgs) {
 				
-				if(object instanceof AsyncHandler) {
+				if(object instanceof AsyncHandler && object != null) {
 					
 					asyncHandler = AsyncHandler.class.cast(object);
 					break;
