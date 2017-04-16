@@ -22,7 +22,7 @@
 </table>
 
 <br>
-##Overview
+## Overview
 
 Here's your model.   
 
@@ -104,7 +104,7 @@ RoboZombie requires the **INTERNET** manifest permission for network communicati
 > ...and be sure to invoke all synchronous requests from a worker thread.
 
 <br>
-##Setup
+## Setup
 > If you opt to use the out-of-the-box JSON (de)serializer add the [Gson](http://code.google.com/p/google-gson) dependency; like wise add the [Simple-XML](http://simple.sourceforge.net) dependency for the XML (de)serializer.    
 
 <br>
@@ -145,7 +145,7 @@ is required for JSON (de)serialization and [Simple-XML](http://search.maven.org/
 is required for XML (de)serialization.   
 
 <br>
-##Wiki
+## Wiki
 
 Coding with RoboZombie is a breeze. It follows a simple annotation based coding style and adheres to a *minimal intrusion* policy. 
 Kickoff with the [quickstart](https://github.com/sahan/RoboZombie/wiki/Quickstart) and follow the rest of the wiki pages. 
@@ -181,5 +181,5 @@ Kickoff with the [quickstart](https://github.com/sahan/RoboZombie/wiki/Quickstar
 13. [Configuring RoboZombie](https://github.com/sahan/RoboZombie/wiki/Configuring-RoboZombie)
 <br><br>   
 
-##License
+## License
 This library is licensed under [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
